@@ -2,10 +2,26 @@
 # This is a Makefile #
 ######################
 
-# Use Turbo C/C++
+# Use Turbo C/C++ compiler
 CC=tcc
-CFLAGS=-I. -C
+CFLAGS= -C -w
 
+# List of object files (generated; these are NOT in the repo).
+OBJS=MPX_SUPT.OBJ MPX_R1.OBJ MPX.OBJ
+
+# Default make target
+all: mpx.exe
+
+
+# Explicit Rules #
+# -------------- #
+
+mpx.exe: $(OBJS)
+	$(CC) $(CCFLAGS) -e$< $(OBJS)
+
+
+# Implicit Rules #
+# -------------- #
 
 # Turn .c files into .o (object) files.
 .c.OBJ:
@@ -13,11 +29,11 @@ CFLAGS=-I. -C
 	$(CC) $(CFLAGS) -c $<
 
 
-# List of object files (generated; these are NOT in the repo).
-OBJS=MPX_SUPT.OBJ MPX_R1.OBJ MPX.OBJ
-EXES=mpx.exe
-
-mpx.exe: $(OBJS)
-	$(CC) $(CFLAGS) -e $< $(OBJS)
-
-all: mpx.exe
+# Clean target (removes build output)
+clean:
+	rm -f *.OBJ
+	rm -f *.obj
+	rm -f *.EXE
+	rm -f *.exe
+	rm -f *.MAP
+	rm -f *.map
