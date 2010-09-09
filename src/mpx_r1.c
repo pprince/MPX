@@ -8,7 +8,7 @@
 char *welcome_message_str = "Welcome to Perpetual Motion Squad's Operating System.\n";
 char *prompt = "#>";
 
-int displayPrompt( char *prompt ){
+int displayPrompt(void){
 	
 	// go to line one
 	char buf[80];
@@ -39,8 +39,10 @@ int displayPrompt( char *prompt ){
 void mpx_cls (void) {
 	/* fixme: add error catching */
 	int err = sys_req(CLEAR, TERMINAL, NULL, 0);
+	if ( err != OK ){
+		// do something here
 }
-
+}
 int printWelcome( void ){
 
 	// Initialize cursor at home
@@ -63,7 +65,7 @@ int printWelcome( void ){
 
 
 	//Print Welcome
-	size = 53;
+	size = 53;  //??? somehow err is getting  set to 53?
 
 	err = sys_req(WRITE, TERMINAL, &welcome_message_str, &size);
 
@@ -84,7 +86,12 @@ int r1( void ){
 	if ( err != OK ){
 		return err;
 	}
-
+	
+	err = displayPrompt( );
+	
+	if ( err != OK ){
+		return err;
+	}
 	// flag = 0;
 	// while( flag != DONE ){
 		
@@ -94,5 +101,7 @@ int r1( void ){
 		// execute command
 
 	// }
+	
+	return OK;
 }
 
