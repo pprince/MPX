@@ -6,6 +6,35 @@
 
 /* Strings */
 char *welcome_message_str = "Welcome to Perpetual Motion Squad's Operating System.\n";
+char *prompt = "#>";
+
+int displayPrompt( char *prompt ){
+	
+	// go to line one
+	char buf[80];
+	int size;
+	int err;
+
+	buf[0] = 0;
+	buf[1] = 1;
+	size = 2;
+
+	err = sys_req(GOTOXY, TERMINAL, buf, &size);
+
+	if (err != OK ){
+		return err;
+	}
+	size = 2;
+
+	err = sys_req(WRITE, TERMINAL, &prompt, &size);
+
+	if (err != OK ){
+		return err;
+	}
+	
+	// if we get here good to go
+	return OK;
+}
 
 int printWelcome( void ){
 
@@ -48,14 +77,14 @@ int r1( void ){
 		return err;
 	}
 
-	flag = 0;
-	while( flag != DONE ){
+	// flag = 0;
+	// while( flag != DONE ){
 		
 		// display prompt
 		// accept command
 		// analize command
 		// execute command
 
-	}
+	// }
 }
 

@@ -3,5 +3,7 @@
 
 int printWelcome( void );
 int r1( void );
+int displayPrompt( char *prompt );
+
 
 #endif
