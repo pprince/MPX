@@ -31,9 +31,4 @@ mpx.exe: $(OBJS)
 
 # Clean target (removes build output)
 clean:
-	rm -f *.OBJ
-	rm -f *.obj
-	rm -f *.EXE
-	rm -f *.exe
-	rm -f *.MAP
-	rm -f *.map
+	clean.bat
