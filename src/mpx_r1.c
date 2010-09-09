@@ -7,12 +7,20 @@
 /* Strings */
 char *welcome_message_str = "Welcome to Perpetual Motion Squad's Operating System.\n";
 
+void mpx_cls (void) {
+	/* fixme: add error catching */
+	int err = sys_req(CLEAR, TERMINAL, NULL, 0);
+}
+
 int printWelcome( void ){
 
 	// Initialize cursor at home
 	char buf[80];
 	int size;
 	int err;
+
+	// clear screen
+	mpx_cls();
 
 	buf[0] = 0;
 	buf[1] = 0;
