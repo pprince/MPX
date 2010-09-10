@@ -7,6 +7,8 @@
 /* Strings */
 char *welcome_message_str = "Welcome to Perpetual Motion Squad's Operating System.\n";
 char *prompt = "#>";
+char *command;
+
 
 int displayPrompt(void){
 	
@@ -82,15 +84,16 @@ int r1( void ){
 	if ( err != OK ){
 		return err;
 	}
-	// flag = 0;
-	// while( flag != DONE ){
+	 flag = 0;
+	while( flag != DONE ){
 		
-		// display prompt
+		//display prompt
+		err = displayPrompt( );
 		// accept command
 		// analize command
 		// execute command
 
-	// }
+	}
 	
 	return OK;
 }
