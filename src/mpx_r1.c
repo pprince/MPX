@@ -5,10 +5,18 @@
 #define DONE 0
 
 /* Strings */
-char *welcome_message_str = "Welcome to Perpetual Motion Squad's Operating System.\n";
-char *prompt = "#>";
-char *command;
-
+char welcome_message_str[] = "Welcome to Perpetual Motion Squad's Operating System.\n";
+char prompt[] = "#>";
+char command[80];
+/* Notes: */	
+	/* 
+This is the proper way to use sys_req WRITE:
+	size = 2;
+	err = sys_req(WRITE, TERMINAL, prompt, &size);
+	if (err != size){
+		return err;
+	} 	
+*/
 
 int displayPrompt(void){
 	
@@ -26,18 +34,21 @@ int displayPrompt(void){
 	if (err != OK ){
 		return err;
 	}
-	printf(prompt);
-	
+	size = 2;
+	err = sys_req(WRITE, TERMINAL, prompt, &size);
+	if (err != size){
+		return err;
+	}
 	// if we get here good to go
 	return OK;
 }
 
-void mpx_cls (void) {
+int mpx_cls (void) {
 	/* fixme: add error catching */
 	int err = sys_req(CLEAR, TERMINAL, NULL, 0);
 	if ( err != OK ){
 		// do something here
-}
+	}
 }
 int printWelcome( void ){
 
@@ -62,9 +73,11 @@ int printWelcome( void ){
 
 	//Print Welcome
 	
-
-	printf(welcome_message_str);
-
+	size = 53;
+	err = sys_req(WRITE, TERMINAL, welcome_message_str, &size);
+	if (err != size){
+		return err;
+	}
 	// if we reach here every thing went ok
 	return OK;
 } 

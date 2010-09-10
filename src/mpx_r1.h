@@ -4,6 +4,7 @@
 int printWelcome( void );
 int r1( void );
 int displayPrompt( void );
+int cls(void);
 
 
 #endif
