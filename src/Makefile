@@ -5,6 +5,7 @@
 # Use Turbo C/C++ compiler
 CC=tcc
 CFLAGS= -C -w
+#Debug flags
 DFLAGS= -C -w -v
 
 
@@ -29,8 +30,8 @@ mpx.exe: $(OBJS)
 # Turn .c files into .o (object) files.
 .c.OBJ:
 	# -c is the switch for 'compile only'.
-	$(CC) $(DFLAGS) -c $<
-
+	$(CC) $(CFLAGS) -c $<
+	#to change for debug DFALGS insted of CFLAGS
 
 # Clean target (removes build output)
 clean:
