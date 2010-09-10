@@ -24,13 +24,7 @@ int displayPrompt(void){
 	if (err != OK ){
 		return err;
 	}
-	size = 2;
-
-	err = sys_req(WRITE, TERMINAL, &prompt, &size);
-
-	if (err != OK ){
-		return err;
-	}
+	printf(prompt);
 	
 	// if we get here good to go
 	return OK;
@@ -65,13 +59,9 @@ int printWelcome( void ){
 
 
 	//Print Welcome
-	size = 53;  //??? somehow err is getting  set to 53 this is the case I set to 54 and error cod went to 54
+	
 
-	err = sys_req(WRITE, TERMINAL, &welcome_message_str, &size);
-
-	if (err != OK ){
-		return err;
-	}
+	printf(welcome_message_str);
 
 	// if we reach here every thing went ok
 	return OK;
