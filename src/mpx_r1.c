@@ -65,7 +65,7 @@ int printWelcome( void ){
 
 
 	//Print Welcome
-	size = 53;  //??? somehow err is getting  set to 53?
+	size = 53;  //??? somehow err is getting  set to 53 this is the case I set to 54 and error cod went to 54
 
 	err = sys_req(WRITE, TERMINAL, &welcome_message_str, &size);
 
