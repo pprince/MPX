@@ -5,6 +5,8 @@ int printWelcome( void );
 int r1( void );
 int displayPrompt( void );
 int cls(void);
+int acceptCommand(char *command);
+int analizeCommand( char * comm, char *args);
 
 
 #endif
