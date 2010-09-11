@@ -12,7 +12,6 @@ char welcome_message_str[] = "Welcome to Perpetual Motion Squad's Operating Syst
 char prompt[] = "#>";
 char input[COMMLEN];
 char *arguments[ARGS];
-//char command[ARGS];
 
 /* Flag */
 enum trip{
@@ -22,14 +21,19 @@ enum trip{
 
 
 enum trip isDone = false;
-// Command Execution Data Type
 
+// Command Execution Data Types:
+typedef int (*pt2commandfunct)(char *args); 
 typedef struct commandExe{
 	char *commandName[];
-	int (*pt2commandfunct)(char *args); 
+	pt2commandfunct funct; 
 	};
 
 struct commandExe commandexec[MAXCOMM];
+
+/* LOAD FUNCTION CALL COUNTER */
+int LoadCounter = 0;   // This is messy will fix later
+
 /* Notes: */	
 	/* 
 This is the proper way to use sys_req WRITE:
@@ -147,6 +151,28 @@ int r1( void ){
 	
 	return OK;
 }
-int executeCommand(arguments){
+int executeCommand(char *arguments){
 	return OK;
+}
+
+int load( char *command, int (*PtFunction) (char *args) ){
+	struct commandExe tempStruct;
+	
+	tempStruct.commandName = command;
+	tempStruct.funct = PtFunction;
+	
+	commandexec[LoadCounter]  = tempStruct;
+	
+	
+	LoadCounter++;
+	return OK;
+}
+
+
+int exit(char *args){
+ char *qestion[] = "Are you sure you want to terminate MPX?";
+ int size = 39;
+ sys_req(WRITE,TERMINAL, qestion, &size);
+ isDone = true;
+ return OK;
 }
