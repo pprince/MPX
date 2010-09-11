@@ -6,7 +6,7 @@
 #define DONE 0
 #define COMMLEN 80
 #define ARGS 30 
-
+#define MAXCOMM 10
 /* Strings */
 char welcome_message_str[] = "Welcome to Perpetual Motion Squad's Operating System.\n";
 char prompt[] = "#>";
@@ -29,7 +29,7 @@ typedef struct commandExe{
 	int (*pt2commandfunct)(char *args); 
 	};
 
-
+struct commandExe commandexec[MAXCOMM];
 /* Notes: */	
 	/* 
 This is the proper way to use sys_req WRITE:
