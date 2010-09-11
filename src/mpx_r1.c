@@ -12,7 +12,23 @@ char welcome_message_str[] = "Welcome to Perpetual Motion Squad's Operating Syst
 char prompt[] = "#>";
 char input[COMMLEN];
 char *arguments[ARGS];
-char command[ARGS];
+//char command[ARGS];
+
+/* Flag */
+enum trip{
+	true, /* true is 0 false is one */
+	false
+}isDone;
+
+
+enum trip isDone = false;
+// Command Execution Data Type
+
+typedef struct commandExe{
+	char *commandName[];
+	int (*pt2commandfunct)(char *args); 
+	};
+
 
 /* Notes: */	
 	/* 
@@ -109,14 +125,12 @@ int printWelcome( void ){
 
 int r1( void ){
 	int err;
-	int flag;
 
 	err = printWelcome();
 
 	if ( err != OK ) return err;
-	
-	 flag = 1;
-	while( flag != DONE ){
+
+	while( isDone != DONE ){
 		
 		//display prompt
 		err = displayPrompt( );
@@ -128,9 +142,11 @@ int r1( void ){
 		err = analizeCommand(input, arguments);
 		if ( err != OK ) return err;
 		// execute command
-		flag = 0;
+		err =  executeCommand(arguments);
 	}
 	
 	return OK;
 }
-
+int executeCommand(arguments){
+	return OK;
+}
