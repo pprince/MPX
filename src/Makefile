@@ -11,7 +11,7 @@ CFLAGS=-C -w
 DFLAGS=-C -w -v
 
 # List of object files (generated; these are NOT in the repo).
-OBJS=mpx_supt.obj mpx_r1.obj
+OBJS=mpx.obj mpx_supt.obj mpx_r1.obj
 
 
 # Implicit Rules #
@@ -27,7 +27,7 @@ OBJS=mpx_supt.obj mpx_r1.obj
 # -------------- #
 
 mpx.exe: $(OBJS) mpx.c
-	$(CC) $(CCFLAGS) -eEXE.EXE mpx.c $(OBJS)
+	$(CC) $(CCFLAGS) -eEXE.EXE $(OBJS)
 	mv EXE.EXE $@
 
 # Default make target
