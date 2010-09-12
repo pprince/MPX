@@ -6,12 +6,9 @@ void errorDecode( int err);
 void main(){
 	int error;
 	sys_init( MODULE_R1 ); //System initilization 
-	error = r1();
-	if (error != OK ){
-	    errorDecode(error);
-	}
-	sys_exit(); // MPX System Exit functions
+	mpx_command_loop();
 }
+
 void errorDecode(int err){
 switch( err ){
 		case ERR_SUP_INVDEV:
