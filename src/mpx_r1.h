@@ -18,6 +18,8 @@ int mpxprompt_yn(void);
 void mpx_readline ( char *buffer, int buflen );
 void mpxcmd_help (void);
 char mpxprompt_anykey(void);
+void mpxcmd_date (void);
+
 
 
 

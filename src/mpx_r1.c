@@ -24,17 +24,30 @@ void mpx_command_loop (void) {
 		printf("Main Menu:\n");
 		printf("  exit          Exits the program.\n");
 		printf("  help          Online help.\n");
+		printf("  date		View and set the MPX system date.\n");
 		printf("\n");
 
 		printf("%s", prompt_str);
 		mpx_readline(cmd_line, MAX_CMD_LINE_LENGTH);	
+
 		switch( cmd_line[0] ) {
+			
 			case 'e':
+			case 'E':
 				mpxcmd_exit();
 			break;
+			
 			case 'h':
+			case 'H':
+			case '?':
 				mpxcmd_help();
 			break;
+			
+			case 'd':
+			case 'D':
+				mpxcmd_date();
+			break;
+			
 			default:
 				printf("Invalid command.\n");
 				mpxprompt_yn();
@@ -43,26 +56,33 @@ void mpx_command_loop (void) {
 	}
 }
 
-int mpx_cls (void) {
-	/* fixme: add error catching */
-	int err = sys_req(CLEAR, TERMINAL, NULL, 0);
-	
-	if ( err != OK ) return err;
-	
-	return OK;
-}
-
 void mpxcmd_help (void) {
 	mpx_cls();
-	printf("\n  MPX HELP:\n");
+	printf("\n");
+	printf("  MPX HELP:\n");
 	printf(" .. coming soon.\n");
 
 	printf("%s", anykey_str); mpxprompt_anykey();
+	return;
+}
 
+void mpxcmd_date (void) {
+	date_rec date;
+	sys_get_date(&date);
+	printf("\n");
+	printf("  System Date:\n");
+	printf("    %d/%d/%d\n");
+	printf("\n");
+	printf("Change it (y/n)? ");
+	if( mpxprompt_yn() ) {
+		printf("Not likely.\n");
+		printf("%s", anykey_str); mpxprompt_anykey();
+	}
 	return;
 }
 
 void mpxcmd_exit (void) {
+	printf("\n");
 	printf("Are you sure you want to terminate MPX?\n");
 	if( mpxprompt_yn() ) {
 		printf("EXITING.\n");
@@ -91,5 +111,14 @@ char mpxprompt_anykey(void) {
 void mpx_readline ( char *buffer, int buflen ) {
 	int local_buflen = buflen;
 	int err = sys_req(READ, TERMINAL, buffer, &local_buflen);
+}
+
+int mpx_cls (void) {
+	/* fixme: add error catching */
+	int err = sys_req(CLEAR, TERMINAL, NULL, 0);
+	
+	if ( err != OK ) return err;
+	
+	return OK;
 }
 
