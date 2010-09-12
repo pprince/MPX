@@ -23,16 +23,22 @@ void mpx_command_loop (void) {
 		/* print menu */
 		printf("\n");
 		printf("    Main Menu:\n");
-		printf("        exit    Exits the program.\n");
+		printf("        load    Display .MPX files available for loading.\n");
 		printf("        help    Online help.\n");
 		printf("        date    View and set the MPX system date.\n");
 		printf("        version View version and author information.\n");
+		printf("        exit    Exits the program.\n");
 		printf("\n");
 
 		printf("%s", prompt_str);
 		mpx_readline(cmd_line, MAX_CMD_LINE_LENGTH);	
 
 		switch( cmd_line[0] ) {
+			
+			case 'l':
+			case 'L':
+				mpxcmd_load();
+			break;
 			
 			case 'e':
 			case 'E':
@@ -63,6 +69,33 @@ void mpx_command_loop (void) {
 	}
 }
 
+void mpxcmd_load (void) {
+	int err;
+	char buf[10];
+	long file_size;
+
+	mpx_cls();
+	printf("\n");
+	printf("  Contents of MPX Directory (.mpx Files):\n");
+	printf("  =======================================\n");
+	printf("\n");
+
+	if( sys_open_dir(NULL) != 0 ){
+		printf("WARNING: Failed to open MPX directory!\n");
+		printf("%s", anykey_str); mpxprompt_anykey();
+		return;
+	}
+
+	printf("    SIZE        NAME\n");
+	printf("    ----------  -------------------------------------------\n");
+	while( sys_get_entry(buf, 9, &file_size) == 0 ){
+		printf("    %10ld  %s\n", file_size, buf);
+	}
+
+	printf("%s", anykey_str); mpxprompt_anykey();
+	return;
+}
+
 void mpxcmd_help (void) {
 	mpx_cls();
 	printf("\n");
@@ -74,13 +107,14 @@ void mpxcmd_help (void) {
 }
 
 void mpxcmd_version (void) {
+	mpx_cls();
 	printf("\n");
-	printf(" ==============================================\n");
-	printf(" = MPX System Version R1 - September 17, 2010 =\n");
-	printf(" ==============================================\n");
+	printf("  ==============================================\n");
+	printf("  = MPX System Version R1 - September 17, 2010 =\n");
+	printf("  ==============================================\n");
 	printf("\n");
-	printf("  by the members of PERPETUAL MOTION SQUAD:\n");
-	printf("                    --------- ------ -----\n");
+	printf("      by the members of PERPETUAL MOTION SQUAD:\n");
+	printf("                        --------- ------ -----\n");
 	printf("\n");
 	printf("             *  Paul Prince  *\n");
 	printf("\n");

@@ -17,6 +17,7 @@ void mpxcmd_exit (void);
 int mpxprompt_yn(void);
 void mpx_readline ( char *buffer, int buflen );
 void mpxcmd_help (void);
+void mpxcmd_load (void);
 char mpxprompt_anykey(void);
 void mpxcmd_date (void);
 int mpxprompt_int(void);
