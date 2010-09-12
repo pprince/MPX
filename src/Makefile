@@ -7,6 +7,8 @@ SHELL=cmd.exe
 # Use Turbo C/C++ compiler
 CC=tcc
 CFLAGS=-C -w
+#Debug flags
+DFLAGS=-C -w -v
 
 # List of object files (generated; these are NOT in the repo).
 OBJS=mpx_supt.obj mpx_r1.obj
@@ -27,7 +29,6 @@ OBJS=mpx_supt.obj mpx_r1.obj
 mpx.exe: $(OBJS) mpx.c
 	$(CC) $(CCFLAGS) -eEXE.EXE mpx.c $(OBJS)
 	mv EXE.EXE $@
-
 
 # Default make target
 all: mpx.exe
