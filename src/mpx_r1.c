@@ -9,7 +9,7 @@
 
 /* Strings */
 char *prompt_str			= "MPX> ";
-char *welcome_message_str 		= "Welcome to Perpetual Motion Squad's Operating System.\n";
+char *welcome_message_str 		= "\n\n  Welcome to Perpetual Motion Squad's Operating System.\n";
 char *anykey_str			= "\n<<Press Enter to Continue.>>";
 
 void mpx_command_loop (void) {
@@ -22,10 +22,10 @@ void mpx_command_loop (void) {
 
 		/* print menu */
 		printf("\n");
-		printf("Main Menu:\n");
-		printf("  exit          Exits the program.\n");
-		printf("  help          Online help.\n");
-		printf("  date		View and set the MPX system date.\n");
+		printf("    Main Menu:\n");
+		printf("        exit    Exits the program.\n");
+		printf("        help    Online help.\n");
+		printf("        date    View and set the MPX system date.\n");
 		printf("\n");
 
 		printf("%s", prompt_str);
@@ -51,7 +51,7 @@ void mpx_command_loop (void) {
 			
 			default:
 				printf("Invalid command.\n");
-				mpxprompt_yn();
+				printf("%s", anykey_str); mpxprompt_anykey();
 			break;
 		}
 	}
@@ -72,7 +72,7 @@ void mpxcmd_date (void) {
 	sys_get_date(&date);
 	printf("\n");
 	printf("  System Date:\n");
-	printf("    %d/%d/%d\n", date.month, date.day, date.year);
+	printf("    %2d/%2d/%4d\n", date.month, date.day, date.year);
 	printf("   (mm/dd/yyyy)\n");
 	printf("\n");
 	printf("Change it (y/n)? ");
