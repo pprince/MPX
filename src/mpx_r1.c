@@ -1,5 +1,6 @@
 #include "mpx_r1.h"
 #include "mpx_supt.h"
+#include "mystdlib.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -71,11 +72,79 @@ void mpxcmd_date (void) {
 	sys_get_date(&date);
 	printf("\n");
 	printf("  System Date:\n");
-	printf("    %d/%d/%d\n");
+	printf("    %d/%d/%d\n", date.month, date.day, date.year);
+	printf("   (mm/dd/yyyy)\n");
 	printf("\n");
 	printf("Change it (y/n)? ");
 	if( mpxprompt_yn() ) {
-		printf("Not likely.\n");
+		int is_leapyear;
+		int max_days;
+
+		printf("\n");
+
+		printf("  New YEAR:  "); date.year	= mpxprompt_int();
+		if( !(date.year >=1900 && date.year < 10000) ){
+			/* invalid year entered. */
+			printf("\nInvalid year entered.\n");
+			printf("%s", anykey_str); mpxprompt_anykey();
+			return;
+		}
+
+		is_leapyear = ((date.year%4==0 && date.year%100!=0)||(date.year%400==0));
+
+		printf("  New MONTH: "); date.month	= mpxprompt_int();
+
+		switch (date.month) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				max_days = 31;
+			break;
+
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				max_days = 30;
+			break;
+
+			case 2:
+				if( is_leapyear ) {
+					max_days = 29;
+				} else {
+					max_days = 28;
+				}
+			break;
+
+			default:
+				/* invalid month entered. */
+				printf("\nInvalid month entered.\n");
+				printf("%s", anykey_str); mpxprompt_anykey();
+				return;
+			break;
+		}
+
+		printf("  New DAY:   "); date.day	= mpxprompt_int();
+
+		if( !(date.day > 0 && date.day <= max_days) ){
+			/* invalid day entered. */
+			printf("\nInvalid day entered.\n");
+			printf("%s", anykey_str); mpxprompt_anykey();
+			return;
+		}
+
+		/* set the system date. */
+		if( sys_set_date(&date) == 0 ){
+			printf("Date successfully set!\n");
+		} else {
+			printf("WARNING:\n");
+			printf("sys_set_date() returned error.\n");
+			printf("Date may not have been set.\n");
+		}
 		printf("%s", anykey_str); mpxprompt_anykey();
 	}
 	return;
@@ -108,9 +177,15 @@ char mpxprompt_anykey(void) {
 	return buf[0];
 }
 
+int mpxprompt_int(void) {
+	char input[MAX_CMD_LINE_LENGTH];
+	mpx_readline(input, MAX_CMD_LINE_LENGTH);	
+	return atoi(input);
+}
+
 void mpx_readline ( char *buffer, int buflen ) {
 	int local_buflen = buflen;
-	int err = sys_req(READ, TERMINAL, buffer, &local_buflen);
+	sys_req(READ, TERMINAL, buffer, &local_buflen);
 }
 
 int mpx_cls (void) {
