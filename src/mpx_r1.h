@@ -22,6 +22,8 @@ char mpxprompt_anykey(void);
 void mpxcmd_date (void);
 int mpxprompt_int(void);
 void mpxcmd_version (void);
+void mpxcmd_prompt (void);
+
 
 
 

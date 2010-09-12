@@ -5,16 +5,16 @@
 #include <stdio.h>
 
 /* Symbolic Constants */
-#define		MAX_CMD_LINE_LENGTH		1024
+#define		MAX_LINE		1024
 
 /* Strings */
-char *prompt_str			= "MPX> ";
+char prompt_str[MAX_LINE]		= "MPX> ";
 char *welcome_message_str 		= "\n\n  Welcome to Perpetual Motion Squad's Operating System.\n";
 char *anykey_str			= "\n<<Press Enter to Continue.>>";
 
 void mpx_command_loop (void) {
 
-	char cmd_line[MAX_CMD_LINE_LENGTH] = "";
+	char cmd_line[MAX_LINE] = "";
 
 	for(;;){ /* infinite loop */
 		mpx_cls();
@@ -23,15 +23,18 @@ void mpx_command_loop (void) {
 		/* print menu */
 		printf("\n");
 		printf("    Main Menu:\n");
-		printf("        load    Display .MPX files available for loading.\n");
-		printf("        help    Online help.\n");
-		printf("        date    View and set the MPX system date.\n");
-		printf("        version View version and author information.\n");
-		printf("        exit    Exits the program.\n");
+		printf("    -----------------------------------------------------------------\n");
+		printf("        L    load       Display .MPX files available for loading.\n");
+		printf("        D    date       View and set the MPX system date.\n");
+		printf("        P    prompt     Change the MPX system prompt.\n");
+		printf("        V    version    View version and author information.\n");
+		printf("        H    help       Online help.\n");
+		printf("        X    exit       Exits the program.\n");
+		printf("    -----------------------------------------------------------------\n");
 		printf("\n");
 
 		printf("%s", prompt_str);
-		mpx_readline(cmd_line, MAX_CMD_LINE_LENGTH);	
+		mpx_readline(cmd_line, MAX_LINE);	
 
 		switch( cmd_line[0] ) {
 			
@@ -42,6 +45,8 @@ void mpx_command_loop (void) {
 			
 			case 'e':
 			case 'E':
+			case 'x':
+			case 'X':
 				mpxcmd_exit();
 			break;
 			
@@ -49,6 +54,11 @@ void mpx_command_loop (void) {
 			case 'H':
 			case '?':
 				mpxcmd_help();
+			break;
+			
+			case 'p':
+			case 'P':
+				mpxcmd_prompt();
 			break;
 			
 			case 'd':
@@ -70,7 +80,6 @@ void mpx_command_loop (void) {
 }
 
 void mpxcmd_load (void) {
-	int err;
 	char buf[10];
 	long file_size;
 
@@ -124,6 +133,18 @@ void mpxcmd_version (void) {
 	printf("\n");
 	printf("\n");
 	printf("  WVU Fall 2010 CS450 w/ Lec. Camille Hayhearst\n");
+
+	printf("%s", anykey_str); mpxprompt_anykey();
+	return;
+}
+
+void mpxcmd_prompt (void) {
+	printf("\n");
+	printf("  Current prompt is: \"%s\"\n", prompt_str);
+	printf("\n");
+	printf("Enter new prompt: ");
+	mpx_readline( prompt_str, MAX_LINE );
+
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }
@@ -186,7 +207,7 @@ void mpxcmd_date (void) {
 				printf("\nInvalid month entered.\n");
 				printf("%s", anykey_str); mpxprompt_anykey();
 				return;
-			break;
+			/* break;  commented out to prevent turbo c++ "unreachable code" warning. */
 		}
 
 		printf("  New DAY:   "); date.day	= mpxprompt_int();
@@ -239,14 +260,19 @@ char mpxprompt_anykey(void) {
 }
 
 int mpxprompt_int(void) {
-	char input[MAX_CMD_LINE_LENGTH];
-	mpx_readline(input, MAX_CMD_LINE_LENGTH);	
+	char input[MAX_LINE];
+	mpx_readline(input, MAX_LINE);	
 	return atoi(input);
 }
 
 void mpx_readline ( char *buffer, int buflen ) {
 	int local_buflen = buflen;
 	sys_req(READ, TERMINAL, buffer, &local_buflen);
+
+	/* remove newline from end of string. */
+	if( buffer[strlen(buffer)-1] == '\n' || buffer[strlen(buffer)-1] == '\r' ) {
+		buffer[strlen(buffer)-1] = '\0';
+	} /* FIXME: strlen() is unsafe; should use strnlen(). */
 }
 
 int mpx_cls (void) {
