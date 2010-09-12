@@ -26,6 +26,7 @@ void mpx_command_loop (void) {
 		printf("        exit    Exits the program.\n");
 		printf("        help    Online help.\n");
 		printf("        date    View and set the MPX system date.\n");
+		printf("        version View version and author information.\n");
 		printf("\n");
 
 		printf("%s", prompt_str);
@@ -49,6 +50,11 @@ void mpx_command_loop (void) {
 				mpxcmd_date();
 			break;
 			
+			case 'v':
+			case 'V':
+				mpxcmd_version();
+			break;
+			
 			default:
 				printf("Invalid command.\n");
 				printf("%s", anykey_str); mpxprompt_anykey();
@@ -63,6 +69,27 @@ void mpxcmd_help (void) {
 	printf("  MPX HELP:\n");
 	printf(" .. coming soon.\n");
 
+	printf("%s", anykey_str); mpxprompt_anykey();
+	return;
+}
+
+void mpxcmd_version (void) {
+	printf("\n");
+	printf(" ==============================================\n");
+	printf(" = MPX System Version R1 - September 17, 2010 =\n");
+	printf(" ==============================================\n");
+	printf("\n");
+	printf("  by the members of PERPETUAL MOTION SQUAD:\n");
+	printf("                    --------- ------ -----\n");
+	printf("\n");
+	printf("             *  Paul Prince  *\n");
+	printf("\n");
+	printf("                     *  Nicholas Yanak  *\n");
+	printf("\n");
+	printf("                             *  Nathan Clay  *\n");
+	printf("\n");
+	printf("\n");
+	printf("  WVU Fall 2010 CS450 w/ Lec. Camille Hayhearst\n");
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }
