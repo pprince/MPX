@@ -6,6 +6,7 @@
 
 /* Symbolic Constants */
 #define		MAX_LINE		1024
+#define		MAX_ARGS		10
 
 /* Strings */
 char prompt_str[MAX_LINE]		= "MPX> ";
@@ -14,7 +15,10 @@ char *anykey_str			= "\n<<Press Enter to Continue.>>";
 
 void mpx_command_loop (void) {
 
-	char cmd_line[MAX_LINE] = "";
+	char cmd_line[MAX_LINE];
+	char *cmd_argv[MAX_ARGS];
+	int  cmd_argc = 0;
+	int  i;
 
 	for(;;){ /* infinite loop */
 		mpx_cls();
@@ -36,7 +40,19 @@ void mpx_command_loop (void) {
 		printf("%s", prompt_str);
 		mpx_readline(cmd_line, MAX_LINE);	
 
-		switch( cmd_line[0] ) {
+		cmd_argv[0] = strtok(cmd_line, " ");
+		cmd_argc++;
+		/* cmd_line[] is invalidated after this point; use cmd_argv[][] instead. */
+
+		for(;;){
+			cmd_argv[cmd_argc] = strtok(NULL, " ");
+			if( cmd_argv[cmd_argc] == NULL ){
+				break;
+			}
+			cmd_argc++;
+		}
+
+		switch( cmd_argv[0][0] ) {
 			
 			case 'l':
 			case 'L':
@@ -70,7 +86,15 @@ void mpx_command_loop (void) {
 			case 'V':
 				mpxcmd_version();
 			break;
-			
+		
+			case '~':
+				printf("SECRET DEBUG MENU");
+				for (i=0; i<cmd_argc; i++){
+					printf("  cmd_argv[%d] = \"%s\"", i, cmd_argv[i]);
+				}
+				printf("%s", anykey_str); mpxprompt_anykey();
+			break;
+
 			default:
 				printf("Invalid command.\n");
 				printf("%s", anykey_str); mpxprompt_anykey();
