@@ -2,7 +2,14 @@
 #include "mpx_r1.h" // Bring in R1 code
 void errorDecode( int err);
 
-
+/**
+* Entry Point of MPX. 
+*/
+/**
+* This is the entry point of MPX, this function calls sys_init that sets up the support
+* files for the proper support functions. Then it calls the mpx_command_loop the function
+* called starts the display of the Welcome Message and the inital home screen of MPX.
+*/
 void main(){
 	int error;
 	sys_init( MODULE_R1 ); //System initilization 
