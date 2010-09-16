@@ -4,16 +4,19 @@ void errorDecode( int err);
 
 /**
 * Entry Point of MPX. 
-* This is the entry point of MPX, this function calls sys_init that sets up the support
-* files for the proper support functions. Then it calls the mpx_command_loop the function
-* called starts the display of the Welcome Message and the inital home screen of MPX.
+* This is the entry point of MPX, it calls the mpx_command_loop. The Command Loop function
+* starts the display of the Welcome Message and the inital home screen of MPX.
 */
 void main(){
 	int error;
 	sys_init( MODULE_R1 ); //System initilization 
-	mpx_command_loop();
+	int err = mpx_command_loop();
+	errorDecode(err);
 }
 
+/**
+*Decodes the errors thrown by various functions in the MPX suport files.
+*/
 void errorDecode(int err){
 switch( err ){
 		case ERR_SUP_INVDEV:
