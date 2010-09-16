@@ -17,7 +17,7 @@ void main(){
 /**
 *Decodes the errors thrown by various functions in the MPX suport files.
 */
-void errorDecode(int err){
+void errorDecode(int err/**[in] The error value to decode.*/){
 switch( err ){
 		case ERR_SUP_INVDEV:
 			printf("Invalid device ID");
