@@ -5,14 +5,17 @@
 #include <stdio.h>
 
 /* Symbolic Constants */
-#define		MAX_LINE		1024
+#define		MAX_LINE		1024 /**< Max Line defines the Maximum Line length of MPX.*/ 
 #define		MAX_ARGS		10
 
 /* Strings */
-char prompt_str[MAX_LINE]		= "MPX> ";
-char *welcome_message_str 		= "\n\n  Welcome to Perpetual Motion Squad's Operating System.\n";
-char *anykey_str			= "\n<<Press Enter to Continue.>>";
+char prompt_str[MAX_LINE]		= "MPX> "; /**<  Prompt sting stores the default Prompt for MPX.   */
+char *welcome_message_str 		= "\n\n  Welcome to Perpetual Motion Squad's Operating System.\n";  /**< Welocome Message String stores the Welcome Message for MPX. */
+char *anykey_str			= "\n<<Press Enter to Continue.>>";/**< Any Key String stores the value of the prompt for the user to press return.*/ 
 
+/** This function displays the Main Screen for mpx. 
+* MPX Command Loop Function dispalays the Main Screen for MPX and functions as the control loop for MPX.
+*/
 void mpx_command_loop (void) {
 
 	char cmd_line[MAX_LINE];
@@ -102,7 +105,8 @@ void mpx_command_loop (void) {
 		}
 	}
 }
-
+/** This function displays the Directory containing the MPX process files.
+*/
 void mpxcmd_load (void) {
 	char buf[10];
 	long file_size;
@@ -128,7 +132,7 @@ void mpxcmd_load (void) {
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }
-
+/** The Help function displays the help for MPX. */
 void mpxcmd_help (void) {
 	mpx_cls();
 	printf("\n");
@@ -138,7 +142,7 @@ void mpxcmd_help (void) {
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }
-
+/** The Version funciton displays MPX version information.*/
 void mpxcmd_version (void) {
 	mpx_cls();
 	printf("\n");
@@ -161,7 +165,7 @@ void mpxcmd_version (void) {
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }
-
+/** The Prompt function allows the user to change the default prompt. */
 void mpxcmd_prompt (void) {
 	printf("\n");
 	printf("  Current prompt is: \"%s\"\n", prompt_str);
@@ -172,7 +176,7 @@ void mpxcmd_prompt (void) {
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }
-
+/** The Date function allows the user to display or change the date of the MPX system. */
 void mpxcmd_date (void) {
 	date_rec date;
 	sys_get_date(&date);
@@ -255,7 +259,7 @@ void mpxcmd_date (void) {
 	}
 	return;
 }
-
+/** The Exit function allows the user to confirm if they want to exit MPX. */
 void mpxcmd_exit (void) {
 	printf("\n");
 	printf("Are you sure you want to terminate MPX?\n");
@@ -264,7 +268,7 @@ void mpxcmd_exit (void) {
 		sys_exit();
 	}
 }
-
+/** The function Prompt y n prompts the user to answer a Yes or No question. */
 int mpxprompt_yn(void) {
 	char yn = mpxprompt_anykey();
 	if( yn == 'Y' || yn == 'y' ) {
@@ -273,7 +277,7 @@ int mpxprompt_yn(void) {
 		return 0; /* false */
 	}
 }
-
+/** The function Prompt Any key Prompts the user to press the return key. */
 char mpxprompt_anykey(void) {
 	/* user must press enter. */
 	int buflen = 3;
@@ -282,14 +286,14 @@ char mpxprompt_anykey(void) {
 	sys_req(READ, TERMINAL, buf, &buflen);
 	return buf[0];
 }
-
+/** The function Prompt int reads the in the input from the user. */
 int mpxprompt_int(void) {
 	char input[MAX_LINE];
 	mpx_readline(input, MAX_LINE);	
 	return atoi(input);
 }
-
-void mpx_readline ( char *buffer, int buflen ) {
+/** Readline function reads in a line from the Terminal. */
+void mpx_readline ( char *buffer /**[inout] Points to the sting being read.  */, int buflen /** [in] Defines the maximum characters read. */ ) {
 	int local_buflen = buflen;
 	sys_req(READ, TERMINAL, buffer, &local_buflen);
 
@@ -298,7 +302,7 @@ void mpx_readline ( char *buffer, int buflen ) {
 		buffer[strlen(buffer)-1] = '\0';
 	} /* FIXME: strlen() is unsafe; should use strnlen(). */
 }
-
+/** Clear, blanks the scren */
 int mpx_cls (void) {
 	/* fixme: add error catching */
 	int err = sys_req(CLEAR, TERMINAL, NULL, 0);
