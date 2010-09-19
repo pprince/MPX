@@ -1,7 +1,7 @@
 #ifndef MPX_R1_HFILE
 #define MPX_R1_HFILE
 
-void mpx_command_loop (void);
+int mpx_command_loop (void);
 int mpx_cls (void);
 void mpxcmd_exit (void);
 int mpxprompt_yn(void);

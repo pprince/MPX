@@ -8,9 +8,9 @@ void errorDecode( int err);
 * starts the display of the Welcome Message and the inital home screen of MPX.
 */
 void main(){
-	int error;
+	int err;
 	sys_init( MODULE_R1 ); //System initilization 
-	int err = mpx_command_loop();
+	err = mpx_command_loop();
 	errorDecode(err);
 }
 

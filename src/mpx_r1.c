@@ -16,10 +16,10 @@ char *anykey_str			= "\n<<Press Enter to Continue.>>";/**< Any Key String stores
 /** This function displays the Main Screen for mpx. 
 * MPX Command Loop Function dispalays the Main Screen for MPX and functions as the control loop for MPX.
 */
-void mpx_command_loop (void) {
+int mpx_command_loop (void) {
 
 	char cmd_line[MAX_LINE];
-	char *cmd_argv[MAX_ARGS];
+	char *cmd_argv[MAX_ARGS];	/* FIXME: There is invalid use of memory (unallocated pointers) here. */
 	int  cmd_argc = 0;
 	int  i;
 
@@ -41,7 +41,7 @@ void mpx_command_loop (void) {
 		printf("\n");
 
 		printf("%s", prompt_str);
-		mpx_readline(cmd_line, MAX_LINE);	
+		mpx_readline(cmd_line, MAX_LINE-1);	
 
 		cmd_argv[0] = strtok(cmd_line, " ");
 		cmd_argc++;
