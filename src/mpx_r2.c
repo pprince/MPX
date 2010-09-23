@@ -10,10 +10,10 @@
 */
 
 PCB *alloocate_PCB( void ){
-	PCB *newPCB; //< pointer to the new PCB
-	MEMDSC *newMemDsc;//< pointer to the Memory Descriptor
-	STACKDSC *newStackDsc;//<pointer to the stack descriptor
-	unsigned char *stack; //< pointer to the stack low address
+	PCB *newPCB; ///< pointer to the new PCB
+	MEMDSC *newMemDsc;///< pointer to the Memory Descriptor
+	STACKDSC *newStackDsc;///<pointer to the stack descriptor
+	unsigned char *stack; ///< pointer to the stack low address
 	
 	// Allocate memory to each of the disctenct parts of the PCB
 	newStackDsc = (STACKDSC*) sys_alloc_mem(sizeof(STACKDSC));
@@ -37,12 +37,12 @@ PCB *alloocate_PCB( void ){
 /**
 This function releases all allocated memory related to a PCB. 
 */
-int free_PCB( PCB *pointer /*< is a pointer to a PCB [in] */ ){
-	STACKDSC *stackdscptr = pointer -> stackdsc;//< is a pointer to the stack descriptor
-	unsigned char *stack = stackdscptr -> base;//< is a pointer to the base location of the stack
-	MEMDSC *memptr = pointer -> memdsc;//< is a pointer to a Memory Descriptor 
+int free_PCB( PCB *pointer /*< [in] is a pointer to a PCB  */ ){
+	STACKDSC *stackdscptr = pointer -> stackdsc;///< is a pointer to the stack descriptor
+	unsigned char *stack = stackdscptr -> base;///< is a pointer to the base location of the stack
+	MEMDSC *memptr = pointer -> memdsc;///< is a pointer to a Memory Descriptor 
 	
-	int err;//< holder for error capture on use of sys_free_mem
+	int err;///< holder for error capture on use of sys_free_mem
 	
 	//Free Stack First
 	err = sys_free_mem(stack);
@@ -63,15 +63,19 @@ int free_PCB( PCB *pointer /*< is a pointer to a PCB [in] */ ){
 /** This Function initializes the contents of a PCB. */
 
 void setup_PCB( PCB *pointer, char *name,int classType){
-	int i;
-	unsigned char *stack;
-	char *nPtr = pointer -> name;
+	int i;///< counter varable for loop 
+	unsigned char *stack;///< pointer to what will become the bottom of the stack 
+	char *nPtr = pointer -> name; ///< pointer the name string in the PCB  
 	//Allocate the stack
 	stack = (unsigned char*) sys_mem_alloc(STACKSIZE);
 	
 	//copy name into the PCB
-	strncpy(nPtr, name,STRLEN);
-	
+	//if ( findPCB( name ) == NULL) {
+		strncpy(nPtr, name,STRLEN);
+	//}else{
+	//	printf("Process Name NOT VALID");
+	//}	
+		
 	//set priority of PCB ( this is for MOD 2 Only, comment out after Mod 2) 
 	pointer -> priority =  READY;
 	//Ucomment after mod 2
@@ -86,9 +90,9 @@ void setup_PCB( PCB *pointer, char *name,int classType){
 	
 	//Setup the Stack
 	for( i = 0; i < STACKSIZE; i++)  *(stack + i) = 0; //ZERO out Stack to aid in debug....
-	pointer -> stackdsc -> base = stack[STACKSIZE-1]; // x86 arch Stacks start at the Higest value 
+	pointer -> stackdsc -> base = stack; // x86 arch Stacks start at the Higest value 
 	pointer -> stackdsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
 	
-	
-	
 }
+
+
