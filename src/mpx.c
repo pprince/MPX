@@ -9,7 +9,7 @@ void errorDecode( int err);
 */
 void main(){
 	int err;
-	sys_init( MODULE_R1 ); //System initilization 
+	sys_init( MODULE_R1 + MODULE_R2 ); //System initilization 
 	err = mpx_command_loop();
 	errorDecode(err);
 }
