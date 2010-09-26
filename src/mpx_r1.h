@@ -1,17 +1,7 @@
 #ifndef MPX_R1_HFILE
 #define MPX_R1_HFILE
 
-//functions prepared for pointer call:
-int _cdecl exit(char *args);
-int _cdecl help(char *args);
-int _cdecl version(char *args);
-int _cdecl dir(char *args);
-int _cdecl date(char *args);
-int _cdecl chenv(char *args);
-
-
-
-void mpx_command_loop (void);
+int mpx_command_loop (void);
 int mpx_cls (void);
 void mpxcmd_exit (void);
 int mpxprompt_yn(void);
@@ -23,11 +13,5 @@ void mpxcmd_date (void);
 int mpxprompt_int(void);
 void mpxcmd_version (void);
 void mpxcmd_prompt (void);
-
-
-
-
-
-
 
 #endif
