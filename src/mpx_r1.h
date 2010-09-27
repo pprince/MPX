@@ -14,10 +14,4 @@ int mpxprompt_int(void);
 void mpxcmd_version (void);
 void mpxcmd_prompt (void);
 
-
-
-
-
-
-
 #endif
