@@ -1,5 +1,5 @@
 /* MPX changes to stdlib.h:
- * 	1 - remove declarations of exit() which conflict w/ given C code.
+ * 	1 - remove declarations of exit() which conflict with given mpx_supt.c
  */
 
 /*  stdlib.h
