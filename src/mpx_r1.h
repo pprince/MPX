@@ -1,17 +1,10 @@
 #ifndef MPX_R1_HFILE
 #define MPX_R1_HFILE
 
-int mpx_command_loop (void);
-int mpx_cls (void);
-void mpxcmd_exit (void);
-int mpxprompt_yn(void);
-void mpx_readline ( char *buffer, int buflen );
-void mpxcmd_help (void);
-void mpxcmd_load (void);
-char mpxprompt_anykey(void);
-void mpxcmd_date (void);
-int mpxprompt_int(void);
-void mpxcmd_version (void);
-void mpxcmd_prompt (void);
+int	mpx_cls 		(void);
+int	mpxprompt_yn		(void);
+void	mpx_readline		(char *buffer, int buflen);
+char	mpxprompt_anykey	(void);
+int	mpxprompt_int		(void);
 
 #endif

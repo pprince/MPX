@@ -1,5 +1,8 @@
 #include "mpx_supt.h"
-#include "mpx_r1.h" // Bring in R1 code
+#include "mpx_r1.h"
+#include "mpx_r2.h"
+#include "mpx_cmd.h"
+
 void errorDecode( int err);
 
 /**
