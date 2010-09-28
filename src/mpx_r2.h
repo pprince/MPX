@@ -44,6 +44,12 @@ typedef struct page{
 	unsigned char *right;///< pointer to the right PCB structure
 }ELEM;
 
+typedef struct root{
+	int count;
+	unsigned char *node;
+}ROOT;
+
+
 /* Functions Dec*/
 PCB *alloocate_PCB(void);
 int free_PCB( PCB *pointer);

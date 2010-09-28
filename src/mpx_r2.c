@@ -9,7 +9,7 @@
 	the pointer to the new PCB location in memory.
 */
 
-PCB *alloocate_PCB( void ){
+PCB *aloocate_PCB( void ){
 	PCB *newPCB; ///< pointer to the new PCB
 	MEMDSC *newMemDsc;///< pointer to the Memory Descriptor
 	STACKDSC *newStackDsc;///<pointer to the stack descriptor
@@ -94,5 +94,62 @@ void setup_PCB( PCB *pointer, char *name,int classType){
 	pointer -> stackdsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
 	
 }
+
+void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *ququeROOT /*< points to the head node of the queque */ , int ORD /*< code for order to insert PCB Prioroity and FIFO*/){
+   select(ORD){
+		case PORDR:
+			insert_PORDR(PCBpointer,ququeROOT);
+			break;
+		case FIFO:
+			insert_FIFO((PCBpointer,ququeROOT);
+			break;
+		default:
+			printf("ORDER not Valid");
+			break;
+		};
+}
+
+void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT ){
+	ELEM *node; // declare node of type element
+	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
+	node -> process = PCBpointer;// add the PCB to the node
+	
+	if( quequeROOT -> node = NULL ){ // if this is the first element ever in the queque
+		node -> left = NULL;
+		node -> right = NULL;
+		quequeROOT -> node = node; // Set the first element in the queque to node of Type Element
+		quequeROOT -> count += 1; // increase count by one
+		return; //exit out first node is in queque. 
+	}
+}
+/** In this function we grow the queque to the right no matter of the Priority of the PCB.*/ 
+void insert_FIFO( PCB *PCBpointer, ROOT *ququeROOT){ //FIXME: NO ERROR HANDLING
+	ELEM *node; // declare node of type element
+	ELEM *incr;
+	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
+	node -> process = PCBpointer;// add the PCB to the node
+	
+	if( quequeROOT -> node = NULL ){ // if this is the first element ever in the queque
+		node -> left = NULL; // set the link left to null
+		node -> right = NULL;// set the link right to null
+		quequeROOT -> node = node; // Set the first element in the queque to node of Type Element
+		quequeROOT -> count += 1; // increase count by one
+		return; //exit out first node is in queque. 
+	}
+	
+	
+	/* INSERT INTO THE QUEQUE IN FIFO ORDER*/
+	incr = quequeROOT -> node; //set node to the first node in the queque
+	while( incr -> right != NULL ){
+		incr = incr -> right; // progress forward to the right of the queque
+	}
+	 node -> left = incr; //set left to previous node
+	 node -> right = NULL; // set right to null 
+	 quequeROOT -> count += 1; // increase count by one as the size of the queque has grown by one
+	 
+	 return;
+
+}
+
 
 
