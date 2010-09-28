@@ -109,8 +109,9 @@ void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *ququeROO
 		};
 }
 
-void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT ){
+void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT ){ //FIXME: NO ERROR CHECKING
 	ELEM *node; // declare node of type element
+	ELEM *incr;
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
 	node -> process = PCBpointer;// add the PCB to the node
 	
@@ -121,6 +122,37 @@ void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT ){
 		quequeROOT -> count += 1; // increase count by one
 		return; //exit out first node is in queque. 
 	}
+	incr = quequeROOT -> node; //set node to the first node in the queque
+	while ( incr -> process -> priority <= node -> process -> priority ){ // Process with the lowest priority goes first 
+			incr = incr -> right; // progrees to the right 
+	}
+	/* There are three cases to check for head, tail, and middle*/
+	
+	/*head case*/
+	if( incr -> left == NULL && incr->right != NULL ){ 
+		node->left = NULL;
+		node->right = incr;
+		incr->left = node;
+		quequeROOT -> node = node; //set quequeROOT to new head
+		ququeROOT ->count +=1;
+	}
+	
+	/*tail case*/
+	if( incr -> left != NULL && incr->right == NULL ){
+		node-> left = incr;
+		node-> right = NULL;
+		incr->right = node;
+		quequeROOT->count +=1;
+	}
+	
+	/*middle case*/
+	if( incr -> left != NULL && incr->right != NULL){
+		node->right = incr->right;
+		incr->right = node;
+		node->left = incr;
+		quequeROOT->count +=1;
+	}
+	return;
 }
 /** In this function we grow the queque to the right no matter of the Priority of the PCB.*/ 
 void insert_FIFO( PCB *PCBpointer, ROOT *ququeROOT){ //FIXME: NO ERROR HANDLING
