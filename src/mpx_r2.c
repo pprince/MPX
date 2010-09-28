@@ -95,13 +95,14 @@ void setup_PCB( PCB *pointer, char *name,int classType){
 	
 }
 
-void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *ququeROOT /*< points to the head node of the queque */ , int ORD /*< code for order to insert PCB Prioroity and FIFO*/){
-   select(ORD){
+void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *quequeROOT /*< points to the head node of the queque */ , int ORD /*< code for order to insert PCB Prioroity and FIFO*/){
+   
+   switch(ORD){
 		case PORDR:
-			insert_PORDR(PCBpointer,ququeROOT);
+			insert_PORDR(PCBpointer,quequeROOT);
 			break;
 		case FIFO:
-			insert_FIFO((PCBpointer,ququeROOT);
+			insert_FIFO(PCBpointer,quequeROOT);
 			break;
 		default:
 			printf("ORDER not Valid");
@@ -134,14 +135,14 @@ void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT ){ //FIXME: NO ERROR CHECKI
 		node->right = incr;
 		incr->left = node;
 		quequeROOT -> node = node; //set quequeROOT to new head
-		ququeROOT ->count +=1;
+		quequeROOT ->count +=1;
 	}
 	
 	/*tail case*/
 	if( incr -> left != NULL && incr->right == NULL ){
-		node-> left = incr;
+		node-> left = &incr;
 		node-> right = NULL;
-		incr->right = node;
+		incr->right = &node;
 		quequeROOT->count +=1;
 	}
 	
@@ -155,7 +156,7 @@ void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT ){ //FIXME: NO ERROR CHECKI
 	return;
 }
 /** In this function we grow the queque to the right no matter of the Priority of the PCB.*/ 
-void insert_FIFO( PCB *PCBpointer, ROOT *ququeROOT){ //FIXME: NO ERROR HANDLING
+void insert_FIFO( PCB *PCBpointer, ROOT *quequeROOT){ //FIXME: NO ERROR HANDLING
 	ELEM *node; // declare node of type element
 	ELEM *incr;
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
