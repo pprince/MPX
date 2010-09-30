@@ -130,6 +130,8 @@ void mpxcmd_load (void) {
 		printf("    %10ld  %s\n", file_size, buf);
 	}
 
+	sys_close_dir();
+
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }
