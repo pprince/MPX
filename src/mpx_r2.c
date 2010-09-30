@@ -8,7 +8,7 @@
 	the pointer to the new PCB location in memory.
 */
 
-PCB *alloocate_PCB( void ){
+PCB *aloocate_PCB( void ){
 	PCB *newPCB; ///< pointer to the new PCB
 	MEMDSC *newMemDsc;///< pointer to the Memory Descriptor
 	STACKDSC *newStackDsc;///<pointer to the stack descriptor
@@ -93,5 +93,95 @@ void setup_PCB( PCB *pointer, char *name,int classType){
 	pointer -> stackdsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
 	
 }
+
+void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *quequeROOT /*< points to the head node of the queque */ , int ORD /*< code for order to insert PCB Prioroity and FIFO*/){
+   
+   switch(ORD){
+		case PORDR:
+			insert_PORDR(PCBpointer,quequeROOT);
+			break;
+		case FIFO:
+			insert_FIFO(PCBpointer,quequeROOT);
+			break;
+		default:
+			printf("ORDER not Valid");
+			break;
+		};
+}
+
+void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT ){ //FIXME: NO ERROR CHECKING
+	ELEM *node; // declare node of type element
+	ELEM *incr;
+	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
+	node -> process = PCBpointer;// add the PCB to the node
+	
+	if( quequeROOT -> node = NULL ){ // if this is the first element ever in the queque
+		node -> left = NULL;
+		node -> right = NULL;
+		quequeROOT -> node = node; // Set the first element in the queque to node of Type Element
+		quequeROOT -> count += 1; // increase count by one
+		return; //exit out first node is in queque. 
+	}
+	incr = quequeROOT -> node; //set node to the first node in the queque
+	while ( incr -> process -> priority <= node -> process -> priority ){ // Process with the lowest priority goes first 
+			incr = incr -> right; // progrees to the right 
+	}
+	/* There are three cases to check for head, tail, and middle*/
+	
+	/*head case*/
+	if( incr -> left == NULL && incr->right != NULL ){ 
+		node->left = NULL;
+		node->right = incr;
+		incr->left = node;
+		quequeROOT -> node = node; //set quequeROOT to new head
+		quequeROOT ->count +=1;
+	}
+	
+	/*tail case*/
+	if( incr -> left != NULL && incr->right == NULL ){
+		node-> left = &incr;
+		node-> right = NULL;
+		incr->right = &node;
+		quequeROOT->count +=1;
+	}
+	
+	/*middle case*/
+	if( incr -> left != NULL && incr->right != NULL){
+		node->right = incr->right;
+		incr->right = node;
+		node->left = incr;
+		quequeROOT->count +=1;
+	}
+	return;
+}
+/** In this function we grow the queque to the right no matter of the Priority of the PCB.*/ 
+void insert_FIFO( PCB *PCBpointer, ROOT *quequeROOT){ //FIXME: NO ERROR HANDLING
+	ELEM *node; // declare node of type element
+	ELEM *incr;
+	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
+	node -> process = PCBpointer;// add the PCB to the node
+	
+	if( quequeROOT -> node = NULL ){ // if this is the first element ever in the queque
+		node -> left = NULL; // set the link left to null
+		node -> right = NULL;// set the link right to null
+		quequeROOT -> node = node; // Set the first element in the queque to node of Type Element
+		quequeROOT -> count += 1; // increase count by one
+		return; //exit out first node is in queque. 
+	}
+	
+	
+	/* INSERT INTO THE QUEQUE IN FIFO ORDER*/
+	incr = quequeROOT -> node; //set node to the first node in the queque
+	while( incr -> right != NULL ){
+		incr = incr -> right; // progress forward to the right of the queque
+	}
+	 node -> left = incr; //set left to previous node
+	 node -> right = NULL; // set right to null 
+	 quequeROOT -> count += 1; // increase count by one as the size of the queque has grown by one
+	 
+	 return;
+
+}
+
 
 

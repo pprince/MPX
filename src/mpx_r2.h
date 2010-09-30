@@ -44,9 +44,17 @@ typedef struct page{
 	unsigned char *right;///< pointer to the right PCB structure
 }ELEM;
 
+typedef struct root{
+	int count;
+	unsigned char *node;
+}ROOT;
+
+
 /* Functions Dec*/
 PCB *alloocate_PCB(void);
 int free_PCB( PCB *pointer);
 void setup_PCB( PCB *pointer, char *name,int classType);
-
+void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *quequeROOT /*< points to the head node of the queque */ , int ORD /*< code for order to insert PCB Prioroity and FIFO*/);
+void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT );
+void insert_FIFO( PCB *PCBpointer, ROOT *quequeROOT);
 #endif
