@@ -75,13 +75,24 @@ void setPriority(char name [STRLEN],signed char priority){
 
 }
 
-void showPCB(){
-}
+void showPCB(char name [STRLEN]){
+	PCB tempPCB=mpx_r2.find_PCB(name);
+	printf("Process name: %s \n State of process: %s \n",);}
 
 void showAll(){
+	PCB tempPCB=mpx_r2.getHead();
+	while(tempPCB.next!=null){
+		PCB tempPCB=tempPCB.next;
+		printf("%s,%s \n",);
+	}
 }
-
 void showReady(){
+	PCB tempPCB=mpx_r2.getHead();
+	while(tempPCB.next!=null){
+		PCB tempPCB=tempPCB.next;
+		if(tempPCB.state==ready)
+			printf("%s,%s,%s \n",name,priority,status);
+	}
 }
 
 void showBlocked(){
