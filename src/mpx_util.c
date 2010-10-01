@@ -5,6 +5,58 @@
 #include <string.h>
 #include <stdio.h>
 
+#define LINES_PER_PAGE 23
+static int lines_printed;
+static int pages_printed;
+static int header_lines;
+static char *page_header;
+
+
+/** The pager function permits displaying output screen-full at a time.
+
+The line to output MUST NOT end with a \n (newline) character.
+*/
+void mpx_pager(char *line_to_print) {
+
+	if ( lines_printed == 0 ) {
+		mpx_cls();
+		printf("%s", page_header);
+	}
+	
+	printf("%s\n", line_to_print);
+
+	if ( (lines_printed != 0) && (lines_printed % (LINES_PER_PAGE-header_lines) == 0)) {
+		lines_printed = 0;
+		printf("<<Press enter for MORE>>"); mpxprompt_anykey();
+	} else {
+		lines_printed++;
+	}
+}
+
+/** The pager initialization function must be used before the pager function.
+
+If no per-page header is required, pass NULL for that parameter.
+
+All lines in the header, including the last one, MUST end with a \n (newline) character.
+*/
+void mpx_pager_init(char *header) {
+	char *cur_pos	= header;
+
+	page_header	= header;
+	lines_printed	= 0;
+	pages_printed	= 0;
+	header_lines	= 0;
+
+	if (header != NULL) {
+		while (*cur_pos != '\0') {
+			if (*cur_pos == '\n') {
+				header_lines++;
+			}
+			cur_pos++;
+		}
+	}
+}
+
 /** The function Prompt y n prompts the user to answer a Yes or No question. */
 int mpxprompt_yn(void) {
 	char yn = mpxprompt_anykey();

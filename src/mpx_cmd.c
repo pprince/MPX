@@ -110,13 +110,11 @@ int mpx_command_loop (void) {
 */
 void mpxcmd_load (void) {
 	char buf[10];
+	char line_buf[MAX_LINE];
 	long file_size;
+	int  num_mpx_files = 0;
 
 	mpx_cls();
-	printf("\n");
-	printf("  Contents of MPX Directory (.mpx Files):\n");
-	printf("  =======================================\n");
-	printf("\n");
 
 	if( sys_open_dir(NULL) != 0 ){
 		printf("WARNING: Failed to open MPX directory!\n");
@@ -124,13 +122,19 @@ void mpxcmd_load (void) {
 		return;
 	}
 
-	printf("    SIZE        NAME\n");
-	printf("    ----------  -------------------------------------------\n");
+	mpx_pager_init("  Contents of MPX Directory (.mpx Files):\n  =======================================\n    SIZE        NAME\n    ----------  -------------------------------------------\n");
 	while( sys_get_entry(buf, 9, &file_size) == 0 ){
-		printf("    %10ld  %s\n", file_size, buf);
+		/* snprintf(&line_buf, MAX_LINE, "    %10ld  %s", file_size, buf); */
+		sprintf(&line_buf, "    %10ld  %s", file_size, buf);
+		mpx_pager(&line_buf);
+		num_mpx_files++;
 	}
 
 	sys_close_dir();
+
+	if (num_mpx_files == 0) {
+		printf("\n There aren't any .mpx files in the MPX directory!\n\n");
+	}
 
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
