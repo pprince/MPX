@@ -9,9 +9,39 @@
 /* Strings */
 
 char prompt_str[MAX_LINE]       = "MPX> "; /**<  Prompt sting stores the default Prompt for MPX.   */
-char *welcome_message_str       = "\n\n  Welcome to Perpetual Motion Squad's Operating System.\n";  /**< Welocome Message String stores the Welcome Message for MPX. */
+char *welcome_message_str       = "\n\n  Welcome to Perpetual Motion Squad's Operating System.\n\n    (type `help commands`) for a list of available commands.)\n\n";  /**< Welocome Message String stores the Welcome Message for MPX. */
 char *anykey_str                = "\n<<Press Enter to Continue.>>";/**< Any Key String stores the value of the prompt for the user to press return.*/
 
+
+mpx_cmd_t *cmd_head = NULL;
+
+
+void mpx_add_command( char *cmd_name, void(*cmd_function)(int argc, char *argv[]) ) {
+
+	/* allocate a command object */
+	mpx_cmd_t *command = (mpx_cmd_t*) sys_alloc_mem( sizeof(mpx_cmd_t) ); /* FIXME need to check for error from alloc func. */
+
+	/* allocate and populate the command name member. */
+	command->cmd_name = sys_alloc_mem( strlen(cmd_name)+1 );
+	strcpy( command->cmd_name, cmd_name );
+
+	/* populate the command function member. */
+	command->cmd_function = cmd_function;
+
+	/* be sure to set the next-command pointer member to NULL, since this will be the new last command. */
+	command->next = NULL;
+
+	/* add the command to the global list of commands. */
+	if ( cmd_head == NULL ) {
+		cmd_head = command;
+	} else {
+		mpx_cmd_t *last_command = cmd_head;
+		while ( last_command->next != NULL ) {
+			last_command = last_command->next;
+		}
+		last_command->next = command;
+	}
+}
 
 /** This function displays the Main Screen for mpx. 
 * MPX Command Loop Function dispalays the Main Screen for MPX and functions as the control loop for MPX.
@@ -19,35 +49,31 @@ char *anykey_str                = "\n<<Press Enter to Continue.>>";/**< Any Key 
 int mpx_command_loop (void) {
 
 	char cmd_line[MAX_LINE];
-	char *cmd_argv[MAX_ARGS];
-	int  cmd_argc = 0;
+	char *cmd_argv[MAX_ARGS+1];
+	int  cmd_argc;
 	int  i;
+	mpx_cmd_t *command;
+
+	mpx_add_command( "help", mpxcmd_help );
 
 	for(;;){ /* infinite loop */
+
 		mpx_cls();
+
 		printf("%s", welcome_message_str);
 
-		/* print menu */
-		printf("\n");
-		printf("    Main Menu:\n");
-		printf("    -----------------------------------------------------------------\n");
-		printf("        L    load       Display .MPX files available for loading.\n");
-		printf("        D    date       View and set the MPX system date.\n");
-		printf("        P    prompt     Change the MPX system prompt.\n");
-		printf("        V    version    View version and author information.\n");
-		printf("        H    help       Online help.\n");
-		printf("        X    exit       Exits the program.\n");
-		printf("    -----------------------------------------------------------------\n");
-		printf("\n");
-
 		printf("%s", prompt_str);
+
+		cmd_argc = 0;
+
 		mpx_readline(cmd_line, MAX_LINE-1);	
 
 		cmd_argv[0] = strtok(cmd_line, " ");
 		cmd_argc++;
-		/* cmd_line[] is invalidated after this point; use cmd_argv[][] instead. */
 
-		for(;;){
+		/* cmd_line is invalidated after this point; use cmd_argv[] instead. */
+
+		for(i=0; i<MAX_ARGS; i++){
 			cmd_argv[cmd_argc] = strtok(NULL, " ");
 			if( cmd_argv[cmd_argc] == NULL ){
 				break;
@@ -55,53 +81,29 @@ int mpx_command_loop (void) {
 			cmd_argc++;
 		}
 
-		switch( cmd_argv[0][0] ) {
-			
-			case 'l':
-			case 'L':
-				mpxcmd_load();
-			break;
-			
-			case 'e':
-			case 'E':
-			case 'x':
-			case 'X':
-				mpxcmd_exit();
-			break;
-			
-			case 'h':
-			case 'H':
-			case '?':
-				mpxcmd_help();
-			break;
-			
-			case 'p':
-			case 'P':
-				mpxcmd_prompt();
-			break;
-			
-			case 'd':
-			case 'D':
-				mpxcmd_date();
-			break;
-			
-			case 'v':
-			case 'V':
-				mpxcmd_version();
-			break;
-		
-			case '~':
-				printf("SECRET DEBUG MENU");
-				for (i=0; i<cmd_argc; i++){
-					printf("  cmd_argv[%d] = \"%s\"", i, cmd_argv[i]);
-				}
-				printf("%s", anykey_str); mpxprompt_anykey();
-			break;
+		/* handle too-many-args error condition. */
+		if (i == MAX_ARGS && strtok(NULL, " ") != NULL) {
+			printf("ERROR: Argument list too long.\n");
+			printf("%s", anykey_str); mpxprompt_anykey();
+			continue;
+		}
 
-			default:
-				printf("Invalid command.\n");
-				printf("%s", anykey_str); mpxprompt_anykey();
-			break;
+		/* run the command function that the user requested,
+		 * or print an error message if it is not valid. */
+		command = cmd_head;
+		while (command != NULL) {
+			if ( strcmp(command->cmd_name, cmd_argv[0]) == 0 ) {
+				command->cmd_function( cmd_argc, cmd_argv );
+				break;
+			}
+			command = command->next;
+		}
+
+		/* if we did not find the requested command in the list of commands,
+		 * print an appropriate error message. */
+		if ( command == NULL ) {
+			 printf("Invalid command.\n");
+			 printf("%s", anykey_str); mpxprompt_anykey();
 		}
 	}
 }
@@ -141,7 +143,7 @@ void mpxcmd_load (void) {
 }
 
 /** The Help function displays the help for MPX. */
-void mpxcmd_help (void) {
+void mpxcmd_help (int argc, char *argv[]) {
 	mpx_cls();
 	printf("\n");
 	printf("  MPX HELP:\n");
@@ -151,7 +153,7 @@ void mpxcmd_help (void) {
 	return;
 }
 
-/** The Version funciton displays MPX version information.*/
+/** The Version function displays MPX version information.*/
 void mpxcmd_version (void) {
 	mpx_cls();
 	printf("\n");
