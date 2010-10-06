@@ -291,17 +291,17 @@ void mpxcmd_show_PCB(int argc, char *argv[]){
 }
 
 /** This is a user functions that shows name and state of all processes */
-void showAll(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
+void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
 	// redo
 }
 
 /** This is a user function that shows all non-suspended processes followed by suspended processes */
-void showReady(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
+void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
 	// redo
 }
 
 /** This is a user function that shows all blocked processes followed by non-blocked processes */
-void showBlocked(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
+void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
 	//redo
 }	
 }

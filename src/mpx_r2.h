@@ -55,7 +55,18 @@ typedef struct root{
 PCB *alloocate_PCB(void);
 int free_PCB( PCB *pointer);
 void setup_PCB( PCB *pointer );
-void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *quequeROOT /*< points to the head node of the queque */ , int ORD /*< code for order to insert PCB Prioroity and FIFO*/);
+void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ );
 void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT );
 void insert_FIFO( PCB *PCBpointer, ROOT *quequeROOT);
+void mpxcmd_create_PCB(int argc, char *argv[]);
+void mpxcmd_delete_PCB(int argc, char *argv[]);
+void mpxcmd_block(int argc, char *argv[]);
+void mpxcmd_unblock(int argc, char *argv[]);
+void mpxcmd_suspend(int argc, char *argv[]);
+void mpxcmd_resume(int argc, char *argv[]);
+void mpxcmd_setPriority(int argc, char *argv[]);
+void mpxcmd_show_PCB(int argc, char *argv[]);
+void mpxcmd_showAll_PCB(int argc, char *argv[]);
+void mpxcmd_showReady_PCB(int argc, char *argv[]);
+void mpxcmd_showBlocked_PCB(int argc, char *argv[]);
 #endif

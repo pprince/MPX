@@ -1,5 +1,6 @@
 #include "mpx_cmd.h"
 #include "mpx_util.h"
+#include "mpx_r2.h"
 #include "mpx_supt.h"
 #include "mystdlib.h"
 #include <string.h>
@@ -58,6 +59,17 @@ int mpx_command_loop (void) {
 	mpx_add_command("load", mpxcmd_load );
 	mpx_add_command("date", mpxcmd_date );
 	mpx_add_command("exit", mpxcmd_exit );
+	mpx_add_command("create",mpxcmd_create_PCB);
+	mpx_add_command("delete",mpxcmd_delete_PCB);
+	mpx_add_command("block",mpxcmd_block);
+	mpx_add_command("unblock",mpxcmd_unblock);
+	mpx_add_command("suspend",mpxcmd_suspend);
+	mpx_add_command("resume",mpxcmd_resume);
+	mpx_add_command("setPriority",mpxcmd_setPriority);
+	mpx_add_command("show",mpxcmd_show_PCB);
+	mpx_add_command("showAll",mpxcmd_showAll_PCB);
+	mpx_add_command("showReady",mpxcmd_showReady_PCB);
+	mpx_add_command("showBlocked",mpxcmd_showBlocked_PCB);
 
 	for(;;){ /* infinite loop */
 
