@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 
-ROOT rQueue; // Remember to reserve memory for these
-ROOT wsQueue;
+ROOT *rQueue; // Remember to reserve memory for these
+ROOT *wsQueue;
 
 
 /** Allocates the memory for a new Process Control Block and returns 
@@ -65,32 +65,20 @@ int free_PCB( PCB *pointer /*< [in] is a pointer to a PCB  */ ){
 
 /** This Function initializes the contents of a PCB. */
 
-void setup_PCB( PCB *pointer, char *name,int classType){
+void setup_PCB( PCB *pointer ){
 	int i;///< counter varable for loop 
 	unsigned char *stack;///< pointer to what will become the bottom of the stack 
-	char *nPtr = pointer -> name; ///< pointer the name string in the PCB  
 	//Allocate the stack
 	stack = (unsigned char*) sys_mem_alloc(STACKSIZE);
 	
-	copy name into the PCB
-	if ( find_PCB( name,rQueue ) == NULL ) {
-		strncpy(nPtr, name,STRLEN);
-	}else{
-		if ( find_PCB( name,wsQueue) == NULL ){
-			strncpy(nPtr, name,STRLEN);
-		else{
-		printf("Process Name NOT VALID");
-	 	return;
-		}
-	}	
+	
+		
 		
 	//set priority of PCB ( this is for MOD 2 Only, comment out after Mod 2) 
 	pointer -> priority =  READY;
 	//Ucomment after mod 2
 	// pointer -> priority = priority;
 	
-	//set classTyepe
-	pointer -> classType = classType;
 	//Setup Memory Descriptor with Default Values for Module 2
 	pointer -> memdsc -> size = 0;
 	pointer -> memdsc -> loadADDR = NULL;
@@ -103,14 +91,22 @@ void setup_PCB( PCB *pointer, char *name,int classType){
 	
 }
 
-void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ , ROOT *queueROOT /*< points to the head node of the queque */ , int ORD /*< code for order to insert PCB Prioroity and FIFO*/){
-   
+void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){ 
+   int ORD;
+   if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
+		ORD  = FIFO;
+	}
+	if( PCBpointer -> state == BLOCKED || 
+		PCBpointer -> state == SUSPENDED_READY || 
+		PCBpointer -> state == SUSPENDED_BLOCKED ){
+		ORD  = PORDR;
+	}
    switch(ORD){
 		case PORDR:
-			insert_PORDR(PCBpointer,queueROOT);
+			insert_PORDR(PCBpointer,wsQueue);
 			break;
 		case FIFO:
-			insert_FIFO(PCBpointer,queueROOT);
+			insert_FIFO(PCBpointer,rQueue);
 			break;
 		default:
 			printf("ORDER not Valid");
@@ -192,145 +188,121 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 
 }
 
-PCB *find_pcb( char *name, ROOT *Queue){
-	incr =  Queue -> node; //set node to the first node in the queque
+PCB *find_pcb( char *name){
+	incr =  rQueue -> node; //set node to the first node in the queque
 	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first 
 			incr= incr -> right; // progrees to the right 
+	}
+	if (incr == NULL ){
+	incr =  wsQueue -> node; //set node to the first node in the queque
+	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first 
+			incr= incr -> right; // progrees to the right 
+	}
 	}
 	
 	return incr;
 
 }
 
-void createPCB(char name[STRLEN],signed char type,signed char priority){
-	if((name!=null)&&(type==0||type==1)&&(-128<=priority<=127)){ ///< checks too see if data is valid
-		PCB tempPCB=mpx_r2.setup_PCB(mpx_r2.allocate_PCB(),name,type); ///< creates and sets the data for the process
-		setPriority(name,priority); ///< sets the priority
-		tempPCB->state=0x04; ///< sets the state
-		insert_PCB(tempPCB); ///< inserts the process into the apropriate queue
-	}else{
-		printf("Invalid data entered please try again");
+void mpxcmd_create_PCB(int argc, char *argv[]){
+	static int count = ZERO;
+		int isValid = ZERO;
+	if( count == ZERO ){
+		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
+		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 	}
+	
+	PCB *newPCB = allocate_PCB();
+	
+	printf("Process Name: \n");
+	sys_req(TERMINAL,READ,newPCB -> name,STRLEN);
+	printf("Process Class Type ( Application 0 or System  1): \n" );
+	sys_req(TERMINAL,READ,newPCB -> classType,2);
+	printf("Process Priority (-128 to 127): /n");
+	sys_req(TERMINAL,READ,newPCB -> priority,4);
+	
+	while( isValid !=  1 ){
+		//check name validity
+		if ( find_PCB( newPCB -> name ) != NULL ) {
+			printf("Process Name NOT VALID");
+			printf("Process Name: \n");
+			sys_req(TERMINAL,READ,newPCB -> name,STRLEN);
+			isValid = 0;
+		}else{
+			isValid = 1;
+		}
+		//check if system or type
+		if( newPCB -> classType == APPLICATION || newPCB -> classType == SYSTEM ){
+			isValid = 1;
+		}else{
+			printf("Process Class Type NOT VALID!");
+			printf("Process Class Type ( Application 0 or System  1): \n" );
+			sys_req(TERMINAL,READ,newPCB -> classType,2);
+			isValid = 0;
+		}
+		//check Priority
+		if( 127 <= newPCB -> priority || -128 >= newPCB -> priority ){
+		    isValid = 1;
+		} else{
+			printf("Process Priority (-128 to 127): /n");
+			sys_req(TERMINAL,READ,newPCB -> priority,4);
+			isValid = 0;
+		}
+	}
+	
+	setup_PCB(newPCB);
+	insert_PCB(newPCB);
+	count++;//Update the number of times the function has run.
 }
 
 /** This is a user function in the menu to delete a process it takes the process name as input */
-void deletePCB(char name[STRLEN]){
-	int valid=mpx_r2.remove_PCB(name); ///<removes pcb and returns an int
-	if((valid!=0)&&(name!=null)){ ///< checks to make sure it was removed
-	printf("The process could not be found");
-	}
+void mpxcmd_delete_PCB(int argc, char *argv[]){
+	
 }
 
 /** This is a user function in the menu that puts a process in the blocked state it takes the process name as input*/
-void block(char name[STRLEN]){
-	PCB tempPCB=mpx_r2.find_PCB(name); ///< finds the pcb
-
-	if(tempPCB==null){ ///< checks to make sure the PCB was found
-		printf("The process could not be found");
-	}else{
-	tempPCB->state=0x08; ///< sets the state to blocked
-}
+void mpxcmd_block(int argc, char *argv[]){
+	
 }
 
 /** This is a user function in the menu that puts a process in the unblocked state it takes the process name as input*/
-void unblock(char name[STRLEN]){
-	PCB tempPCB=mpx_r2.find_PCB(name); ///< finds the pcb
-
-	if(tempPCB==null){ ///< checks to make sure the PCB was found
-		printf("The process could not be found");
-		}else{
-		tempPCB->state=0x04; ///< sets the state to ready
-	}
+void mpxcmd_unblock(int argc, char *argv[]){
+	
 }
 
 /** This is a user function in the menu that puts a process in the suspend state it takes the process name as input*/
-void suspend(char name[STRLEN]){
-	PCB tempPCB=mpx_r2.find_PCB(name); ///< finds the pcb
-
-if(tempPCB==null){ ///< checks to make sure the PCB was found
-	printf("The process could not be found");
-}
-else{
-		if(tempPCB.state==0x04){ ///< if ready makes it suspended ready
-		tempPCB->state=0xFB;
-		}
-		else if(tempPCB.state==0x08){ ///< if blocked makes it ready blocked
-		tempPCB->state=0xF7;
-		}
-	}
+void mpxcmd_suspend(int argc, char *argv[]){
+	
 }
 
 /** This is a user function in the menu that puts a process in the ready state if previously blocked and blocked if previously suspended it takes the process name as input*/
-void resume(char name[STRLEN]){
-	PCB tempPCB = find_PCB(name); ///< finds the pcb
-
-	if(tempPCB==null){ ///< checks to make sure the PCB was found
-		printf("The process could not be found");
-	}
-	else{
-			if(tempPCB.state==0x08){ ///< if blocked makes it ready
-				tempPCB->state=0x04;
-			}
-			else if(tempPCB.state==0xFF){ ///< if suspended makes it blocked
-				tempPCB->state=0x0;
-			}
-	}
+void mpxcmd_resume(int argc, char *argv[]){
+	
 }
 
 /** This is a user function from the menu it changes the priority of a PCB and takes the name and desired priority as inputs80ij*/
-void setPriority(char name [STRLEN],signed char priority){
-	PCB tempPCB= find_PCB(name);
-
-	if((tempPCB==null)||(127<=priority<=-128)){ ///< checks for validity
-		printf("The process could not be found");
-	}
-	else{
-		remove(tempPCB);// What the hell
-		insert(tempPCB);
-	}
-
+void mpxcmd_setPriority(int argc, char *argv[]){
+	
 }
 
 /** This is a user command from the menu it is used to show information about a specific PCB*/
-void showPCB(char name [STRLEN]){
-	PCB tempPCB= find_PCB(name);
-    
-	if(tempPCB==null){ ///< checks to make sure the PCB was found
-		printf("The process could not be found");
-	}
-	else{
-		printf("Process name: %s \n State of process: %s \n",name,tempPCB.state);
-	}
+void mpxcmd_show_PCB(int argc, char *argv[]){
+
 }
 
 /** This is a user functions that shows name and state of all processes */
-void showAll(){ // Pagination function needs added !!Function still needs work!!
-		PCB tempPCB=mpx_r2.getHead(); // FIX ME: GOD DAMMIT
-	while(tempPCB.next!=null){ ///< cycles through each PCB in the linked list and prints out name and state
-		PCB tempPCB=tempPCB.next;
-		printf("%s %s \n",name,tempPCB.state);
-	}
+void showAll(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
+	// redo
 }
 
 /** This is a user function that shows all non-suspended processes followed by suspended processes */
-void showReady(){ // Pagination function needs added !!Function still needs work!!
-	PCB tempPCB=mpx_r2.getHead(); //FIX ME: What the hell
-	while(tempPCB.next!=null){
-		PCB tempPCB=tempPCB.next;
-		if(tempPCB.state==ready)
-			printf("%s,%s,%s \n",name,priority,status);
-		}
-	}
+void showReady(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
+	// redo
 }
 
 /** This is a user function that shows all blocked processes followed by non-blocked processes */
-void showBlocked(){ // Pagination function needs added !!Function still needs work!!
-	PCB tempPCB=mpx_r2.getHead();
-	while(tempPCB.next!=null){
-	PCB tempPCB=tempPCB.next;
-	if(tempPCB.state==ready)
-		printf("%s,%s,%s \n",name,priority,status);
-	}
+void showBlocked(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
+	//redo
 }	
 }
 
