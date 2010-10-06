@@ -12,7 +12,7 @@ ROOT *wsQueue;
 /** Allocates the memory for a new Process Control Block and returns 
 	the pointer to the new PCB location in memory.
 */
-PCB *aloocate_PCB( void ){
+PCB *allocate_PCB( void ){
 	PCB *newPCB; ///< pointer to the new PCB
 	MEMDSC *newMemDsc;///< pointer to the Memory Descriptor
 	STACKDSC *newStackDsc;///<pointer to the stack descriptor
@@ -188,7 +188,7 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 
 }
 
-PCB *find_pcb( char *name){
+PCB *find_PCB( char *name){
 	incr =  rQueue -> node; //set node to the first node in the queque
 	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first 
 			incr= incr -> right; // progrees to the right 
@@ -199,10 +199,58 @@ PCB *find_pcb( char *name){
 			incr= incr -> right; // progrees to the right 
 	}
 	}
-	
-	return incr;
+	if ( incr -> process != NULL && incr != NULL ){
+		return incr->process;
+	}else{
+		return NULL;
+	}
 
 }
+void remove_PCB( PCB *process ){
+	ROOT *queue;
+	ELEM *incr;
+	
+	if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
+		queue = rQueue;
+	}
+	if( PCBpointer -> state == BLOCKED || 
+		PCBpointer -> state == SUSPENDED_READY || 
+		PCBpointer -> state == SUSPENDED_BLOCKED ){
+		queue = wsQueue;
+	}
+	
+	incr = queue-> node; //set node to the first node in the queque
+	while ( (incr -> process != process && incr != NULL ){ // find the same process
+			incr = incr -> right; // progrees to the right 
+	}
+	/* There are three cases to check for head, tail, and middle*/
+	
+	/*head case*/
+	if( incr -> left == NULL && incr->right != NULL ){ 
+		incr-> right -> left  = NULL;
+		queue -> node = incr -> right; //set quequeROOT to new head
+		queue ->count -=1;
+	}
+	
+	/*tail case*/
+	if( incr -> left != NULL && incr->right == NULL ){
+		incr-> left-> right  = NULL;
+		queue -> count -=1;
+	}
+	
+	/*middle case*/
+	if( incr -> left != NULL && incr->right != NULL){
+		incr -> left -> right = incr -> right;
+		incr -> right -> left = incr -> left;
+		queue -> count -=1;
+	}
+	//Deallocate mem
+	free_PCB(process);
+	sys_free_mem(incr);
+	
+	return;
+	}
+
 
 void mpxcmd_create_PCB(int argc, char *argv[]){
 	static int count = ZERO;
@@ -254,20 +302,75 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	insert_PCB(newPCB);
 	count++;//Update the number of times the function has run.
 }
-
+PCB *copy_PCB(PCB *pointer){
+		PCB *tempPCB = allocate_PCB();
+		(tempPCB -> name *) = (pointer -> name *);
+		tempPCB -> classType = pointer -> classType;
+		tempPCB -> priority = pointer -> priority;
+		tempPCB -> state = pointer -> state;
+		(tempPCB -> memdsc *) = (pointer -> memdsc *)
+		(tempPCB -> stackdsc *) = (pointer -> stackdsc *)
+	return tempPCB;
+}
 /** This is a user function in the menu to delete a process it takes the process name as input */
 void mpxcmd_delete_PCB(int argc, char *argv[]){
+	char name[STRLEN];
+	PCB *pointer;
 	
+	
+	
+	printf("Name Of Process to Delete: \n");
+	sys_req(TERMINAL,READ,name,STRLEN);
+	
+	pointer = find_PCB(name);
+	if ( pointer != NULL){
+		remove_PCB(pointer);
+	}else{
+		printf("Process Name not found!");
+		return;
+	}
+	
+	remove_PCB(pointer);
 }
 
 /** This is a user function in the menu that puts a process in the blocked state it takes the process name as input*/
 void mpxcmd_block(int argc, char *argv[]){
+	char name[STRLEN];
+	PCB *pointer;
+	PCB *tempPCB;
+	printf("Name Of Process to block: \n");
+	sys_req(TERMINAL,READ,name,STRLEN);
 	
+	pointer = find_PCB(name);
+	if ( pointer != NULL){
+		tempPCB = copy_PCB(pointer);
+		remove_PCB(pointer);
+		if( tempPCB -> state > 0 ) tempPCB -> state = BLOCKED;
+		if( tempPCB -> state < 0 && tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
+	}else{
+		printf("Process Name not found!");
+		return;
+	}
 }
 
 /** This is a user function in the menu that puts a process in the unblocked state it takes the process name as input*/
 void mpxcmd_unblock(int argc, char *argv[]){
+	char name[STRLEN];
+	PCB *pointer;
+	PCB *tempPCB;
+	printf("Name Of Process to unblock: \n");
+	sys_req(TERMINAL,READ,name,STRLEN);
 	
+	pointer = find_PCB(name);
+	if ( pointer != NULL){
+		tempPCB = copy_PCB(pointer);
+		remove_PCB(pointer);
+		if( tempPCB -> state == BLOCKED ) tempPCB -> state = READY;
+		if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = SUSPENDED_READY;
+	}else{
+		printf("Process Name not found!");
+		return;
+	}
 }
 
 /** This is a user function in the menu that puts a process in the suspend state it takes the process name as input*/

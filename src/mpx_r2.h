@@ -58,6 +58,7 @@ void setup_PCB( PCB *pointer );
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ );
 void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT );
 void insert_FIFO( PCB *PCBpointer, ROOT *quequeROOT);
+PCB *find_PCB( char *name);
 void mpxcmd_create_PCB(int argc, char *argv[]);
 void mpxcmd_delete_PCB(int argc, char *argv[]);
 void mpxcmd_block(int argc, char *argv[]);
