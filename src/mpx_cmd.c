@@ -55,6 +55,9 @@ int mpx_command_loop (void) {
 	mpx_cmd_t *command;
 
 	mpx_add_command( "help", mpxcmd_help );
+	mpx_add_command("load", mpxcmd_load );
+	mpx_add_command("date", mpxcmd_date );
+	mpx_add_command("exit", mpxcmd_exit );
 
 	for(;;){ /* infinite loop */
 
@@ -110,7 +113,7 @@ int mpx_command_loop (void) {
 
 /** This function displays the Directory containing the MPX process files.
 */
-void mpxcmd_load (void) {
+void mpxcmd_load (int argc, char *argv[]) {
 	char buf[10];
 	char line_buf[MAX_LINE];
 	long file_size;
@@ -154,7 +157,7 @@ void mpxcmd_help (int argc, char *argv[]) {
 }
 
 /** The Version function displays MPX version information.*/
-void mpxcmd_version (void) {
+void mpxcmd_version (int argc, char *argv[]) {
 	mpx_cls();
 	printf("\n");
 	printf("  ==============================================\n");
@@ -190,7 +193,7 @@ void mpxcmd_prompt (void) {
 }
 
 /** The Date function allows the user to display or change the date of the MPX system. */
-void mpxcmd_date (void) {
+void mpxcmd_date (int argc, char *argv[]) {
 	date_rec date;
 	sys_get_date(&date);
 	printf("\n");
@@ -274,7 +277,7 @@ void mpxcmd_date (void) {
 }
 
 /** The Exit function allows the user to confirm if they want to exit MPX. */
-void mpxcmd_exit (void) {
+void mpxcmd_exit (int argc, char *argv[]) {
 	printf("\n");
 	printf("Are you sure you want to terminate MPX?\n");
 	if( mpxprompt_yn() ) {
