@@ -1,17 +1,19 @@
-Files:
----------------------------------------------------
+==========================
+= MPX Repository Layout: =
+==========================
 
-README.txt		This file.
+Top-level directory:
+--------------------
 
-doc/			Documentation.
-doc/R1-userint.pdf	R1 Requirements.
-doc/strtokex.c		An example of using strtok() in C for string tokenization.
+README.txt	This file.
+Doxyfile	Configuration file for Doxygen, the documentation generator.
+makeDoc.bat	Script to generate MPX documentation using Doxygen.
 
-src/			Source code.
-src/Makefile		Build instructions for GNU Make and Borland Turbo C++ 3.0
-src/mpx.c		Contains main().
-src/mpx_supt.c		Provided by instructor.
-src/mpx_supt.h		Provided by instructor.
-src/mystdlib.h		stdlib.h minus exit().
-src/ten.mpx		Dummy MPX executable (ten bytes long).
-src/zero.mpx		Dummy MPX executable (zero bytes long).
+upstream_software/	Tools and utilities for project developers.
+
+doc/		Project documentation. Includes documentation for upstream
+		software, information provided by the instructors, and misc.
+		reference materials.
+
+src/		MPX source code and makefile.
+

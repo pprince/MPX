@@ -1,0 +1,42 @@
+
+Downloaded from:  http://bryanlemon.com/cs450/schedule.html
+
+***** ALWAYS CHECK THERE FOR UPDATED INFORMATION *****
+
+
+
+Class Schedule
+--------------
+
+Aug 27 - Intro to MPX, Intro Turbo C, Groups Formed, R1 Assigned
+
+Sep 3 - R1 Continued, Demo of development environment
+
+Sep 10 - Module 2 Assigned
+
+Sep 17 - Module 1 Due
+
+Sep 24 - Module 2 Progress Demo
+
+Oct 1 - Module 3/4 Introduced
+
+Oct 8 - Module 2 Due
+
+Oct 15 - Module 5 Introduced
+
+Oct 22 - Module 3/4 Progress Demo
+
+Oct 29 - Module 3/4 Due
+
+Nov 5 - Module 6 Introduced
+
+Nov 12 - Module 5 Due
+
+Nov 19 - Module 6 Progress Demo
+
+Nov 26 - Thanksgiving Recess
+
+Dec 3 - Module 6 Demo
+
+Dec 10 - DEAD WEEK; Module 6 Due, Project Demos, Oral Exams
+

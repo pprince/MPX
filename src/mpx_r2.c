@@ -1,6 +1,5 @@
 #include "mpx_r2.h"
 #include "mpx_supt.h"
-#include "mpx_supt.c"
 #include "mystdlib.h"
 #include <string.h>
 #include <stdio.h>
