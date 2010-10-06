@@ -347,6 +347,7 @@ void mpxcmd_block(int argc, char *argv[]){
 		remove_PCB(pointer);
 		if( tempPCB -> state > 0 ) tempPCB -> state = BLOCKED;
 		if( tempPCB -> state < 0 && tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
+		insert_PCB(tempPCB);
 	}else{
 		printf("Process Name not found!");
 		return;
@@ -367,6 +368,7 @@ void mpxcmd_unblock(int argc, char *argv[]){
 		remove_PCB(pointer);
 		if( tempPCB -> state == BLOCKED ) tempPCB -> state = READY;
 		if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = SUSPENDED_READY;
+		insert_PCB(tempPCB);
 	}else{
 		printf("Process Name not found!");
 		return;
@@ -375,17 +377,65 @@ void mpxcmd_unblock(int argc, char *argv[]){
 
 /** This is a user function in the menu that puts a process in the suspend state it takes the process name as input*/
 void mpxcmd_suspend(int argc, char *argv[]){
+	char name[STRLEN];
+	PCB *pointer;
+	PCB *tempPCB;
+	printf("Name Of Process to suspend: \n");
+	sys_req(TERMINAL,READ,name,STRLEN);
 	
+	pointer = find_PCB(name);
+	if ( pointer != NULL){
+		tempPCB = copy_PCB(pointer);
+		remove_PCB(pointer);
+		if( tempPCB -> state == READY || tempPCB -> state == RUNNING ) tempPCB -> state = SUSPENDED_READY;
+		if( tempPCB -> state == BLOCKED ) tempPCB -> state = SUSPENDED_BLOCKED;
+		insert_PCB(tempPCB);
+	}else{
+		printf("Process Name not found!");
+		return;
+	}
 }
 
 /** This is a user function in the menu that puts a process in the ready state if previously blocked and blocked if previously suspended it takes the process name as input*/
 void mpxcmd_resume(int argc, char *argv[]){
+	char name[STRLEN];
+	PCB *pointer;
+	PCB *tempPCB;
+	printf("Name Of Process to resume: \n");
+	sys_req(TERMINAL,READ,name,STRLEN);
 	
+	pointer = find_PCB(name);
+	if ( pointer != NULL){
+		tempPCB = copy_PCB(pointer);
+		remove_PCB(pointer);
+		if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
+		if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
+		insert_PCB(tempPCB);
+	}else{
+		printf("Process Name not found!");
+		return;
+	}
 }
 
 /** This is a user function from the menu it changes the priority of a PCB and takes the name and desired priority as inputs80ij*/
 void mpxcmd_setPriority(int argc, char *argv[]){
+	char name[STRLEN];
+	PCB *pointer;
+	PCB *tempPCB;
+	printf("Name Of Process to unblock: \n");
+	sys_req(TERMINAL,READ,name,STRLEN);
 	
+	pointer = find_PCB(name);
+	if ( pointer != NULL){
+		tempPCB = copy_PCB(pointer);
+		remove_PCB(pointer);
+		if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
+		if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
+		insert_PCB(tempPCB);
+	}else{
+		printf("Process Name not found!");
+		return;
+	}
 }
 
 /** This is a user command from the menu it is used to show information about a specific PCB*/
