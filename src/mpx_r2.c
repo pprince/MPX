@@ -182,7 +182,7 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 	}
 	 node -> left = incr; //set left to previous node
 	 node -> right = NULL; // set right to null 
-	 quequeROOT -> count += 1; // increase count by one as the size of the queque has grown by one
+	 queueROOT -> count += 1; // increase count by one as the size of the queque has grown by one
 	 
 	 return;
 
@@ -210,13 +210,15 @@ PCB *find_PCB( char *name){
 void remove_PCB( PCB *process ){
 	ROOT *queue;
 	ELEM *incr;
+	ELEM *temp1;
+	ELEM *temp2;
 	
 	if ( process -> state == READY || process -> state == RUNNING ){
 		queue = rQueue;
 	}
-	if( PCBpointer -> state == BLOCKED || 
-		PCBpointer -> state == SUSPENDED_READY || 
-		PCBpointer -> state == SUSPENDED_BLOCKED ){
+	if( process -> state == BLOCKED || 
+		process -> state == SUSPENDED_READY || 
+		process -> state == SUSPENDED_BLOCKED ){
 		queue = wsQueue;
 	}
 	
@@ -228,21 +230,25 @@ void remove_PCB( PCB *process ){
 	
 	/*head case*/
 	if( incr -> left == NULL && incr->right != NULL ){ 
-		incr-> right -> left  = NULL;
-		queue -> node = incr -> right; //set quequeROOT to new head
+		incr = incr -> right;
+		incr -> left  = NULL;
+		queue -> node = incr -> right; //set queueROOT to new head
 		queue ->count -=1;
 	}
 	
 	/*tail case*/
 	if( incr -> left != NULL && incr->right == NULL ){
-		incr-> left-> right  = NULL;
+		incr = incr-> left;
+		incr -> right  = NULL;
 		queue -> count -=1;
 	}
 	
 	/*middle case*/
 	if( incr -> left != NULL && incr->right != NULL){
-		incr -> left -> right = incr -> right;
-		incr -> right -> left = incr -> left;
+		temp1 = incr -> left;
+		temp1 -> right = incr -> right;
+		temp2 = incr -> right;
+		temp2 -> left = incr -> left;
 		queue -> count -=1;
 	}
 	//Deallocate mem
@@ -255,13 +261,14 @@ void remove_PCB( PCB *process ){
 
 void mpxcmd_create_PCB(int argc, char *argv[]){
 	static int count = ZERO;
-		int isValid = ZERO;
+	int isValid = ZERO;
+	PCB *newPCB = allocate_PCB();	
 	if( count == ZERO ){
 		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 	}
 	
-	PCB *newPCB = allocate_PCB();
+	
 	
 	printf("Process Name: \n");
 	sys_req(TERMINAL,READ,newPCB -> name,STRLEN);
@@ -303,23 +310,20 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	insert_PCB(newPCB);
 	count++;//Update the number of times the function has run.
 }
-PCB *copy_PCB(PCB *pointer){
+PCB *copy_PCB(PCB *pointer){ // FIXME: MEMCPY needed
 		PCB *tempPCB = allocate_PCB();
-		(tempPCB -> name *) = (pointer -> name *);
+		tempPCB -> name  = pointer -> name ;
 		tempPCB -> classType = pointer -> classType;
 		tempPCB -> priority = pointer -> priority;
 		tempPCB -> state = pointer -> state;
-		(tempPCB -> memdsc *) = (pointer -> memdsc *)
-		(tempPCB -> stackdsc *) = (pointer -> stackdsc *)
+		tempPCB -> memdsc  = pointer -> memdsc 
+		tempPCB -> stackdsc  = pointer -> stackdsc
 	return tempPCB;
 }
 /** This is a user function in the menu to delete a process it takes the process name as input */
 void mpxcmd_delete_PCB(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
-	
-	
-	
 	printf("Name Of Process to Delete: \n");
 	sys_req(TERMINAL,READ,name,STRLEN);
 	
@@ -734,6 +738,3 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 	}
 }	
 }
-
-
-
