@@ -189,6 +189,7 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 }
 
 PCB *find_PCB( char *name){
+	ELEM *incr;
 	incr =  rQueue -> node; //set node to the first node in the queque
 	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first 
 			incr= incr -> right; // progrees to the right 
@@ -422,7 +423,7 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
 	PCB *tempPCB;
-	printf("Name Of Process to unblock: \n");
+	printf("Name Of Process to set Priority: \n");
 	sys_req(TERMINAL,READ,name,STRLEN);
 	
 	pointer = find_PCB(name);
@@ -438,14 +439,61 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 	}
 }
 
+
 /** This is a user command from the menu it is used to show information about a specific PCB*/
 void mpxcmd_show_PCB(int argc, char *argv[]){
-
+	char name[STRLEN];
+	PCB *pointer;
+	PCB *tempPCB;
+	printf("Name Of Process to set Priority: \n");
+	sys_req(TERMINAL,READ,name,STRLEN);
+	
+	pointer = find_PCB(name);
+	if ( pointer != NULL){
+		char class[30];
+		char state[45];
+		switch(pointer->class){
+			case SYSTEM:
+				class = "System";
+				break;
+			case APPLICATION:
+				class = "Application";
+				break;
+			default:
+				break;
+			}
+		switch(pointer->state){
+			case RUNNING:
+				state = "Running";
+				break;
+			case READY:
+				state = "Ready";
+				break;
+			case BLOCKED:
+				state = "Blocked";
+				break;
+			case SUSPENDED_READY:
+				state = "Suspended Ready";
+				break;
+			case SUSPENDED_BLOCKED:
+				state = "Suspended Blocked";
+				break;
+			default:
+				break;
+		}
+		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
+	}else{
+		printf("Process Name not found!");
+		return;
+	}
 }
 
 /** This is a user functions that shows name and state of all processes */
 void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	// redo
+	ELEM *incr;
+	incr = rQueue -> node;
+	
+	
 }
 
 /** This is a user function that shows all non-suspended processes followed by suspended processes */
