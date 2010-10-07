@@ -19,13 +19,13 @@ typedef struct mpx_cmd {
 
 /* Prototypes */
 
-int	mpx_command_loop	(void);
-void	mpxcmd_exit		(void);
+int		mpx_command_loop(void);
+void	mpxcmd_exit		(int argc, char *argv[]);
 void	mpxcmd_help		(int argc, char *argv[]);
-void	mpxcmd_load		(void);
-void	mpxcmd_date		(void);
-void	mpxcmd_version		(void);
-void	mpxcmd_prompt		(void);
+void	mpxcmd_load		(int argc, char *argv[]);
+void	mpxcmd_date		(int argc, char *argv[]);
+void	mpxcmd_version	(int argc, char *argv[]);
+void	mpxcmd_prompt	(void);
 
 
 #endif

@@ -166,7 +166,7 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
 	node -> process = PCBpointer;// add the PCB to the node
 	
-	if( quequeROOT -> node = NULL ){ // if this is the first element ever in the queque
+	if( queueROOT -> node = NULL ){ // if this is the first element ever in the queque
 		node -> left = NULL; // set the link left to null
 		node -> right = NULL;// set the link right to null
 		queueROOT -> node = node; // Set the first element in the queque to node of Type Element
@@ -211,7 +211,7 @@ void remove_PCB( PCB *process ){
 	ROOT *queue;
 	ELEM *incr;
 	
-	if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
+	if ( process -> state == READY || process -> state == RUNNING ){
 		queue = rQueue;
 	}
 	if( PCBpointer -> state == BLOCKED || 
@@ -221,7 +221,7 @@ void remove_PCB( PCB *process ){
 	}
 	
 	incr = queue-> node; //set node to the first node in the queque
-	while ( (incr -> process != process && incr != NULL ){ // find the same process
+	while ( (incr -> process != process ) && incr != NULL ){ // find the same process
 			incr = incr -> right; // progrees to the right 
 	}
 	/* There are three cases to check for head, tail, and middle*/
