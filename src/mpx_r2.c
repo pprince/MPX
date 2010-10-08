@@ -69,7 +69,7 @@ void setup_PCB( PCB *pointer ){
 	int i;///< counter varable for loop 
 	unsigned char *stack;///< pointer to what will become the bottom of the stack 
 	//Allocate the stack
-	stack = (unsigned char*) sys_mem_alloc(STACKSIZE);
+	stack = (unsigned char*) sys_alloc_mem(STACKSIZE);
 	
 	
 		
