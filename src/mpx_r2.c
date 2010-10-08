@@ -262,6 +262,9 @@ void remove_PCB( PCB *process ){
 void mpxcmd_create_PCB(int argc, char *argv[]){
 	static int count = ZERO;
 	int isValid = ZERO;
+	char in[10];
+	int temp;
+	int buffs;
 	PCB *newPCB = allocate_PCB();	
 	if( count == ZERO ){
 		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
@@ -271,18 +274,28 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 	
 	printf("Process Name: \n");
-	sys_req(TERMINAL,READ,newPCB -> name,STRLEN);
+	buffs = STRLEN;
+	sys_req(TERMINAL,READ,newPCB -> name,&buffs);
 	printf("Process Class Type ( Application 0 or System  1): \n" );
-	sys_req(TERMINAL,READ,newPCB -> classType,2);
+	buffs = 2;
+	sys_req(TERMINAL,READ,in,&buffs);
+	temp = atoi(in);
+	if( temp == 1 ) newPCB -> classType = SYSTEM;
+	if(temp == 0 ) newPCB -> classType = APPLICATION;
+	temp = 0;
 	printf("Process Priority (-128 to 127): /n");
-	sys_req(TERMINAL,READ,newPCB -> priority,4);
-	
+	buffs = 5;
+	sys_req(TERMINAL,READ,in,&buffs);
+	temp = atoi(in);
+	if( temp <= 127 && temp >= -128 ) newPCB -> priority = temp;
+	temp = 0;
 	while( isValid !=  1 ){
 		//check name validity
 		if ( find_PCB( newPCB -> name ) != NULL ) {
 			printf("Process Name NOT VALID");
 			printf("Process Name: \n");
-			sys_req(TERMINAL,READ,newPCB -> name,STRLEN);
+			buffs = STRLEN;
+			sys_req(TERMINAL,READ,newPCB -> name,&buffs);
 			isValid = 0;
 		}else{
 			isValid = 1;
@@ -293,16 +306,23 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 		}else{
 			printf("Process Class Type NOT VALID!");
 			printf("Process Class Type ( Application 0 or System  1): \n" );
-			sys_req(TERMINAL,READ,newPCB -> classType,2);
+			buffs = 2;
+			sys_req(TERMINAL,READ,in,&buffs);
+			temp = atoi(in);
+			if( temp == 1 ) newPCB -> classType = SYSTEM;
+			if(temp == 0 ) newPCB -> classType = APPLICATION;
+			temp = 0;
 			isValid = 0;
 		}
 		//check Priority
 		if( 127 <= newPCB -> priority || -128 >= newPCB -> priority ){
 		    isValid = 1;
 		} else{
-			printf("Process Priority (-128 to 127): /n");
-			sys_req(TERMINAL,READ,newPCB -> priority,4);
-			isValid = 0;
+			buffs = 5;
+			sys_req(TERMINAL,READ,in,&buffs);
+			temp = atoi(in);
+			if( temp <= 127 && temp >= -128 ) newPCB -> priority = temp;
+			temp = 0;
 		}
 	}
 	
@@ -312,20 +332,19 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 }
 PCB *copy_PCB(PCB *pointer){ // FIXME: MEMCPY needed
 		PCB *tempPCB = allocate_PCB();
-		tempPCB -> name  = pointer -> name ;
-		tempPCB -> classType = pointer -> classType;
-		tempPCB -> priority = pointer -> priority;
-		tempPCB -> state = pointer -> state;
-		tempPCB -> memdsc  = pointer -> memdsc 
-		tempPCB -> stackdsc  = pointer -> stackdsc
+		memcpy(tempPCB,pointer,sizeof(PCB));
+		memcpy(tempPCB -> memdsc, pointer -> memdsc , sizeof(MEMDSC));
+		memcpy(tempPCB -> stackdsc ,pointer -> stackdsc, sizeof(STACKDSC));
 	return tempPCB;
 }
 /** This is a user function in the menu to delete a process it takes the process name as input */
 void mpxcmd_delete_PCB(int argc, char *argv[]){
 	char name[STRLEN];
+	int buffs;
 	PCB *pointer;
+	buffs = STRLEN;
 	printf("Name Of Process to Delete: \n");
-	sys_req(TERMINAL,READ,name,STRLEN);
+	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
@@ -343,8 +362,9 @@ void mpxcmd_block(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
 	PCB *tempPCB;
+	int buffs = STRLEN;
 	printf("Name Of Process to block: \n");
-	sys_req(TERMINAL,READ,name,STRLEN);
+	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
@@ -364,8 +384,9 @@ void mpxcmd_unblock(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
 	PCB *tempPCB;
+	int buffs = STRLEN;
 	printf("Name Of Process to unblock: \n");
-	sys_req(TERMINAL,READ,name,STRLEN);
+	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
@@ -385,8 +406,9 @@ void mpxcmd_suspend(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
 	PCB *tempPCB;
+	int buffs = STRLEN;
 	printf("Name Of Process to suspend: \n");
-	sys_req(TERMINAL,READ,name,STRLEN);
+	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
@@ -406,8 +428,9 @@ void mpxcmd_resume(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
 	PCB *tempPCB;
+	int buffs = STRLEN;
 	printf("Name Of Process to resume: \n");
-	sys_req(TERMINAL,READ,name,STRLEN);
+	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
@@ -427,8 +450,9 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
 	PCB *tempPCB;
+	int buffs = STRLEN;
 	printf("Name Of Process to set Priority: \n");
-	sys_req(TERMINAL,READ,name,STRLEN);
+	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
@@ -448,15 +472,16 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 void mpxcmd_show_PCB(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
-	PCB *tempPCB;
+	
+	int buffs = STRLEN;
 	printf("Name Of Process to set Priority: \n");
-	sys_req(TERMINAL,READ,name,STRLEN);
+	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
 		char class[30];
 		char state[45];
-		switch(pointer->class){
+		switch(pointer->classType){
 			case SYSTEM:
 				class = "System";
 				break;
@@ -485,7 +510,7 @@ void mpxcmd_show_PCB(int argc, char *argv[]){
 			default:
 				break;
 		}
-		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
+		printf("Name: %s \n Class: %s \n Priority: %d \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 	}else{
 		printf("Process Name not found!");
 		return;
@@ -622,7 +647,7 @@ void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs 
 		if ( pointer -> state != SUSPENDED_READY) break;
 		char class[30];
 		char state[45];
-		switch(pointer->class){
+		switch(pointer->classType){
 			case SYSTEM:
 				class = "System";
 				break;
@@ -667,7 +692,7 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 		if ( pointer -> state != BLOCKED) break;
 		char class[30];
 		char state[45];
-		switch(pointer->class){
+		switch(pointer->classType){
 			case SYSTEM:
 				class = "System";
 				break;
@@ -704,7 +729,7 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 		if ( pointer -> state != SUSPENDED_BLOCKED) break;
 		char class[30];
 		char state[45];
-		switch(pointer->class){
+		switch(pointer->classType){
 			case SYSTEM:
 				class = "System";
 				break;
