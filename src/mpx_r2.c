@@ -472,44 +472,33 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 void mpxcmd_show_PCB(int argc, char *argv[]){
 	char name[STRLEN];
 	PCB *pointer;
-	
+	char class[30];
+	char state[45];
 	int buffs = STRLEN;
 	printf("Name Of Process to set Priority: \n");
 	sys_req(TERMINAL,READ,name,&buffs);
 	
 	pointer = find_PCB(name);
 	if ( pointer != NULL){
-		char class[30];
-		char state[45];
-		switch(pointer->classType){
-			case SYSTEM:
-				class = "System";
-				break;
-			case APPLICATION:
-				class = "Application";
-				break;
-			default:
-				break;
-			}
-		switch(pointer->state){
-			case RUNNING:
-				state = "Running";
-				break;
-			case READY:
-				state = "Ready";
-				break;
-			case BLOCKED:
-				state = "Blocked";
-				break;
-			case SUSPENDED_READY:
-				state = "Suspended Ready";
-				break;
-			case SUSPENDED_BLOCKED:
-				state = "Suspended Blocked";
-				break;
-			default:
-				break;
-		}
+		
+		
+		if ( pointer -> classType  == APPLICATION )
+			strcpy( class, "Application" );
+		if (  pointer -> classType == SYSTEM )
+			strcpy ( class, "System" );
+		
+		
+		if ( pointer -> state == RUNNING ) 
+			strcpy( state , "Running" );
+		if ( pointer -> state == READY ) 
+			strcpy( state, "Ready" );
+		if ( pointer -> state == BLOCKED ) 
+			strcpy( state, "Blocked" );
+		if ( pointer -> state == SUSPENDED_READY ) 
+			strcpy( state ,"Suspened Ready" );
+		if ( pointer -> state == SUSPENDED_BLOCKED ) 
+			strcpy( state , "Suspened Blocked" ) ;
+		
 		printf("Name: %s \n Class: %s \n Priority: %d \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 	}else{
 		printf("Process Name not found!");
@@ -520,42 +509,32 @@ void mpxcmd_show_PCB(int argc, char *argv[]){
 /** This is a user functions that shows name and state of all processes */
 void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
 	ELEM *incr;
-	incr = rQueue -> node;//set node to the first node in the queque
 	PCB *pointer;
+	char class[30];
+	char state[45];
+	incr = rQueue -> node;//set node to the first node in the queque
 	while( incr -> right != NULL ){
 		
 		pointer = incr -> process;
-		char class[30];
-		char state[45];
-		switch(pointer->class){
-			case SYSTEM:
-				class = "System";
-				break;
-			case APPLICATION:
-				class = "Application";
-				break;
-			default:
-				break;
-			}
-		switch(pointer->state){
-			case RUNNING:
-				state = "Running";
-				break;
-			case READY:
-				state = "Ready";
-				break;
-			case BLOCKED:
-				state = "Blocked";
-				break;
-			case SUSPENDED_READY:
-				state = "Suspended Ready";
-				break;
-			case SUSPENDED_BLOCKED:
-				state = "Suspended Blocked";
-				break;
-			default:
-				break;
-		}
+		
+		if ( pointer -> classType  == APPLICATION )
+			strcpy( class, "Application" );
+		if (  pointer -> classType == SYSTEM )
+			strcpy ( class, "System" );
+		
+		
+		if ( pointer -> state == RUNNING ) 
+			strcpy( state , "Running" );
+		if ( pointer -> state == READY ) 
+			strcpy( state, "Ready" );
+		if ( pointer -> state == BLOCKED ) 
+			strcpy( state, "Blocked" );
+		if ( pointer -> state == SUSPENDED_READY ) 
+			strcpy( state ,"Suspened Ready" );
+		if ( pointer -> state == SUSPENDED_BLOCKED ) 
+			strcpy( state , "Suspened Blocked" ) ;
+		
+		
 		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 		incr = incr -> right; // progress forward to the right of the queque
 	}
@@ -563,37 +542,24 @@ void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs ad
 	while( incr -> right != NULL ){
 		
 		pointer = incr -> process;
-		char class[30];
-		char state[45];
-		switch(pointer->class){
-			case SYSTEM:
-				class = "System";
-				break;
-			case APPLICATION:
-				class = "Application";
-				break;
-			default:
-				break;
-			}
-		switch(pointer->state){
-			case RUNNING:
-				state = "Running";
-				break;
-			case READY:
-				state = "Ready";
-				break;
-			case BLOCKED:
-				state = "Blocked";
-				break;
-			case SUSPENDED_READY:
-				state = "Suspended Ready";
-				break;
-			case SUSPENDED_BLOCKED:
-				state = "Suspended Blocked";
-				break;
-			default:
-				break;
-		}
+	
+		if ( pointer -> classType  == APPLICATION )
+			strcpy( class, "Application" );
+		if (  pointer -> classType == SYSTEM )
+			strcpy ( class, "System" );
+		
+		
+		if ( pointer -> state == RUNNING ) 
+			strcpy( state , "Running" );
+		if ( pointer -> state == READY ) 
+			strcpy( state, "Ready" );
+		if ( pointer -> state == BLOCKED ) 
+			strcpy( state, "Blocked" );
+		if ( pointer -> state == SUSPENDED_READY ) 
+			strcpy( state ,"Suspened Ready" );
+		if ( pointer -> state == SUSPENDED_BLOCKED ) 
+			strcpy( state , "Suspened Blocked" ) ;
+		
 		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 		incr = incr -> right; // progress forward to the right of the queque
 	}
@@ -602,80 +568,57 @@ void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs ad
 /** This is a user function that shows all non-suspended processes followed by suspended processes */
 void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
 	ELEM *incr;
-	incr = rQueue -> node;//set node to the first node in the queque
 	PCB *pointer;
+	char class[30];
+	char state[45];
+	incr = rQueue -> node;//set node to the first node in the queque
+	
 	while( incr -> right != NULL ){
 		
 		pointer = incr -> process;
 		if ( pointer -> state != READY) break;
-		char class[30];
-		char state[45];
-		switch(pointer->class){
-			case SYSTEM:
-				class = "System";
-				break;
-			case APPLICATION:
-				class = "Application";
-				break;
-			default:
-				break;
-			}
-		switch(pointer->state){
-			case RUNNING:
-				state = "Running";
-				break;
-			case READY:
-				state = "Ready";
-				break;
-			case BLOCKED:
-				state = "Blocked";
-				break;
-			case SUSPENDED_READY:
-				state = "Suspended Ready";
-				break;
-			case SUSPENDED_BLOCKED:
-				state = "Suspended Blocked";
-				break;
-			default:
-				break;
-		}
+		
+		if ( pointer -> classType  == APPLICATION )
+			strcpy( class, "Application" );
+		if (  pointer -> classType == SYSTEM )
+			strcpy ( class, "System" );
+		
+		
+		if ( pointer -> state == RUNNING ) 
+			strcpy( state , "Running" );
+		if ( pointer -> state == READY ) 
+			strcpy( state, "Ready" );
+		if ( pointer -> state == BLOCKED ) 
+			strcpy( state, "Blocked" );
+		if ( pointer -> state == SUSPENDED_READY ) 
+			strcpy( state ,"Suspened Ready" );
+		if ( pointer -> state == SUSPENDED_BLOCKED ) 
+			strcpy( state , "Suspened Blocked" ) ;
+		
 		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 		incr = incr -> right; // progress forward to the right of the queque
 	}
 	while( incr -> right != NULL ){
 		pointer = incr -> process;
 		if ( pointer -> state != SUSPENDED_READY) break;
-		char class[30];
-		char state[45];
-		switch(pointer->classType){
-			case SYSTEM:
-				class = "System";
-				break;
-			case APPLICATION:
-				class = "Application";
-				break;
-			default:
-				break;
-			}
-		switch(pointer->state){
-			case RUNNING:
-				state = "Running";
-				break;
-			case READY:
-				state = "Ready";
-				break;
-			case BLOCKED:
-				state = "Blocked";
-				break;
-			case SUSPENDED_READY:
-				state = "Suspended Ready";
-				break;
-			case SUSPENDED_BLOCKED:
-				state = "Suspended Blocked";
-				break;
-			default:
-				break;
-		}
+		
+		if ( pointer -> classType  == APPLICATION )
+			strcpy( class, "Application" );
+		if (  pointer -> classType == SYSTEM )
+			strcpy ( class, "System" );
+		
+		
+		if ( pointer -> state == RUNNING ) 
+			strcpy( state , "Running" );
+		if ( pointer -> state == READY ) 
+			strcpy( state, "Ready" );
+		if ( pointer -> state == BLOCKED ) 
+			strcpy( state, "Blocked" );
+		if ( pointer -> state == SUSPENDED_READY ) 
+			strcpy( state ,"Suspened Ready" );
+		if ( pointer -> state == SUSPENDED_BLOCKED ) 
+			strcpy( state , "Suspened Blocked" ) ;
+		
 		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 		incr = incr -> right; // progress forward to the right of the queque
 	}
@@ -684,82 +627,60 @@ void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs 
 /** This is a user function that shows all blocked processes followed by non-blocked processes */
 void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
 	ELEM *incr;
-	incr = rQueue -> node;//set node to the first node in the queque
+	char class[30];
+	char state[45];
 	PCB *pointer;
+	incr = rQueue -> node;//set node to the first node in the queque
 	while( incr -> right != NULL ){
 		
 		pointer = incr -> process;
 		if ( pointer -> state != BLOCKED) break;
-		char class[30];
-		char state[45];
-		switch(pointer->classType){
-			case SYSTEM:
-				class = "System";
-				break;
-			case APPLICATION:
-				class = "Application";
-				break;
-			default:
-				break;
-			}
-		switch(pointer->state){
-			case RUNNING:
-				state = "Running";
-				break;
-			case READY:
-				state = "Ready";
-				break;
-			case BLOCKED:
-				state = "Blocked";
-				break;
-			case SUSPENDED_READY:
-				state = "Suspended Ready";
-				break;
-			case SUSPENDED_BLOCKED:
-				state = "Suspended Blocked";
-				break;
-			default:
-				break;
-		}
+		
+		
+		if ( pointer -> classType  == APPLICATION )
+			strcpy( class, "Application" );
+		if (  pointer -> classType == SYSTEM )
+			strcpy ( class, "System" );
+		
+		
+		if ( pointer -> state == RUNNING ) 
+			strcpy( state , "Running" );
+		if ( pointer -> state == READY ) 
+			strcpy( state, "Ready" );
+		if ( pointer -> state == BLOCKED ) 
+			strcpy( state, "Blocked" );
+		if ( pointer -> state == SUSPENDED_READY ) 
+			strcpy( state ,"Suspened Ready" );
+		if ( pointer -> state == SUSPENDED_BLOCKED ) 
+			strcpy( state , "Suspened Blocked" ) ;
+		
+		
 		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 		incr = incr -> right; // progress forward to the right of the queque
 	}
 	while( incr -> right != NULL ){
 		pointer = incr -> process;
 		if ( pointer -> state != SUSPENDED_BLOCKED) break;
-		char class[30];
-		char state[45];
-		switch(pointer->classType){
-			case SYSTEM:
-				class = "System";
-				break;
-			case APPLICATION:
-				class = "Application";
-				break;
-			default:
-				break;
-			}
-		switch(pointer->state){
-			case RUNNING:
-				state = "Running";
-				break;
-			case READY:
-				state = "Ready";
-				break;
-			case BLOCKED:
-				state = "Blocked";
-				break;
-			case SUSPENDED_READY:
-				state = "Suspended Ready";
-				break;
-			case SUSPENDED_BLOCKED:
-				state = "Suspended Blocked";
-				break;
-			default:
-				break;
-		}
+		
+		if ( pointer -> classType  == APPLICATION )
+			strcpy( class, "Application" );
+		if (  pointer -> classType == SYSTEM )
+			strcpy ( class, "System" );
+		
+		
+		if ( pointer -> state == RUNNING ) 
+			strcpy( state , "Running" );
+		if ( pointer -> state == READY ) 
+			strcpy( state, "Ready" );
+		if ( pointer -> state == BLOCKED ) 
+			strcpy( state, "Blocked" );
+		if ( pointer -> state == SUSPENDED_READY ) 
+			strcpy( state ,"Suspened Ready" );
+		if ( pointer -> state == SUSPENDED_BLOCKED ) 
+			strcpy( state , "Suspened Blocked" ) ;
+		
 		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
 		incr = incr -> right; // progress forward to the right of the queque
 	}
 }	
-}
+

@@ -1,13 +1,12 @@
 #ifndef MPX_R2_HFILE
 #define MPX_R2_HFILE
 /* Symbolic Constants */
-#define RUNNING 0x02///< state is Defined as 0x02H
-#define READY   0x04///< state is Defined as 0x04H
-#define BLOCKED 0x08///< state is defined as 0x08H
-#define SUSPEND  -0xF///<is a constant to place a process in a suspened state.
+#define RUNNING  0///< state is Defined as 0
+#define READY   1///< state is Defined as  1
+#define BLOCKED 2 ///< state is defined as 2
 
-#define SUSPENDED_READY    -0xB ///< is defined by SUSPEND + READY
-#define SUSPENDED_BLOCKED  -0x7 ///< is defined by SUSSPEND + BLOCKED
+#define SUSPENDED_READY    3 ///< is defined by 3
+#define SUSPENDED_BLOCKED  4 ///< is defined by 4
 
 #define SYSTEM  1 ///< is defined as 1
 #define APPLICATION  0  ///< is defined as 0 

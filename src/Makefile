@@ -20,7 +20,7 @@ OBJS=mpx.obj mpx_supt.obj mpx_util.obj mpx_r2.obj mpx_cmd.obj
 # Turn .c files into .o (object) files.
 %.obj : %.c
 	$(CC) $(CFLAGS) -oOBJECT.TMP -c $<
-	mv OBJECT.TMP $@
+	copy OBJECT.TMP $@
 
 
 # Explicit Rules #
@@ -28,12 +28,12 @@ OBJS=mpx.obj mpx_supt.obj mpx_util.obj mpx_r2.obj mpx_cmd.obj
 
 mpx.exe: $(OBJS) mpx.c
 	$(CC) $(CCFLAGS) -eEXE.EXE $(OBJS)
-	mv EXE.EXE $@
+	copy EXE.EXE $@
 
 # Default make target
 all: mpx.exe
 
 # Clean target (removes build output)
 clean:
-	rm -f  *.obj *.OBJ  *.map *.MAP  *.exe *.EXE  *.tmp *.TMP
+	del -f  *.obj *.OBJ  *.map *.MAP  *.exe *.EXE  *.tmp *.TMP
 
