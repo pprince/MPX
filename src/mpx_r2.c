@@ -20,11 +20,12 @@ PCB *allocate_PCB( void ){
 	STACKDSC *newStackDsc;///<pointer to the stack descriptor
 	unsigned char *stack; ///< pointer to the stack low address
 	
+	
 	// Allocate memory to each of the disctenct parts of the PCB
 	newStackDsc = (STACKDSC*) sys_alloc_mem(sizeof(STACKDSC));
 	newMemDsc = (MEMDSC*) sys_alloc_mem(sizeof(MEMDSC));
 	newPCB = (PCB*) sys_alloc_mem(sizeof(PCB));
-	
+	stack = (unsigned char*) sys_alloc_mem(STACKSIZE*sizeof(unsigned char));
 	
 	if ( stack == NULL || 
 		 newStackDsc == NULL || 
@@ -32,14 +33,14 @@ PCB *allocate_PCB( void ){
 		 newPCB == NULL ) return NULL;
 	
 	//Setup Memory Descriptor with Default Values for Module 2
-	newPCB -> memdsc -> size = 0;
-	newPCB -> memdsc -> loadADDR = NULL;
-	newPCB -> memdsc -> execADDR = NULL;
+	newMemDsc -> size = 0;
+	newMemDsc -> loadADDR = NULL;
+	newMemDsc -> execADDR = NULL;
 	
 	//Setup the Stack
 	for( i = 0; i < STACKSIZE; i++)  *(stack + i) = 0; //ZERO out Stack to aid in debug....
-	newPCB -> stackdsc -> base = stack; // x86 arch Stacks start at the Higest value 
-	newPCB -> stackdsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
+	newStackDsc -> base = stack; // x86 arch Stacks start at the Higest value 
+	newStackDsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
 	
 	//Bundling Opereations of Stack Descripter Bellow
 	newPCB -> stackdsc = newStackDsc;  // stack descriptor is placed in the PCB
