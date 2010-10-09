@@ -38,7 +38,8 @@ PCB *allocate_PCB( void ){
 	newMemDsc -> execADDR = NULL;
 	
 	//Setup the Stack
-	for( i = 0; i < STACKSIZE; i++)  *(stack + i) = 0; //ZERO out Stack to aid in debug....
+
+	memset(stack,0,STACKSIZE*sizeof(unsigned char));//ZERO out Stack to aid in debug....
 	newStackDsc -> base = stack; // x86 arch Stacks start at the Higest value 
 	newStackDsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
 	
@@ -82,7 +83,8 @@ int free_PCB( PCB *pointer /*< [in] is a pointer to a PCB  */ ){
 int setup_PCB( PCB *pointer, char *Name, int classType, int state, int priority ){
 	
 	char *name = pointer -> name;
-	name = Name;
+	strcpy(name,Name);
+	printf("%s \n", pointer -> name);
 	pointer -> classType = (signed char) classType;
 	pointer -> state = (signed char )  state; 
 	pointer -> priority =(signed char) priority;
@@ -302,7 +304,6 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	}
 	
 	
-	//FIXME: change to mpx_readline
 	printf("Process Name: \n");
 	mpx_readline(name, STRLEN);
 	printf("Process Class Type ( Application 0 or System  1): \n" );
@@ -312,9 +313,9 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 	
 	
-	//setup_PCB(newPCB,name,type,READY,priority);
-	lp = string_PCB(newPCB);
-	printf("%s",lp);
+	setup_PCB(newPCB,&name,type,READY,priority);
+	//lp = string_PCB(newPCB);
+	//printf("%s",lp);
 	mpxprompt_anykey();
 	insert_PCB(newPCB);
 	count++;//Update the number of times the function has run.
