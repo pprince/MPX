@@ -157,13 +157,41 @@ void mpxcmd_load (int argc, char *argv[]) {
 	return;
 }
 
-/** The Help function displays the help for MPX. */
-void mpxcmd_help (int argc, char *argv[]) {
-	mpx_cls();
-	printf("\n");
-	printf("  MPX HELP:\n");
-	printf(" .. coming soon.\n");
-
+// this is a user menu funtion designed to give info about other functions takes one or no inputs
+void mpx_help(int argc, char *argv[]){
+	FILE *fp;
+	long fileSize;
+	char* buffer;
+	char fileName[STRLEN];
+	size_t data;	
+	strcpy(fileName,argv[0]);
+	sprintf(buffer,"help\%s",fileName); 
+	
+	fprintf("TEST");
+	
+	if(argc==1){ // specific function help
+		fp=fopen(fileName,"r");
+		fseek(fp,0,SEEK_END);
+		fileSize=ftell(fp);
+		rewind(fp);
+		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
+		data = fread (buffer,1,fileSize,fp);
+		fprintf("%s",buffer);
+	}
+	else if(argc==0){ // general help
+		fp=fopen(fileName,"r");	
+		fseek(fp,0,SEEK_END);
+		fileSize=ftell(fp);
+		rewind(fp);
+		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
+		data = fread (buffer,1,fileSize,fp);
+		fprintf("%s",buffer);
+	}
+	else{
+		printf("Wrong number of arguments used or no such command");	
+		return;
+	}
+	fclose(fp);
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;
 }

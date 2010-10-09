@@ -609,14 +609,35 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 
 // this is a user menu funtion designed to give info about other functions takes one or no inputs
 void mpx_help(int argc, char *argv[]){
-	if(argc==1){ // specific function help
+	FILE *fp;
+	long fileSize;
+	char* buffer;
+	char fileName[STRLEN];
+	size_t data;	
+	strcpy(fileName,argv[0]);
+	sprintf(buffer,"help\%s",fileName); 
 	
+	if(argc==1){ // specific function help
+		fp=fopen(fileName,"r");
+		fseek(fp,0,SEEK_END);
+		fileSize=ftell(fp);
+		rewind(fp);
+		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
+		data = fread (buffer,1,fileSize,fp);
+		fprintf("%s",buffer);
 	}
 	else if(argc==0){ // general help
-		
+		fp=fopen(fileName,"r");	
+		fseek(fp,0,SEEK_END);
+		fileSize=ftell(fp);
+		rewind(fp);
+		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
+		data = fread (buffer,1,fileSize,fp);
+		fprintf("%s",buffer);
 	}
 	else{
-		printf("Wrong number of arguments used");	
+		printf("Wrong number of arguments used or no such command");	
 		return;
 	}
+	fclose(fp);
 }
