@@ -348,10 +348,12 @@ void mpxcmd_delete_PCB(int argc, char *argv[]){
 /** This is a user function in the menu that puts a process in the blocked state it takes the process name as input*/
 void mpxcmd_block(int argc, char *argv[]){
 	if(argc==1){
-		char name[STRLEN]=argv[0];
+		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
+		
 		int buffs = STRLEN;
+		strcpy(name,argv[0]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -374,10 +376,12 @@ void mpxcmd_block(int argc, char *argv[]){
 /** This is a user function in the menu that puts a process in the unblocked state it takes the process name as input*/
 void mpxcmd_unblock(int argc, char *argv[]){
 	if(argc==1){
-		char name[STRLEN]=argv[0];
+		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
 		int buffs = STRLEN;
+		
+		strcpy(name,argv[0]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -400,10 +404,11 @@ void mpxcmd_unblock(int argc, char *argv[]){
 /** This is a user function in the menu that puts a process in the suspend state it takes the process name as input*/
 void mpxcmd_suspend(int argc, char *argv[]){
 	if(argc==1){
-		char name[STRLEN]=argv[0];
+		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
 		int buffs = STRLEN;
+		strcpy(name,argv[0]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -426,10 +431,12 @@ void mpxcmd_suspend(int argc, char *argv[]){
 /** This is a user function in the menu that puts a process in the ready state if previously blocked and blocked if previously suspended it takes the process name as input*/
 void mpxcmd_resume(int argc, char *argv[]){
 	if(argc==1){
-		char name[STRLEN]=argv[0];
+		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
 		int buffs = STRLEN;
+		
+		strcpy(name,argv[0]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -452,10 +459,12 @@ void mpxcmd_resume(int argc, char *argv[]){
 /** This is a user function from the menu it changes the priority of a PCB and takes the name and desired priority as inputs80ij*/
 void mpxcmd_setPriority(int argc, char *argv[]){
 	if(argc==1){
-		char name[STRLEN]=argv[0];
+		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
 		int buffs = STRLEN;
+		
+		strcpy(name,argv[0]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -479,12 +488,14 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 /** This is a user command from the menu it is used to show information about a specific PCB*/
 void mpxcmd_show_PCB(int argc, char *argv[]){
 	if(argc==1){
-		char name[STRLEN]==argv[0];
+		char name[STRLEN];
 		PCB *pointer;
 		char class[30];
 		char state[45];
 		int buffs = STRLEN;
-
+		
+		strcpy(name,argv[0]);
+		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
 			printf("%s\n",string_PCB(pointer)); 
