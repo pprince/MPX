@@ -348,110 +348,139 @@ void mpxcmd_delete_PCB(int argc, char *argv[]){
 
 /** This is a user function in the menu that puts a process in the blocked state it takes the process name as input*/
 void mpxcmd_block(int argc, char *argv[]){
-	char name[STRLEN];
-	PCB *pointer;
-	PCB *tempPCB;
-	int buffs = STRLEN;
-	printf("Name Of Process to block: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
-	
-	pointer = find_PCB(name);
-	if ( pointer != NULL){
-		tempPCB = copy_PCB(pointer);
-		remove_PCB(pointer);
-		if( tempPCB -> state > 0 ) tempPCB -> state = BLOCKED;
-		if( tempPCB -> state < 0 && tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
-		insert_PCB(tempPCB);
-	}else{
-		printf("Process Name not found!");
-		return;
+	if(argc==1){
+		char name[STRLEN];
+		PCB *pointer;
+		PCB *tempPCB;
+		
+		int buffs = STRLEN;
+		strcpy(name,argv[0]);
+		
+		pointer = find_PCB(name);
+		if ( pointer != NULL){
+			tempPCB = copy_PCB(pointer);
+			remove_PCB(pointer);
+			if( tempPCB -> state > 0 ) tempPCB -> state = BLOCKED;
+			if( tempPCB -> state < 0 && tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
+			insert_PCB(tempPCB);
+		}else{
+			printf("Process Name not found!");
+			return;
+		}
 	}
+	else{
+		printf("Wrong number of arguments used");	
+		return;
+	}	
 }
 
 /** This is a user function in the menu that puts a process in the unblocked state it takes the process name as input*/
 void mpxcmd_unblock(int argc, char *argv[]){
-	char name[STRLEN];
-	PCB *pointer;
-	PCB *tempPCB;
-	int buffs = STRLEN;
-	printf("Name Of Process to unblock: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
-	
-	pointer = find_PCB(name);
-	if ( pointer != NULL){
-		tempPCB = copy_PCB(pointer);
-		remove_PCB(pointer);
-		if( tempPCB -> state == BLOCKED ) tempPCB -> state = READY;
-		if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = SUSPENDED_READY;
-		insert_PCB(tempPCB);
-	}else{
-		printf("Process Name not found!");
+	if(argc==1){
+		char name[STRLEN];
+		PCB *pointer;
+		PCB *tempPCB;
+		int buffs = STRLEN;
+		
+		strcpy(name,argv[0]);
+		
+		pointer = find_PCB(name);
+		if ( pointer != NULL){
+			tempPCB = copy_PCB(pointer);
+			remove_PCB(pointer);
+			if( tempPCB -> state == BLOCKED ) tempPCB -> state = READY;
+			if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = SUSPENDED_READY;
+			insert_PCB(tempPCB);
+		}else{
+			printf("Process Name not found!");
+			return;
+		}
+	}
+	else{
+		printf("Wrong number of arguments used");	
 		return;
 	}
 }
 
 /** This is a user function in the menu that puts a process in the suspend state it takes the process name as input*/
 void mpxcmd_suspend(int argc, char *argv[]){
-	char name[STRLEN];
-	PCB *pointer;
-	PCB *tempPCB;
-	int buffs = STRLEN;
-	printf("Name Of Process to suspend: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
-	
-	pointer = find_PCB(name);
-	if ( pointer != NULL){
-		tempPCB = copy_PCB(pointer);
-		remove_PCB(pointer);
-		if( tempPCB -> state == READY || tempPCB -> state == RUNNING ) tempPCB -> state = SUSPENDED_READY;
-		if( tempPCB -> state == BLOCKED ) tempPCB -> state = SUSPENDED_BLOCKED;
-		insert_PCB(tempPCB);
-	}else{
-		printf("Process Name not found!");
+	if(argc==1){
+		char name[STRLEN];
+		PCB *pointer;
+		PCB *tempPCB;
+		int buffs = STRLEN;
+		strcpy(name,argv[0]);
+		
+		pointer = find_PCB(name);
+		if ( pointer != NULL){
+			tempPCB = copy_PCB(pointer);
+			remove_PCB(pointer);
+			if( tempPCB -> state == READY || tempPCB -> state == RUNNING ) tempPCB -> state = SUSPENDED_READY;
+			if( tempPCB -> state == BLOCKED ) tempPCB -> state = SUSPENDED_BLOCKED;
+			insert_PCB(tempPCB);
+		}else{
+			printf("Process Name not found!");
+			return;
+		}
+	}
+	else{
+		printf("Wrong number of arguments used");	
 		return;
 	}
 }
 
 /** This is a user function in the menu that puts a process in the ready state if previously blocked and blocked if previously suspended it takes the process name as input*/
 void mpxcmd_resume(int argc, char *argv[]){
-	char name[STRLEN];
-	PCB *pointer;
-	PCB *tempPCB;
-	int buffs = STRLEN;
-	printf("Name Of Process to resume: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
-	
-	pointer = find_PCB(name);
-	if ( pointer != NULL){
-		tempPCB = copy_PCB(pointer);
-		remove_PCB(pointer);
-		if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
-		if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
-		insert_PCB(tempPCB);
-	}else{
-		printf("Process Name not found!");
+	if(argc==1){
+		char name[STRLEN];
+		PCB *pointer;
+		PCB *tempPCB;
+		int buffs = STRLEN;
+		
+		strcpy(name,argv[0]);
+		
+		pointer = find_PCB(name);
+		if ( pointer != NULL){
+			tempPCB = copy_PCB(pointer);
+			remove_PCB(pointer);
+			if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
+			if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
+			insert_PCB(tempPCB);
+		}else{
+			printf("Process Name not found!");
+			return;
+		}
+	}
+	else{
+		printf("Wrong number of arguments used");	
 		return;
 	}
 }
 
 /** This is a user function from the menu it changes the priority of a PCB and takes the name and desired priority as inputs80ij*/
 void mpxcmd_setPriority(int argc, char *argv[]){
-	char name[STRLEN];
-	PCB *pointer;
-	PCB *tempPCB;
-	int buffs = STRLEN;
-	printf("Name Of Process to set Priority: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
-	
-	pointer = find_PCB(name);
-	if ( pointer != NULL){
-		tempPCB = copy_PCB(pointer);
-		remove_PCB(pointer);
-		if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
-		if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
-		insert_PCB(tempPCB);
-	}else{
-		printf("Process Name not found!");
+	if(argc==1){
+		char name[STRLEN];
+		PCB *pointer;
+		PCB *tempPCB;
+		int buffs = STRLEN;
+		
+		strcpy(name,argv[0]);
+		
+		pointer = find_PCB(name);
+		if ( pointer != NULL){
+			tempPCB = copy_PCB(pointer);
+			remove_PCB(pointer);
+			if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
+			if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
+			insert_PCB(tempPCB);
+		}else{
+			printf("Process Name not found!");
+			return;
+		}
+	}
+	else{
+		printf("Wrong number of arguments used");	
 		return;
 	}
 }
@@ -459,217 +488,135 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 
 /** This is a user command from the menu it is used to show information about a specific PCB*/
 void mpxcmd_show_PCB(int argc, char *argv[]){
-	char name[STRLEN];
-	PCB *pointer;
-	char class[30];
-	char state[45];
-	int buffs = STRLEN;
-	printf("Name Of Process to show: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
-	
-	pointer = find_PCB(name);
-	if ( pointer != NULL){
+	if(argc==1){
+		char name[STRLEN];
+		PCB *pointer;
+		char class[30];
+		char state[45];
+		int buffs = STRLEN;
 		
+		strcpy(name,argv[0]);
 		
-		if ( pointer -> classType  == APPLICATION )
-			strcpy( class, "Application" );
-		if (  pointer -> classType == SYSTEM )
-			strcpy ( class, "System" );
-		
-		
-		if ( pointer -> state == RUNNING ) 
-			strcpy( state , "Running" );
-		if ( pointer -> state == READY ) 
-			strcpy( state, "Ready" );
-		if ( pointer -> state == BLOCKED ) 
-			strcpy( state, "Blocked" );
-		if ( pointer -> state == SUSPENDED_READY ) 
-			strcpy( state ,"Suspened Ready" );
-		if ( pointer -> state == SUSPENDED_BLOCKED ) 
-			strcpy( state , "Suspened Blocked" ) ;
-		
-		printf("Name: %s \n Class: %s \n Priority: %d \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
-	}else{
-		printf("Process Name not found!");
+		pointer = find_PCB(name);
+		if ( pointer != NULL){
+			printf("%s\n",string_PCB(pointer)); 
+		}else{
+			printf("Process Name not found!");
+			return;
+		}
+	}
+	else{
+		printf("Wrong number of arguments used");	
 		return;
 	}
 }
 
 /** This is a user functions that shows name and state of all processes */
 void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	ELEM *incr;
-	PCB *pointer;
-	char class[30];
-	char state[45];
-	incr = rQueue -> node;//set node to the first node in the queque
-	while( incr -> right != NULL ){
+	if(argc=0){
+		ELEM *incr;
+		PCB *pointer;
+		char class[30];
+		char state[45];
+		incr = rQueue -> node;//set node to the first node in the queque
+		while( incr -> right != NULL ){
+			
+			pointer = incr -> process;
 		
-		pointer = incr -> process;
+			
+			printf("%s",string_PCB(pointer)); 
+			incr = incr -> right; // progress forward to the right of the queque
+		}
+		incr = wsQueue -> node;
+		while( incr -> right != NULL ){
+			
+			pointer = incr -> process;
 		
-		if ( pointer -> classType  == APPLICATION )
-			strcpy( class, "Application" );
-		if (  pointer -> classType == SYSTEM )
-			strcpy ( class, "System" );
-		
-		
-		if ( pointer -> state == RUNNING ) 
-			strcpy( state , "Running" );
-		if ( pointer -> state == READY ) 
-			strcpy( state, "Ready" );
-		if ( pointer -> state == BLOCKED ) 
-			strcpy( state, "Blocked" );
-		if ( pointer -> state == SUSPENDED_READY ) 
-			strcpy( state ,"Suspened Ready" );
-		if ( pointer -> state == SUSPENDED_BLOCKED ) 
-			strcpy( state , "Suspened Blocked" ) ;
-		
-		
-		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
+		printf("%s",string_PCB(pointer)); 
 		incr = incr -> right; // progress forward to the right of the queque
+		}
 	}
-	incr = wsQueue -> node;
-	while( incr -> right != NULL ){
-		
-		pointer = incr -> process;
-	
-		if ( pointer -> classType  == APPLICATION )
-			strcpy( class, "Application" );
-		if (  pointer -> classType == SYSTEM )
-			strcpy ( class, "System" );
-		
-		
-		if ( pointer -> state == RUNNING ) 
-			strcpy( state , "Running" );
-		if ( pointer -> state == READY ) 
-			strcpy( state, "Ready" );
-		if ( pointer -> state == BLOCKED ) 
-			strcpy( state, "Blocked" );
-		if ( pointer -> state == SUSPENDED_READY ) 
-			strcpy( state ,"Suspened Ready" );
-		if ( pointer -> state == SUSPENDED_BLOCKED ) 
-			strcpy( state , "Suspened Blocked" ) ;
-		
-		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
-		incr = incr -> right; // progress forward to the right of the queque
+	else{
+		printf("Wrong number of arguments used");	
+		return;
 	}
 }
 
 /** This is a user function that shows all non-suspended processes followed by suspended processes */
 void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	ELEM *incr;
-	PCB *pointer;
-	char class[30];
-	char state[45];
-	incr = rQueue -> node;//set node to the first node in the queque
-	
-	while( incr -> right != NULL ){
+	if(argc==0){
+		ELEM *incr;
+		PCB *pointer;
+		char class[30];
+		char state[45];
+		incr = rQueue -> node;//set node to the first node in the queque
 		
-		pointer = incr -> process;
-		if ( pointer -> state != READY) break;
+		while( incr -> right != NULL ){
+			
+			pointer = incr -> process;
+			if ( pointer -> state != READY) break;
+			
+			printf("%s",string_PCB(pointer)); 
+			incr = incr -> right; // progress forward to the right of the queque
+		}
 		
-		if ( pointer -> classType  == APPLICATION )
-			strcpy( class, "Application" );
-		if (  pointer -> classType == SYSTEM )
-			strcpy ( class, "System" );
-		
-		
-		if ( pointer -> state == RUNNING ) 
-			strcpy( state , "Running" );
-		if ( pointer -> state == READY ) 
-			strcpy( state, "Ready" );
-		if ( pointer -> state == BLOCKED ) 
-			strcpy( state, "Blocked" );
-		if ( pointer -> state == SUSPENDED_READY ) 
-			strcpy( state ,"Suspened Ready" );
-		if ( pointer -> state == SUSPENDED_BLOCKED ) 
-			strcpy( state , "Suspened Blocked" ) ;
-		
-		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
-		incr = incr -> right; // progress forward to the right of the queque
+		incr = rQueue -> node;//set node to the first node in the queque
+		while( incr -> right != NULL ){
+			pointer = incr -> process;
+			if ( pointer -> state != SUSPENDED_READY) break;
+			
+			printf("%s",string_PCB(pointer)); 
+			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
+		}
 	}
-	while( incr -> right != NULL ){
-		pointer = incr -> process;
-		if ( pointer -> state != SUSPENDED_READY) break;
-		
-		if ( pointer -> classType  == APPLICATION )
-			strcpy( class, "Application" );
-		if (  pointer -> classType == SYSTEM )
-			strcpy ( class, "System" );
-		
-		
-		if ( pointer -> state == RUNNING ) 
-			strcpy( state , "Running" );
-		if ( pointer -> state == READY ) 
-			strcpy( state, "Ready" );
-		if ( pointer -> state == BLOCKED ) 
-			strcpy( state, "Blocked" );
-		if ( pointer -> state == SUSPENDED_READY ) 
-			strcpy( state ,"Suspened Ready" );
-		if ( pointer -> state == SUSPENDED_BLOCKED ) 
-			strcpy( state , "Suspened Blocked" ) ;
-		
-		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
-		incr = incr -> right; // progress forward to the right of the queque
+	else{
+		printf("Wrong number of arguments used");	
+		return;
 	}
 }
 
 /** This is a user function that shows all blocked processes followed by non-blocked processes */
 void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	ELEM *incr;
-	char class[30];
-	char state[45];
-	PCB *pointer;
-	incr = rQueue -> node;//set node to the first node in the queque
-	while( incr -> right != NULL ){
+	if(argc==0){
+		ELEM *incr;
+		char class[30];
+		char state[45];
+		PCB *pointer;
+		incr = rQueue -> node;//set node to the first node in the queque
+		while( incr -> right != NULL ){
+			
+			pointer = incr -> process;
+			if ( pointer -> state != BLOCKED) break;
+			
+			printf("%s",string_PCB(pointer)); 	
+			incr = incr -> right; // progress forward to the right of the queque
+		}
 		
-		pointer = incr -> process;
-		if ( pointer -> state != BLOCKED) break;
+		incr = rQueue -> node;//set node to the first node in the queque
+		while( incr -> right != NULL ){
+			pointer = incr -> process;
+			if ( pointer -> state != SUSPENDED_BLOCKED) break;
 		
-		
-		if ( pointer -> classType  == APPLICATION )
-			strcpy( class, "Application" );
-		if (  pointer -> classType == SYSTEM )
-			strcpy ( class, "System" );
-		
-		
-		if ( pointer -> state == RUNNING ) 
-			strcpy( state , "Running" );
-		if ( pointer -> state == READY ) 
-			strcpy( state, "Ready" );
-		if ( pointer -> state == BLOCKED ) 
-			strcpy( state, "Blocked" );
-		if ( pointer -> state == SUSPENDED_READY ) 
-			strcpy( state ,"Suspened Ready" );
-		if ( pointer -> state == SUSPENDED_BLOCKED ) 
-			strcpy( state , "Suspened Blocked" ) ;
-		
-		
-		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
-		incr = incr -> right; // progress forward to the right of the queque
+			printf("%s",string_PCB(pointer)); 	
+			incr = incr -> right; // progress forward to the right of the queque
+		}
 	}
-	while( incr -> right != NULL ){
-		pointer = incr -> process;
-		if ( pointer -> state != SUSPENDED_BLOCKED) break;
-		
-		if ( pointer -> classType  == APPLICATION )
-			strcpy( class, "Application" );
-		if (  pointer -> classType == SYSTEM )
-			strcpy ( class, "System" );
-		
-		
-		if ( pointer -> state == RUNNING ) 
-			strcpy( state , "Running" );
-		if ( pointer -> state == READY ) 
-			strcpy( state, "Ready" );
-		if ( pointer -> state == BLOCKED ) 
-			strcpy( state, "Blocked" );
-		if ( pointer -> state == SUSPENDED_READY ) 
-			strcpy( state ,"Suspened Ready" );
-		if ( pointer -> state == SUSPENDED_BLOCKED ) 
-			strcpy( state , "Suspened Blocked" ) ;
-		
-		printf("Name: %s \n Class: %s \n Priority: %i \n State:  %s \n", pointer -> name, class, pointer -> priority, state); 
-		incr = incr -> right; // progress forward to the right of the queque
+	else{
+		printf("Wrong number of arguments used");	
+		return;
 	}
 }	
 
+// this is a user menu funtion designed to give info about other functions takes one or no inputs
+void mpx_help(int argc, char *argv[]){
+	if(argc==1){ // specific function help
+	
+	}
+	else if(argc==0){ // general help
+		
+	}
+	else{
+		printf("Wrong number of arguments used");	
+		return;
+	}
+}
