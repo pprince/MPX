@@ -17,6 +17,9 @@
 #define PORDR  1 ///< is the Priority Order flag
 #define FIFO   0 ///< is the First In First Out Order flag
 #define ZERO   0
+
+#define	MAX_LINE	1024
+
 /* Type Definitions and Structures */
 typedef struct mem{
 	int size;///< Number of words in memory
@@ -53,7 +56,7 @@ typedef struct root{
 /* Functions Dec*/
 PCB *alloocate_PCB(void);
 int free_PCB( PCB *pointer);
-void setup_PCB( PCB *pointer );
+int setup_PCB( PCB *pointer, char *name, int classType, int state, int priority );
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ );
 void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT );
 void insert_FIFO( PCB *PCBpointer, ROOT *quequeROOT);

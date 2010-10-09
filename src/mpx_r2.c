@@ -1,6 +1,7 @@
 #include "mpx_r2.h"
 #include "mpx_supt.h"
 #include "mystdlib.h"
+#include "mpx_util.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -14,6 +15,7 @@ ROOT *wsQueue;
 */
 PCB *allocate_PCB( void ){
 	PCB *newPCB; ///< pointer to the new PCB
+	int i;
 	MEMDSC *newMemDsc;///< pointer to the Memory Descriptor
 	STACKDSC *newStackDsc;///<pointer to the stack descriptor
 	unsigned char *stack; ///< pointer to the stack low address
@@ -23,10 +25,21 @@ PCB *allocate_PCB( void ){
 	newMemDsc = (MEMDSC*) sys_alloc_mem(sizeof(MEMDSC));
 	newPCB = (PCB*) sys_alloc_mem(sizeof(PCB));
 	
+	
 	if ( stack == NULL || 
 		 newStackDsc == NULL || 
 		 newMemDsc == NULL || 
 		 newPCB == NULL ) return NULL;
+	
+	//Setup Memory Descriptor with Default Values for Module 2
+	newPCB -> memdsc -> size = 0;
+	newPCB -> memdsc -> loadADDR = NULL;
+	newPCB -> memdsc -> execADDR = NULL;
+	
+	//Setup the Stack
+	for( i = 0; i < STACKSIZE; i++)  *(stack + i) = 0; //ZERO out Stack to aid in debug....
+	newPCB -> stackdsc -> base = stack; // x86 arch Stacks start at the Higest value 
+	newPCB -> stackdsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
 	
 	//Bundling Opereations of Stack Descripter Bellow
 	newPCB -> stackdsc = newStackDsc;  // stack descriptor is placed in the PCB
@@ -64,32 +77,42 @@ int free_PCB( PCB *pointer /*< [in] is a pointer to a PCB  */ ){
 }
 
 /** This Function initializes the contents of a PCB. */
+//FIXME: Move to allocate, Create to setup
+int setup_PCB( PCB *pointer, char *Name, int classType, int state, int priority ){
+	
+	char *name = pointer -> name;
+	name = Name;
+	pointer -> classType = (signed char) classType;
+	pointer -> state = (signed char )  state; 
+	pointer -> priority =(signed char) priority;
 
-void setup_PCB( PCB *pointer ){
-	int i;///< counter varable for loop 
-	unsigned char *stack;///< pointer to what will become the bottom of the stack 
-	//Allocate the stack
-	stack = (unsigned char*) sys_alloc_mem(STACKSIZE);
-	
-	
-		
-		
-	//set priority of PCB ( this is for MOD 2 Only, comment out after Mod 2) 
-	pointer -> priority =  READY;
-	//Ucomment after mod 2
-	// pointer -> priority = priority;
-	
-	//Setup Memory Descriptor with Default Values for Module 2
-	pointer -> memdsc -> size = 0;
-	pointer -> memdsc -> loadADDR = NULL;
-	pointer -> memdsc -> execADDR = NULL;
-	
-	//Setup the Stack
-	for( i = 0; i < STACKSIZE; i++)  *(stack + i) = 0; //ZERO out Stack to aid in debug....
-	pointer -> stackdsc -> base = stack; // x86 arch Stacks start at the Higest value 
-	pointer -> stackdsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
-	
+	return 0;
 }
+/** This function returns a character string with PCB information formatted. */
+char *string_PCB( PCB *pointer){
+	char line_buf[MAX_LINE];
+	char *name = pointer -> name;
+	signed char *classType = pointer -> classType;
+	signed char *stateType = pointer -> state;
+	signed char *priority = pointer -> priority;
+	char class[60];
+	char state[60];
+	
+	if( classType = APPLICATION ) strcpy( class, "Application");
+	if( classType = SYSTEM ) strcpy( class, "System" );
+	
+	if( stateType = RUNNING ) strcpy(state,"Running");
+	if( stateType = READY ) strcpy( state ,"Ready" );
+	if( stateType = BLOCKED ) strcpy( state ,"Blocked");
+	if( stateType = SUSPENDED_READY ) strcpy(state ,"Suspended Ready");
+	if ( stateType = SUSPENDED_BLOCKED ) strcpy( state,"Suspended Blocked" ) ;
+	
+	
+    sprintf(&line_buf,"Name: %s  Class: %s State: %s Priority: %d ", name, class, state,priority); 
+	
+	return line_buf;
+}
+
 
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){ 
    int ORD;
@@ -144,9 +167,9 @@ void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKIN
 	
 	/*tail case*/
 	if( incr -> left != NULL && incr->right == NULL ){
-		node-> left = &incr;
+		node-> left = incr;
 		node-> right = NULL;
-		incr->right = &node;
+		incr->right = node;
 		queueROOT->count +=1;
 	}
 	
@@ -260,77 +283,42 @@ void remove_PCB( PCB *process ){
 
 
 void mpxcmd_create_PCB(int argc, char *argv[]){
+	
+	char name[STRLEN];
+	char line[MAX_LINE];
+	int type;
+	int priority;
+	
 	static int count = ZERO;
-	int isValid = ZERO;
-	char in[10];
-	int temp;
-	int buffs;
-	PCB *newPCB = allocate_PCB();	
+	char *lp = &line;
+	
+	
+	PCB *newPCB = allocate_PCB();
+	
 	if( count == ZERO ){
 		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 	}
 	
 	
-	
+	//FIXME: change to mpx_readline
 	printf("Process Name: \n");
-	buffs = STRLEN;
-	sys_req(READ,TERMINAL,newPCB -> name,&buffs);
+	mpx_readline(name, STRLEN);
 	printf("Process Class Type ( Application 0 or System  1): \n" );
-	buffs = 2;
-	sys_req(READ,TERMINAL,in,&buffs);
-	temp = atoi(in);
-	if( temp == 1 ) newPCB -> classType = SYSTEM;
-	if(temp == 0 ) newPCB -> classType = APPLICATION;
-	temp = 0;
+	type= mpxprompt_int();
 	printf("Process Priority (-128 to 127): \n");
-	buffs = 5;
-	sys_req(READ,TERMINAL,in,&buffs);
-	temp = atoi(in);
-	if( temp <= 127 && temp >= -128 ) newPCB -> priority = temp;
-	temp = 0;
-	while( isValid !=  1 ){
-		//check name validity
-		if ( find_PCB( newPCB -> name ) != NULL ) {
-			printf("Process Name NOT VALID");
-			printf("Process Name: \n");
-			buffs = STRLEN;
-			sys_req(READ,TERMINAL,newPCB -> name,&buffs);
-			isValid = 0;
-		}else{
-			isValid = 1;
-		}
-		//check if system or type
-		if( newPCB -> classType == APPLICATION || newPCB -> classType == SYSTEM ){
-			isValid = 1;
-		}else{
-			printf("Process Class Type NOT VALID!");
-			printf("Process Class Type ( Application 0 or System  1): \n" );
-			buffs = 2;
-			sys_req(READ,TERMINAL,in,&buffs);
-			temp = atoi(in);
-			if( temp == 1 ) newPCB -> classType = SYSTEM;
-			if(temp == 0 ) newPCB -> classType = APPLICATION;
-			temp = 0;
-			isValid = 0;
-		}
-		//check Priority
-		if( 127 <= newPCB -> priority || -128 >= newPCB -> priority ){
-		    isValid = 1;
-		} else{
-			buffs = 5;
-			sys_req(READ,TERMINAL,in,&buffs);
-			temp = atoi(in);
-			if( temp <= 127 && temp >= -128 ) newPCB -> priority = temp;
-			temp = 0;
-		}
-	}
+	priority = mpxprompt_int();
 	
-	setup_PCB(newPCB);
+	
+	
+	//setup_PCB(newPCB,name,type,READY,priority);
+	lp = string_PCB(newPCB);
+	printf("%s",lp);
+	mpxprompt_anykey();
 	insert_PCB(newPCB);
 	count++;//Update the number of times the function has run.
 }
-PCB *copy_PCB(PCB *pointer){ // FIXME: MEMCPY needed
+PCB *copy_PCB(PCB *pointer){ 
 		PCB *tempPCB = allocate_PCB();
 		memcpy(tempPCB,pointer,sizeof(PCB));
 		memcpy(tempPCB -> memdsc, pointer -> memdsc , sizeof(MEMDSC));
@@ -354,7 +342,6 @@ void mpxcmd_delete_PCB(int argc, char *argv[]){
 		return;
 	}
 	
-	remove_PCB(pointer);
 }
 
 /** This is a user function in the menu that puts a process in the blocked state it takes the process name as input*/
