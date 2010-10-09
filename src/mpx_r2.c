@@ -78,18 +78,39 @@ int free_PCB( PCB *pointer /*< [in] is a pointer to a PCB  */ ){
 	return 0; //freed mem ok
 }
 
-/** This Function initializes the contents of a PCB. */
+/** This Function initializes the contents of a PCB and checks the values if correct returns 0 if not returns 1. */
 //FIXME: Move to allocate, Create to setup
-int setup_PCB( PCB *pointer, char *Name, int classType, int state, int priority ){
-	
+int setup_PCB( PCB *pointer, char *Name, int classType, int state, int priority ){//FIXME: NO DATA VV
+	int ret;
 	char *name = pointer -> name;
+	ret = 0;
 	strcpy(name,Name);
-	printf("%s \n", pointer -> name);
-	pointer -> classType = (signed char) classType;
-	pointer -> state = (signed char )  state; 
-	pointer -> priority =(signed char) priority;
-
-	return 0;
+	
+	if( find_PCB(name) == NULL){
+		if( classType == 1 || classType == 0 ){
+			pointer -> classType = classType;
+		}else{
+			ret = 1;
+		}
+		 if( state == BLOCKED || 
+			 state == SUSPENDED_READY || 
+		     state == SUSPENDED_BLOCKED ||
+			 state == READY || 
+			 state == RUNNING )
+		{
+		pointer -> state = state;
+		}else{
+			ret = 1;
+		}
+		if( priority <= 127 && priority >= -128){
+			pointer -> priority = priority;
+		}else{
+			ret = 1;
+		}
+	}else{
+		ret = 1;
+	}
+	return ret;
 }
 /** This function returns a character string with PCB information formatted. */
 char *string_PCB( PCB *pointer){
@@ -101,14 +122,14 @@ char *string_PCB( PCB *pointer){
 	char class[60];
 	char state[60];
 	
-	if( classType = APPLICATION ) strcpy( class, "Application");
-	if( classType = SYSTEM ) strcpy( class, "System" );
+	if( classType == APPLICATION ) strcpy( class, "Application");
+	if( classType == SYSTEM ) strcpy( class, "System" );
 	
-	if( stateType = RUNNING ) strcpy(state,"Running");
-	if( stateType = READY ) strcpy( state ,"Ready" );
-	if( stateType = BLOCKED ) strcpy( state ,"Blocked");
-	if( stateType = SUSPENDED_READY ) strcpy(state ,"Suspended Ready");
-	if ( stateType = SUSPENDED_BLOCKED ) strcpy( state,"Suspended Blocked" ) ;
+	if( stateType == RUNNING ) strcpy(state,"Running");
+	if( stateType == READY ) strcpy( state ,"Ready" );
+	if( stateType == BLOCKED ) strcpy( state ,"Blocked");
+	if( stateType == SUSPENDED_READY ) strcpy(state ,"Suspended Ready");
+	if ( stateType == SUSPENDED_BLOCKED ) strcpy( state,"Suspended Blocked" ) ;
 	
 	
     sprintf(&line_buf,"Name: %s  Class: %s State: %s Priority: %d ", name, class, state,priority); 
@@ -119,6 +140,9 @@ char *string_PCB( PCB *pointer){
 
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){ 
    int ORD;
+   char line[MAX_LINE];
+   char* lp;
+   lp = &line;
    if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
 		ORD  = FIFO;
 	}
@@ -127,6 +151,9 @@ void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){
 		PCBpointer -> state == SUSPENDED_BLOCKED ){
 		ORD  = PORDR;
 	}
+	lp = string_PCB(PCBpointer);
+	printf("%s \n", lp); 
+	mpxprompt_anykey();
    switch(ORD){
 		case PORDR:
 			insert_PORDR(PCBpointer,wsQueue);
@@ -297,7 +324,8 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 	
 	PCB *newPCB = allocate_PCB();
-	
+	PCB *pointer;
+	ELEM *temp;
 	if( count == ZERO ){
 		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
@@ -314,10 +342,10 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 	
 	setup_PCB(newPCB,&name,type,READY,priority);
-	//lp = string_PCB(newPCB);
-	//printf("%s",lp);
-	mpxprompt_anykey();
+	
+	
 	insert_PCB(newPCB);
+	
 	count++;//Update the number of times the function has run.
 }
 PCB *copy_PCB(PCB *pointer){ 
