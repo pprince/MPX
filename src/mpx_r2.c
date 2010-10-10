@@ -231,6 +231,7 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 	while( incr -> right != NULL ){
 		incr = incr -> right; // progress forward to the right of the queque
 	}
+	 incr -> right = node;
 	 node -> left = incr; //set left to previous node
 	 node -> right = NULL; // set right to null 
 	 queueROOT -> count += 1; // increase count by one as the size of the queque has grown by one
@@ -540,33 +541,41 @@ void mpxcmd_show_PCB(int argc, char *argv[]){
 
 /** This is a user functions that shows name and state of all processes */
 void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	if(argc=1){
+	if(argc==1){
 		ELEM *incr;
 		PCB *pointer;
+		char line[MAX_LINE];
+		char* lp;
 		char class[30];
 		char state[45];
 		incr = rQueue -> node;//set node to the first node in the queque
-		while( incr -> right != NULL ){
+		lp = &line;
+		mpx_pager_init(" All PCB's In Queue:\n -----------------------------------------------------\n");
+		while( incr != NULL ){
 			
 			pointer = incr -> process;
 		
+			lp = string_PCB(pointer);
+			mpx_pager(lp);
 			
-			printf("%s",string_PCB(pointer)); 
 			incr = incr -> right; // progress forward to the right of the queque
 		}
 		incr = wsQueue -> node;
-		while( incr -> right != NULL ){
-			
+		while( incr != NULL ){
 			pointer = incr -> process;
 		
-		printf("%s",string_PCB(pointer)); 
-		incr = incr -> right; // progress forward to the right of the queque
+			
+			lp = string_PCB(pointer);
+			mpx_pager(lp);
+			
+			incr = incr -> right; // progress forward to the right of the queque
 		}
 	}
 	else{
 		printf("Wrong number of arguments used");	
 		return;
 	}
+	mpxprompt_anykey();
 }
 
 /** This is a user function that shows all non-suspended processes followed by suspended processes */
