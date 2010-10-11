@@ -351,13 +351,12 @@ PCB *copy_PCB(PCB *pointer){
 /** This is a user function in the menu to delete a process it takes the process name as input */
 void mpxcmd_delete_PCB(int argc, char *argv[]){
 	char name[STRLEN];
-	int buffs;
 	PCB *pointer;
-	buffs = STRLEN;
 	printf("Name Of Process to Delete: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
+	mpx_readline(name, STRLEN);
 	
 	pointer = find_PCB(name);
+	
 	if ( pointer != NULL){
 		remove_PCB(pointer);
 	}else{
@@ -479,7 +478,7 @@ void mpxcmd_resume(int argc, char *argv[]){
 }
 
 /** This is a user function from the menu it changes the priority of a PCB and takes the name and desired priority as inputs80ij*/
-void mpxcmd_setPriority(int argc, char *argv[]){
+void mpxcmd_setPriority(int argc, char *argv[]){ // FIXME: NOT DOING 
 	if(argc==2){
 		char name[STRLEN];
 		PCB *pointer;
