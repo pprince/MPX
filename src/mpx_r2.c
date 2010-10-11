@@ -282,16 +282,16 @@ void remove_PCB( PCB *process ){
 	
 	/*head case*/
 	if( incr -> left == NULL && incr->right != NULL ){ 
-		incr = incr -> right;
-		incr -> left  = NULL;
-		queue -> node = incr -> right; //set queueROOT to new head
+		temp1 = incr -> right;
+		temp1 -> left  = NULL;
+		queue -> node = temp1; //set queueROOT to new head
 		queue ->count -=1;
 	}
 	
 	/*tail case*/
 	if( incr -> left != NULL && incr->right == NULL ){
-		incr = incr-> left;
-		incr -> right  = NULL;
+		temp1 = incr-> left;
+		temp1 -> right  = NULL;
 		queue -> count -=1;
 	}
 	
@@ -370,15 +370,21 @@ void mpxcmd_delete_PCB(int argc, char *argv[]){
 void mpxcmd_block(int argc, char *argv[]){
 	if(argc==2){
 		char name[STRLEN];
+		char line[MAX_LINE];
+		char* lp;
 		PCB *pointer;
 		PCB *tempPCB;
-		
 		int buffs = STRLEN;
+		lp = &line;
+		
 		strcpy(name,argv[1]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
 			tempPCB = copy_PCB(pointer);
+			lp = string_PCB(tempPCB);
+			printf("%s \n", line);
+			mpxprompt_anykey();
 			remove_PCB(pointer);
 			if( tempPCB -> state > 0 ) tempPCB -> state = BLOCKED;
 			if( tempPCB -> state < 0 && tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
@@ -479,28 +485,37 @@ void mpxcmd_resume(int argc, char *argv[]){
 
 /** This is a user function from the menu it changes the priority of a PCB and takes the name and desired priority as inputs80ij*/
 void mpxcmd_setPriority(int argc, char *argv[]){ // FIXME: NOT DOING 
-	if(argc==2){
+	if(argc==3){
 		char name[STRLEN];
 		PCB *pointer;
+		int priority;
 		PCB *tempPCB;
 		int buffs = STRLEN;
-		
+		priority  = atoi(argv[2]);
 		strcpy(name,argv[1]);
-		
+		if( priority <= 128 || priority >= -127){ ;}else{
+			printf("Number entered out of range!");
+			mpxprompt_anykey();
+		}
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
-			tempPCB = copy_PCB(pointer);
-			remove_PCB(pointer);
-			if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
-			if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
-			insert_PCB(tempPCB);
+			pointer -> priority = priority;
+			if( pointer -> state == BLOCKED || 
+				pointer -> state == SUSPENDED_READY || 
+				pointer -> state == SUSPENDED_BLOCKED ){
+					tempPCB = copy_PCB(pointer);
+					remove_PCB(pointer);
+					insert_PCB(tempPCB);
+					}
 		}else{
 			printf("Process Name not found!");
+			mpxprompt_anykey();
 			return;
 		}
 	}
 	else{
-		printf("Wrong number of arguments used");	
+		printf("Wrong number of arguments used");
+		mpxprompt_anykey();
 		return;
 	}
 }
