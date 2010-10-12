@@ -140,26 +140,22 @@ char *string_PCB( PCB *pointer){
 
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){ 
    int ORD;
-   char line[MAX_LINE];
-   char* lp;
-   lp = &line;
+  
    if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
-		ORD  = FIFO;
+		ORD  = PORDR;
 	}
 	if( PCBpointer -> state == BLOCKED || 
 		PCBpointer -> state == SUSPENDED_READY || 
 		PCBpointer -> state == SUSPENDED_BLOCKED ){
-		ORD  = PORDR;
+		ORD  = FIFO;
 	}
-	lp = string_PCB(PCBpointer);
-	printf("%s \n", lp); 
-	mpxprompt_anykey();
+	
    switch(ORD){
 		case PORDR:
-			insert_PORDR(PCBpointer,wsQueue);
+			insert_PORDR(PCBpointer,rQueue);
 			break;
 		case FIFO:
-			insert_FIFO(PCBpointer,rQueue);
+			insert_FIFO(PCBpointer,wsQueue);
 			break;
 		default:
 			printf("ORDER not Valid");
@@ -170,56 +166,103 @@ void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){
 void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKING
 	ELEM *node; // declare node of type element
 	ELEM *incr;
+	ELEM *temp1;
+	char line[MAX_LINE];
+	char *lp;
+	lp = &line;
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
 	node -> process = PCBpointer;// add the PCB to the node
 	
-	if( queueROOT -> node = NULL ){ // if this is the first element ever in the queque
+	if( queueROOT -> node == NULL ){ // if this is the first element ever in the queque
 		node -> left = NULL;
 		node -> right = NULL;
 		queueROOT -> node = node; // Set the first element in the queque to node of Type Element
 		queueROOT -> count += 1; // increase count by one
 		return; //exit out first node is in queque. 
 	}
+	
 	incr = queueROOT -> node; //set node to the first node in the queque
-	while ( (incr -> process -> priority <= node -> process -> priority) && incr != NULL ){ // Process with the lowest priority goes first 
+	while ( incr -> process -> priority <= node -> process -> priority  ){ // Process with the lowest priority goes first 
+		    lp = string_PCB(incr->process);
+			printf("%s\n",lp);
+			if( incr->right == NULL) break;
 			incr = incr -> right; // progrees to the right 
+			
 	}
+	
+	mpxprompt_anykey();
 	/* There are three cases to check for head, tail, and middle*/
 	
 	/*head case*/
+	if ( incr -> left == NULL && incr-> right == NULL){
+		if( incr -> process -> priority <= node -> process -> priority ){
+			mpxprompt_anykey();
+			node-> left = incr;
+			node-> right = NULL;
+			incr->right = node;
+			queueROOT->count +=1;
+		}else{
+			node->left = NULL;
+			node->right = incr;
+			incr->left = node;
+			queueROOT -> node = node; //set quequeROOT to new head
+			queueROOT ->count +=1;
+		}
+		return;
+	}
 	if( incr -> left == NULL && incr->right != NULL ){ 
 		node->left = NULL;
 		node->right = incr;
 		incr->left = node;
 		queueROOT -> node = node; //set quequeROOT to new head
 		queueROOT ->count +=1;
+		return;
 	}
 	
 	/*tail case*/
 	if( incr -> left != NULL && incr->right == NULL ){
-		node-> left = incr;
-		node-> right = NULL;
-		incr->right = node;
-		queueROOT->count +=1;
+		
+		if( incr -> process -> priority <= node -> process -> priority ){
+			node-> left = incr;
+			node-> right = NULL;
+			incr->right = node;
+			queueROOT->count +=1;
+			return;
+		}else{
+			incr = incr -> left; //decrement incr
+			temp1 = incr -> right;
+			incr->right = node;
+			node->right = temp1;
+			node->left = incr;
+			temp1->left = node;
+			queueROOT->count +=1;
+			return;
+		}
+		
 	}
 	
 	/*middle case*/
 	if( incr -> left != NULL && incr->right != NULL){
-		node->right = incr->right;
+		incr = incr -> left;
+		temp1 = incr -> right;
 		incr->right = node;
+		node->right = temp1;
 		node->left = incr;
+		temp1->left = node;
 		queueROOT->count +=1;
+		return;
 	}
-	return;
 }
 /** In this function we grow the queque to the right no matter of the Priority of the PCB.*/ 
 void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 	ELEM *node; // declare node of type element
 	ELEM *incr;
+	
+	
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
 	node -> process = PCBpointer;// add the PCB to the node
 	
-	if( queueROOT -> node = NULL ){ // if this is the first element ever in the queque
+	if( queueROOT -> node == NULL ){ // if this is the first element ever in the queque
 		node -> left = NULL; // set the link left to null
 		node -> right = NULL;// set the link right to null
 		queueROOT -> node = node; // Set the first element in the queque to node of Type Element
@@ -233,6 +276,7 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 	while( incr -> right != NULL ){
 		incr = incr -> right; // progress forward to the right of the queque
 	}
+	 incr -> right = node;
 	 node -> left = incr; //set left to previous node
 	 node -> right = NULL; // set right to null 
 	 queueROOT -> count += 1; // increase count by one as the size of the queque has grown by one
@@ -274,25 +318,36 @@ void remove_PCB( PCB *process ){
 		process -> state == SUSPENDED_BLOCKED ){
 		queue = wsQueue;
 	}
-	
+	/* last in queue */
+	if ( queue -> count == 1 ){
+		incr = queue-> node;
+		free_PCB(incr->process);
+		sys_free_mem(queue->node);
+		queue -> node = NULL;
+		queue -> count -=1;
+		
+		return;
+	}
 	incr = queue-> node; //set node to the first node in the queque
 	while ( (incr -> process != process ) && incr != NULL ){ // find the same process
 			incr = incr -> right; // progrees to the right 
 	}
 	/* There are three cases to check for head, tail, and middle*/
 	
+	
+	
 	/*head case*/
 	if( incr -> left == NULL && incr->right != NULL ){ 
-		incr = incr -> right;
-		incr -> left  = NULL;
-		queue -> node = incr -> right; //set queueROOT to new head
+		temp1 = incr -> right;
+		temp1 -> left  = NULL;
+		queue -> node = temp1; //set queueROOT to new head
 		queue ->count -=1;
 	}
 	
 	/*tail case*/
 	if( incr -> left != NULL && incr->right == NULL ){
-		incr = incr-> left;
-		incr -> right  = NULL;
+		temp1 = incr-> left;
+		temp1 -> right  = NULL;
 		queue -> count -=1;
 	}
 	
@@ -313,19 +368,14 @@ void remove_PCB( PCB *process ){
 
 
 void mpxcmd_create_PCB(int argc, char *argv[]){
-	
+	static int count;
 	char name[STRLEN];
 	char line[MAX_LINE];
 	int type;
 	int priority;
-	
-	static int count = ZERO;
-	char *lp = &line;
-	
-	
+
 	PCB *newPCB = allocate_PCB();
-	PCB *pointer;
-	ELEM *temp;
+	
 	if( count == ZERO ){
 		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
@@ -345,7 +395,6 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 	
 	insert_PCB(newPCB);
-	
 	count++;//Update the number of times the function has run.
 }
 PCB *copy_PCB(PCB *pointer){ 
@@ -357,39 +406,39 @@ PCB *copy_PCB(PCB *pointer){
 }
 /** This is a user function in the menu to delete a process it takes the process name as input */
 void mpxcmd_delete_PCB(int argc, char *argv[]){
+	if (argc == 2){
 	char name[STRLEN];
-	int buffs;
 	PCB *pointer;
-	buffs = STRLEN;
-	printf("Name Of Process to Delete: \n");
-	sys_req(READ,TERMINAL,name,&buffs);
+	strcpy(name,argv[1]);
 	
 	pointer = find_PCB(name);
+	
 	if ( pointer != NULL){
 		remove_PCB(pointer);
 	}else{
 		printf("Process Name not found!");
 		return;
 	}
-	
+	}
 }
 
 /** This is a user function in the menu that puts a process in the blocked state it takes the process name as input*/
 void mpxcmd_block(int argc, char *argv[]){
-	if(argc==1){
+	if(argc==2){
 		char name[STRLEN];
+		
 		PCB *pointer;
 		PCB *tempPCB;
-		
 		int buffs = STRLEN;
-		strcpy(name,argv[0]);
+		
+		strcpy(name,argv[1]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
 			tempPCB = copy_PCB(pointer);
 			remove_PCB(pointer);
-			if( tempPCB -> state > 0 ) tempPCB -> state = BLOCKED;
-			if( tempPCB -> state < 0 && tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
+			if( tempPCB -> state == READY || tempPCB -> state == RUNNING ) tempPCB -> state = BLOCKED;
+			if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
 			insert_PCB(tempPCB);
 		}else{
 			printf("Process Name not found!");
@@ -404,13 +453,13 @@ void mpxcmd_block(int argc, char *argv[]){
 
 /** This is a user function in the menu that puts a process in the unblocked state it takes the process name as input*/
 void mpxcmd_unblock(int argc, char *argv[]){
-	if(argc==1){
+	if(argc==2){
 		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
 		int buffs = STRLEN;
 		
-		strcpy(name,argv[0]);
+		strcpy(name,argv[1]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -432,12 +481,12 @@ void mpxcmd_unblock(int argc, char *argv[]){
 
 /** This is a user function in the menu that puts a process in the suspend state it takes the process name as input*/
 void mpxcmd_suspend(int argc, char *argv[]){
-	if(argc==1){
+	if(argc==2){
 		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
 		int buffs = STRLEN;
-		strcpy(name,argv[0]);
+		strcpy(name,argv[1]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -459,13 +508,13 @@ void mpxcmd_suspend(int argc, char *argv[]){
 
 /** This is a user function in the menu that puts a process in the ready state if previously blocked and blocked if previously suspended it takes the process name as input*/
 void mpxcmd_resume(int argc, char *argv[]){
-	if(argc==1){
+	if(argc==2){
 		char name[STRLEN];
 		PCB *pointer;
 		PCB *tempPCB;
 		int buffs = STRLEN;
 		
-		strcpy(name,argv[0]);
+		strcpy(name,argv[1]);
 		
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
@@ -486,29 +535,37 @@ void mpxcmd_resume(int argc, char *argv[]){
 }
 
 /** This is a user function from the menu it changes the priority of a PCB and takes the name and desired priority as inputs80ij*/
-void mpxcmd_setPriority(int argc, char *argv[]){
-	if(argc==1){
+void mpxcmd_setPriority(int argc, char *argv[]){ // FIXME: NOT DOING 
+	if(argc==3){
 		char name[STRLEN];
 		PCB *pointer;
+		int priority;
 		PCB *tempPCB;
 		int buffs = STRLEN;
-		
-		strcpy(name,argv[0]);
-		
+		priority  = atoi(argv[2]);
+		strcpy(name,argv[1]);
+		if( priority <= 128 || priority >= -127){ ;}else{
+			printf("Number entered out of range!");
+			mpxprompt_anykey();
+			return;
+		}
 		pointer = find_PCB(name);
 		if ( pointer != NULL){
-			tempPCB = copy_PCB(pointer);
-			remove_PCB(pointer);
-			if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
-			if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
-			insert_PCB(tempPCB);
+			pointer -> priority = priority;
+			if( pointer -> state == READY ){
+					tempPCB = copy_PCB(pointer);
+					remove_PCB(pointer);
+					insert_PCB(tempPCB);
+					}
 		}else{
 			printf("Process Name not found!");
+			mpxprompt_anykey();
 			return;
 		}
 	}
 	else{
-		printf("Wrong number of arguments used");	
+		printf("Wrong number of arguments used");
+		mpxprompt_anykey();
 		return;
 	}
 }
@@ -516,63 +573,88 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 
 /** This is a user command from the menu it is used to show information about a specific PCB*/
 void mpxcmd_show_PCB(int argc, char *argv[]){
-	if(argc==1){
+	if(argc==2){
 		char name[STRLEN];
 		PCB *pointer;
 		char class[30];
 		char state[45];
 		int buffs = STRLEN;
+		char line[MAX_LINE];
+		char* lp;
+		lp = &line;
 		
-		strcpy(name,argv[0]);
+		strcpy(name,argv[1]);
 		
 		pointer = find_PCB(name);
+		
 		if ( pointer != NULL){
-			printf("%s\n",string_PCB(pointer)); 
+			printf("%s\n",string_PCB(pointer));  
+			mpxprompt_anykey();
 		}else{
 			printf("Process Name not found!");
+			mpxprompt_anykey();
 			return;
 		}
 	}
 	else{
-		printf("Wrong number of arguments used");	
+		printf("Wrong number of arguments used");
+		mpxprompt_anykey();
 		return;
 	}
 }
 
 /** This is a user functions that shows name and state of all processes */
 void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	if(argc=0){
+	if(argc==1){
 		ELEM *incr;
 		PCB *pointer;
+		char line[MAX_LINE];
+		char* lp;
 		char class[30];
 		char state[45];
-		incr = rQueue -> node;//set node to the first node in the queque
-		while( incr -> right != NULL ){
+		//set node to the first node in the queque
+		lp = &line;
+		mpx_pager_init(" All PCB's In Queue:\n -----------------------------------------------------\n");
+		
+		printf("%d", rQueue -> count);
+		mpxprompt_anykey();
+		if( rQueue -> count > 0 ){
+		incr = rQueue -> node;
+		while( incr != NULL ){
 			
 			pointer = incr -> process;
 		
+			lp = string_PCB(pointer);
+			mpx_pager(lp);
 			
-			printf("%s",string_PCB(pointer)); 
 			incr = incr -> right; // progress forward to the right of the queque
 		}
+	    } 
+		printf("%d", wsQueue -> count);
+		mpxprompt_anykey();
+		if(wsQueue -> count > 0){
 		incr = wsQueue -> node;
-		while( incr -> right != NULL ){
-			
+		while( incr != NULL ){
 			pointer = incr -> process;
 		
-		printf("%s",string_PCB(pointer)); 
-		incr = incr -> right; // progress forward to the right of the queque
+			
+			lp = string_PCB(pointer);
+			mpx_pager(lp);
+			
+			incr = incr -> right; // progress forward to the right of the queque
+		}
 		}
 	}
 	else{
 		printf("Wrong number of arguments used");	
 		return;
 	}
+	mpxprompt_anykey();
 }
 
 /** This is a user function that shows all non-suspended processes followed by suspended processes */
 void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	if(argc==0){
+	if(argc==1){
 		ELEM *incr;
 		PCB *pointer;
 		char class[30];
@@ -605,12 +687,12 @@ void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs 
 
 /** This is a user function that shows all blocked processes followed by non-blocked processes */
 void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
-	if(argc==0){
+	if(argc==1){
 		ELEM *incr;
 		char class[30];
 		char state[45];
 		PCB *pointer;
-		incr = rQueue -> node;//set node to the first node in the queque
+		incr = wsQueue -> node;//set node to the first node in the queque
 		while( incr -> right != NULL ){
 			
 			pointer = incr -> process;
@@ -620,7 +702,7 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 			incr = incr -> right; // progress forward to the right of the queque
 		}
 		
-		incr = rQueue -> node;//set node to the first node in the queque
+		incr = wsQueue -> node;//set node to the first node in the queque
 		while( incr -> right != NULL ){
 			pointer = incr -> process;
 			if ( pointer -> state != SUSPENDED_BLOCKED) break;
@@ -635,6 +717,7 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 	}
 }	
 
+<<<<<<< HEAD
 // this is a user menu funtion designed to give info about other functions takes one or no inputs
 void mpx_help(int argc, char *argv[]){
 	FILE *fp;
@@ -669,3 +752,5 @@ void mpx_help(int argc, char *argv[]){
 	}
 	fclose(fp);
 }
+=======
+>>>>>>> 6f143835adf800c430eb07d2cc42e23fd4ec461c

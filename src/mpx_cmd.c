@@ -59,6 +59,7 @@ int mpx_command_loop (void) {
 	mpx_add_command("load", mpxcmd_load );
 	mpx_add_command("date", mpxcmd_date );
 	mpx_add_command("exit", mpxcmd_exit );
+	mpx_add_command("version", mpxcmd_version );
 	mpx_add_command("create",mpxcmd_create_PCB);
 	mpx_add_command("delete",mpxcmd_delete_PCB);
 	mpx_add_command("block",mpxcmd_block);
