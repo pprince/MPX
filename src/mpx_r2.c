@@ -366,7 +366,7 @@ void remove_PCB( PCB *process ){
 	return;
 	}
 
-
+/** This is a user function that interacts with the user to create a PCB structure.*/
 void mpxcmd_create_PCB(int argc, char *argv[]){
 	static int count;
 	char name[STRLEN];
@@ -391,12 +391,13 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 	
 	
-	setup_PCB(newPCB,&name,type,READY,priority);
+	if ( setup_PCB(newPCB,&name,type,READY,priority);
 	
 	
 	insert_PCB(newPCB);
 	count++;//Update the number of times the function has run.
 }
+/** This function preforms a deep copy of a PCB.*/
 PCB *copy_PCB(PCB *pointer){ 
 		PCB *tempPCB = allocate_PCB();
 		memcpy(tempPCB,pointer,sizeof(PCB));
@@ -716,8 +717,5 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 		return;
 	}
 }	
-<<<<<<< HEAD
-=======
 
 
->>>>>>> db6ee871c06c7ec82ab4de406f935d3b936eaeaa
