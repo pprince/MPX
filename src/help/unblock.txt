@@ -1,1 +1,1 @@
-This funtion is used by typing "unblock name". Where name is the process you would like unblocked.
+This function is used by typing "unblock name". Where name is the process you would like unblocked.

@@ -158,7 +158,7 @@ void mpxcmd_load (int argc, char *argv[]) {
 	return;
 }
 
-// this is a user menu funtion designed to give info about other functions takes one or no inputs
+/**This is a user menu funtion designed to give info about other functions takes one or no inputs */
 void mpxcmd_help(int argc, char *argv[]){
 	FILE *fp;
 	long fileSize;

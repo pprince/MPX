@@ -1,1 +1,1 @@
-This funtion is used by typing "showAll". It shows detailed informatiomn about all currrent processes.
+This function is used by typing "showAll". It shows detailed information about all current processes.
