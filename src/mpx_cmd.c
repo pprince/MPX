@@ -158,34 +158,34 @@ void mpxcmd_load (int argc, char *argv[]) {
 }
 
 // this is a user menu funtion designed to give info about other functions takes one or no inputs
-void mpx_help(int argc, char *argv[]){
+void mpxcmd_help(int argc, char *argv[]){
 	FILE *fp;
 	long fileSize;
 	char* buffer;
-	char fileName[STRLEN];
+	char fileName[100];
 	size_t data;	
-	strcpy(fileName,argv[0]);
-	sprintf(buffer,"help\%s",fileName); 
+	strcpy(fileName,argv[1]);
+	sprintf(buffer,"help\\%s\.txt",fileName);
+
 	
-	fprintf("TEST");
-	
-	if(argc==1){ // specific function help
-		fp=fopen(fileName,"r");
+	if(argc==2){ // specific function help
+		fp=fopen(buffer,"r");
 		fseek(fp,0,SEEK_END);
 		fileSize=ftell(fp);
 		rewind(fp);
 		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
 		data = fread (buffer,1,fileSize,fp);
-		fprintf("%s",buffer);
+		
+		printf("%s",buffer);
 	}
-	else if(argc==0){ // general help
-		fp=fopen(fileName,"r");	
+	else if(argc==1){ // general help
+		fp=fopen("help\\general.txt","r");	
 		fseek(fp,0,SEEK_END);
 		fileSize=ftell(fp);
 		rewind(fp);
 		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
 		data = fread (buffer,1,fileSize,fp);
-		fprintf("%s",buffer);
+		printf("%s",buffer);
 	}
 	else{
 		printf("Wrong number of arguments used or no such command");	
