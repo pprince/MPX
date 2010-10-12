@@ -1,0 +1,155 @@
+\hypertarget{mpx__util_8c_source}{
+\section{src/mpx\_\-util.c}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{mpx__cmd_8h}{mpx_cmd.h}"}
+00002 \textcolor{preprocessor}{#include "\hyperlink{mpx__util_8h}{mpx_util.h}"}
+00003 \textcolor{preprocessor}{#include "mpx\_supt.h"}
+00004 \textcolor{preprocessor}{#include "mystdlib.h"}
+00005 \textcolor{preprocessor}{#include <string.h>}
+00006 \textcolor{preprocessor}{#include <stdio.h>}
+00007 
+\hypertarget{mpx__util_8c_source_l00008}{}\hyperlink{mpx__util_8c_a12524c7edee3a47c783740982fd01a3f}{00008} \textcolor{preprocessor}{#define LINES\_PER\_PAGE 23}
+00009 \textcolor{preprocessor}{}\textcolor{keyword}{static} \textcolor{keywordtype}{int} lines\_printed;
+00010 \textcolor{keyword}{static} \textcolor{keywordtype}{int} pages\_printed;
+00011 \textcolor{keyword}{static} \textcolor{keywordtype}{int} header\_lines;
+00012 \textcolor{keyword}{static} \textcolor{keywordtype}{char} *page\_header;
+00013 
+00014 
+\hypertarget{mpx__util_8c_source_l00019}{}\hyperlink{mpx__util_8h_a9e59881f10bd91d7255f18f205e101e6}{00019} \textcolor{keywordtype}{void} \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx_pager}(\textcolor{keywordtype}{char} *line\_to\_print) \{
+00020 
+00021         \textcolor{keywordflow}{if} ( lines\_printed == 0 ) \{
+00022                 \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+00023                 printf(\textcolor{stringliteral}{"%s"}, page\_header);
+00024         \}
+00025         
+00026         printf(\textcolor{stringliteral}{"%s\(\backslash\)n"}, line\_to\_print);
+00027 
+00028         \textcolor{keywordflow}{if} ( (lines\_printed != 0) && (lines\_printed % (\hyperlink{mpx__util_8c_a12524c7edee3a47c783740982fd01a3f}{LINES_PER_PAGE}-header\_line
+      s) == 0)) \{
+00029                 lines\_printed = 0;
+00030                 printf(\textcolor{stringliteral}{"<<Press enter for MORE>>"}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00031         \} \textcolor{keywordflow}{else} \{
+00032                 lines\_printed++;
+00033         \}
+00034 \}
+00035 
+\hypertarget{mpx__util_8c_source_l00042}{}\hyperlink{mpx__util_8h_a60afdb7496b6ff469c6b98d2ecde15ed}{00042} \textcolor{keywordtype}{void} \hyperlink{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}{mpx_pager_init}(\textcolor{keywordtype}{char} *header) \{
+00043         \textcolor{keywordtype}{char} *cur\_pos   = header;
+00044 
+00045         page\_header     = header;
+00046         lines\_printed   = 0;
+00047         pages\_printed   = 0;
+00048         header\_lines    = 0;
+00049 
+00050         \textcolor{keywordflow}{if} (header != NULL) \{
+00051                 \textcolor{keywordflow}{while} (*cur\_pos != \textcolor{charliteral}{'\(\backslash\)0'}) \{
+00052                         \textcolor{keywordflow}{if} (*cur\_pos == \textcolor{charliteral}{'\(\backslash\)n'}) \{
+00053                                 header\_lines++;
+00054                         \}
+00055                         cur\_pos++;
+00056                 \}
+00057         \}
+00058 \}
+00059 
+\hypertarget{mpx__util_8c_source_l00061}{}\hyperlink{mpx__util_8h_a8e31250a20e8bc8e7106f5a37c391199}{00061} \textcolor{keywordtype}{int} \hyperlink{mpx__util_8c_a8e31250a20e8bc8e7106f5a37c391199}{mpxprompt_yn}(\textcolor{keywordtype}{void}) \{
+00062         \textcolor{keywordtype}{char} yn = \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00063         \textcolor{keywordflow}{if}( yn == \textcolor{charliteral}{'Y'} || yn == \textcolor{charliteral}{'y'} ) \{
+00064                 \textcolor{keywordflow}{return} 1; \textcolor{comment}{/* true */}
+00065         \} \textcolor{keywordflow}{else} \{
+00066                 \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* false */}
+00067         \}
+00068 \}
+00069 
+\hypertarget{mpx__util_8c_source_l00071}{}\hyperlink{mpx__util_8h_a338d01dfe3c80732c00450203c85b964}{00071} \textcolor{keywordtype}{char} \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}(\textcolor{keywordtype}{void}) \{
+00072         \textcolor{comment}{/* user must press enter. */}
+00073         \textcolor{keywordtype}{int} buflen = 3;
+00074         \textcolor{keywordtype}{char} buf[5];
+00075         buf[0] = \textcolor{charliteral}{' '};
+00076         sys\_req(READ, TERMINAL, buf, &buflen);
+00077         \textcolor{keywordflow}{return} buf[0];
+00078 \}
+00079 
+\hypertarget{mpx__util_8c_source_l00081}{}\hyperlink{mpx__util_8h_aacc3dfe470919b0bd1133bce90383e18}{00081} \textcolor{keywordtype}{int} \hyperlink{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{mpxprompt_int}(\textcolor{keywordtype}{void}) \{
+00082         \textcolor{keywordtype}{char} input[MAX\_LINE];
+00083         \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx_readline}(input, \hyperlink{mpx__cmd_8h_a842ed03f27719bc87666bfd1f75415b8}{MAX_LINE});  
+00084         \textcolor{keywordflow}{return} atoi(input);
+00085 \}
+00086 
+\hypertarget{mpx__util_8c_source_l00088}{}\hyperlink{mpx__util_8h_a781169ab05ad54c0d37253d73060b77f}{00088} \textcolor{keywordtype}{void} \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx_readline} ( \textcolor{keywordtype}{char} *buffer , \textcolor{keywordtype}{int} buflen  ) \{
+00089         \textcolor{keywordtype}{int} local\_buflen = buflen;
+00090         sys\_req(READ, TERMINAL, buffer, &local\_buflen);
+00091 
+00092         \textcolor{comment}{/* remove newline from end of string. */}
+00093         \textcolor{keywordflow}{if}( buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)n'} || buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)r'} 
+      ) \{
+00094                 buffer[strlen(buffer)-1] = \textcolor{charliteral}{'\(\backslash\)0'};
+00095         \} \textcolor{comment}{/* FIXME: strlen() is unsafe; should use strnlen(). */}
+00096 \}
+00097 
+\hypertarget{mpx__util_8c_source_l00099}{}\hyperlink{mpx__util_8h_a8cf3281978ba1652fd5d643e1a41f70b}{00099} \textcolor{keywordtype}{int} \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls} (\textcolor{keywordtype}{void}) \{
+00100         \textcolor{comment}{/* fixme: add error catching */}
+00101         \textcolor{keywordtype}{int} err = sys\_req(CLEAR, TERMINAL, NULL, 0);
+00102         
+00103         \textcolor{keywordflow}{if} ( err != OK ) \textcolor{keywordflow}{return} err;
+00104         
+00105         \textcolor{keywordflow}{return} OK;
+00106 \}
+00107 
+\hypertarget{mpx__util_8c_source_l00111}{}\hyperlink{mpx__util_8h_a849eaf878bb59c0ed185a00d281047e9}{00111} \textcolor{keywordtype}{void} \hyperlink{mpx__util_8c_a849eaf878bb59c0ed185a00d281047e9}{errorDecode}(\textcolor{keywordtype}{int} err)\{
+00112         \textcolor{keywordflow}{switch}( err )\{
+00113                 \textcolor{keywordflow}{case} ERR\_SUP\_INVDEV:
+00114                         printf(\textcolor{stringliteral}{"Invalid device ID"});
+00115                         \textcolor{keywordflow}{break};
+00116                 \textcolor{keywordflow}{case} ERR\_SUP\_INVOPC:
+00117                         printf(\textcolor{stringliteral}{"Invalid operation Code"});
+00118                         \textcolor{keywordflow}{break};
+00119                 \textcolor{keywordflow}{case} ERR\_SUP\_INVPOS:
+00120                         printf(\textcolor{stringliteral}{"Invalid character postition"});
+00121                         \textcolor{keywordflow}{break};
+00122                 \textcolor{keywordflow}{case} ERR\_SUP\_RDFAIL:
+00123                         printf(\textcolor{stringliteral}{"Read Failed"}); \textcolor{comment}{// could be sysrec or sys get entr
+      y}
+00124                         \textcolor{keywordflow}{break};
+00125                 \textcolor{keywordflow}{case} ERR\_SUP\_WRFAIL:
+00126                         printf(\textcolor{stringliteral}{"Write Failed"});
+00127                         \textcolor{keywordflow}{break};
+00128                 \textcolor{comment}{// ERR\_SUP\_INVMOD Exists in documentation but is not present in s
+      upport code?}
+00129                 \textcolor{keywordflow}{case} ERR\_SUP\_INVMEM:
+00130                         printf(\textcolor{stringliteral}{"Invalid memory block pointer"});
+00131                         \textcolor{keywordflow}{break};
+00132                 \textcolor{keywordflow}{case} ERR\_SUP\_FRFAIL:
+00133                         printf(\textcolor{stringliteral}{"Memory Freeing Op Failed"});
+00134                         \textcolor{keywordflow}{break};
+00135                 \textcolor{keywordflow}{case} ERR\_SUP\_INVDAT:
+00136                         printf(\textcolor{stringliteral}{"Invalid Date"});
+00137                         \textcolor{keywordflow}{break};
+00138                 \textcolor{keywordflow}{case} ERR\_SUP\_DATNCH:
+00139                         printf(\textcolor{stringliteral}{"Date not properly changed"});
+00140                         \textcolor{keywordflow}{break};
+00141                 \textcolor{keywordflow}{case} ERR\_SUP\_INVDIR:
+00142                         printf(\textcolor{stringliteral}{"Invalid name or no such directory"});
+00143                         \textcolor{keywordflow}{break};
+00144                 \textcolor{keywordflow}{case} ERR\_SUP\_DIROPN:
+00145                         printf(\textcolor{stringliteral}{"Error Opening Directory"});
+00146                         \textcolor{keywordflow}{break};
+00147                 \textcolor{keywordflow}{case} ERR\_SUP\_DIRNOP:
+00148                         printf(\textcolor{stringliteral}{"No directory is open"});
+00149                         \textcolor{keywordflow}{break};
+00150                 \textcolor{keywordflow}{case} ERR\_SUP\_NOENTR:
+00151                         printf(\textcolor{stringliteral}{"No more entries found"});
+00152                         \textcolor{keywordflow}{break};
+00153                 \textcolor{keywordflow}{case} ERR\_SUP\_NAMLNG:
+00154                         printf(\textcolor{stringliteral}{"The name was too long for the buffer"});
+00155                         \textcolor{keywordflow}{break};
+00156                 \textcolor{keywordflow}{case} ERR\_SUP\_DIRCLS:
+00157                         printf(\textcolor{stringliteral}{"Error closing the directory"});
+00158                         \textcolor{keywordflow}{break};
+00159                 \textcolor{keywordflow}{default}:
+00160                         printf(\textcolor{stringliteral}{"Unknown Error Code: %d /n"},err);
+00161                         \textcolor{keywordflow}{break};
+00162         \}
+00163 \}
+\end{DoxyCode}

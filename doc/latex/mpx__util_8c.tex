@@ -1,0 +1,381 @@
+\hypertarget{mpx__util_8c}{
+\section{src/mpx\_\-util.c File Reference}
+\label{mpx__util_8c}\index{src/mpx\_\-util.c@{src/mpx\_\-util.c}}
+}
+{\ttfamily \#include \char`\"{}mpx\_\-cmd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-util.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-supt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mystdlib.h\char`\"{}}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mpx__util_8c_a12524c7edee3a47c783740982fd01a3f}{LINES\_\-PER\_\-PAGE}~23
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx\_\-pager} (char $\ast$line\_\-to\_\-print)
+\begin{DoxyCompactList}\small\item\em The pager function permits displaying output screen-\/full at a time. \item\end{DoxyCompactList}\item 
+void \hyperlink{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}{mpx\_\-pager\_\-init} (char $\ast$header)
+\begin{DoxyCompactList}\small\item\em The pager initialization function must be used before the pager function. \item\end{DoxyCompactList}\item 
+int \hyperlink{mpx__util_8c_a8e31250a20e8bc8e7106f5a37c391199}{mpxprompt\_\-yn} (void)
+\begin{DoxyCompactList}\small\item\em The function Prompt y n prompts the user to answer a Yes or No question. \item\end{DoxyCompactList}\item 
+char \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt\_\-anykey} (void)
+\begin{DoxyCompactList}\small\item\em The function Prompt Any key Prompts the user to press the return key. \item\end{DoxyCompactList}\item 
+int \hyperlink{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{mpxprompt\_\-int} (void)
+\begin{DoxyCompactList}\small\item\em The function Prompt int reads the in the input from the user. \item\end{DoxyCompactList}\item 
+void \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx\_\-readline} (char $\ast$buffer, int buflen)
+\begin{DoxyCompactList}\small\item\em Readline function reads in a line from the Terminal. \item\end{DoxyCompactList}\item 
+int \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx\_\-cls} (void)
+\begin{DoxyCompactList}\small\item\em Clear, blanks the screen. \item\end{DoxyCompactList}\item 
+void \hyperlink{mpx__util_8c_a849eaf878bb59c0ed185a00d281047e9}{errorDecode} (int err)
+\begin{DoxyCompactList}\small\item\em Decodes the errors thrown by various functions in the MPX suport files. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{mpx__util_8c_a12524c7edee3a47c783740982fd01a3f}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!LINES\_\-PER\_\-PAGE@{LINES\_\-PER\_\-PAGE}}
+\index{LINES\_\-PER\_\-PAGE@{LINES\_\-PER\_\-PAGE}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{LINES\_\-PER\_\-PAGE}]{\setlength{\rightskip}{0pt plus 5cm}\#define LINES\_\-PER\_\-PAGE~23}}
+\label{mpx__util_8c_a12524c7edee3a47c783740982fd01a3f}
+
+
+Definition at line \hyperlink{mpx__util_8c_source_l00008}{8} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{mpx__util_8c_a849eaf878bb59c0ed185a00d281047e9}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!errorDecode@{errorDecode}}
+\index{errorDecode@{errorDecode}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{errorDecode}]{\setlength{\rightskip}{0pt plus 5cm}void errorDecode (
+\begin{DoxyParamCaption}
+\item[{int}]{ err}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_a849eaf878bb59c0ed185a00d281047e9}
+
+
+Decodes the errors thrown by various functions in the MPX suport files. 
+
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em err}]The error value to decode. \end{DoxyParams}
+
+
+Definition at line \hyperlink{mpx__util_8c_source_l00111}{111} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                                                             \{
+        \textcolor{keywordflow}{switch}( err )\{
+                \textcolor{keywordflow}{case} ERR\_SUP\_INVDEV:
+                        printf(\textcolor{stringliteral}{"Invalid device ID"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_INVOPC:
+                        printf(\textcolor{stringliteral}{"Invalid operation Code"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_INVPOS:
+                        printf(\textcolor{stringliteral}{"Invalid character postition"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_RDFAIL:
+                        printf(\textcolor{stringliteral}{"Read Failed"}); \textcolor{comment}{// could be sysrec or sys get entr
+      y}
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_WRFAIL:
+                        printf(\textcolor{stringliteral}{"Write Failed"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{comment}{// ERR\_SUP\_INVMOD Exists in documentation but is not present in s
+      upport code?}
+                \textcolor{keywordflow}{case} ERR\_SUP\_INVMEM:
+                        printf(\textcolor{stringliteral}{"Invalid memory block pointer"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_FRFAIL:
+                        printf(\textcolor{stringliteral}{"Memory Freeing Op Failed"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_INVDAT:
+                        printf(\textcolor{stringliteral}{"Invalid Date"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_DATNCH:
+                        printf(\textcolor{stringliteral}{"Date not properly changed"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_INVDIR:
+                        printf(\textcolor{stringliteral}{"Invalid name or no such directory"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_DIROPN:
+                        printf(\textcolor{stringliteral}{"Error Opening Directory"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_DIRNOP:
+                        printf(\textcolor{stringliteral}{"No directory is open"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_NOENTR:
+                        printf(\textcolor{stringliteral}{"No more entries found"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_NAMLNG:
+                        printf(\textcolor{stringliteral}{"The name was too long for the buffer"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{case} ERR\_SUP\_DIRCLS:
+                        printf(\textcolor{stringliteral}{"Error closing the directory"});
+                        \textcolor{keywordflow}{break};
+                \textcolor{keywordflow}{default}:
+                        printf(\textcolor{stringliteral}{"Unknown Error Code: %d /n"},err);
+                        \textcolor{keywordflow}{break};
+        \}
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!mpx\_\-cls@{mpx\_\-cls}}
+\index{mpx\_\-cls@{mpx\_\-cls}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{mpx\_\-cls}]{\setlength{\rightskip}{0pt plus 5cm}int mpx\_\-cls (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}
+
+
+Clear, blanks the screen. 
+
+
+
+Definition at line \hyperlink{mpx__util_8c_source_l00099}{99} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                   \{
+        \textcolor{comment}{/* fixme: add error catching */}
+        \textcolor{keywordtype}{int} err = sys\_req(CLEAR, TERMINAL, NULL, 0);
+        
+        \textcolor{keywordflow}{if} ( err != OK ) \textcolor{keywordflow}{return} err;
+        
+        \textcolor{keywordflow}{return} OK;
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!mpx\_\-pager@{mpx\_\-pager}}
+\index{mpx\_\-pager@{mpx\_\-pager}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{mpx\_\-pager}]{\setlength{\rightskip}{0pt plus 5cm}void mpx\_\-pager (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ line\_\-to\_\-print}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}
+
+
+The pager function permits displaying output screen-\/full at a time. 
+
+The line to output MUST NOT end with a \par
+ (newline) character. 
+
+Definition at line \hyperlink{mpx__util_8c_source_l00019}{19} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                                    \{
+
+        \textcolor{keywordflow}{if} ( lines\_printed == 0 ) \{
+                \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+                printf(\textcolor{stringliteral}{"%s"}, page\_header);
+        \}
+        
+        printf(\textcolor{stringliteral}{"%s\(\backslash\)n"}, line\_to\_print);
+
+        \textcolor{keywordflow}{if} ( (lines\_printed != 0) && (lines\_printed % (\hyperlink{mpx__util_8c_a12524c7edee3a47c783740982fd01a3f}{LINES_PER_PAGE}-header\_line
+      s) == 0)) \{
+                lines\_printed = 0;
+                printf(\textcolor{stringliteral}{"<<Press enter for MORE>>"}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+        \} \textcolor{keywordflow}{else} \{
+                lines\_printed++;
+        \}
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!mpx\_\-pager\_\-init@{mpx\_\-pager\_\-init}}
+\index{mpx\_\-pager\_\-init@{mpx\_\-pager\_\-init}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{mpx\_\-pager\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void mpx\_\-pager\_\-init (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ header}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}
+
+
+The pager initialization function must be used before the pager function. 
+
+If no per-\/page header is required, pass NULL for that parameter.
+
+All lines in the header, including the last one, MUST end with a \par
+ (newline) character. 
+
+Definition at line \hyperlink{mpx__util_8c_source_l00042}{42} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                                  \{
+        \textcolor{keywordtype}{char} *cur\_pos   = header;
+
+        page\_header     = header;
+        lines\_printed   = 0;
+        pages\_printed   = 0;
+        header\_lines    = 0;
+
+        \textcolor{keywordflow}{if} (header != NULL) \{
+                \textcolor{keywordflow}{while} (*cur\_pos != \textcolor{charliteral}{'\(\backslash\)0'}) \{
+                        \textcolor{keywordflow}{if} (*cur\_pos == \textcolor{charliteral}{'\(\backslash\)n'}) \{
+                                header\_lines++;
+                        \}
+                        cur\_pos++;
+                \}
+        \}
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!mpx\_\-readline@{mpx\_\-readline}}
+\index{mpx\_\-readline@{mpx\_\-readline}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{mpx\_\-readline}]{\setlength{\rightskip}{0pt plus 5cm}void mpx\_\-readline (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ buffer, }
+\item[{int}]{ buflen}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}
+
+
+Readline function reads in a line from the Terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in,out]} {\em buffer}]Points to the sting being read. \item[\mbox{\tt[in]} {\em buflen}]Defines the maximum characters read. \end{DoxyParams}
+
+
+Definition at line \hyperlink{mpx__util_8c_source_l00088}{88} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                                                                                 
+                                                                    \{
+        \textcolor{keywordtype}{int} local\_buflen = buflen;
+        sys\_req(READ, TERMINAL, buffer, &local\_buflen);
+
+        \textcolor{comment}{/* remove newline from end of string. */}
+        \textcolor{keywordflow}{if}( buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)n'} || buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)r'} 
+      ) \{
+                buffer[strlen(buffer)-1] = \textcolor{charliteral}{'\(\backslash\)0'};
+        \} \textcolor{comment}{/* FIXME: strlen() is unsafe; should use strnlen(). */}
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!mpxprompt\_\-anykey@{mpxprompt\_\-anykey}}
+\index{mpxprompt\_\-anykey@{mpxprompt\_\-anykey}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{mpxprompt\_\-anykey}]{\setlength{\rightskip}{0pt plus 5cm}char mpxprompt\_\-anykey (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}
+
+
+The function Prompt Any key Prompts the user to press the return key. 
+
+
+
+Definition at line \hyperlink{mpx__util_8c_source_l00071}{71} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                            \{
+        \textcolor{comment}{/* user must press enter. */}
+        \textcolor{keywordtype}{int} buflen = 3;
+        \textcolor{keywordtype}{char} buf[5];
+        buf[0] = \textcolor{charliteral}{' '};
+        sys\_req(READ, TERMINAL, buf, &buflen);
+        \textcolor{keywordflow}{return} buf[0];
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!mpxprompt\_\-int@{mpxprompt\_\-int}}
+\index{mpxprompt\_\-int@{mpxprompt\_\-int}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{mpxprompt\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}int mpxprompt\_\-int (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}
+
+
+The function Prompt int reads the in the input from the user. 
+
+
+
+Definition at line \hyperlink{mpx__util_8c_source_l00081}{81} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                        \{
+        \textcolor{keywordtype}{char} input[MAX\_LINE];
+        \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx_readline}(input, \hyperlink{mpx__cmd_8h_a842ed03f27719bc87666bfd1f75415b8}{MAX_LINE});  
+        \textcolor{keywordflow}{return} atoi(input);
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__util_8c_a8e31250a20e8bc8e7106f5a37c391199}{
+\index{mpx\_\-util.c@{mpx\_\-util.c}!mpxprompt\_\-yn@{mpxprompt\_\-yn}}
+\index{mpxprompt\_\-yn@{mpxprompt\_\-yn}!mpx_util.c@{mpx\_\-util.c}}
+\subsubsection[{mpxprompt\_\-yn}]{\setlength{\rightskip}{0pt plus 5cm}int mpxprompt\_\-yn (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__util_8c_a8e31250a20e8bc8e7106f5a37c391199}
+
+
+The function Prompt y n prompts the user to answer a Yes or No question. 
+
+
+
+Definition at line \hyperlink{mpx__util_8c_source_l00061}{61} of file \hyperlink{mpx__util_8c_source}{mpx\_\-util.c}.
+
+
+
+
+\begin{DoxyCode}
+                       \{
+        \textcolor{keywordtype}{char} yn = \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+        \textcolor{keywordflow}{if}( yn == \textcolor{charliteral}{'Y'} || yn == \textcolor{charliteral}{'y'} ) \{
+                \textcolor{keywordflow}{return} 1; \textcolor{comment}{/* true */}
+        \} \textcolor{keywordflow}{else} \{
+                \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* false */}
+        \}
+\}
+\end{DoxyCode}
+
+

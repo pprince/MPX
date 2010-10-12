@@ -1,0 +1,3 @@
+The following commands are supported by this version of PMOS and can further detailed by typing "help command".
+
+load,date,exit,version,create,delete,block,unblock,suspend,resume,setPriority,show,showAll,showReady,showBlocked.

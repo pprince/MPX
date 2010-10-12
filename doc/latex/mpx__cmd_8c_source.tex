@@ -1,0 +1,306 @@
+\hypertarget{mpx__cmd_8c_source}{
+\section{src/mpx\_\-cmd.c}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{mpx__cmd_8h}{mpx_cmd.h}"}
+00002 \textcolor{preprocessor}{#include "\hyperlink{mpx__util_8h}{mpx_util.h}"}
+00003 \textcolor{preprocessor}{#include "\hyperlink{mpx__r2_8h}{mpx_r2.h}"}
+00004 \textcolor{preprocessor}{#include "mpx\_supt.h"}
+00005 \textcolor{preprocessor}{#include "mystdlib.h"}
+00006 \textcolor{preprocessor}{#include <string.h>}
+00007 \textcolor{preprocessor}{#include <stdio.h>}
+00008 
+00009 
+00010 \textcolor{comment}{/* Strings */}
+00011 
+\hypertarget{mpx__cmd_8c_source_l00012}{}\hyperlink{mpx__cmd_8c_a4d455760d7d89fa6a1c1559f7b6acdf7}{00012} \textcolor{keywordtype}{char} \hyperlink{mpx__cmd_8c_a4d455760d7d89fa6a1c1559f7b6acdf7}{prompt_str}[MAX\_LINE]       = \textcolor{stringliteral}{"MPX> "}; 
+\hypertarget{mpx__cmd_8c_source_l00013}{}\hyperlink{mpx__cmd_8c_a9f8c83d01b06ce3619ac78c395f9cdd1}{00013} \textcolor{keywordtype}{char} *\hyperlink{mpx__cmd_8c_a9f8c83d01b06ce3619ac78c395f9cdd1}{welcome_message_str}       = \textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)n  Welcome to Perpetual Motion Squad's Oper
+      ating System.\(\backslash\)n\(\backslash\)n    (type `help commands`) for a list of available commands.)\(\backslash\)n\(\backslash\)
+      n"};  
+\hypertarget{mpx__cmd_8c_source_l00014}{}\hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{00014} \textcolor{keywordtype}{char} *\hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}                = \textcolor{stringliteral}{"\(\backslash\)n<<Press Enter to Continue.>>"};
+\hypertarget{mpx__cmd_8c_source_l00017}{}\hyperlink{mpx__cmd_8c_af2d59668915a0a985c5301d887031811}{00017} \hyperlink{structmpx__cmd}{mpx_cmd_t} *\hyperlink{mpx__cmd_8c_af2d59668915a0a985c5301d887031811}{cmd_head} = NULL;
+00018 
+00019 
+\hypertarget{mpx__cmd_8c_source_l00020}{}\hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{00020} \textcolor{keywordtype}{void} \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}( \textcolor{keywordtype}{char} *cmd\_name, \textcolor{keywordtype}{void}(*cmd\_function)(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])
+       ) \{
+00021 
+00022         \textcolor{comment}{/* allocate a command object */}
+00023         \hyperlink{structmpx__cmd}{mpx_cmd_t} *command = (\hyperlink{structmpx__cmd}{mpx_cmd_t}*) sys\_alloc\_mem( \textcolor{keyword}{sizeof}(\hyperlink{structmpx__cmd}{mpx_cmd_t}) ); \textcolor{comment}{/* 
+      FIXME need to check for error from alloc func. */}
+00024 
+00025         \textcolor{comment}{/* allocate and populate the command name member. */}
+00026         command->\hyperlink{structmpx__cmd_aeae73296151ffcec319820f4d8399e51}{cmd_name} = sys\_alloc\_mem( strlen(cmd\_name)+1 );
+00027         strcpy( command->\hyperlink{structmpx__cmd_aeae73296151ffcec319820f4d8399e51}{cmd_name}, cmd\_name );
+00028 
+00029         \textcolor{comment}{/* populate the command function member. */}
+00030         command->\hyperlink{structmpx__cmd_ad35d459cc43aac3f75fb308e07572253}{cmd_function} = cmd\_function;
+00031 
+00032         \textcolor{comment}{/* be sure to set the next-command pointer member to NULL, since this wil
+      l be the new last command. */}
+00033         command->\hyperlink{structmpx__cmd_a863c991d0d31b283791615b5f5fe03bb}{next} = NULL;
+00034 
+00035         \textcolor{comment}{/* add the command to the global list of commands. */}
+00036         \textcolor{keywordflow}{if} ( cmd\_head == NULL ) \{
+00037                 cmd\_head = command;
+00038         \} \textcolor{keywordflow}{else} \{
+00039                 \hyperlink{structmpx__cmd}{mpx_cmd_t} *last\_command = cmd\_head;
+00040                 \textcolor{keywordflow}{while} ( last\_command->\hyperlink{structmpx__cmd_a863c991d0d31b283791615b5f5fe03bb}{next} != NULL ) \{
+00041                         last\_command = last\_command->\hyperlink{structmpx__cmd_a863c991d0d31b283791615b5f5fe03bb}{next};
+00042                 \}
+00043                 last\_command->\hyperlink{structmpx__cmd_a863c991d0d31b283791615b5f5fe03bb}{next} = command;
+00044         \}
+00045 \}
+00046 
+\hypertarget{mpx__cmd_8c_source_l00050}{}\hyperlink{mpx__cmd_8h_ab2f64c5ce0432edca230a87739501703}{00050} \textcolor{keywordtype}{int} \hyperlink{mpx__cmd_8c_ab2f64c5ce0432edca230a87739501703}{mpx_command_loop} (\textcolor{keywordtype}{void}) \{
+00051 
+00052         \textcolor{keywordtype}{char} cmd\_line[MAX\_LINE];
+00053         \textcolor{keywordtype}{char} *cmd\_argv[\hyperlink{mpx__cmd_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX_ARGS}+1];
+00054         \textcolor{keywordtype}{int}  cmd\_argc;
+00055         \textcolor{keywordtype}{int}  i;
+00056         \hyperlink{structmpx__cmd}{mpx_cmd_t} *command;
+00057 
+00058         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}( \textcolor{stringliteral}{"help"}, \hyperlink{mpx__cmd_8c_ae9b1349cfcfc34815e87cae5330660e8}{mpxcmd_help} );
+00059         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"load"}, \hyperlink{mpx__cmd_8c_ab121952706478a3ce5951ab91298d391}{mpxcmd_load} );
+00060         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"date"}, \hyperlink{mpx__cmd_8c_a8959742dda38733f33da60a56cb07373}{mpxcmd_date} );
+00061         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"exit"}, \hyperlink{mpx__cmd_8c_ac303fbf0480d6050f91c6d7ac960d00c}{mpxcmd_exit} );
+00062         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"create"},\hyperlink{mpx__r2_8c_a782285c58822e411fb75be1e65fe1104}{mpxcmd_create_PCB});
+00063         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"delete"},\hyperlink{mpx__r2_8c_ae6d6afa9fefa158029528a24841c453a}{mpxcmd_delete_PCB});
+00064         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"block"},\hyperlink{mpx__r2_8c_ae8eb72663ecff92c27ab06e3560fd0d4}{mpxcmd_block});
+00065         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"unblock"},\hyperlink{mpx__r2_8c_a1363a7b6156a84057936c3fd91d91f69}{mpxcmd_unblock});
+00066         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"suspend"},\hyperlink{mpx__r2_8c_a697f0f432dba18606d9e514eda9cd073}{mpxcmd_suspend});
+00067         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"resume"},\hyperlink{mpx__r2_8c_a3c47daf087934d234d896e35e4c03f3b}{mpxcmd_resume});
+00068         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"setPriority"},\hyperlink{mpx__r2_8c_a4505a685b9ab69940541dc4e973e0f01}{mpxcmd_setPriority});
+00069         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"show"},\hyperlink{mpx__r2_8c_ae52d77243725636a3b23d05235fee141}{mpxcmd_show_PCB});
+00070         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"showAll"},\hyperlink{mpx__r2_8c_a69559f93fe1b569abf6e846a426191a9}{mpxcmd_showAll_PCB});
+00071         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"showReady"},\hyperlink{mpx__r2_8c_aeaac6d37294f767e31c3789971c5ecd4}{mpxcmd_showReady_PCB});
+00072         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"showBlocked"},\hyperlink{mpx__r2_8c_ae1ef92a5e3a8869ec269a23b3b854c9b}{mpxcmd_showBlocked_PCB});
+00073 
+00074         \textcolor{keywordflow}{for}(;;)\{ \textcolor{comment}{/* infinite loop */}
+00075 
+00076                 \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+00077 
+00078                 printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a9f8c83d01b06ce3619ac78c395f9cdd1}{welcome_message_str});
+00079 
+00080                 printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a4d455760d7d89fa6a1c1559f7b6acdf7}{prompt_str});
+00081 
+00082                 cmd\_argc = 0;
+00083 
+00084                 \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx_readline}(cmd\_line, \hyperlink{mpx__cmd_8h_a842ed03f27719bc87666bfd1f75415b8}{MAX_LINE}-1);     
+00085 
+00086                 cmd\_argv[0] = strtok(cmd\_line, \textcolor{stringliteral}{" "});
+00087                 cmd\_argc++;
+00088 
+00089                 \textcolor{comment}{/* cmd\_line is invalidated after this point; use cmd\_argv[] inste
+      ad. */}
+00090 
+00091                 \textcolor{keywordflow}{for}(i=0; i<MAX\_ARGS; i++)\{
+00092                         cmd\_argv[cmd\_argc] = strtok(NULL, \textcolor{stringliteral}{" "});
+00093                         \textcolor{keywordflow}{if}( cmd\_argv[cmd\_argc] == NULL )\{
+00094                                 \textcolor{keywordflow}{break};
+00095                         \}
+00096                         cmd\_argc++;
+00097                 \}
+00098 
+00099                 \textcolor{comment}{/* handle too-many-args error condition. */}
+00100                 \textcolor{keywordflow}{if} (i == MAX\_ARGS && strtok(NULL, \textcolor{stringliteral}{" "}) != NULL) \{
+00101                         printf(\textcolor{stringliteral}{"ERROR: Argument list too long.\(\backslash\)n"});
+00102                         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00103                         \textcolor{keywordflow}{continue};
+00104                 \}
+00105 
+00106                 \textcolor{comment}{/* run the command function that the user requested,}
+00107 \textcolor{comment}{                 * or print an error message if it is not valid. */}
+00108                 command = cmd\_head;
+00109                 \textcolor{keywordflow}{while} (command != NULL) \{
+00110                         \textcolor{keywordflow}{if} ( strcmp(command->\hyperlink{structmpx__cmd_aeae73296151ffcec319820f4d8399e51}{cmd_name}, cmd\_argv[0]) == 0 ) \{
+00111                                 command->\hyperlink{structmpx__cmd_ad35d459cc43aac3f75fb308e07572253}{cmd_function}( cmd\_argc, cmd\_argv );
+00112                                 \textcolor{keywordflow}{break};
+00113                         \}
+00114                         command = command->\hyperlink{structmpx__cmd_a863c991d0d31b283791615b5f5fe03bb}{next};
+00115                 \}
+00116 
+00117                 \textcolor{comment}{/* if we did not find the requested command in the list of comman
+      ds,}
+00118 \textcolor{comment}{                 * print an appropriate error message. */}
+00119                 \textcolor{keywordflow}{if} ( command == NULL ) \{
+00120                          printf(\textcolor{stringliteral}{"Invalid command.\(\backslash\)n"});
+00121                          printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00122                 \}
+00123         \}
+00124 \}
+00125 
+\hypertarget{mpx__cmd_8c_source_l00128}{}\hyperlink{mpx__cmd_8h_ab121952706478a3ce5951ab91298d391}{00128} \textcolor{keywordtype}{void} \hyperlink{mpx__cmd_8c_ab121952706478a3ce5951ab91298d391}{mpxcmd_load} (\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]) \{
+00129         \textcolor{keywordtype}{char} buf[10];
+00130         \textcolor{keywordtype}{char} line\_buf[MAX\_LINE];
+00131         \textcolor{keywordtype}{long} file\_size;
+00132         \textcolor{keywordtype}{int}  num\_mpx\_files = 0;
+00133 
+00134         \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+00135 
+00136         \textcolor{keywordflow}{if}( sys\_open\_dir(NULL) != 0 )\{
+00137                 printf(\textcolor{stringliteral}{"WARNING: Failed to open MPX directory!\(\backslash\)n"});
+00138                 printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00139                 \textcolor{keywordflow}{return};
+00140         \}
+00141 
+00142         \hyperlink{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}{mpx_pager_init}(\textcolor{stringliteral}{"  Contents of MPX Directory (.mpx Files):\(\backslash\)n  ============
+      ===========================\(\backslash\)n    SIZE        NAME\(\backslash\)n    ----------  --------------
+      -----------------------------\(\backslash\)n"});
+00143         \textcolor{keywordflow}{while}( sys\_get\_entry(buf, 9, &file\_size) == 0 )\{
+00144                 \textcolor{comment}{/* snprintf(&line\_buf, MAX\_LINE, "    %10ld  %s", file\_size, buf)
+      ; */}
+00145                 sprintf(&line\_buf, \textcolor{stringliteral}{"    %10ld  %s"}, file\_size, buf);
+00146                 \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx_pager}(&line\_buf);
+00147                 num\_mpx\_files++;
+00148         \}
+00149 
+00150         sys\_close\_dir();
+00151 
+00152         \textcolor{keywordflow}{if} (num\_mpx\_files == 0) \{
+00153                 printf(\textcolor{stringliteral}{"\(\backslash\)n There aren't any .mpx files in the MPX directory!\(\backslash\)n\(\backslash\)n"
+      });
+00154         \}
+00155 
+00156         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00157         \textcolor{keywordflow}{return};
+00158 \}
+00159 
+\hypertarget{mpx__cmd_8c_source_l00161}{}\hyperlink{mpx__cmd_8h_ae9b1349cfcfc34815e87cae5330660e8}{00161} \textcolor{keywordtype}{void} \hyperlink{mpx__cmd_8c_ae9b1349cfcfc34815e87cae5330660e8}{mpxcmd_help} (\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]) \{
+00162         \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+00163         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00164         printf(\textcolor{stringliteral}{"  MPX HELP:\(\backslash\)n"});
+00165         printf(\textcolor{stringliteral}{" .. coming soon.\(\backslash\)n"});
+00166 
+00167         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00168         \textcolor{keywordflow}{return};
+00169 \}
+00170 
+\hypertarget{mpx__cmd_8c_source_l00172}{}\hyperlink{mpx__cmd_8h_a70a1ce3926ea7c41321ab42b4161df0d}{00172} \textcolor{keywordtype}{void} \hyperlink{mpx__cmd_8c_a70a1ce3926ea7c41321ab42b4161df0d}{mpxcmd_version} (\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]) \{
+00173         \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+00174         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00175         printf(\textcolor{stringliteral}{"  ==============================================\(\backslash\)n"});
+00176         printf(\textcolor{stringliteral}{"  = MPX System Version R1 - September 17, 2010 =\(\backslash\)n"});
+00177         printf(\textcolor{stringliteral}{"  ==============================================\(\backslash\)n"});
+00178         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00179         printf(\textcolor{stringliteral}{"      by the members of PERPETUAL MOTION SQUAD:\(\backslash\)n"});
+00180         printf(\textcolor{stringliteral}{"                        --------- ------ -----\(\backslash\)n"});
+00181         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00182         printf(\textcolor{stringliteral}{"             *  Paul Prince  *\(\backslash\)n"});
+00183         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00184         printf(\textcolor{stringliteral}{"                     *  Nicholas Yanak  *\(\backslash\)n"});
+00185         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00186         printf(\textcolor{stringliteral}{"                             *  Nathan Clay  *\(\backslash\)n"});
+00187         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00188         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00189         printf(\textcolor{stringliteral}{"  WVU Fall 2010 CS450 w/ Lec. Camille Hayhearst\(\backslash\)n"});
+00190 
+00191         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00192         \textcolor{keywordflow}{return};
+00193 \}
+00194 
+\hypertarget{mpx__cmd_8c_source_l00196}{}\hyperlink{mpx__cmd_8h_a0a04805761cf7c183609e1383a4c4975}{00196} \textcolor{keywordtype}{void} \hyperlink{mpx__cmd_8c_a0a04805761cf7c183609e1383a4c4975}{mpxcmd_prompt} (\textcolor{keywordtype}{void}) \{
+00197         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00198         printf(\textcolor{stringliteral}{"  Current prompt is: \(\backslash\)"%s\(\backslash\)"\(\backslash\)n"}, \hyperlink{mpx__cmd_8c_a4d455760d7d89fa6a1c1559f7b6acdf7}{prompt_str});
+00199         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00200         printf(\textcolor{stringliteral}{"Enter new prompt: "});
+00201         \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx_readline}( \hyperlink{mpx__cmd_8c_a4d455760d7d89fa6a1c1559f7b6acdf7}{prompt_str}, \hyperlink{mpx__cmd_8h_a842ed03f27719bc87666bfd1f75415b8}{MAX_LINE} );
+00202 
+00203         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00204         \textcolor{keywordflow}{return};
+00205 \}
+00206 
+\hypertarget{mpx__cmd_8c_source_l00208}{}\hyperlink{mpx__cmd_8h_a8959742dda38733f33da60a56cb07373}{00208} \textcolor{keywordtype}{void} \hyperlink{mpx__cmd_8c_a8959742dda38733f33da60a56cb07373}{mpxcmd_date} (\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]) \{
+00209         date\_rec date;
+00210         sys\_get\_date(&date);
+00211         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00212         printf(\textcolor{stringliteral}{"  System Date:\(\backslash\)n"});
+00213         printf(\textcolor{stringliteral}{"    %2d/%2d/%4d\(\backslash\)n"}, date.month, date.day, date.year);
+00214         printf(\textcolor{stringliteral}{"   (mm/dd/yyyy)\(\backslash\)n"});
+00215         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00216         printf(\textcolor{stringliteral}{"Change it (y/n)? "});
+00217         \textcolor{keywordflow}{if}( \hyperlink{mpx__util_8c_a8e31250a20e8bc8e7106f5a37c391199}{mpxprompt_yn}() ) \{
+00218                 \textcolor{keywordtype}{int} is\_leapyear;
+00219                 \textcolor{keywordtype}{int} max\_days;
+00220 
+00221                 printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00222 
+00223                 printf(\textcolor{stringliteral}{"  New YEAR:  "}); date.year      = \hyperlink{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{mpxprompt_int}();
+00224                 \textcolor{keywordflow}{if}( !(date.year >=1900 && date.year < 10000) )\{
+00225                         \textcolor{comment}{/* invalid year entered. */}
+00226                         printf(\textcolor{stringliteral}{"\(\backslash\)nInvalid year entered.\(\backslash\)n"});
+00227                         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00228                         \textcolor{keywordflow}{return};
+00229                 \}
+00230 
+00231                 is\_leapyear = ((date.year%4==0 && date.year%100!=0)||(date.year%4
+      00==0));
+00232 
+00233                 printf(\textcolor{stringliteral}{"  New MONTH: "}); date.month     = \hyperlink{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{mpxprompt_int}();
+00234 
+00235                 \textcolor{keywordflow}{switch} (date.month) \{
+00236                         \textcolor{keywordflow}{case} 1:
+00237                         \textcolor{keywordflow}{case} 3:
+00238                         \textcolor{keywordflow}{case} 5:
+00239                         \textcolor{keywordflow}{case} 7:
+00240                         \textcolor{keywordflow}{case} 8:
+00241                         \textcolor{keywordflow}{case} 10:
+00242                         \textcolor{keywordflow}{case} 12:
+00243                                 max\_days = 31;
+00244                         \textcolor{keywordflow}{break};
+00245 
+00246                         \textcolor{keywordflow}{case} 4:
+00247                         \textcolor{keywordflow}{case} 6:
+00248                         \textcolor{keywordflow}{case} 9:
+00249                         \textcolor{keywordflow}{case} 11:
+00250                                 max\_days = 30;
+00251                         \textcolor{keywordflow}{break};
+00252 
+00253                         \textcolor{keywordflow}{case} 2:
+00254                                 \textcolor{keywordflow}{if}( is\_leapyear ) \{
+00255                                         max\_days = 29;
+00256                                 \} \textcolor{keywordflow}{else} \{
+00257                                         max\_days = 28;
+00258                                 \}
+00259                         \textcolor{keywordflow}{break};
+00260 
+00261                         \textcolor{keywordflow}{default}:
+00262                                 \textcolor{comment}{/* invalid month entered. */}
+00263                                 printf(\textcolor{stringliteral}{"\(\backslash\)nInvalid month entered.\(\backslash\)n"});
+00264                                 printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00265                                 \textcolor{keywordflow}{return};
+00266                         \textcolor{comment}{/* break;  commented out to prevent turbo c++ "unreachabl
+      e code" warning. */}
+00267                 \}
+00268 
+00269                 printf(\textcolor{stringliteral}{"  New DAY:   "}); date.day       = \hyperlink{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{mpxprompt_int}();
+00270 
+00271                 \textcolor{keywordflow}{if}( !(date.day > 0 && date.day <= max\_days) )\{
+00272                         \textcolor{comment}{/* invalid day entered. */}
+00273                         printf(\textcolor{stringliteral}{"\(\backslash\)nInvalid day entered.\(\backslash\)n"});
+00274                         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00275                         \textcolor{keywordflow}{return};
+00276                 \}
+00277 
+00278                 \textcolor{comment}{/* set the system date. */}
+00279                 \textcolor{keywordflow}{if}( sys\_set\_date(&date) == 0 )\{
+00280                         printf(\textcolor{stringliteral}{"Date successfully set!\(\backslash\)n"});
+00281                 \} \textcolor{keywordflow}{else} \{
+00282                         printf(\textcolor{stringliteral}{"WARNING:\(\backslash\)n"});
+00283                         printf(\textcolor{stringliteral}{"sys\_set\_date() returned error.\(\backslash\)n"});
+00284                         printf(\textcolor{stringliteral}{"Date may not have been set.\(\backslash\)n"});
+00285                 \}
+00286                 printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+00287         \}
+00288         \textcolor{keywordflow}{return};
+00289 \}
+00290 
+\hypertarget{mpx__cmd_8c_source_l00292}{}\hyperlink{mpx__cmd_8h_ac303fbf0480d6050f91c6d7ac960d00c}{00292} \textcolor{keywordtype}{void} \hyperlink{mpx__cmd_8c_ac303fbf0480d6050f91c6d7ac960d00c}{mpxcmd_exit} (\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]) \{
+00293         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00294         printf(\textcolor{stringliteral}{"Are you sure you want to terminate MPX?\(\backslash\)n"});
+00295         \textcolor{keywordflow}{if}( \hyperlink{mpx__util_8c_a8e31250a20e8bc8e7106f5a37c391199}{mpxprompt_yn}() ) \{
+00296                 printf(\textcolor{stringliteral}{"EXITING.\(\backslash\)n"});
+00297                 sys\_exit();
+00298         \}
+00299 \}
+\end{DoxyCode}

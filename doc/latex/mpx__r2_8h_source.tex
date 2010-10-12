@@ -1,0 +1,78 @@
+\hypertarget{mpx__r2_8h_source}{
+\section{src/mpx\_\-r2.h}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#ifndef MPX\_R2\_HFILE}
+00002 \textcolor{preprocessor}{}\textcolor{preprocessor}{#define MPX\_R2\_HFILE}
+00003 \textcolor{preprocessor}{}\textcolor{comment}{/* Symbolic Constants */}
+\hypertarget{mpx__r2_8h_source_l00004}{}\hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{00004} \textcolor{preprocessor}{#define RUNNING  0///< state is Defined as 0}
+\hypertarget{mpx__r2_8h_source_l00005}{}\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{00005} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define READY   1///< state is Defined as  1}
+\hypertarget{mpx__r2_8h_source_l00006}{}\hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{00006} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define BLOCKED 2 ///< state is defined as 2}
+00007 \textcolor{preprocessor}{}
+\hypertarget{mpx__r2_8h_source_l00008}{}\hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{00008} \textcolor{preprocessor}{#define SUSPENDED\_READY    3 ///< is defined by 3}
+\hypertarget{mpx__r2_8h_source_l00009}{}\hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{00009} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define SUSPENDED\_BLOCKED  4 ///< is defined by 4}
+00010 \textcolor{preprocessor}{}
+\hypertarget{mpx__r2_8h_source_l00011}{}\hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{00011} \textcolor{preprocessor}{#define SYSTEM  1 ///< is defined as 1}
+\hypertarget{mpx__r2_8h_source_l00012}{}\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{00012} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define APPLICATION  0  ///< is defined as 0 }
+00013 \textcolor{preprocessor}{}
+\hypertarget{mpx__r2_8h_source_l00014}{}\hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{00014} \textcolor{preprocessor}{#define STACKSIZE   1024 ///< is the size of the stack in Bytes}
+\hypertarget{mpx__r2_8h_source_l00015}{}\hyperlink{mpx__r2_8h_a278cf415676752815cfb411cb0b32802}{00015} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define STRLEN    16///< is the length of a string for name}
+00016 \textcolor{preprocessor}{}
+\hypertarget{mpx__r2_8h_source_l00017}{}\hyperlink{mpx__r2_8h_ace032edafb5fe32666cf53a1e7a957e0}{00017} \textcolor{preprocessor}{#define PORDR  1 ///< is the Priority Order flag}
+\hypertarget{mpx__r2_8h_source_l00018}{}\hyperlink{mpx__r2_8h_af6bc2702f6a1a4bb063b0726d90999da}{00018} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define FIFO   0 ///< is the First In First Out Order flag}
+\hypertarget{mpx__r2_8h_source_l00019}{}\hyperlink{mpx__r2_8h_ac328e551bde3d39b6d7b8cc9e048d941}{00019} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ZERO   0}
+00020 \textcolor{preprocessor}{}\textcolor{comment}{/* Type Definitions and Structures */}
+\hypertarget{mpx__r2_8h_source_l00021}{}\hyperlink{structmem}{00021} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structmem}{mem}\{
+\hypertarget{mpx__r2_8h_source_l00022}{}\hyperlink{structmem_a2f6285207fccce5cfe6a24037bd780c3}{00022}         \textcolor{keywordtype}{int} \hyperlink{structmem_a2f6285207fccce5cfe6a24037bd780c3}{size};
+\hypertarget{mpx__r2_8h_source_l00023}{}\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{00023}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR};
+\hypertarget{mpx__r2_8h_source_l00024}{}\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{00024}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR};
+00025 \}\hyperlink{structmem}{MEMDSC};
+00026 
+\hypertarget{mpx__r2_8h_source_l00027}{}\hyperlink{structstack}{00027} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structstack}{stack}\{
+\hypertarget{mpx__r2_8h_source_l00028}{}\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{00028}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top}; 
+\hypertarget{mpx__r2_8h_source_l00029}{}\hyperlink{structstack_a1cdb71e486a79747d482aa46f6b10290}{00029}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structstack_a1cdb71e486a79747d482aa46f6b10290}{base};
+00030 \}\hyperlink{structstack}{STACKDSC};
+00031 
+\hypertarget{mpx__r2_8h_source_l00032}{}\hyperlink{structprocess}{00032} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structprocess}{process}\{
+\hypertarget{mpx__r2_8h_source_l00033}{}\hyperlink{structprocess_ab6613e7bde642a754f71b9f60053cd1a}{00033}         \textcolor{keywordtype}{char} \hyperlink{structprocess_ab6613e7bde642a754f71b9f60053cd1a}{name}[STRLEN]; 
+\hypertarget{mpx__r2_8h_source_l00034}{}\hyperlink{structprocess_abe608249826d4a0f04fba4398f967047}{00034}         \textcolor{keywordtype}{signed} \textcolor{keywordtype}{char} \hyperlink{structprocess_abe608249826d4a0f04fba4398f967047}{classType}; 
+\hypertarget{mpx__r2_8h_source_l00035}{}\hyperlink{structprocess_a788405fd9aeccd863516f34d3ce1c41e}{00035}         \textcolor{keywordtype}{signed} \textcolor{keywordtype}{char} \hyperlink{structprocess_a788405fd9aeccd863516f34d3ce1c41e}{priority};
+\hypertarget{mpx__r2_8h_source_l00036}{}\hyperlink{structprocess_af8bb04355feac474fa959e3db52618c9}{00036}         \textcolor{keywordtype}{signed} \textcolor{keywordtype}{char} \hyperlink{structprocess_af8bb04355feac474fa959e3db52618c9}{state};
+\hypertarget{mpx__r2_8h_source_l00037}{}\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{00037}         \hyperlink{structmem}{MEMDSC} *\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc};
+\hypertarget{mpx__r2_8h_source_l00038}{}\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{00038}         \hyperlink{structstack}{STACKDSC} *\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc};
+00039 \}\hyperlink{structprocess}{PCB};
+00040 
+\hypertarget{mpx__r2_8h_source_l00041}{}\hyperlink{structpage}{00041} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structpage}{page}\{
+\hypertarget{mpx__r2_8h_source_l00042}{}\hyperlink{structpage_af3cc0e1320b79159b230f154f1a95f0d}{00042}         \hyperlink{structprocess}{PCB} *\hyperlink{structprocess}{process}; 
+\hypertarget{mpx__r2_8h_source_l00043}{}\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{00043}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left}; 
+\hypertarget{mpx__r2_8h_source_l00044}{}\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{00044}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right};
+00045 \}\hyperlink{structpage}{ELEM};
+00046 
+\hypertarget{mpx__r2_8h_source_l00047}{}\hyperlink{structroot}{00047} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structroot}{root}\{
+\hypertarget{mpx__r2_8h_source_l00048}{}\hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{00048}         \textcolor{keywordtype}{int} \hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{count};
+\hypertarget{mpx__r2_8h_source_l00049}{}\hyperlink{structroot_acf8c9d6dbd37a892a1b45394c1595f1a}{00049}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structroot_acf8c9d6dbd37a892a1b45394c1595f1a}{node};
+00050 \}\hyperlink{structroot}{ROOT};
+00051 
+00052 
+00053 \textcolor{comment}{/* Functions Dec*/}
+00054 \hyperlink{structprocess}{PCB} *\hyperlink{mpx__r2_8h_a0a89c7278d6fea2f8a18dbb0cafbb975}{alloocate_PCB}(\textcolor{keywordtype}{void});
+00055 \textcolor{keywordtype}{int} \hyperlink{mpx__r2_8c_a79890f055b1d0fccf1962bbde4877caa}{free_PCB}( \hyperlink{structprocess}{PCB} *pointer);
+00056 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a20991a79e940fd54095a05f5b25cfaf3}{setup_PCB}( \hyperlink{structprocess}{PCB} *pointer );
+00057 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(\hyperlink{structprocess}{PCB} *PCBpointer\textcolor{comment}{/*< pointer to a PCB to insert*/} );
+00058 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a722f27bfb24e46ffd7eb86fb34024ed9}{insert_PORDR}( \hyperlink{structprocess}{PCB} *PCBpointer, \hyperlink{structroot}{ROOT} *quequeROOT );
+00059 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a58a3e3525ed6385f632835b55ab7d7d1}{insert_FIFO}( \hyperlink{structprocess}{PCB} *PCBpointer, \hyperlink{structroot}{ROOT} *quequeROOT);
+00060 \hyperlink{structprocess}{PCB} *\hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}( \textcolor{keywordtype}{char} *name);
+00061 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a782285c58822e411fb75be1e65fe1104}{mpxcmd_create_PCB}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00062 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_ae6d6afa9fefa158029528a24841c453a}{mpxcmd_delete_PCB}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00063 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_ae8eb72663ecff92c27ab06e3560fd0d4}{mpxcmd_block}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00064 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a1363a7b6156a84057936c3fd91d91f69}{mpxcmd_unblock}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00065 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a697f0f432dba18606d9e514eda9cd073}{mpxcmd_suspend}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00066 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a3c47daf087934d234d896e35e4c03f3b}{mpxcmd_resume}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00067 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a4505a685b9ab69940541dc4e973e0f01}{mpxcmd_setPriority}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00068 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_ae52d77243725636a3b23d05235fee141}{mpxcmd_show_PCB}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00069 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_a69559f93fe1b569abf6e846a426191a9}{mpxcmd_showAll_PCB}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00070 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_aeaac6d37294f767e31c3789971c5ecd4}{mpxcmd_showReady_PCB}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00071 \textcolor{keywordtype}{void} \hyperlink{mpx__r2_8c_ae1ef92a5e3a8869ec269a23b3b854c9b}{mpxcmd_showBlocked_PCB}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00072 \textcolor{preprocessor}{#endif}
+\end{DoxyCode}

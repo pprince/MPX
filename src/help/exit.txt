@@ -1,0 +1,1 @@
+This command is used by tping "exit". It exits the PMOS after a user prompt.

@@ -1,0 +1,116 @@
+\hypertarget{structprocess}{
+\section{process Struct Reference}
+\label{structprocess}\index{process@{process}}
+}
+
+
+{\ttfamily \#include $<$mpx\_\-r2.h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{structprocess_ab6613e7bde642a754f71b9f60053cd1a}{name} \mbox{[}STRLEN\mbox{]}
+\begin{DoxyCompactList}\small\item\em character array containing 16 characters plus space for null \item\end{DoxyCompactList}\item 
+signed char \hyperlink{structprocess_abe608249826d4a0f04fba4398f967047}{classType}
+\begin{DoxyCompactList}\small\item\em class of process APPLICATION or SYSTEM \item\end{DoxyCompactList}\item 
+signed char \hyperlink{structprocess_a788405fd9aeccd863516f34d3ce1c41e}{priority}
+\begin{DoxyCompactList}\small\item\em process priority ranges from -\/128 to +127 \item\end{DoxyCompactList}\item 
+signed char \hyperlink{structprocess_af8bb04355feac474fa959e3db52618c9}{state}
+\begin{DoxyCompactList}\small\item\em stores the current states of the process \item\end{DoxyCompactList}\item 
+\hyperlink{structmem}{MEMDSC} $\ast$ \hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}
+\begin{DoxyCompactList}\small\item\em stores the description of the ADDRESS SPACE for the process \item\end{DoxyCompactList}\item 
+\hyperlink{structstack}{STACKDSC} $\ast$ \hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc}
+\begin{DoxyCompactList}\small\item\em stores the description of the stack for each process; \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00032}{32} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+
+
+\subsection{Field Documentation}
+\hypertarget{structprocess_abe608249826d4a0f04fba4398f967047}{
+\index{process@{process}!classType@{classType}}
+\index{classType@{classType}!process@{process}}
+\subsubsection[{classType}]{\setlength{\rightskip}{0pt plus 5cm}signed char {\bf process::classType}}}
+\label{structprocess_abe608249826d4a0f04fba4398f967047}
+
+
+class of process APPLICATION or SYSTEM 
+
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00034}{34} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+\hypertarget{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{
+\index{process@{process}!memdsc@{memdsc}}
+\index{memdsc@{memdsc}!process@{process}}
+\subsubsection[{memdsc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MEMDSC}$\ast$ {\bf process::memdsc}}}
+\label{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}
+
+
+stores the description of the ADDRESS SPACE for the process 
+
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00037}{37} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+\hypertarget{structprocess_ab6613e7bde642a754f71b9f60053cd1a}{
+\index{process@{process}!name@{name}}
+\index{name@{name}!process@{process}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf process::name}\mbox{[}STRLEN\mbox{]}}}
+\label{structprocess_ab6613e7bde642a754f71b9f60053cd1a}
+
+
+character array containing 16 characters plus space for null 
+
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00033}{33} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+\hypertarget{structprocess_a788405fd9aeccd863516f34d3ce1c41e}{
+\index{process@{process}!priority@{priority}}
+\index{priority@{priority}!process@{process}}
+\subsubsection[{priority}]{\setlength{\rightskip}{0pt plus 5cm}signed char {\bf process::priority}}}
+\label{structprocess_a788405fd9aeccd863516f34d3ce1c41e}
+
+
+process priority ranges from -\/128 to +127 
+
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00035}{35} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+\hypertarget{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{
+\index{process@{process}!stackdsc@{stackdsc}}
+\index{stackdsc@{stackdsc}!process@{process}}
+\subsubsection[{stackdsc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf STACKDSC}$\ast$ {\bf process::stackdsc}}}
+\label{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}
+
+
+stores the description of the stack for each process; 
+
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00038}{38} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+\hypertarget{structprocess_af8bb04355feac474fa959e3db52618c9}{
+\index{process@{process}!state@{state}}
+\index{state@{state}!process@{process}}
+\subsubsection[{state}]{\setlength{\rightskip}{0pt plus 5cm}signed char {\bf process::state}}}
+\label{structprocess_af8bb04355feac474fa959e3db52618c9}
+
+
+stores the current states of the process 
+
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00036}{36} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{mpx__r2_8h}{mpx\_\-r2.h}\end{DoxyCompactItemize}

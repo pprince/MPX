@@ -1,0 +1,1 @@
+This function is used by typing "create name type priority". Where name is the name of the process, type is 0 for application 1 for system, and priority is a value from -128 to 127.

@@ -1,0 +1,16 @@
+\hypertarget{mpx_8c_source}{
+\section{src/mpx.c}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{mpx__cmd_8h}{mpx_cmd.h}"}
+00002 \textcolor{preprocessor}{#include "\hyperlink{mpx__util_8h}{mpx_util.h}"}
+00003 \textcolor{preprocessor}{#include "mpx\_supt.h"}
+00004 
+\hypertarget{mpx_8c_source_l00010}{}\hyperlink{mpx_8c_acdef7a1fd863a6d3770c1268cb06add3}{00010} \textcolor{keywordtype}{void} \hyperlink{mpx_8c_acdef7a1fd863a6d3770c1268cb06add3}{main}()\{
+00011         \textcolor{keywordtype}{int} err;
+00012         sys\_init( MODULE\_R1 + MODULE\_R2 ); \textcolor{comment}{//System initilization }
+00013         err = \hyperlink{mpx__cmd_8c_ab2f64c5ce0432edca230a87739501703}{mpx_command_loop}();
+00014         \hyperlink{mpx__util_8c_a849eaf878bb59c0ed185a00d281047e9}{errorDecode}(err);
+00015 \}
+\end{DoxyCode}

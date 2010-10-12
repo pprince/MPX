@@ -1,0 +1,1 @@
+This function is used by typing "load path". Where path is the directory to search for PMOS files.

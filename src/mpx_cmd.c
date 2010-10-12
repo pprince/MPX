@@ -180,7 +180,7 @@ void mpxcmd_help(int argc, char *argv[]){
 		printf("%s",buffer);
 	}
 	else if(argc==1){ // general help
-		fp=fopen("help\\general.txt","r");	
+		fp=fopen("help\\help.txt","r");	
 		fseek(fp,0,SEEK_END);
 		fileSize=ftell(fp);
 		rewind(fp);
