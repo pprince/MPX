@@ -1,0 +1,45 @@
+\hypertarget{mpx_8c}{
+\section{src/mpx.c File Reference}
+\label{mpx_8c}\index{src/mpx.c@{src/mpx.c}}
+}
+{\ttfamily \#include \char`\"{}mpx\_\-cmd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-util.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-supt.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mpx_8c_acdef7a1fd863a6d3770c1268cb06add3}{main} ()
+\begin{DoxyCompactList}\small\item\em Entry Point of MPX. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{mpx_8c_acdef7a1fd863a6d3770c1268cb06add3}{
+\index{mpx.c@{mpx.c}!main@{main}}
+\index{main@{main}!mpx.c@{mpx.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}void main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx_8c_acdef7a1fd863a6d3770c1268cb06add3}
+
+
+Entry Point of MPX. 
+
+This is the entry point of MPX, it calls the mpx\_\-command\_\-loop. The Command Loop function starts the display of the Welcome Message and the inital home screen of MPX. 
+
+Definition at line \hyperlink{mpx_8c_source_l00010}{10} of file \hyperlink{mpx_8c_source}{mpx.c}.
+
+
+
+
+\begin{DoxyCode}
+           \{
+        \textcolor{keywordtype}{int} err;
+        sys\_init( MODULE\_R1 + MODULE\_R2 ); \textcolor{comment}{//System initilization }
+        err = \hyperlink{mpx__cmd_8c_ab2f64c5ce0432edca230a87739501703}{mpx_command_loop}();
+        \hyperlink{mpx__util_8c_a849eaf878bb59c0ed185a00d281047e9}{errorDecode}(err);
+\}
+\end{DoxyCode}
+
+

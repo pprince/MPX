@@ -1,13 +1,12 @@
 #ifndef MPX_R2_HFILE
 #define MPX_R2_HFILE
 /* Symbolic Constants */
-#define RUNNING 0x02///< state is Defined as 0x02H
-#define READY   0x04///< state is Defined as 0x04H
-#define BLOCKED 0x08///< state is defined as 0x08H
-#define SUSPEND  -0xFF///<is a constant to place a process in a suspened state.
+#define RUNNING  0///< state is Defined as 0
+#define READY   1///< state is Defined as  1
+#define BLOCKED 2 ///< state is defined as 2
 
-#define SUSPENDED_READY    -0xFB ///< is defined by SUSPEND + READY
-#define SUSPENDED_BLOCKED  -0xF7 ///< is defined by SUSSPEND + BLOCKED
+#define SUSPENDED_READY    3 ///< is defined by 3
+#define SUSPENDED_BLOCKED  4 ///< is defined by 4
 
 #define SYSTEM  1 ///< is defined as 1
 #define APPLICATION  0  ///< is defined as 0 
@@ -17,6 +16,10 @@
 
 #define PORDR  1 ///< is the Priority Order flag
 #define FIFO   0 ///< is the First In First Out Order flag
+#define ZERO   0
+
+#define	MAX_LINE	1024
+
 /* Type Definitions and Structures */
 typedef struct mem{
 	int size;///< Number of words in memory
@@ -44,9 +47,31 @@ typedef struct page{
 	unsigned char *right;///< pointer to the right PCB structure
 }ELEM;
 
+typedef struct root{
+	int count;
+	unsigned char *node;
+	unsigned char *tail;
+}ROOT;
+
+
+
 /* Functions Dec*/
 PCB *alloocate_PCB(void);
 int free_PCB( PCB *pointer);
-void setup_PCB( PCB *pointer, char *name,int classType);
-
+int setup_PCB( PCB *pointer, char *name, int classType, int state, int priority );
+void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ );
+void insert_PORDR( PCB *PCBpointer, ROOT *quequeROOT );
+void insert_FIFO( PCB *PCBpointer, ROOT *quequeROOT);
+PCB *find_PCB( char *name);
+void mpxcmd_create_PCB(int argc, char *argv[]);
+void mpxcmd_delete_PCB(int argc, char *argv[]);
+void mpxcmd_block(int argc, char *argv[]);
+void mpxcmd_unblock(int argc, char *argv[]);
+void mpxcmd_suspend(int argc, char *argv[]);
+void mpxcmd_resume(int argc, char *argv[]);
+void mpxcmd_setPriority(int argc, char *argv[]);
+void mpxcmd_show_PCB(int argc, char *argv[]);
+void mpxcmd_showAll_PCB(int argc, char *argv[]);
+void mpxcmd_showReady_PCB(int argc, char *argv[]);
+void mpxcmd_showBlocked_PCB(int argc, char *argv[]);
 #endif

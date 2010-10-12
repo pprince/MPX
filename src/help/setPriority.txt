@@ -1,0 +1,1 @@
+This funtion is used by typing "setPriority name priority". Where name is the process you want to set and priority is from -128 to 127.

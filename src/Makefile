@@ -6,12 +6,12 @@ SHELL=cmd.exe
 
 # Use Turbo C/C++ compiler
 CC=tcc
-CFLAGS=-C -w
+CFLAGS=-C -w- -v 
 #Debug flags
 DFLAGS=-C -w -v
 
 # List of object files (generated; these are NOT in the repo).
-OBJS=mpx.obj mpx_supt.obj mpx_r1.obj mpx_r2.obj
+OBJS=mpx.obj mpx_supt.obj mpx_util.obj mpx_r2.obj mpx_cmd.obj
 
 
 # Implicit Rules #
@@ -20,7 +20,7 @@ OBJS=mpx.obj mpx_supt.obj mpx_r1.obj mpx_r2.obj
 # Turn .c files into .o (object) files.
 %.obj : %.c
 	$(CC) $(CFLAGS) -oOBJECT.TMP -c $<
-	mv OBJECT.TMP $@
+	copy OBJECT.TMP $@
 
 
 # Explicit Rules #
@@ -28,12 +28,12 @@ OBJS=mpx.obj mpx_supt.obj mpx_r1.obj mpx_r2.obj
 
 mpx.exe: $(OBJS) mpx.c
 	$(CC) $(CCFLAGS) -eEXE.EXE $(OBJS)
-	mv EXE.EXE $@
+	copy EXE.EXE $@
 
 # Default make target
 all: mpx.exe
 
 # Clean target (removes build output)
 clean:
-	rm -f  *.obj *.OBJ  *.map *.MAP  *.exe *.EXE  *.tmp *.TMP
+	del -f  *.obj *.OBJ  *.map *.MAP  *.exe *.EXE  *.tmp *.TMP
 

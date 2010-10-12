@@ -1,0 +1,1 @@
+This function is used by typing "showReady". This function shows detailed information about all process in the ready and suspended-ready states.

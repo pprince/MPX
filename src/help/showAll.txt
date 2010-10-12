@@ -1,0 +1,1 @@
+This funtion is used by typing "showAll". It shows detailed informatiomn about all currrent processes.

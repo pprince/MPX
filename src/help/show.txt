@@ -1,0 +1,1 @@
+show is used by typing "show name". Where name is the name of the process you are trying to view information about.
