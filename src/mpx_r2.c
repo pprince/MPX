@@ -391,8 +391,11 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 	
 	
-	if ( setup_PCB(newPCB,&name,type,READY,priority);
-	
+	if ( setup_PCB(newPCB,&name,type,READY,priority) == 1){
+		printf("Incrorrect information entered.");
+		mpxprompt_anykey();
+		return;
+	}	
 	
 	insert_PCB(newPCB);
 	count++;//Update the number of times the function has run.
@@ -658,25 +661,30 @@ void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs 
 	if(argc==1){
 		ELEM *incr;
 		PCB *pointer;
+		char line[MAX_LINE];
+		char* lp;
 		char class[30];
 		char state[45];
 		incr = rQueue -> node;//set node to the first node in the queque
-		
-		while( incr -> right != NULL ){
+		lp = &line;
+		mpx_pager_init(" All PCB's Ready State in Queues:\n -----------------------------------------------------\n");
+		while( incr != NULL ){
 			
 			pointer = incr -> process;
-			if ( pointer -> state != READY) break;
-			
-			printf("%s",string_PCB(pointer)); 
+			if ( pointer -> state == READY){
+			lp = string_PCB(pointer);
+			mpx_pager(lp);
+			}
 			incr = incr -> right; // progress forward to the right of the queque
 		}
 		
-		incr = rQueue -> node;//set node to the first node in the queque
+		incr = wsQueue -> node;//set node to the first node in the queque
 		while( incr -> right != NULL ){
 			pointer = incr -> process;
-			if ( pointer -> state != SUSPENDED_READY) break;
-			
-			printf("%s",string_PCB(pointer)); 
+			if ( pointer -> state == SUSPENDED_READY){
+			lp = string_PCB(pointer);
+			mpx_pager(lp);
+			}
 			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
 		}
 	}
@@ -690,26 +698,22 @@ void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs 
 void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function needs added !!Function still needs work!!
 	if(argc==1){
 		ELEM *incr;
+		PCB *pointer;
+		char line[MAX_LINE];
+		char* lp;
 		char class[30];
 		char state[45];
-		PCB *pointer;
-		incr = wsQueue -> node;//set node to the first node in the queque
-		while( incr -> right != NULL ){
-			
-			pointer = incr -> process;
-			if ( pointer -> state != BLOCKED) break;
-			
-			printf("%s",string_PCB(pointer)); 	
-			incr = incr -> right; // progress forward to the right of the queque
-		}
+		lp = &line;
+		mpx_pager_init(" All PCB's Blocked State in Queues:\n -----------------------------------------------------\n");
 		
 		incr = wsQueue -> node;//set node to the first node in the queque
 		while( incr -> right != NULL ){
 			pointer = incr -> process;
-			if ( pointer -> state != SUSPENDED_BLOCKED) break;
-		
-			printf("%s",string_PCB(pointer)); 	
-			incr = incr -> right; // progress forward to the right of the queque
+			if ( pointer -> state == SUSPENDED_BLOCKED || pointer -> state == BLOCKED ){
+			lp = string_PCB(pointer);
+			mpx_pager(lp);
+			}
+			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
 		}
 	}
 	else{
