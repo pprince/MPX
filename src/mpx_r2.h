@@ -50,7 +50,9 @@ typedef struct page{
 typedef struct root{
 	int count;
 	unsigned char *node;
+	unsigned char *tail;
 }ROOT;
+
 
 
 /* Functions Dec*/
