@@ -1,1 +1,1 @@
-This function is used by typing "date". It shows detailed information about the currect system date.
+This function is used by typing "date". It shows detailed information about the current system date.

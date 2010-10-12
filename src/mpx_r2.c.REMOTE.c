@@ -716,8 +716,5 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 		return;
 	}
 }	
-<<<<<<< HEAD
-=======
 
 
->>>>>>> db6ee871c06c7ec82ab4de406f935d3b936eaeaa
