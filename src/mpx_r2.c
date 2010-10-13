@@ -620,8 +620,6 @@ void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs ad
 		lp = &line;
 		mpx_pager_init(" All PCB's In Queue:\n -----------------------------------------------------\n");
 		
-		printf("%d", rQueue -> count);
-		mpxprompt_anykey();
 		if( rQueue -> count > 0 ){
 		incr = rQueue -> node;
 		while( incr != NULL ){
@@ -634,8 +632,6 @@ void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs ad
 			incr = incr -> right; // progress forward to the right of the queque
 		}
 	    } 
-		printf("%d", wsQueue -> count);
-		mpxprompt_anykey();
 		if(wsQueue -> count > 0){
 		incr = wsQueue -> node;
 		while( incr != NULL ){
