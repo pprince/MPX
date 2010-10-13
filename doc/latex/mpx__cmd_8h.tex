@@ -27,7 +27,7 @@ int \hyperlink{mpx__cmd_8h_ab2f64c5ce0432edca230a87739501703}{mpx\_\-command\_\-
 void \hyperlink{mpx__cmd_8h_ac303fbf0480d6050f91c6d7ac960d00c}{mpxcmd\_\-exit} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
 \begin{DoxyCompactList}\small\item\em The Exit function allows the user to confirm if they want to exit MPX. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__cmd_8h_ae9b1349cfcfc34815e87cae5330660e8}{mpxcmd\_\-help} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
-\begin{DoxyCompactList}\small\item\em The Help function displays the help for MPX. \item\end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em This is a user menu funtion designed to give info about other functions takes one or no inputs. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__cmd_8h_ab121952706478a3ce5951ab91298d391}{mpxcmd\_\-load} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
 \begin{DoxyCompactList}\small\item\em This function displays the Directory containing the MPX process files. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__cmd_8h_a8959742dda38733f33da60a56cb07373}{mpxcmd\_\-date} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
@@ -101,6 +101,7 @@ Definition at line \hyperlink{mpx__cmd_8c_source_l00050}{50} of file \hyperlink{
         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"load"}, \hyperlink{mpx__cmd_8c_ab121952706478a3ce5951ab91298d391}{mpxcmd_load} );
         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"date"}, \hyperlink{mpx__cmd_8c_a8959742dda38733f33da60a56cb07373}{mpxcmd_date} );
         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"exit"}, \hyperlink{mpx__cmd_8c_ac303fbf0480d6050f91c6d7ac960d00c}{mpxcmd_exit} );
+        \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"version"}, \hyperlink{mpx__cmd_8c_a70a1ce3926ea7c41321ab42b4161df0d}{mpxcmd_version} );
         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"create"},\hyperlink{mpx__r2_8c_a782285c58822e411fb75be1e65fe1104}{mpxcmd_create_PCB});
         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"delete"},\hyperlink{mpx__r2_8c_ae6d6afa9fefa158029528a24841c453a}{mpxcmd_delete_PCB});
         \hyperlink{mpx__cmd_8c_a52c02eb85fda9ac4278e10088a192e89}{mpx_add_command}(\textcolor{stringliteral}{"block"},\hyperlink{mpx__r2_8c_ae8eb72663ecff92c27ab06e3560fd0d4}{mpxcmd_block});
@@ -185,7 +186,7 @@ The Date function allows the user to display or change the date of the MPX syste
 
 
 
-Definition at line \hyperlink{mpx__cmd_8c_source_l00208}{208} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
+Definition at line \hyperlink{mpx__cmd_8c_source_l00237}{237} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
 
 
 
@@ -294,7 +295,7 @@ The Exit function allows the user to confirm if they want to exit MPX.
 
 
 
-Definition at line \hyperlink{mpx__cmd_8c_source_l00292}{292} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
+Definition at line \hyperlink{mpx__cmd_8c_source_l00321}{321} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
 
 
 
@@ -323,22 +324,50 @@ Definition at line \hyperlink{mpx__cmd_8c_source_l00292}{292} of file \hyperlink
 \label{mpx__cmd_8h_ae9b1349cfcfc34815e87cae5330660e8}
 
 
-The Help function displays the help for MPX. 
+This is a user menu funtion designed to give info about other functions takes one or no inputs. 
 
 
 
-Definition at line \hyperlink{mpx__cmd_8c_source_l00161}{161} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
+Definition at line \hyperlink{mpx__cmd_8c_source_l00162}{162} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
 
 
 
 
 \begin{DoxyCode}
-                                          \{
-        \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
-        printf(\textcolor{stringliteral}{"\(\backslash\)n"});
-        printf(\textcolor{stringliteral}{"  MPX HELP:\(\backslash\)n"});
-        printf(\textcolor{stringliteral}{" .. coming soon.\(\backslash\)n"});
+                                        \{
+        FILE *fp;
+        \textcolor{keywordtype}{long} fileSize;
+        \textcolor{keywordtype}{char}* buffer;
+        \textcolor{keywordtype}{char} fileName[100];
+        \textcolor{keywordtype}{size\_t} data;    
+        strcpy(fileName,argv[1]);
+        sprintf(buffer,\textcolor{stringliteral}{"help\(\backslash\)\(\backslash\)%s\(\backslash\).txt"},fileName);
 
+        
+        \textcolor{keywordflow}{if}(argc==2)\{ \textcolor{comment}{// specific function help}
+                fp=fopen(buffer,\textcolor{stringliteral}{"r"});
+                fseek(fp,0,SEEK\_END);
+                fileSize=ftell(fp);
+                rewind(fp);
+                buffer = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*fileSize);
+                data = fread (buffer,1,fileSize,fp);
+                
+                printf(\textcolor{stringliteral}{"%s"},buffer);
+        \}
+        \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(argc==1)\{ \textcolor{comment}{// general help}
+                fp=fopen(\textcolor{stringliteral}{"help\(\backslash\)\(\backslash\)help.txt"},\textcolor{stringliteral}{"r"}); 
+                fseek(fp,0,SEEK\_END);
+                fileSize=ftell(fp);
+                rewind(fp);
+                buffer = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*fileSize);
+                data = fread (buffer,1,fileSize,fp);
+                printf(\textcolor{stringliteral}{"%s"},buffer);
+        \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used or no such command"});    
+                \textcolor{keywordflow}{return};
+        \}
+        fclose(fp);
         printf(\textcolor{stringliteral}{"%s"}, \hyperlink{mpx__cmd_8c_a35b541517c624b5cabacaaa78ac41c70}{anykey_str}); \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
         \textcolor{keywordflow}{return};
 \}
@@ -361,7 +390,7 @@ This function displays the Directory containing the MPX process files.
 
 
 
-Definition at line \hyperlink{mpx__cmd_8c_source_l00128}{128} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
+Definition at line \hyperlink{mpx__cmd_8c_source_l00129}{129} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
 
 
 
@@ -420,7 +449,7 @@ The Prompt function allows the user to change the default prompt.
 
 
 
-Definition at line \hyperlink{mpx__cmd_8c_source_l00196}{196} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
+Definition at line \hyperlink{mpx__cmd_8c_source_l00225}{225} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
 
 
 
@@ -455,7 +484,7 @@ The Version function displays MPX version information.
 
 
 
-Definition at line \hyperlink{mpx__cmd_8c_source_l00172}{172} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
+Definition at line \hyperlink{mpx__cmd_8c_source_l00201}{201} of file \hyperlink{mpx__cmd_8c_source}{mpx\_\-cmd.c}.
 
 
 

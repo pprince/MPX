@@ -41,6 +41,8 @@ struct \hyperlink{structroot}{root}
 \#define \hyperlink{mpx__r2_8h_af6bc2702f6a1a4bb063b0726d90999da}{FIFO}~0
 \begin{DoxyCompactList}\small\item\em is the First In First Out Order flag \item\end{DoxyCompactList}\item 
 \#define \hyperlink{mpx__r2_8h_ac328e551bde3d39b6d7b8cc9e048d941}{ZERO}~0
+\item 
+\#define \hyperlink{mpx__r2_8h_a842ed03f27719bc87666bfd1f75415b8}{MAX\_\-LINE}~1024
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -62,18 +64,18 @@ typedef struct \hyperlink{structroot}{root} \hyperlink{mpx__r2_8h_a47ef5534d67bf
 \item 
 int \hyperlink{mpx__r2_8h_a79890f055b1d0fccf1962bbde4877caa}{free\_\-PCB} (\hyperlink{structprocess}{PCB} $\ast$pointer)
 \begin{DoxyCompactList}\small\item\em This function releases all allocated memory related to a PCB. \item\end{DoxyCompactList}\item 
-void \hyperlink{mpx__r2_8h_a20991a79e940fd54095a05f5b25cfaf3}{setup\_\-PCB} (\hyperlink{structprocess}{PCB} $\ast$pointer)
-\begin{DoxyCompactList}\small\item\em This Function initializes the contents of a PCB. \item\end{DoxyCompactList}\item 
+int \hyperlink{mpx__r2_8h_a48d816fd79ba99118f2dff84d84395f5}{setup\_\-PCB} (\hyperlink{structprocess}{PCB} $\ast$pointer, char $\ast$name, int classType, int state, int priority)
+\begin{DoxyCompactList}\small\item\em This Function initializes the contents of a PCB and checks the values if correct returns 0 if not returns 1. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__r2_8h_aa3b334e3a5afd6e590917667ad359a6f}{insert\_\-PCB} (\hyperlink{structprocess}{PCB} $\ast$PCBpointer)
-\item 
+\begin{DoxyCompactList}\small\item\em This function inserts a PCB into its aproprate PCB Queue. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__r2_8h_a9a582eea14fd6628937fb0891220fa82}{insert\_\-PORDR} (\hyperlink{structprocess}{PCB} $\ast$PCBpointer, \hyperlink{structroot}{ROOT} $\ast$quequeROOT)
-\item 
+\begin{DoxyCompactList}\small\item\em This function inserts into a queue a element sorted by its priority lower number ( higher priority) to high number( lower priority). \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__r2_8h_a89d5f57a5b157787f44875a8f27a6233}{insert\_\-FIFO} (\hyperlink{structprocess}{PCB} $\ast$PCBpointer, \hyperlink{structroot}{ROOT} $\ast$quequeROOT)
 \begin{DoxyCompactList}\small\item\em In this function we grow the queque to the right no matter of the Priority of the PCB. \item\end{DoxyCompactList}\item 
 \hyperlink{structprocess}{PCB} $\ast$ \hyperlink{mpx__r2_8h_a612a6abcb66c688a32f33abc93ff3990}{find\_\-PCB} (char $\ast$name)
-\item 
+\begin{DoxyCompactList}\small\item\em This function findes a PCB by its identifier (name) and returns a pointer to its structures location. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__r2_8h_a782285c58822e411fb75be1e65fe1104}{mpxcmd\_\-create\_\-PCB} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
-\item 
+\begin{DoxyCompactList}\small\item\em This is a user function that interacts with the user to create a PCB structure. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__r2_8h_ae6d6afa9fefa158029528a24841c453a}{mpxcmd\_\-delete\_\-PCB} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
 \begin{DoxyCompactList}\small\item\em This is a user function in the menu to delete a process it takes the process name as input. \item\end{DoxyCompactList}\item 
 void \hyperlink{mpx__r2_8h_ae8eb72663ecff92c27ab06e3560fd0d4}{mpxcmd\_\-block} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
@@ -135,6 +137,15 @@ is the First In First Out Order flag
 
 
 Definition at line \hyperlink{mpx__r2_8h_source_l00018}{18} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
+
+\hypertarget{mpx__r2_8h_a842ed03f27719bc87666bfd1f75415b8}{
+\index{mpx\_\-r2.h@{mpx\_\-r2.h}!MAX\_\-LINE@{MAX\_\-LINE}}
+\index{MAX\_\-LINE@{MAX\_\-LINE}!mpx_r2.h@{mpx\_\-r2.h}}
+\subsubsection[{MAX\_\-LINE}]{\setlength{\rightskip}{0pt plus 5cm}\#define MAX\_\-LINE~1024}}
+\label{mpx__r2_8h_a842ed03f27719bc87666bfd1f75415b8}
+
+
+Definition at line \hyperlink{mpx__r2_8h_source_l00021}{21} of file \hyperlink{mpx__r2_8h_source}{mpx\_\-r2.h}.
 
 \hypertarget{mpx__r2_8h_ace032edafb5fe32666cf53a1e7a957e0}{
 \index{mpx\_\-r2.h@{mpx\_\-r2.h}!PORDR@{PORDR}}
@@ -300,7 +311,11 @@ Definition at line \hyperlink{mpx__r2_8h_source_l00019}{19} of file \hyperlink{m
 \label{mpx__r2_8h_a612a6abcb66c688a32f33abc93ff3990}
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00191}{191} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+This function findes a PCB by its identifier (name) and returns a pointer to its structures location. 
+
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00286}{286} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -355,7 +370,7 @@ $<$ holder for error capture on use of sys\_\-free\_\-mem
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00043}{43} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00058}{58} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -402,7 +417,7 @@ In this function we grow the queque to the right no matter of the Priority of th
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00163}{163} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00255}{255} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -411,11 +426,13 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00163}{163} of file \hyperlink{
                                                    \{ \textcolor{comment}{//FIXME: NO ERROR HANDLING}
         \hyperlink{structpage}{ELEM} *node; \textcolor{comment}{// declare node of type element}
         \hyperlink{structpage}{ELEM} *incr;
+        
+        
         node = sys\_alloc\_mem( \textcolor{keyword}{sizeof}(\hyperlink{structpage}{ELEM})); \textcolor{comment}{// allocate Memory for node}
         node -> \hyperlink{structprocess}{process} = PCBpointer;\textcolor{comment}{// add the PCB to the node}
         
-        \textcolor{keywordflow}{if}( queueROOT -> node = NULL )\{ \textcolor{comment}{// if this is the first element ever in t
-      he queque}
+        \textcolor{keywordflow}{if}( queueROOT -> node == NULL )\{ \textcolor{comment}{// if this is the first element ever in 
+      the queque}
                 node -> left = NULL; \textcolor{comment}{// set the link left to null}
                 node -> right = NULL;\textcolor{comment}{// set the link right to null}
                 queueROOT -> node = node; \textcolor{comment}{// Set the first element in the queque 
@@ -431,6 +448,7 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00163}{163} of file \hyperlink{
                 incr = incr -> right; \textcolor{comment}{// progress forward to the right of the que
       que}
         \}
+         incr -> right = node;
          node -> left = incr; \textcolor{comment}{//set left to previous node}
          node -> right = NULL; \textcolor{comment}{// set right to null }
          queueROOT -> count += 1; \textcolor{comment}{// increase count by one as the size of the que
@@ -453,7 +471,11 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00163}{163} of file \hyperlink{
 \label{mpx__r2_8h_aa3b334e3a5afd6e590917667ad359a6f}
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00094}{94} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+This function inserts a PCB into its aproprate PCB Queue. 
+
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00141}{141} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -461,20 +483,22 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00094}{94} of file \hyperlink{m
 \begin{DoxyCode}
                                                                  \{ 
    \textcolor{keywordtype}{int} ORD;
+  
    \textcolor{keywordflow}{if} ( PCBpointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} || PCBpointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} )\{
-                ORD  = FIFO;
+                ORD  = PORDR;
         \}
         \textcolor{keywordflow}{if}( PCBpointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} || 
                 PCBpointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} || 
                 PCBpointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} )\{
-                ORD  = PORDR;
+                ORD  = FIFO;
         \}
+        
    \textcolor{keywordflow}{switch}(ORD)\{
                 \textcolor{keywordflow}{case} \hyperlink{mpx__r2_8h_ace032edafb5fe32666cf53a1e7a957e0}{PORDR}:
-                        \hyperlink{mpx__r2_8c_a722f27bfb24e46ffd7eb86fb34024ed9}{insert_PORDR}(PCBpointer,\hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue});
+                        \hyperlink{mpx__r2_8c_a722f27bfb24e46ffd7eb86fb34024ed9}{insert_PORDR}(PCBpointer,\hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue});
                         \textcolor{keywordflow}{break};
                 \textcolor{keywordflow}{case} \hyperlink{mpx__r2_8h_af6bc2702f6a1a4bb063b0726d90999da}{FIFO}:
-                        \hyperlink{mpx__r2_8c_a58a3e3525ed6385f632835b55ab7d7d1}{insert_FIFO}(PCBpointer,\hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue});
+                        \hyperlink{mpx__r2_8c_a58a3e3525ed6385f632835b55ab7d7d1}{insert_FIFO}(PCBpointer,\hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue});
                         \textcolor{keywordflow}{break};
                 \textcolor{keywordflow}{default}:
                         printf(\textcolor{stringliteral}{"ORDER not Valid"});
@@ -490,13 +514,17 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00094}{94} of file \hyperlink{m
 \subsubsection[{insert\_\-PORDR}]{\setlength{\rightskip}{0pt plus 5cm}void insert\_\-PORDR (
 \begin{DoxyParamCaption}
 \item[{{\bf PCB} $\ast$}]{ PCBpointer, }
-\item[{{\bf ROOT} $\ast$}]{ quequeROOT}
+\item[{{\bf ROOT} $\ast$}]{ queueROOT}
 \end{DoxyParamCaption}
 )}}
 \label{mpx__r2_8h_a9a582eea14fd6628937fb0891220fa82}
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00117}{117} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+This function inserts into a queue a element sorted by its priority lower number ( higher priority) to high number( lower priority). 
+
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00166}{166} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -506,11 +534,15 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00117}{117} of file \hyperlink{
       }
         \hyperlink{structpage}{ELEM} *node; \textcolor{comment}{// declare node of type element}
         \hyperlink{structpage}{ELEM} *incr;
+        \hyperlink{structpage}{ELEM} *temp1;
+        \textcolor{keywordtype}{char} line[MAX\_LINE];
+        \textcolor{keywordtype}{char} *lp;
+        lp = &line;
         node = sys\_alloc\_mem( \textcolor{keyword}{sizeof}(\hyperlink{structpage}{ELEM})); \textcolor{comment}{// allocate Memory for node}
         node -> \hyperlink{structprocess}{process} = PCBpointer;\textcolor{comment}{// add the PCB to the node}
         
-        \textcolor{keywordflow}{if}( queueROOT -> node = NULL )\{ \textcolor{comment}{// if this is the first element ever in t
-      he queque}
+        \textcolor{keywordflow}{if}( queueROOT -> node == NULL )\{ \textcolor{comment}{// if this is the first element ever in 
+      the queque}
                 node -> left = NULL;
                 node -> right = NULL;
                 queueROOT -> node = node; \textcolor{comment}{// Set the first element in the queque 
@@ -518,38 +550,79 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00117}{117} of file \hyperlink{
                 queueROOT -> count += 1; \textcolor{comment}{// increase count by one}
                 \textcolor{keywordflow}{return}; \textcolor{comment}{//exit out first node is in queque. }
         \}
+        
         incr = queueROOT -> node; \textcolor{comment}{//set node to the first node in the queque}
-        \textcolor{keywordflow}{while} ( (incr -> \hyperlink{structprocess}{process} -> priority <= node -> \hyperlink{structprocess}{process} -> priority) && i
-      ncr != NULL )\{ \textcolor{comment}{// Process with the lowest priority goes first }
+        \textcolor{keywordflow}{while} ( incr -> \hyperlink{structprocess}{process} -> priority <= node -> \hyperlink{structprocess}{process} -> priority  )\{ \textcolor{comment}{//
+       Process with the lowest priority goes first }
+                    lp = \hyperlink{mpx__r2_8c_aa1ebf78ebfc66e910acd6efdcf6b2437}{string_PCB}(incr->\hyperlink{structpage_af3cc0e1320b79159b230f154f1a95f0d}{process});
+                        printf(\textcolor{stringliteral}{"%s\(\backslash\)n"},lp);
+                        \textcolor{keywordflow}{if}( incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} == NULL) \textcolor{keywordflow}{break};
                         incr = incr -> right; \textcolor{comment}{// progrees to the right }
+                        
         \}
+        
         \textcolor{comment}{/* There are three cases to check for head, tail, and middle*/}
         
         \textcolor{comment}{/*head case*/}
+        \textcolor{keywordflow}{if} ( incr -> left == NULL && incr-> right == NULL)\{
+                \textcolor{keywordflow}{if}( incr -> \hyperlink{structprocess}{process} -> priority <= node -> \hyperlink{structprocess}{process} -> priority )\{
+      
+                        node-> left = incr;
+                        node-> right = NULL;
+                        incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = node;
+                        queueROOT->\hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{count} +=1;
+                \}\textcolor{keywordflow}{else}\{
+                        node->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = NULL;
+                        node->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = incr;
+                        incr->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = node;
+                        queueROOT -> node = node; \textcolor{comment}{//set quequeROOT to new head}
+                        queueROOT ->\hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{count} +=1;
+                \}
+                \textcolor{keywordflow}{return};
+        \}
         \textcolor{keywordflow}{if}( incr -> left == NULL && incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} != NULL )\{ 
                 node->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = NULL;
                 node->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = incr;
                 incr->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = node;
                 queueROOT -> node = node; \textcolor{comment}{//set quequeROOT to new head}
-                queueROOT ->count +=1;
+                queueROOT ->\hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{count} +=1;
+                \textcolor{keywordflow}{return};
         \}
         
         \textcolor{comment}{/*tail case*/}
         \textcolor{keywordflow}{if}( incr -> left != NULL && incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} == NULL )\{
-                node-> left = &incr;
-                node-> right = NULL;
-                incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = &node;
-                queueROOT->count +=1;
+                
+                \textcolor{keywordflow}{if}( incr -> \hyperlink{structprocess}{process} -> priority <= node -> \hyperlink{structprocess}{process} -> priority )\{
+      
+                        node-> left = incr;
+                        node-> right = NULL;
+                        incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = node;
+                        queueROOT->\hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{count} +=1;
+                        \textcolor{keywordflow}{return};
+                \}\textcolor{keywordflow}{else}\{
+                        incr = incr -> left; \textcolor{comment}{//decrement incr}
+                        temp1 = incr -> right;
+                        incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = node;
+                        node->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = temp1;
+                        node->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = incr;
+                        temp1->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = node;
+                        queueROOT->\hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{count} +=1;
+                        \textcolor{keywordflow}{return};
+                \}
+                
         \}
         
         \textcolor{comment}{/*middle case*/}
         \textcolor{keywordflow}{if}( incr -> left != NULL && incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} != NULL)\{
-                node->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right};
+                incr = incr -> left;
+                temp1 = incr -> right;
                 incr->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = node;
+                node->\hyperlink{structpage_a59bb1b5eca2d579befcc93a2833f4dfd}{right} = temp1;
                 node->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = incr;
-                queueROOT->count +=1;
+                temp1->\hyperlink{structpage_a450d16b8cb803158a4dab05bb36fd7f5}{left} = node;
+                queueROOT->\hyperlink{structroot_afa78d0408d4af29e936332a04739d59c}{count} +=1;
+                \textcolor{keywordflow}{return};
         \}
-        \textcolor{keywordflow}{return};
 \}
 \end{DoxyCode}
 
@@ -570,32 +643,40 @@ This is a user function in the menu that puts a process in the blocked state it 
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00361}{361} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00430}{430} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
                                          \{
-        \textcolor{keywordtype}{char} name[STRLEN];
-        \hyperlink{structprocess}{PCB} *pointer;
-        \hyperlink{structprocess}{PCB} *tempPCB;
-        \textcolor{keywordtype}{int} buffs = STRLEN;
-        printf(\textcolor{stringliteral}{"Name Of Process to block: \(\backslash\)n"});
-        sys\_req(TERMINAL,READ,name,&buffs);
-        
-        pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
-        \textcolor{keywordflow}{if} ( pointer != NULL)\{
-                tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
-                \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
-                \textcolor{keywordflow}{if}( tempPCB -> state > 0 ) tempPCB -> state = BLOCKED;
-                \textcolor{keywordflow}{if}( tempPCB -> state < 0 && tempPCB -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} )
-       tempPCB -> state = SUSPENDED\_BLOCKED;
-                \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
-        \}\textcolor{keywordflow}{else}\{
-                printf(\textcolor{stringliteral}{"Process Name not found!"});
-                \textcolor{keywordflow}{return};
+        \textcolor{keywordflow}{if}(argc==2)\{
+                \textcolor{keywordtype}{char} name[STRLEN];
+                
+                \hyperlink{structprocess}{PCB} *pointer;
+                \hyperlink{structprocess}{PCB} *tempPCB;
+                \textcolor{keywordtype}{int} buffs = STRLEN;
+                
+                strcpy(name,argv[1]);
+                
+                pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+                \textcolor{keywordflow}{if} ( pointer != NULL)\{
+                        tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
+                        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} || tempPCB -> state == 
+      \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) tempPCB -> state = BLOCKED;
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) tempPCB -> stat
+      e = SUSPENDED\_BLOCKED;
+                        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
+                \}\textcolor{keywordflow}{else}\{
+                        printf(\textcolor{stringliteral}{"Process Name not found!"});
+                        \textcolor{keywordflow}{return};
+                \}
         \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});       
+                \textcolor{keywordflow}{return};
+        \}       
 \}
 \end{DoxyCode}
 
@@ -612,83 +693,46 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00361}{361} of file \hyperlink{
 \label{mpx__r2_8h_a782285c58822e411fb75be1e65fe1104}
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00262}{262} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+This is a user function that interacts with the user to create a PCB structure. 
+
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00369}{369} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
                                               \{
-        \textcolor{keyword}{static} \textcolor{keywordtype}{int} count = ZERO;
-        \textcolor{keywordtype}{int} isValid = ZERO;
-        \textcolor{keywordtype}{char} in[10];
-        \textcolor{keywordtype}{int} temp;
-        \textcolor{keywordtype}{int} buffs;
-        \hyperlink{structprocess}{PCB} *newPCB = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();   
+        \textcolor{keyword}{static} \textcolor{keywordtype}{int} count;
+        \textcolor{keywordtype}{char} name[STRLEN];
+        \textcolor{keywordtype}{char} line[MAX\_LINE];
+        \textcolor{keywordtype}{int} type;
+        \textcolor{keywordtype}{int} priority;
+
+        \hyperlink{structprocess}{PCB} *newPCB = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        
         \textcolor{keywordflow}{if}( count == \hyperlink{mpx__r2_8h_ac328e551bde3d39b6d7b8cc9e048d941}{ZERO} )\{
                 \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} = (\hyperlink{structroot}{ROOT}*) sys\_alloc\_mem(\textcolor{keyword}{sizeof}(\hyperlink{structroot}{ROOT}));
                 \hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue} = (\hyperlink{structroot}{ROOT}*) sys\_alloc\_mem(\textcolor{keyword}{sizeof}(\hyperlink{structroot}{ROOT}));
         \}
         
         
-        
         printf(\textcolor{stringliteral}{"Process Name: \(\backslash\)n"});
-        buffs = STRLEN;
-        sys\_req(TERMINAL,READ,newPCB -> name,&buffs);
+        \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx_readline}(name, \hyperlink{mpx__r2_8h_a278cf415676752815cfb411cb0b32802}{STRLEN});
         printf(\textcolor{stringliteral}{"Process Class Type ( Application 0 or System  1): \(\backslash\)n"} );
-        buffs = 2;
-        sys\_req(TERMINAL,READ,in,&buffs);
-        temp = atoi(in);
-        \textcolor{keywordflow}{if}( temp == 1 ) newPCB -> classType = SYSTEM;
-        \textcolor{keywordflow}{if}(temp == 0 ) newPCB -> classType = APPLICATION;
-        temp = 0;
-        printf(\textcolor{stringliteral}{"Process Priority (-128 to 127): /n"});
-        buffs = 5;
-        sys\_req(TERMINAL,READ,in,&buffs);
-        temp = atoi(in);
-        \textcolor{keywordflow}{if}( temp <= 127 && temp >= -128 ) newPCB -> priority = temp;
-        temp = 0;
-        \textcolor{keywordflow}{while}( isValid !=  1 )\{
-                \textcolor{comment}{//check name validity}
-                \textcolor{keywordflow}{if} ( \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}( newPCB -> name ) != NULL ) \{
-                        printf(\textcolor{stringliteral}{"Process Name NOT VALID"});
-                        printf(\textcolor{stringliteral}{"Process Name: \(\backslash\)n"});
-                        buffs = STRLEN;
-                        sys\_req(TERMINAL,READ,newPCB -> name,&buffs);
-                        isValid = 0;
-                \}\textcolor{keywordflow}{else}\{
-                        isValid = 1;
-                \}
-                \textcolor{comment}{//check if system or type}
-                \textcolor{keywordflow}{if}( newPCB -> classType == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} || newPCB -> classType == 
-      \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )\{
-                        isValid = 1;
-                \}\textcolor{keywordflow}{else}\{
-                        printf(\textcolor{stringliteral}{"Process Class Type NOT VALID!"});
-                        printf(\textcolor{stringliteral}{"Process Class Type ( Application 0 or System  1):
-       \(\backslash\)n"} );
-                        buffs = 2;
-                        sys\_req(TERMINAL,READ,in,&buffs);
-                        temp = atoi(in);
-                        \textcolor{keywordflow}{if}( temp == 1 ) newPCB -> classType = SYSTEM;
-                        \textcolor{keywordflow}{if}(temp == 0 ) newPCB -> classType = APPLICATION;
-                        temp = 0;
-                        isValid = 0;
-                \}
-                \textcolor{comment}{//check Priority}
-                \textcolor{keywordflow}{if}( 127 <= newPCB -> priority || -128 >= newPCB -> priority )\{
-                    isValid = 1;
-                \} \textcolor{keywordflow}{else}\{
-                        buffs = 5;
-                        sys\_req(TERMINAL,READ,in,&buffs);
-                        temp = atoi(in);
-                        \textcolor{keywordflow}{if}( temp <= 127 && temp >= -128 ) newPCB -> priority = te
-      mp;
-                        temp = 0;
-                \}
-        \}
+        type= \hyperlink{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{mpxprompt_int}();
+        printf(\textcolor{stringliteral}{"Process Priority (-128 to 127): \(\backslash\)n"});
+        priority = \hyperlink{mpx__util_8c_aacc3dfe470919b0bd1133bce90383e18}{mpxprompt_int}();
         
-        \hyperlink{mpx__r2_8c_a20991a79e940fd54095a05f5b25cfaf3}{setup_PCB}(newPCB);
+        
+        
+        \textcolor{keywordflow}{if} ( \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(newPCB,&name,type,\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY},priority) == 1)\{
+                printf(\textcolor{stringliteral}{"Incrorrect information entered."});
+                \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+                \textcolor{keywordflow}{return};
+        \}       
+        
         \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(newPCB);
         count++;\textcolor{comment}{//Update the number of times the function has run.}
 \}
@@ -711,29 +755,27 @@ This is a user function in the menu to delete a process it takes the process nam
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00341}{341} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00412}{412} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
                                               \{
+        \textcolor{keywordflow}{if} (argc == 2)\{
         \textcolor{keywordtype}{char} name[STRLEN];
-        \textcolor{keywordtype}{int} buffs;
         \hyperlink{structprocess}{PCB} *pointer;
-        buffs = STRLEN;
-        printf(\textcolor{stringliteral}{"Name Of Process to Delete: \(\backslash\)n"});
-        sys\_req(TERMINAL,READ,name,&buffs);
+        strcpy(name,argv[1]);
         
         pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+        
         \textcolor{keywordflow}{if} ( pointer != NULL)\{
                 \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
         \}\textcolor{keywordflow}{else}\{
                 printf(\textcolor{stringliteral}{"Process Name not found!"});
                 \textcolor{keywordflow}{return};
         \}
-        
-        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+        \}
 \}
 \end{DoxyCode}
 
@@ -754,31 +796,37 @@ This is a user function in the menu that puts a process in the ready state if pr
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00427}{427} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00514}{514} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
                                           \{
-        \textcolor{keywordtype}{char} name[STRLEN];
-        \hyperlink{structprocess}{PCB} *pointer;
-        \hyperlink{structprocess}{PCB} *tempPCB;
-        \textcolor{keywordtype}{int} buffs = STRLEN;
-        printf(\textcolor{stringliteral}{"Name Of Process to resume: \(\backslash\)n"});
-        sys\_req(TERMINAL,READ,name,&buffs);
-        
-        pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
-        \textcolor{keywordflow}{if} ( pointer != NULL)\{
-                tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
-                \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) tempPCB -> state = READ
-      Y;
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) tempPCB -> state = BL
-      OCKED;
-                \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
-        \}\textcolor{keywordflow}{else}\{
-                printf(\textcolor{stringliteral}{"Process Name not found!"});
+        \textcolor{keywordflow}{if}(argc==2)\{
+                \textcolor{keywordtype}{char} name[STRLEN];
+                \hyperlink{structprocess}{PCB} *pointer;
+                \hyperlink{structprocess}{PCB} *tempPCB;
+                \textcolor{keywordtype}{int} buffs = STRLEN;
+                
+                strcpy(name,argv[1]);
+                
+                pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+                \textcolor{keywordflow}{if} ( pointer != NULL)\{
+                        tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
+                        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) tempPCB -> stat
+      e = READY;
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) tempPCB -> st
+      ate = BLOCKED;
+                        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
+                \}\textcolor{keywordflow}{else}\{
+                        printf(\textcolor{stringliteral}{"Process Name not found!"});
+                        \textcolor{keywordflow}{return};
+                \}
+        \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});       
                 \textcolor{keywordflow}{return};
         \}
 \}
@@ -801,31 +849,43 @@ This is a user function from the menu it changes the priority of a PCB and takes
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00449}{449} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00542}{542} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
-                                               \{
-        \textcolor{keywordtype}{char} name[STRLEN];
-        \hyperlink{structprocess}{PCB} *pointer;
-        \hyperlink{structprocess}{PCB} *tempPCB;
-        \textcolor{keywordtype}{int} buffs = STRLEN;
-        printf(\textcolor{stringliteral}{"Name Of Process to set Priority: \(\backslash\)n"});
-        sys\_req(TERMINAL,READ,name,&buffs);
-        
-        pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
-        \textcolor{keywordflow}{if} ( pointer != NULL)\{
-                tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
-                \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) tempPCB -> state = READ
-      Y;
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) tempPCB -> state = BL
-      OCKED;
-                \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
-        \}\textcolor{keywordflow}{else}\{
-                printf(\textcolor{stringliteral}{"Process Name not found!"});
+                                               \{ 
+        \textcolor{keywordflow}{if}(argc==3)\{
+                \textcolor{keywordtype}{char} name[STRLEN];
+                \hyperlink{structprocess}{PCB} *pointer;
+                \textcolor{keywordtype}{int} priority;
+                \hyperlink{structprocess}{PCB} *tempPCB;
+                \textcolor{keywordtype}{int} buffs = STRLEN;
+                priority  = atoi(argv[2]);
+                strcpy(name,argv[1]);
+                \textcolor{keywordflow}{if}( priority <= 128 || priority >= -127)\{ ;\}\textcolor{keywordflow}{else}\{
+                        printf(\textcolor{stringliteral}{"Number entered out of range!"});
+                        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+                        \textcolor{keywordflow}{return};
+                \}
+                pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+                \textcolor{keywordflow}{if} ( pointer != NULL)\{
+                        pointer -> priority = priority;
+                        \textcolor{keywordflow}{if}( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} )\{
+                                        tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
+                                        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+                                        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
+                                        \}
+                \}\textcolor{keywordflow}{else}\{
+                        printf(\textcolor{stringliteral}{"Process Name not found!"});
+                        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+                        \textcolor{keywordflow}{return};
+                \}
+        \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});
+                \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
                 \textcolor{keywordflow}{return};
         \}
 \}
@@ -848,46 +908,39 @@ This is a user command from the menu it is used to show information about a spec
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00472}{472} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00579}{579} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
                                             \{
-        \textcolor{keywordtype}{char} name[STRLEN];
-        \hyperlink{structprocess}{PCB} *pointer;
-        \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
-        \textcolor{keywordtype}{char} state[45];
-        \textcolor{keywordtype}{int} buffs = STRLEN;
-        printf(\textcolor{stringliteral}{"Name Of Process to set Priority: \(\backslash\)n"});
-        sys\_req(TERMINAL,READ,name,&buffs);
-        
-        pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
-        \textcolor{keywordflow}{if} ( pointer != NULL)\{
+        \textcolor{keywordflow}{if}(argc==2)\{
+                \textcolor{keywordtype}{char} name[STRLEN];
+                \hyperlink{structprocess}{PCB} *pointer;
+                \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
+                \textcolor{keywordtype}{char} state[45];
+                \textcolor{keywordtype}{int} buffs = STRLEN;
+                \textcolor{keywordtype}{char} line[MAX\_LINE];
+                \textcolor{keywordtype}{char}* lp;
+                lp = &line;
                 
+                strcpy(name,argv[1]);
                 
-                \textcolor{keywordflow}{if} ( pointer -> classType  == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} )
-                        strcpy( \textcolor{keyword}{class}, \textcolor{stringliteral}{"Application"} );
-                \textcolor{keywordflow}{if} (  pointer -> classType == \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )
-                        strcpy ( \textcolor{keyword}{class}, \textcolor{stringliteral}{"System"} );
+                pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
                 
-                
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Running"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Blocked"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) 
-                        strcpy( state ,\textcolor{stringliteral}{"Suspened Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Suspened Blocked"} ) ;
-                
-                printf(\textcolor{stringliteral}{"Name: %s \(\backslash\)n Class: %s \(\backslash\)n Priority: %d \(\backslash\)n State:  %s \(\backslash\)n"}, 
-      pointer -> name, \textcolor{keyword}{class}, pointer -> priority, state); 
-        \}\textcolor{keywordflow}{else}\{
-                printf(\textcolor{stringliteral}{"Process Name not found!"});
+                \textcolor{keywordflow}{if} ( pointer != NULL)\{
+                        printf(\textcolor{stringliteral}{"%s\(\backslash\)n"},\hyperlink{mpx__r2_8c_aa1ebf78ebfc66e910acd6efdcf6b2437}{string_PCB}(pointer));  
+                        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+                \}\textcolor{keywordflow}{else}\{
+                        printf(\textcolor{stringliteral}{"Process Name not found!"});
+                        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+                        \textcolor{keywordflow}{return};
+                \}
+        \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});
+                \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
                 \textcolor{keywordflow}{return};
         \}
 \}
@@ -910,7 +963,7 @@ This is a user functions that shows name and state of all processes.
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00510}{510} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00611}{611} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -918,65 +971,54 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00510}{510} of file \hyperlink{
 \begin{DoxyCode}
                                                \{ \textcolor{comment}{// Pagination function needs add
       ed !!Function still needs work!!}
-        \hyperlink{structpage}{ELEM} *incr;
-        \hyperlink{structprocess}{PCB} *pointer;
-        \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
-        \textcolor{keywordtype}{char} state[45];
-        incr = \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> node;\textcolor{comment}{//set node to the first node in the queque}
-        \textcolor{keywordflow}{while}( incr -> right != NULL )\{
+        \textcolor{keywordflow}{if}(argc==1)\{
+                \hyperlink{structpage}{ELEM} *incr;
+                \hyperlink{structprocess}{PCB} *pointer;
+                \textcolor{keywordtype}{char} line[MAX\_LINE];
+                \textcolor{keywordtype}{char}* lp;
+                \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
+                \textcolor{keywordtype}{char} state[45];
+                \textcolor{comment}{//set node to the first node in the queque}
+                lp = &line;
+                \hyperlink{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}{mpx_pager_init}(\textcolor{stringliteral}{" All PCB's In Queue:\(\backslash\)n --------------------------
+      ---------------------------\(\backslash\)n"});
                 
-                pointer = incr -> \hyperlink{structprocess}{process};
+                printf(\textcolor{stringliteral}{"%d"}, \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> count);
+                \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+                \textcolor{keywordflow}{if}( \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> count > 0 )\{
+                incr = \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> node;
+                \textcolor{keywordflow}{while}( incr != NULL )\{
+                        
+                        pointer = incr -> \hyperlink{structprocess}{process};
                 
-                \textcolor{keywordflow}{if} ( pointer -> classType  == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} )
-                        strcpy( \textcolor{keyword}{class}, \textcolor{stringliteral}{"Application"} );
-                \textcolor{keywordflow}{if} (  pointer -> classType == \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )
-                        strcpy ( \textcolor{keyword}{class}, \textcolor{stringliteral}{"System"} );
+                        lp = \hyperlink{mpx__r2_8c_aa1ebf78ebfc66e910acd6efdcf6b2437}{string_PCB}(pointer);
+                        \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx_pager}(lp);
+                        
+                        incr = incr -> right; \textcolor{comment}{// progress forward to the right of
+       the queque}
+                \}
+            \} 
+                printf(\textcolor{stringliteral}{"%d"}, \hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue} -> count);
+                \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+                \textcolor{keywordflow}{if}(\hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue} -> count > 0)\{
+                incr = \hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue} -> node;
+                \textcolor{keywordflow}{while}( incr != NULL )\{
+                        pointer = incr -> \hyperlink{structprocess}{process};
                 
-                
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Running"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Blocked"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) 
-                        strcpy( state ,\textcolor{stringliteral}{"Suspened Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Suspened Blocked"} ) ;
-                
-                
-                printf(\textcolor{stringliteral}{"Name: %s \(\backslash\)n Class: %s \(\backslash\)n Priority: %i \(\backslash\)n State:  %s \(\backslash\)n"}, 
-      pointer -> name, \textcolor{keyword}{class}, pointer -> priority, state); 
-                incr = incr -> right; \textcolor{comment}{// progress forward to the right of the que
-      que}
+                        
+                        lp = \hyperlink{mpx__r2_8c_aa1ebf78ebfc66e910acd6efdcf6b2437}{string_PCB}(pointer);
+                        \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx_pager}(lp);
+                        
+                        incr = incr -> right; \textcolor{comment}{// progress forward to the right of
+       the queque}
+                \}
+                \}
         \}
-        incr = \hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue} -> node;
-        \textcolor{keywordflow}{while}( incr -> right != NULL )\{
-                
-                pointer = incr -> \hyperlink{structprocess}{process};
-        
-                \textcolor{keywordflow}{if} ( pointer -> classType  == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} )
-                        strcpy( \textcolor{keyword}{class}, \textcolor{stringliteral}{"Application"} );
-                \textcolor{keywordflow}{if} (  pointer -> classType == \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )
-                        strcpy ( \textcolor{keyword}{class}, \textcolor{stringliteral}{"System"} );
-                
-                
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Running"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Blocked"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) 
-                        strcpy( state ,\textcolor{stringliteral}{"Suspened Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Suspened Blocked"} ) ;
-                
-                printf(\textcolor{stringliteral}{"Name: %s \(\backslash\)n Class: %s \(\backslash\)n Priority: %i \(\backslash\)n State:  %s \(\backslash\)n"}, 
-      pointer -> name, \textcolor{keyword}{class}, pointer -> priority, state); 
-                incr = incr -> right; \textcolor{comment}{// progress forward to the right of the que
-      que}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});       
+                \textcolor{keywordflow}{return};
         \}
+        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
 \}
 \end{DoxyCode}
 
@@ -997,7 +1039,7 @@ This is a user function that shows all blocked processes followed by non-\/block
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00628}{628} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00699}{699} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -1005,66 +1047,36 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00628}{628} of file \hyperlink{
 \begin{DoxyCode}
                                                    \{ \textcolor{comment}{// Pagination function needs
        added !!Function still needs work!!}
-        \hyperlink{structpage}{ELEM} *incr;
-        \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
-        \textcolor{keywordtype}{char} state[45];
-        \hyperlink{structprocess}{PCB} *pointer;
-        incr = \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> node;\textcolor{comment}{//set node to the first node in the queque}
-        \textcolor{keywordflow}{while}( incr -> right != NULL )\{
+        \textcolor{keywordflow}{if}(argc==1)\{
+                \hyperlink{structpage}{ELEM} *incr;
+                \hyperlink{structprocess}{PCB} *pointer;
+                \textcolor{keywordtype}{char} line[MAX\_LINE];
+                \textcolor{keywordtype}{char}* lp;
+                \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
+                \textcolor{keywordtype}{char} state[45];
+                lp = &line;
+                \hyperlink{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}{mpx_pager_init}(\textcolor{stringliteral}{" All PCB's Blocked State in Queues:\(\backslash\)n -----------
+      ------------------------------------------\(\backslash\)n"});
                 
-                pointer = incr -> \hyperlink{structprocess}{process};
-                \textcolor{keywordflow}{if} ( pointer -> state != \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED}) \textcolor{keywordflow}{break};
-                
-                
-                \textcolor{keywordflow}{if} ( pointer -> classType  == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} )
-                        strcpy( \textcolor{keyword}{class}, \textcolor{stringliteral}{"Application"} );
-                \textcolor{keywordflow}{if} (  pointer -> classType == \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )
-                        strcpy ( \textcolor{keyword}{class}, \textcolor{stringliteral}{"System"} );
-                
-                
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Running"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Blocked"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) 
-                        strcpy( state ,\textcolor{stringliteral}{"Suspened Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Suspened Blocked"} ) ;
-                
-                
-                printf(\textcolor{stringliteral}{"Name: %s \(\backslash\)n Class: %s \(\backslash\)n Priority: %i \(\backslash\)n State:  %s \(\backslash\)n"}, 
-      pointer -> name, \textcolor{keyword}{class}, pointer -> priority, state); 
-                incr = incr -> right; \textcolor{comment}{// progress forward to the right of the que
-      que}
+                incr = \hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue} -> node;\textcolor{comment}{//set node to the first node in the queque
+      }
+                \textcolor{keywordflow}{while}( incr  != NULL )\{
+                        pointer = incr -> \hyperlink{structprocess}{process};
+                        \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} || pointer -> 
+      state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} )\{
+                        lp = \hyperlink{mpx__r2_8c_aa1ebf78ebfc66e910acd6efdcf6b2437}{string_PCB}(pointer);
+                        \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx_pager}(lp);
+                        \}
+                        incr = incr -> right; \textcolor{comment}{// progress forward to the right of
+       the queque                     incr = incr -> right; // progress forward to the 
+      right of the queque}
+                \}
         \}
-        \textcolor{keywordflow}{while}( incr -> right != NULL )\{
-                pointer = incr -> \hyperlink{structprocess}{process};
-                \textcolor{keywordflow}{if} ( pointer -> state != \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED}) \textcolor{keywordflow}{break};
-                
-                \textcolor{keywordflow}{if} ( pointer -> classType  == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} )
-                        strcpy( \textcolor{keyword}{class}, \textcolor{stringliteral}{"Application"} );
-                \textcolor{keywordflow}{if} (  pointer -> classType == \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )
-                        strcpy ( \textcolor{keyword}{class}, \textcolor{stringliteral}{"System"} );
-                
-                
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Running"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Blocked"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) 
-                        strcpy( state ,\textcolor{stringliteral}{"Suspened Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Suspened Blocked"} ) ;
-                
-                printf(\textcolor{stringliteral}{"Name: %s \(\backslash\)n Class: %s \(\backslash\)n Priority: %i \(\backslash\)n State:  %s \(\backslash\)n"}, 
-      pointer -> name, \textcolor{keyword}{class}, pointer -> priority, state); 
-                incr = incr -> right; \textcolor{comment}{// progress forward to the right of the que
-      que}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});       
+                \textcolor{keywordflow}{return};
         \}
+        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
 \}       
 \end{DoxyCode}
 
@@ -1085,7 +1097,7 @@ This is a user function that shows all non-\/suspended processes followed by sus
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00569}{569} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00660}{660} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
@@ -1093,65 +1105,46 @@ Definition at line \hyperlink{mpx__r2_8c_source_l00569}{569} of file \hyperlink{
 \begin{DoxyCode}
                                                  \{ \textcolor{comment}{// Pagination function needs a
       dded !!Function still needs work!!}
-        \hyperlink{structpage}{ELEM} *incr;
-        \hyperlink{structprocess}{PCB} *pointer;
-        \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
-        \textcolor{keywordtype}{char} state[45];
-        incr = \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> node;\textcolor{comment}{//set node to the first node in the queque}
-        
-        \textcolor{keywordflow}{while}( incr -> right != NULL )\{
+        \textcolor{keywordflow}{if}(argc==1)\{
+                \hyperlink{structpage}{ELEM} *incr;
+                \hyperlink{structprocess}{PCB} *pointer;
+                \textcolor{keywordtype}{char} line[MAX\_LINE];
+                \textcolor{keywordtype}{char}* lp;
+                \textcolor{keywordtype}{char} \textcolor{keyword}{class}[30];
+                \textcolor{keywordtype}{char} state[45];
+                incr = \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> node;\textcolor{comment}{//set node to the first node in the queque}
+                lp = &line;
+                \hyperlink{mpx__util_8c_a60afdb7496b6ff469c6b98d2ecde15ed}{mpx_pager_init}(\textcolor{stringliteral}{" All PCB's Ready State in Queues:\(\backslash\)n -------------
+      ----------------------------------------\(\backslash\)n"});
+                \textcolor{keywordflow}{while}( incr != NULL )\{
+                        
+                        pointer = incr -> \hyperlink{structprocess}{process};
+                        \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY})\{
+                        lp = \hyperlink{mpx__r2_8c_aa1ebf78ebfc66e910acd6efdcf6b2437}{string_PCB}(pointer);
+                        \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx_pager}(lp);
+                        \}
+                        incr = incr -> right; \textcolor{comment}{// progress forward to the right of
+       the queque}
+                \}
                 
-                pointer = incr -> \hyperlink{structprocess}{process};
-                \textcolor{keywordflow}{if} ( pointer -> state != \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY}) \textcolor{keywordflow}{break};
-                
-                \textcolor{keywordflow}{if} ( pointer -> classType  == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} )
-                        strcpy( \textcolor{keyword}{class}, \textcolor{stringliteral}{"Application"} );
-                \textcolor{keywordflow}{if} (  pointer -> classType == \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )
-                        strcpy ( \textcolor{keyword}{class}, \textcolor{stringliteral}{"System"} );
-                
-                
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Running"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Blocked"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) 
-                        strcpy( state ,\textcolor{stringliteral}{"Suspened Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Suspened Blocked"} ) ;
-                
-                printf(\textcolor{stringliteral}{"Name: %s \(\backslash\)n Class: %s \(\backslash\)n Priority: %i \(\backslash\)n State:  %s \(\backslash\)n"}, 
-      pointer -> name, \textcolor{keyword}{class}, pointer -> priority, state); 
-                incr = incr -> right; \textcolor{comment}{// progress forward to the right of the que
-      que}
+                incr = \hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue} -> node;\textcolor{comment}{//set node to the first node in the queque
+      }
+                \textcolor{keywordflow}{while}( incr != NULL )\{
+                        pointer = incr -> \hyperlink{structprocess}{process};
+                        \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY})\{
+                        lp = \hyperlink{mpx__r2_8c_aa1ebf78ebfc66e910acd6efdcf6b2437}{string_PCB}(pointer);
+                        \hyperlink{mpx__util_8c_a9e59881f10bd91d7255f18f205e101e6}{mpx_pager}(lp);
+                        \}
+                        incr = incr -> right; \textcolor{comment}{// progress forward to the right of
+       the queque                     incr = incr -> right; // progress forward to the 
+      right of the queque}
+                \}
         \}
-        \textcolor{keywordflow}{while}( incr -> right != NULL )\{
-                pointer = incr -> \hyperlink{structprocess}{process};
-                \textcolor{keywordflow}{if} ( pointer -> state != \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY}) \textcolor{keywordflow}{break};
-                
-                \textcolor{keywordflow}{if} ( pointer -> classType  == \hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION} )
-                        strcpy( \textcolor{keyword}{class}, \textcolor{stringliteral}{"Application"} );
-                \textcolor{keywordflow}{if} (  pointer -> classType == \hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM} )
-                        strcpy ( \textcolor{keyword}{class}, \textcolor{stringliteral}{"System"} );
-                
-                
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Running"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) 
-                        strcpy( state, \textcolor{stringliteral}{"Blocked"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} ) 
-                        strcpy( state ,\textcolor{stringliteral}{"Suspened Ready"} );
-                \textcolor{keywordflow}{if} ( pointer -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) 
-                        strcpy( state , \textcolor{stringliteral}{"Suspened Blocked"} ) ;
-                
-                printf(\textcolor{stringliteral}{"Name: %s \(\backslash\)n Class: %s \(\backslash\)n Priority: %i \(\backslash\)n State:  %s \(\backslash\)n"}, 
-      pointer -> name, \textcolor{keyword}{class}, pointer -> priority, state); 
-                incr = incr -> right; \textcolor{comment}{// progress forward to the right of the que
-      que}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});       
+                \textcolor{keywordflow}{return};
         \}
+        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
 \}
 \end{DoxyCode}
 
@@ -1172,31 +1165,36 @@ This is a user function in the menu that puts a process in the suspend state it 
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00405}{405} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00487}{487} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
                                            \{
-        \textcolor{keywordtype}{char} name[STRLEN];
-        \hyperlink{structprocess}{PCB} *pointer;
-        \hyperlink{structprocess}{PCB} *tempPCB;
-        \textcolor{keywordtype}{int} buffs = STRLEN;
-        printf(\textcolor{stringliteral}{"Name Of Process to suspend: \(\backslash\)n"});
-        sys\_req(TERMINAL,READ,name,&buffs);
-        
-        pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
-        \textcolor{keywordflow}{if} ( pointer != NULL)\{
-                tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
-                \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} || tempPCB -> state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) te
-      mpPCB -> state = SUSPENDED\_READY;
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) tempPCB -> state = SUSPENDED\_BL
-      OCKED;
-                \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
-        \}\textcolor{keywordflow}{else}\{
-                printf(\textcolor{stringliteral}{"Process Name not found!"});
+        \textcolor{keywordflow}{if}(argc==2)\{
+                \textcolor{keywordtype}{char} name[STRLEN];
+                \hyperlink{structprocess}{PCB} *pointer;
+                \hyperlink{structprocess}{PCB} *tempPCB;
+                \textcolor{keywordtype}{int} buffs = STRLEN;
+                strcpy(name,argv[1]);
+                
+                pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+                \textcolor{keywordflow}{if} ( pointer != NULL)\{
+                        tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
+                        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} || tempPCB -> state == 
+      \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} ) tempPCB -> state = SUSPENDED\_READY;
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) tempPCB -> state = SUSP
+      ENDED\_BLOCKED;
+                        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
+                \}\textcolor{keywordflow}{else}\{
+                        printf(\textcolor{stringliteral}{"Process Name not found!"});
+                        \textcolor{keywordflow}{return};
+                \}
+        \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});       
                 \textcolor{keywordflow}{return};
         \}
 \}
@@ -1219,91 +1217,100 @@ This is a user function in the menu that puts a process in the unblocked state i
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00383}{383} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00459}{459} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
                                            \{
-        \textcolor{keywordtype}{char} name[STRLEN];
-        \hyperlink{structprocess}{PCB} *pointer;
-        \hyperlink{structprocess}{PCB} *tempPCB;
-        \textcolor{keywordtype}{int} buffs = STRLEN;
-        printf(\textcolor{stringliteral}{"Name Of Process to unblock: \(\backslash\)n"});
-        sys\_req(TERMINAL,READ,name,&buffs);
-        
-        pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
-        \textcolor{keywordflow}{if} ( pointer != NULL)\{
-                tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
-                \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) tempPCB -> state = READY;
-                \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) tempPCB -> state = SU
-      SPENDED\_READY;
-                \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
-        \}\textcolor{keywordflow}{else}\{
-                printf(\textcolor{stringliteral}{"Process Name not found!"});
+        \textcolor{keywordflow}{if}(argc==2)\{
+                \textcolor{keywordtype}{char} name[STRLEN];
+                \hyperlink{structprocess}{PCB} *pointer;
+                \hyperlink{structprocess}{PCB} *tempPCB;
+                \textcolor{keywordtype}{int} buffs = STRLEN;
+                
+                strcpy(name,argv[1]);
+                
+                pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+                \textcolor{keywordflow}{if} ( pointer != NULL)\{
+                        tempPCB = \hyperlink{mpx__r2_8c_aca3ad02d2b4c68f7653b0adf2c484ff6}{copy_PCB}(pointer);
+                        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} ) tempPCB -> state = READ
+      Y;
+                        \textcolor{keywordflow}{if}( tempPCB -> state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ) tempPCB -> st
+      ate = SUSPENDED\_READY;
+                        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(tempPCB);
+                \}\textcolor{keywordflow}{else}\{
+                        printf(\textcolor{stringliteral}{"Process Name not found!"});
+                        \textcolor{keywordflow}{return};
+                \}
+        \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong number of arguments used"});       
                 \textcolor{keywordflow}{return};
         \}
 \}
 \end{DoxyCode}
 
 
-\hypertarget{mpx__r2_8h_a20991a79e940fd54095a05f5b25cfaf3}{
+\hypertarget{mpx__r2_8h_a48d816fd79ba99118f2dff84d84395f5}{
 \index{mpx\_\-r2.h@{mpx\_\-r2.h}!setup\_\-PCB@{setup\_\-PCB}}
 \index{setup\_\-PCB@{setup\_\-PCB}!mpx_r2.h@{mpx\_\-r2.h}}
-\subsubsection[{setup\_\-PCB}]{\setlength{\rightskip}{0pt plus 5cm}void setup\_\-PCB (
+\subsubsection[{setup\_\-PCB}]{\setlength{\rightskip}{0pt plus 5cm}int setup\_\-PCB (
 \begin{DoxyParamCaption}
-\item[{{\bf PCB} $\ast$}]{ pointer}
+\item[{{\bf PCB} $\ast$}]{ pointer, }
+\item[{char $\ast$}]{ Name, }
+\item[{int}]{ classType, }
+\item[{int}]{ state, }
+\item[{int}]{ priority}
 \end{DoxyParamCaption}
 )}}
-\label{mpx__r2_8h_a20991a79e940fd54095a05f5b25cfaf3}
+\label{mpx__r2_8h_a48d816fd79ba99118f2dff84d84395f5}
 
 
-This Function initializes the contents of a PCB. 
-
-
-
-$<$ counter varable for loop
-
-$<$ pointer to what will become the bottom of the stack 
+This Function initializes the contents of a PCB and checks the values if correct returns 0 if not returns 1. 
 
 
 
-Definition at line \hyperlink{mpx__r2_8c_source_l00068}{68} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+Definition at line \hyperlink{mpx__r2_8c_source_l00083}{83} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
 
 
 
 
 \begin{DoxyCode}
-                              \{
-        \textcolor{keywordtype}{int} i;
-        \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structstack}{stack};
-        \textcolor{comment}{//Allocate the stack}
-        stack = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) sys\_mem\_alloc(\hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE});
+                                                                                 
+      \{\textcolor{comment}{//FIXME: NO DATA VV}
+        \textcolor{keywordtype}{int} ret;
+        \textcolor{keywordtype}{char} *name = pointer -> name;
+        ret = 0;
+        strcpy(name,Name);
         
-        
-                
-                
-        \textcolor{comment}{//set priority of PCB ( this is for MOD 2 Only, comment out after Mod 2) 
-      }
-        pointer -> priority =  READY;
-        \textcolor{comment}{//Ucomment after mod 2}
-        \textcolor{comment}{// pointer -> priority = priority;}
-        
-        \textcolor{comment}{//Setup Memory Descriptor with Default Values for Module 2}
-        pointer -> memdsc -> size = 0;
-        pointer -> memdsc -> loadADDR = NULL;
-        pointer -> memdsc -> execADDR = NULL;
-        
-        \textcolor{comment}{//Setup the Stack}
-        \textcolor{keywordflow}{for}( i = 0; i < STACKSIZE; i++)  *(stack + i) = 0; \textcolor{comment}{//ZERO out Stack to ai
-      d in debug....}
-        pointer -> stackdsc -> base = stack; \textcolor{comment}{// x86 arch Stacks start at the Hige
-      st value }
-        pointer -> stackdsc -> top  = stack[STACKSIZE-1];\textcolor{comment}{// and go to lowest or n
-       - 2 for Word alloc }
-        
+        \textcolor{keywordflow}{if}( \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name) == NULL)\{
+                \textcolor{keywordflow}{if}( classType == 1 || classType == 0 )\{
+                        pointer -> classType = classType;
+                \}\textcolor{keywordflow}{else}\{
+                        ret = 1;
+                \}
+                 \textcolor{keywordflow}{if}( state == \hyperlink{mpx__r2_8h_a48f6457243719e7031768d4100741159}{BLOCKED} || 
+                         state == \hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY} || 
+                     state == \hyperlink{mpx__r2_8h_a6e41bb5a80c5049e8d364bab8ee4d73a}{SUSPENDED_BLOCKED} ||
+                         state == \hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY} || 
+                         state == \hyperlink{mpx__r2_8h_a6fb7181d994ee98e735494be55809708}{RUNNING} )
+                \{
+                pointer -> state = state;
+                \}\textcolor{keywordflow}{else}\{
+                        ret = 1;
+                \}
+                \textcolor{keywordflow}{if}( priority <= 127 && priority >= -128)\{
+                        pointer -> priority = priority;
+                \}\textcolor{keywordflow}{else}\{
+                        ret = 1;
+                \}
+        \}\textcolor{keywordflow}{else}\{
+                ret = 1;
+        \}
+        \textcolor{keywordflow}{return} ret;
 \}
 \end{DoxyCode}
 

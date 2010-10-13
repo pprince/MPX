@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>MPX Programmers Manual: src/mpx_cmd.h File Reference</title>
+<title>PMOS Programmers Manual: src/mpx_cmd.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -53,7 +53,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpx__cmd_8h.html#ac303fbf0480d6050f91c6d7ac960d00c">mpxcmd_exit</a> (int argc, char *argv[])</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The Exit function allows the user to confirm if they want to exit MPX.  <a href="#ac303fbf0480d6050f91c6d7ac960d00c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpx__cmd_8h.html#ae9b1349cfcfc34815e87cae5330660e8">mpxcmd_help</a> (int argc, char *argv[])</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The Help function displays the help for MPX.  <a href="#ae9b1349cfcfc34815e87cae5330660e8"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This is a user menu funtion designed to give info about other functions takes one or no inputs.  <a href="#ae9b1349cfcfc34815e87cae5330660e8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpx__cmd_8h.html#ab121952706478a3ce5951ab91298d391">mpxcmd_load</a> (int argc, char *argv[])</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">This function displays the Directory containing the MPX process files.  <a href="#ab121952706478a3ce5951ab91298d391"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="mpx__cmd_8h.html#a8959742dda38733f33da60a56cb07373">mpxcmd_date</a> (int argc, char *argv[])</td></tr>
@@ -138,11 +138,12 @@ Functions</h2></td></tr>
         <span class="keywordtype">int</span>  i;
         <a class="code" href="structmpx__cmd.html">mpx_cmd_t</a> *command;
 
-        <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>( <span class="stringliteral">&quot;help&quot;</span>, <a class="code" href="mpx__cmd_8c.html#ae9b1349cfcfc34815e87cae5330660e8" title="The Help function displays the help for MPX.">mpxcmd_help</a> );
+        <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>( <span class="stringliteral">&quot;help&quot;</span>, <a class="code" href="mpx__cmd_8c.html#ae9b1349cfcfc34815e87cae5330660e8" title="This is a user menu funtion designed to give info about other functions takes one or no inputs...">mpxcmd_help</a> );
         <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;load&quot;</span>, <a class="code" href="mpx__cmd_8c.html#ab121952706478a3ce5951ab91298d391" title="This function displays the Directory containing the MPX process files.">mpxcmd_load</a> );
         <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;date&quot;</span>, <a class="code" href="mpx__cmd_8c.html#a8959742dda38733f33da60a56cb07373" title="The Date function allows the user to display or change the date of the MPX system.">mpxcmd_date</a> );
         <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;exit&quot;</span>, <a class="code" href="mpx__cmd_8c.html#ac303fbf0480d6050f91c6d7ac960d00c" title="The Exit function allows the user to confirm if they want to exit MPX.">mpxcmd_exit</a> );
-        <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;create&quot;</span>,<a class="code" href="mpx__r2_8c.html#a782285c58822e411fb75be1e65fe1104">mpxcmd_create_PCB</a>);
+        <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;version&quot;</span>, <a class="code" href="mpx__cmd_8c.html#a70a1ce3926ea7c41321ab42b4161df0d" title="The Version function displays MPX version information.">mpxcmd_version</a> );
+        <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;create&quot;</span>,<a class="code" href="mpx__r2_8c.html#a782285c58822e411fb75be1e65fe1104" title="This is a user function that interacts with the user to create a PCB structure.">mpxcmd_create_PCB</a>);
         <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;delete&quot;</span>,<a class="code" href="mpx__r2_8c.html#ae6d6afa9fefa158029528a24841c453a" title="This is a user function in the menu to delete a process it takes the process name as input...">mpxcmd_delete_PCB</a>);
         <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;block&quot;</span>,<a class="code" href="mpx__r2_8c.html#ae8eb72663ecff92c27ab06e3560fd0d4" title="This is a user function in the menu that puts a process in the blocked state it takes the process nam...">mpxcmd_block</a>);
         <a class="code" href="mpx__cmd_8c.html#a52c02eb85fda9ac4278e10088a192e89">mpx_add_command</a>(<span class="stringliteral">&quot;unblock&quot;</span>,<a class="code" href="mpx__r2_8c.html#a1363a7b6156a84057936c3fd91d91f69" title="This is a user function in the menu that puts a process in the unblocked state it takes the process n...">mpxcmd_unblock</a>);
@@ -236,7 +237,7 @@ Functions</h2></td></tr>
 
 <p>The Date function allows the user to display or change the date of the MPX system. </p>
 
-<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00208">208</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
+<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00237">237</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
 
 <p><div class="fragment"><pre class="fragment">                                          {
         date_rec date;
@@ -351,7 +352,7 @@ Functions</h2></td></tr>
 
 <p>The Exit function allows the user to confirm if they want to exit MPX. </p>
 
-<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00292">292</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
+<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00321">321</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
 
 <p><div class="fragment"><pre class="fragment">                                          {
         printf(<span class="stringliteral">&quot;\n&quot;</span>);
@@ -390,16 +391,44 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>The Help function displays the help for MPX. </p>
+<p>This is a user menu funtion designed to give info about other functions takes one or no inputs. </p>
 
-<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00161">161</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
+<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00162">162</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
 
-<p><div class="fragment"><pre class="fragment">                                          {
-        <a class="code" href="mpx__util_8c.html#a8cf3281978ba1652fd5d643e1a41f70b" title="Clear, blanks the screen.">mpx_cls</a>();
-        printf(<span class="stringliteral">&quot;\n&quot;</span>);
-        printf(<span class="stringliteral">&quot;  MPX HELP:\n&quot;</span>);
-        printf(<span class="stringliteral">&quot; .. coming soon.\n&quot;</span>);
+<p><div class="fragment"><pre class="fragment">                                        {
+        FILE *fp;
+        <span class="keywordtype">long</span> fileSize;
+        <span class="keywordtype">char</span>* buffer;
+        <span class="keywordtype">char</span> fileName[100];
+        <span class="keywordtype">size_t</span> data;    
+        strcpy(fileName,argv[1]);
+        sprintf(buffer,<span class="stringliteral">&quot;help\\%s\.txt&quot;</span>,fileName);
 
+        
+        <span class="keywordflow">if</span>(argc==2){ <span class="comment">// specific function help</span>
+                fp=fopen(buffer,<span class="stringliteral">&quot;r&quot;</span>);
+                fseek(fp,0,SEEK_END);
+                fileSize=ftell(fp);
+                rewind(fp);
+                buffer = (<span class="keywordtype">char</span>*) sys_alloc_mem(<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>)*fileSize);
+                data = fread (buffer,1,fileSize,fp);
+                
+                printf(<span class="stringliteral">&quot;%s&quot;</span>,buffer);
+        }
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(argc==1){ <span class="comment">// general help</span>
+                fp=fopen(<span class="stringliteral">&quot;help\\help.txt&quot;</span>,<span class="stringliteral">&quot;r&quot;</span>); 
+                fseek(fp,0,SEEK_END);
+                fileSize=ftell(fp);
+                rewind(fp);
+                buffer = (<span class="keywordtype">char</span>*) sys_alloc_mem(<span class="keyword">sizeof</span>(<span class="keywordtype">char</span>)*fileSize);
+                data = fread (buffer,1,fileSize,fp);
+                printf(<span class="stringliteral">&quot;%s&quot;</span>,buffer);
+        }
+        <span class="keywordflow">else</span>{
+                printf(<span class="stringliteral">&quot;Wrong number of arguments used or no such command&quot;</span>);    
+                <span class="keywordflow">return</span>;
+        }
+        fclose(fp);
         printf(<span class="stringliteral">&quot;%s&quot;</span>, <a class="code" href="mpx__cmd_8c.html#a35b541517c624b5cabacaaa78ac41c70" title="Any Key String stores the value of the prompt for the user to press return.">anykey_str</a>); <a class="code" href="mpx__util_8c.html#a338d01dfe3c80732c00450203c85b964" title="The function Prompt Any key Prompts the user to press the return key.">mpxprompt_anykey</a>();
         <span class="keywordflow">return</span>;
 }
@@ -434,7 +463,7 @@ Functions</h2></td></tr>
 
 <p>This function displays the Directory containing the MPX process files. </p>
 
-<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00128">128</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
+<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00129">129</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
 
 <p><div class="fragment"><pre class="fragment">                                          {
         <span class="keywordtype">char</span> buf[10];
@@ -489,7 +518,7 @@ Functions</h2></td></tr>
 
 <p>The Prompt function allows the user to change the default prompt. </p>
 
-<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00196">196</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
+<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00225">225</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
 
 <p><div class="fragment"><pre class="fragment">                          {
         printf(<span class="stringliteral">&quot;\n&quot;</span>);
@@ -532,7 +561,7 @@ Functions</h2></td></tr>
 
 <p>The Version function displays MPX version information. </p>
 
-<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00172">172</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
+<p>Definition at line <a class="el" href="mpx__cmd_8c_source.html#l00201">201</a> of file <a class="el" href="mpx__cmd_8c_source.html">mpx_cmd.c</a>.</p>
 
 <p><div class="fragment"><pre class="fragment">                                             {
         <a class="code" href="mpx__util_8c.html#a8cf3281978ba1652fd5d643e1a41f70b" title="Clear, blanks the screen.">mpx_cls</a>();
@@ -561,7 +590,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 8 2010 21:40:30 for MPX Programmers Manual by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 12 2010 19:58:59 for PMOS Programmers Manual by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
