@@ -1,1 +1,1 @@
-show is used by typing "show name". Where name is the name of the process you are trying to view information about.
+This function is used by typing "create". It will then prompt you for the name,type,and,priority. Where name is the name of the process, type is 0 for application 1 for system, and priority is a value from -128 to 127.
