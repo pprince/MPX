@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 
-ROOT *rQueue; // Remember to reserve memory for these
+ROOT *rQueue; 
 ROOT *wsQueue;
 
 
@@ -158,7 +158,7 @@ void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){
 			insert_FIFO(PCBpointer,wsQueue);
 			break;
 		default:
-			printf("ORDER not Valid");
+			//printf("ORDER not Valid");
 			break;
 		};
 }
@@ -184,7 +184,7 @@ void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKIN
 	incr = queueROOT -> node; //set node to the first node in the queque
 	while ( incr -> process -> priority <= node -> process -> priority  ){ // Process with the lowest priority goes first 
 		    lp = string_PCB(incr->process);
-			printf("%s\n",lp);
+			//printf("%s\n",lp);
 			if( incr->right == NULL) break;
 			incr = incr -> right; // progrees to the right 
 			
