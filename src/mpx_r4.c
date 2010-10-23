@@ -1,11 +1,22 @@
-// Module 4 MPX 
+#include "mpx_cmd.h"
+#include "mpx_util.h"
+#include "mpx_r2.h"
+#include "mpx_r3.h"
+#include "procs-r3.c"
+#include "mpx_supt.h"
+#include "mystdlib.h"
+#include <string.h>
+#include <stdio.h>
 
 loadProgram(int argc, char *argv[]){ //name,fileName,priority
 	
 	static int count;
 	char name[STRLEN],line[MAX_LINE];
-	int size,type,priority,loadAdd,exeAdd;
+	MEMDSC *tempMem;
+	int size,type,priority;
+	context tempContext;
 	PCB *newPCB = allocate_PCB();
+	tempMem=newPCB->memdsc;
 		
 	if((argc==3)||(127<priority<-128)||((size=sys_check_program())<=0)){
 		
@@ -17,14 +28,22 @@ loadProgram(int argc, char *argv[]){ //name,fileName,priority
 		}
 		
 		setup_PCB(newPCB,argv[0],APPLICATION,SUSPENDED_READY,priority);
-		insert_PCB(newPCB);	
-		count++;//Update the number of times the function has run.
+
 		
-		loadAdd=sys_alloc_mem(size);
-		exeAdd=loadAdd+size;
+		tempMem->loadADDR=sys_alloc_mem(size);
+		tempMem->execADDR=loadADDR+size;
 		
 		//make sure all registers are properly set
-		//load program
+		tempContext->CS=FP_SEG(tempMem->loadADDR);
+		tempContext->IP=FP_OFF(tempMem->execADDR);
+		tempContext->DS=_DS;
+		tempContext->ES=_ES;
+		
+		//load program	
+		insert_PCB(newPCB);	
+		count++;//Update the number of times the function has run.
+		sys_load_program();
+		
 	}
 	else{
 		printf("Wrong arguments entered.");

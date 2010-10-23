@@ -18,11 +18,12 @@ unsigned short ss_save = NULL;
 unsigned short sp_save = NULL;
 unsigned short new_ss;
 unsigned short new_sp;
+context *context_p;
+params  *param_p;
 
 void interrupt sys_call(void){
 	
-	context *context_p;
-	params  *param_p;
+	
 	
 	param_p = (params*)( MK_FP(_SS, _SP) + sizeof(context));
 	context_p = (context*)(MK_FP(_SS,_SP));
@@ -41,7 +42,7 @@ void interrupt sys_call(void){
 		}
 	}
 	if( param_p -> op_code == EXIT ){
-		remove_PCB(COP);
+		remove_PCB(COP);  //check if in queue
 		COP = NULL;
 	}
 	
