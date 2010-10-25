@@ -8,69 +8,67 @@
 #include <string.h>
 #include <stdio.h>
 
-loadProgram(int argc, char *argv[]){ //name,fileName,priority
+loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	
 	static int count;
-	char name[STRLEN],line[MAX_LINE];
 	MEMDSC *tempMem;
-	int size,type,priority;
+	int size,offset,priority;
 	context tempContext;
+	unsigned int tempCS,tempIP;
+	
 	PCB *newPCB = allocate_PCB();
 	tempMem=newPCB->memdsc;
 		
-	if((argc==3)||(127<priority<-128)||((size=sys_check_program())<=0)){
+	if((argc==5)||(127<priority<-128)||((sys_check_program(argv[5],argv[3],size,offset))<=0)){
 		
-		priority=atoi(argv[2]);
+		priority=atoi(argv[4]);
 		
 		if( count == ZERO ){ //If first process allocate queue
 			rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 			wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		}
 		
-		setup_PCB(newPCB,argv[0],APPLICATION,SUSPENDED_READY,priority);
+		setup_PCB(newPCB,argv[2],APPLICATION,SUSPENDED_READY,priority);
 
 		
 		tempMem->loadADDR=sys_alloc_mem(size);
-		tempMem->execADDR=loadADDR+size;
+		tempMem->execADDR=loadADDR+offset;
 		
 		//make sure all registers are properly set
-		tempContext->CS=FP_SEG(tempMem->loadADDR);
-		tempContext->IP=FP_OFF(tempMem->execADDR);
+		tempCS=FP_SEG(tempMem->loadADDR);
+		tempIP=FP_OFF(tempMem->execADDR);
+		tempContext->CS=tempCS;
+		tempContext->IP=tempIP;
 		tempContext->DS=_DS;
 		tempContext->ES=_ES;
 		
-		//load program	
+		sys_load_program(*tempCS,100000,argv[5],argv[3]);
+		
 		insert_PCB(newPCB);	
 		count++;//Update the number of times the function has run.
-		sys_load_program();
 		
 	}
 	else{
-		printf("Wrong arguments entered.");
+		printf("Wrong or invalid arguments entered.");
 	}
 }
 
 terminateProcess(int argc, char *argv[]){
 
-	if (argc == 1){
+	if (argc == 2){
 		char name[STRLEN];
 		PCB *pointer;
 		strcpy(name,argv[1]);
 		pointer = find_PCB(name);
 	
 		if ( pointer != NULL){
-			remove_PCB(pointer);}
-
-		sys_free_mem()
-	
+			remove_PCB(pointer);
+			sys_free_mem(argv[1]);
+		}
 	}
 	
 	else(){
 		printf("Wrong arguments entered.");
 		return();
 	}
-}
-
-dispatch(int argc, char *argv[]){
-	//waiting for dispatch from r3
 }
