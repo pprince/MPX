@@ -18,6 +18,6 @@ int *cont_addr;
 
 void interrupt sys_call(void);
 void dispatch(void);
-
+void mpxcmd_r3run(int argc, char *argv[]);
 
 #endif

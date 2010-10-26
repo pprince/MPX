@@ -1,6 +1,7 @@
 #include "mpx_cmd.h"
 #include "mpx_util.h"
 #include "mpx_r2.h"
+#include "mpx_r3.h"
 #include "mpx_supt.h"
 #include "mystdlib.h"
 #include <string.h>
@@ -71,6 +72,7 @@ int mpx_command_loop (void) {
 	mpx_add_command("showAll",mpxcmd_showAll_PCB);
 	mpx_add_command("showReady",mpxcmd_showReady_PCB);
 	mpx_add_command("showBlocked",mpxcmd_showBlocked_PCB);
+	mpx_add_command("goR3", mpxcmd_r3run);
 
 	for(;;){ /* infinite loop */
 

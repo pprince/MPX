@@ -50,8 +50,8 @@ void interrupt sys_call(void){
 	
 	// SWITCH BACK OUT OF TEMP STACK
 	
-	// _SS = ss_save;
-	// _SP = sp_save;
+	 _SS = ss_save;
+	 _SP = sp_save;
 	
 	// FIXME NO ERROR CHECKING 
 	context_p -> AX = 0;
@@ -82,7 +82,7 @@ void dispatch(void){
 		//_iret;	
 }
 
-void mpxcmd_r3run( void ){
+void mpxcmd_r3run(int argc, char *argv[]){
 	
 	
 	PCB *test1;
