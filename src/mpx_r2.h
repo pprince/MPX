@@ -55,7 +55,7 @@ typedef struct root{
 
 
 /* Functions Dec*/
-PCB *alloocate_PCB(void);
+PCB *allocate_PCB(void);
 int free_PCB( PCB *pointer);
 int setup_PCB( PCB *pointer, char *name, int classType, int state, int priority );
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ );

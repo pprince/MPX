@@ -46,10 +46,10 @@ void interrupt sys_call(void){
 		COP = NULL;
 	}
 	
-	//SWITCH BACK OUT OF TEMP STACK
+	// SWITCH BACK OUT OF TEMP STACK
 	
-	_SS = ss_save;
-	_SP = sp_save;
+	// _SS = ss_save;
+	// _SP = sp_save;
 	
 	// FIXME NO ERROR CHECKING 
 	context_p -> AX = 0;
@@ -78,3 +78,63 @@ void dispatch(void){
 		}
 		iret;	
 }
+
+void mpxcmd_r3run( void ){
+	
+	sys_set_vec(sys_call);
+	
+	PCB *test1;
+	PCB *test2;
+	PCB *test3;
+	PCB *test4;
+	PCB *test5;
+	
+	MEMDSC *memdsc1;
+	MEMDSC *memdsc2;
+	MEMDSC *memdsc3;
+	MEMDSC *memdsc4;
+	MEMDSC *memdsc5;
+	
+	char name1[10] = "test1";
+	char name2[10] = "test2";
+	char name3[10] = "test3";
+	char name4[10] = "test4";
+	char name5[10] = "test5";
+	
+	test1 = allocate_PCB();
+	test2 = allocate_PCB();
+	test3 = allocate_PCB();
+	test4 = allocate_PCB();
+	test5 = allocate_PCB();
+	
+	memdsc1 = test1 -> memdsc;
+	memdsc2 = test2 -> memdsc;
+	memdsc3 = test3 -> memdsc;
+	memdsc3 = test3 -> memdsc;
+	memdsc4 = test4 -> memdsc;
+	memdsc5 = test5 -> memdsc;
+	
+	memdsc1 -> execADDR = &test1_R3();
+	memdsc2 -> execADDR = &test2_R3();
+	memdsc3 -> execADDR = &test3_R3();
+	memdsc4 -> execADDR = &test4_R3();
+	memdsc5 -> execADDR = &test5_R3();
+	
+	
+	setup_PCB(test1,name1,APPLICATION,READY, 1);
+	setup_PCB(test2,name2,APPLICATION,READY, 2);
+	setup_PCB(test3,name3,APPLICATION,READY, 3);
+	setup_PCB(test4,name4,APPLICATION,READY, 4);
+	setup_PCB(test5,name5,APPLICATION,READY, 5);
+
+	insert_PCB(test1);
+	insert_PCB(test2);
+	insert_PCB(test3);
+	insert_PCB(test4);
+	insert_PCB(test5);
+	
+	dispatch();
+	
+	
+}
+
