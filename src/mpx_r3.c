@@ -9,11 +9,13 @@
 #include <stdio.h>
 
 PCB *COP;
+PCB *HEAD;
 ELEM *TEMP;
+ROOT *Root;
 STACKDSC *STACK;
 
 
-byte sys_stack[SYS_STACK_SIZE];
+unsigned char sys_stack[SYS_STACK_SIZE];
 unsigned short ss_save = NULL;
 unsigned short sp_save = NULL;
 unsigned short new_ss;
@@ -26,7 +28,7 @@ void interrupt sys_call(void){
 	
 	
 	param_p = (params*)( MK_FP(_SS, _SP) + sizeof(context));
-	context_p = (context*)(MK_FP(_SS,_SP));
+	//context_p = (context*)(MK_FP(_SS,_SP));
 	//SWITCH TO TEMP STACK
 	ss_save = _SS;
 	sp_save = _SP;
@@ -60,14 +62,14 @@ void interrupt sys_call(void){
 }
 
 void dispatch(void){
-	
-	if sp_save == NULL{
+	Root = getRQueue();
+	if ( sp_save == NULL ){
 		ss_save = _SS;
 		sp_save = _SP;
-		if ( rQueue -> node != NULL ){
-			TEMP = rQueue -> node;
-			COP = copy_PCB( TEMP -> process ); 
-			remove_PCB(TEMP -> process);
+		if ( Root -> node != NULL ){
+			HEAD = getHead_PCB();
+			COP = copy_PCB( HEAD ); 
+			remove_PCB(HEAD);
 			STACK = COP -> stackdsc;
 			_SS = FP_SEG(STACK -> base);
 			_SP = FP_OFF(STACK -> top );
@@ -76,12 +78,12 @@ void dispatch(void){
 			_SS = ss_save;
 			_SP = sp_save;
 		}
-		iret;	
+		}
+		//_iret;	
 }
 
 void mpxcmd_r3run( void ){
 	
-	sys_set_vec(sys_call);
 	
 	PCB *test1;
 	PCB *test2;
@@ -89,11 +91,17 @@ void mpxcmd_r3run( void ){
 	PCB *test4;
 	PCB *test5;
 	
-	MEMDSC *memdsc1;
-	MEMDSC *memdsc2;
-	MEMDSC *memdsc3;
-	MEMDSC *memdsc4;
-	MEMDSC *memdsc5;
+	STACKDSC *stack1;
+	STACKDSC *stack2;
+	STACKDSC *stack3;
+	STACKDSC *stack4;
+	STACKDSC *stack5;
+	
+	context *context1;
+	context *context2;
+	context *context3;
+	context *context4;
+	context *context5;
 	
 	char name1[10] = "test1";
 	char name2[10] = "test2";
@@ -101,25 +109,62 @@ void mpxcmd_r3run( void ){
 	char name4[10] = "test4";
 	char name5[10] = "test5";
 	
+	sys_set_vec(sys_call);
+	
 	test1 = allocate_PCB();
 	test2 = allocate_PCB();
 	test3 = allocate_PCB();
 	test4 = allocate_PCB();
 	test5 = allocate_PCB();
 	
-	memdsc1 = test1 -> memdsc;
-	memdsc2 = test2 -> memdsc;
-	memdsc3 = test3 -> memdsc;
-	memdsc3 = test3 -> memdsc;
-	memdsc4 = test4 -> memdsc;
-	memdsc5 = test5 -> memdsc;
+	stack1 = test1 -> stackdsc;
+	stack2 = test2 -> stackdsc;
+	stack3 = test3 -> stackdsc;
+	stack4 = test4 -> stackdsc;
+	stack5 = test5 -> stackdsc;
 	
-	memdsc1 -> execADDR = &test1_R3();
-	memdsc2 -> execADDR = &test2_R3();
-	memdsc3 -> execADDR = &test3_R3();
-	memdsc4 -> execADDR = &test4_R3();
-	memdsc5 -> execADDR = &test5_R3();
+	stack1 -> top = stack1 -> base + STACKSIZE - sizeof(context);
+	stack2 -> top = stack2 -> base + STACKSIZE - sizeof(context);
+	stack3 -> top = stack3 -> base + STACKSIZE - sizeof(context);
+	stack4 -> top = stack4 -> base + STACKSIZE - sizeof(context);
+	stack5 -> top = stack4 -> base + STACKSIZE - sizeof(context);
 	
+	context1 = (context*) stack1 -> top;
+	context2 = (context*) stack2 -> top;
+	context3 = (context*) stack3 -> top;
+	context4 = (context*) stack4 -> top;
+	context5 = (context*) stack5 -> top;
+	
+	context1->DS = _DS;
+	context1->ES = _ES;
+	context1->CS = FP_SEG(&test1_R3);
+	context1->IP = FP_OFF(&test1_R3);
+	context1->FLAGS = 0x200;
+	
+	context2->DS = _DS;
+	context2->ES = _ES;
+	context2->CS = FP_SEG(&test2_R3);
+	context2->IP = FP_OFF(&test2_R3);
+	context2->FLAGS = 0x200;
+	
+	context3->DS = _DS;
+	context3->ES = _ES;
+	context3->CS = FP_SEG(&test3_R3);
+	context3->IP = FP_OFF(&test3_R3);
+	context3->FLAGS = 0x200;
+	
+	context4->DS = _DS;
+	context4->ES = _ES;
+	context4->CS = FP_SEG(&test4_R3);
+	context4->IP = FP_OFF(&test4_R3);
+	context4->FLAGS = 0x200;
+	
+	context5->DS = _DS;
+	context5->ES = _ES;
+	context5->CS = FP_SEG(&test5_R3);
+	context5->IP = FP_OFF(&test5_R3);
+	context5->FLAGS = 0x200;
+	context5->DS = _DS;
 	
 	setup_PCB(test1,name1,APPLICATION,READY, 1);
 	setup_PCB(test2,name2,APPLICATION,READY, 2);

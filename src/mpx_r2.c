@@ -5,11 +5,22 @@
 #include <string.h>
 #include <stdio.h>
 
-
 ROOT *rQueue; 
 ROOT *wsQueue;
 
-
+ROOT *getRQueue(){
+    return rQueue;
+}
+ROOT *getWSQueue(){
+	return wsQueue;
+}
+PCB *getHead_PCB(){
+	ELEM *temp;
+	PCB *tempPCB;
+	temp = rQueue -> node;
+	tempPCB = temp -> process;
+	return tempPCB;
+}
 /** Allocates the memory for a new Process Control Block and returns 
 	the pointer to the new PCB location in memory.
 */

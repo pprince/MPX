@@ -11,7 +11,7 @@ CFLAGS=-C -w- -v
 DFLAGS=-C -w -v
 
 # List of object files (generated; these are NOT in the repo).
-OBJS=mpx.obj mpx_supt.obj mpx_util.obj mpx_r2.obj mpx_cmd.obj
+OBJS=mpx.obj mpx_supt.obj mpx_util.obj mpx_r2.obj mpx_cmd.obj mpx_r3.obj procs-r3.obj
 
 
 # Implicit Rules #

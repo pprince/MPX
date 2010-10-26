@@ -52,8 +52,6 @@ typedef struct root{
 	unsigned char *node;
 }ROOT;
 
-
-
 /* Functions Dec*/
 PCB *allocate_PCB(void);
 int free_PCB( PCB *pointer);
