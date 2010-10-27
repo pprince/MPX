@@ -21,15 +21,15 @@ unsigned short ss_save = NULL;
 unsigned short sp_save = NULL;
 unsigned short new_ss;
 unsigned short new_sp;
-context *context_p;
-params  *param_p;
+tcontext *context_p;
+tparams  *param_p;
 
 void interrupt sys_call(void){
 	
 	
 	
-	param_p = (params*)( MK_FP(_SS, _SP) + sizeof(context));
-	//context_p = (context*)(MK_FP(_SS,_SP));
+	param_p = ( tparams*)( MK_FP( _SS, _SP) + sizeof( tcontext ) );//error in code here "verbatium" from manual?
+	//context_p = (tcontext*)(MK_FP(_SS,_SP));
 	//SWITCH TO TEMP STACK
 	ss_save = _SS;
 	sp_save = _SP;
@@ -45,7 +45,7 @@ void interrupt sys_call(void){
 		}
 	}
 	if( param_p -> op_code == EXIT ){
-		remove_PCB(COP);  //check if in queue
+			remove_PCB(COP);// remove from queue if in queue then in either case dealocate memory
 		COP = NULL;
 	}
 	
@@ -98,11 +98,11 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	STACKDSC *stack4;
 	STACKDSC *stack5;
 	
-	context *context1;
-	context *context2;
-	context *context3;
-	context *context4;
-	context *context5;
+	tcontext *context1;
+	tcontext *context2;
+	tcontext *context3;
+	tcontext *context4;
+	tcontext *context5;
 	
 	char name1[10] = "test1";
 	char name2[10] = "test2";
@@ -124,17 +124,17 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	stack4 = test4 -> stackdsc;
 	stack5 = test5 -> stackdsc;
 	
-	stack1 -> top = stack1 -> base + STACKSIZE - sizeof(context);
-	stack2 -> top = stack2 -> base + STACKSIZE - sizeof(context);
-	stack3 -> top = stack3 -> base + STACKSIZE - sizeof(context);
-	stack4 -> top = stack4 -> base + STACKSIZE - sizeof(context);
-	stack5 -> top = stack4 -> base + STACKSIZE - sizeof(context);
+	stack1 -> top = stack1 -> base + STACKSIZE - sizeof(tcontext);
+	stack2 -> top = stack2 -> base + STACKSIZE - sizeof(tcontext);
+	stack3 -> top = stack3 -> base + STACKSIZE - sizeof(tcontext);
+	stack4 -> top = stack4 -> base + STACKSIZE - sizeof(tcontext);
+	stack5 -> top = stack4 -> base + STACKSIZE - sizeof(tcontext);
 	
-	context1 = (context*) stack1 -> top;
-	context2 = (context*) stack2 -> top;
-	context3 = (context*) stack3 -> top;
-	context4 = (context*) stack4 -> top;
-	context5 = (context*) stack5 -> top;
+	context1 = (tcontext*) stack1 -> top;
+	context2 = (tcontext*) stack2 -> top;
+	context3 = (tcontext*) stack3 -> top;
+	context4 = (tcontext*) stack4 -> top;
+	context5 = (tcontext*) stack5 -> top;
 	
 	context1->DS = _DS;
 	context1->ES = _ES;

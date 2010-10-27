@@ -7,14 +7,14 @@ typedef struct context {
 	unsigned int BP, DI, SI, DS, ES;
 	unsigned int DX, CX, BX, AX;
 	unsigned int IP, CS, FLAGS;
-} context;
+} tcontext;
 
 typedef struct params { 
 int op_code;
 int device_id;
 unsigned char *buf_addr;
 int *cont_addr;
-} params;
+} tparams;
 
 void interrupt sys_call(void);
 void dispatch(void);
