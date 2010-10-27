@@ -320,6 +320,11 @@ void remove_PCB( PCB *process ){
 	ELEM *temp1;
 	ELEM *temp2;
 	
+	if( find_PCB( process-> name ) == NULL ){ //case where pcb is not in queue
+		free_PCB(process); //deallocte mem
+		return; // return
+	}
+	
 	if ( process -> state == READY || process -> state == RUNNING ){
 		queue = rQueue;
 	}
@@ -371,7 +376,7 @@ void remove_PCB( PCB *process ){
 	}
 	//Deallocate mem
 	free_PCB(process);
-	sys_free_mem(incr);
+	sys_free_mem(incr); //what will this do if incr is null
 	
 	return;
 	}
