@@ -1,3 +1,4 @@
+#include "dos.h"
 #include "mpx_cmd.h"
 #include "mpx_util.h"
 #include "mpx_r2.h"
