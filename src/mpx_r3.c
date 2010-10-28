@@ -28,7 +28,7 @@ void interrupt sys_call(void){
 	
 	
 	
-	param_p = ( tparams*)( MK_FP( _SS, _SP) + sizeof( tcontext ) );//error in code here "verbatium" from manual?
+	param_p = ( tparams*)(24+ ((unsigned int)MK_FP( _SS, _SP)));//error in code here "verbatium" from manual?
 	//context_p = (tcontext*)(MK_FP(_SS,_SP));
 	//SWITCH TO TEMP STACK
 	ss_save = _SS;

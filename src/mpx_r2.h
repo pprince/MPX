@@ -71,4 +71,8 @@ void mpxcmd_show_PCB(int argc, char *argv[]);
 void mpxcmd_showAll_PCB(int argc, char *argv[]);
 void mpxcmd_showReady_PCB(int argc, char *argv[]);
 void mpxcmd_showBlocked_PCB(int argc, char *argv[]);
+ROOT * getRQueue();
+ROOT * getWSQueue();
+void setRQueue(ROOT *root );
+void setWSQueue(ROOT *root);
 #endif

@@ -14,34 +14,41 @@ loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	static int count;
 	MEMDSC *tempMem;
 	int size,offset,priority;
-	context tempContext;
-	unsigned int tempCS,tempIP;
-	
+	tcontext tempContext;
+	unsigned int tempCS,tempIP,*tempCS2,*tempIP2,*tempDS,*tempES;
+	ROOT *tempRQueue,*tempWSQueue;
+		
 	PCB *newPCB = allocate_PCB();
 	tempMem=newPCB->memdsc;
 		
-	if((argc==5)||(127<priority<-128)||((sys_check_program(argv[5],argv[3],size,offset))<=0)){
+	if((argc==5)||(127<priority<-128)||((sys_check_program(argv[5],argv[3],&size,&offset))<=0)){
 		
 		priority=atoi(argv[4]);
 		
 		if( count == ZERO ){ //If first process allocate queue
-			rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
-			wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
+			tempRQueue = getRQueue();
+			tempWSQueue = getWSQueue();
+			tempRQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
+			tempWSQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		}
 		
 		setup_PCB(newPCB,argv[2],APPLICATION,SUSPENDED_READY,priority);
 
 		
 		tempMem->loadADDR=sys_alloc_mem(size);
-		tempMem->execADDR=loadADDR+offset;
+		tempMem->execADDR=tempMem->loadADDR+offset;
 		
 		//make sure all registers are properly set
 		tempCS=FP_SEG(tempMem->loadADDR);
 		tempIP=FP_OFF(tempMem->execADDR);
-		tempContext->CS=tempCS;
-		tempContext->IP=tempIP;
-		tempContext->DS=_DS;
-		tempContext->ES=_ES;
+		tempCS2 = &(tempContext -> CS);
+		tempIP2 = &(tempContext -> IP);		
+		tempCS2* = tempCS;
+		tempIP2* = tempIP;
+		tempES = &(tempContext ->ES);
+		tempDS = &(tempContext ->DS);
+		tempDS* =_DS;
+		tempES* =_ES;
 		
 		sys_load_program(*tempCS,100000,argv[5],argv[3]);
 		
