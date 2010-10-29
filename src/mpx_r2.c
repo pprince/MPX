@@ -14,6 +14,12 @@ ROOT *getRQueue(){
 ROOT *getWSQueue(){
 	return wsQueue;
 }
+void setRQueue( ROOT * root){
+	rQueue = root;	
+}
+void setWSQueue ( ROOT * root ) {
+	wsQueue = root;	
+}
 PCB *getHead_PCB(){
 	ELEM *temp;
 	PCB *tempPCB;
