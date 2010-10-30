@@ -6,7 +6,7 @@ SHELL=cmd.exe
 
 # Use Turbo C/C++ compiler
 CC=tcc
-CFLAGS=-C -w- -ml -lv -ll -v -y 
+CFLAGS=-C -w- -lv -ll -v -y
 #Debug flags
 DFLAGS=-C -w -v
 

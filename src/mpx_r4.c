@@ -3,7 +3,6 @@
 #include "mpx_util.h"
 #include "mpx_r2.h"
 #include "mpx_r3.h"
-#include "procs-r3.c"
 #include "mpx_supt.h"
 #include "mystdlib.h"
 #include <string.h>
@@ -13,10 +12,12 @@ loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	
 	static int count;
 	MEMDSC *tempMem;
+	unsigned char temptop;
 	int size,offset,priority;
-	tcontext tempContext;
-	unsigned int tempCS,tempIP,*tempCS2,*tempIP2,*tempDS,*tempES;
+	tcontext *tempContext;
+	unsigned int tempCS,tempIP,*tempCS2,*tempIP2,*tempDS;
 	ROOT *tempRQueue,*tempWSQueue;
+	STACKDSC *temp;
 		
 	PCB *newPCB = allocate_PCB();
 	tempMem=newPCB->memdsc;
@@ -39,18 +40,16 @@ loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		tempMem->execADDR=tempMem->loadADDR+offset;
 		
 		//make sure all registers are properly set
-		tempCS=FP_SEG(tempMem->loadADDR);
-		tempIP=FP_OFF(tempMem->execADDR);
-		tempCS2 = &(tempContext -> CS);
-		tempIP2 = &(tempContext -> IP);		
-		tempCS2* = tempCS;
-		tempIP2* = tempIP;
-		tempES = &(tempContext ->ES);
-		tempDS = &(tempContext ->DS);
-		tempDS* =_DS;
-		tempES* =_ES;
+		temp= newPCB -> stackdsc;
+		tempContext = (tcontext *) (temp -> top);
+		tempContext ->IP=FP_OFF(tempMem->execADDR);
+		tempContext ->CS=FP_SEG(tempMem->execADDR);	
+		tempContext ->FLAGS = 0x200;
+		tempContext ->ES = _ES;
+		tempContext ->DS = _DS;
+
 		
-		sys_load_program(*tempCS,100000,argv[5],argv[3]);
+		sys_load_program(tempMem ->loadADDR,size,argv[5],argv[3]);
 		
 		insert_PCB(newPCB);	
 		count++;//Update the number of times the function has run.
@@ -75,8 +74,8 @@ terminateProcess(int argc, char *argv[]){
 		}
 	}
 	
-	else(){
+	else{
 		printf("Wrong arguments entered.");
-		return();
+		return;
 	}
 }
