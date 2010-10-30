@@ -175,7 +175,7 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	insert_PCB(test4);
 	insert_PCB(test5);
 	
-	dispatch();
+//	dispatch();
 	
 	
 }

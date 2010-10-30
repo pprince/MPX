@@ -58,7 +58,7 @@ PCB *allocate_PCB( void ){
 
 	memset(stack,0,STACKSIZE*sizeof(unsigned char));//ZERO out Stack to aid in debug....
 	newStackDsc -> base = stack; // x86 arch Stacks start at the Higest value 
-	newStackDsc -> top  = stack[STACKSIZE-1];// and go to lowest or n - 2 for Word alloc 
+	newStackDsc -> top  = stack + STACKSIZE;// and go to lowest or n - 2 for Word alloc 
 	
 	//Bundling Opereations of Stack Descripter Bellow
 	newPCB -> stackdsc = newStackDsc;  // stack descriptor is placed in the PCB
@@ -157,7 +157,12 @@ char *string_PCB( PCB *pointer){
 /** This function inserts a PCB into its aproprate PCB Queue. */
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){ 
    int ORD;
-  
+   static int count;
+	if( count == ZERO ){
+		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
+		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
+	}
+   
    if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
 		ORD  = PORDR;
 	}
@@ -178,15 +183,13 @@ void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){
 			//printf("ORDER not Valid");
 			break;
 		};
+	count++;//Update the number of times the function has run.
 }
 /** This function inserts into a queue a element sorted by its priority lower number ( higher priority)  to high number( lower priority).*/ 
 void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKING
 	ELEM *node; // declare node of type element
 	ELEM *incr;
 	ELEM *temp1;
-	char line[MAX_LINE];
-	char *lp;
-	lp = &line;
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
 	node -> process = PCBpointer;// add the PCB to the node
 	
@@ -200,8 +203,6 @@ void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKIN
 	
 	incr = queueROOT -> node; //set node to the first node in the queque
 	while ( incr -> process -> priority <= node -> process -> priority  ){ // Process with the lowest priority goes first 
-		    lp = string_PCB(incr->process);
-			//printf("%s\n",lp);
 			if( incr->right == NULL) break;
 			incr = incr -> right; // progrees to the right 
 			
@@ -389,19 +390,12 @@ void remove_PCB( PCB *process ){
 
 /** This is a user function that interacts with the user to create a PCB structure.*/
 void mpxcmd_create_PCB(int argc, char *argv[]){
-	static int count;
 	char name[STRLEN];
 	char line[MAX_LINE];
 	int type;
 	int priority;
 
 	PCB *newPCB = allocate_PCB();
-	
-	if( count == ZERO ){
-		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
-		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
-	}
-	
 	
 	printf("Process Name: \n");
 	mpx_readline(name, STRLEN);
@@ -419,7 +413,7 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	}	
 	
 	insert_PCB(newPCB);
-	count++;//Update the number of times the function has run.
+	
 }
 
 /** This function preforms a deep copy of a PCB.*/
