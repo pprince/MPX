@@ -48,14 +48,10 @@ void interrupt sys_call(void){
 			remove_PCB(COP);// remove from queue if in queue then in either case dealocate memory
 		COP = NULL;
 	}
-	
-	// SWITCH BACK OUT OF TEMP STACK
-	
-	 _SS = ss_save;
-	 _SP = sp_save;
+
 	
 	// FIXME NO ERROR CHECKING 
-	context_p -> AX = 0;
+	//context_p -> AX = 0;
 	
 	//CALL TO DISPATCHER
 	dispatch();
@@ -179,7 +175,7 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	insert_PCB(test4);
 	insert_PCB(test5);
 	
-	dispatch();
+//	dispatch();
 	
 	
 }
