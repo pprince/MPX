@@ -20,8 +20,8 @@ extern ROOT *rQueue, *wsQueue; //link in the values for these in r2
 unsigned char sys_stack[SYS_STACK_SIZE];
 unsigned short ss_save = NULL;
 unsigned short sp_save = NULL;
-unsigned short new_ss;
-unsigned short new_sp;
+unsigned short new_ss = NULL;
+unsigned short new_sp = NULL;
 tcontext *context_p;
 tparams  *param_p;
 
@@ -29,7 +29,7 @@ void interrupt sys_call(void){
 	
 	
 	
-	param_p = ( tparams*)(24+ ((unsigned int)MK_FP( _SS, _SP)));//error in code here "verbatium" from manual?
+	param_p = ( tparams*)(24+ ((unsigned int)MK_FP( _SS, _SP)));//code supplied by GA bryan 
 	//context_p = (tcontext*)(MK_FP(_SS,_SP));
 	//SWITCH TO TEMP STACK
 	ss_save = _SS;
@@ -59,22 +59,30 @@ void interrupt sys_call(void){
 	
 }
 
-void dispatch(void){
-	HEAD = getHead_PCB();
+void interrupt dispatch(void){
+	
 	if ( sp_save == NULL ){
 		ss_save = _SS;
 		sp_save = _SP;
+		}
+		HEAD = getHead_PCB();
 		if ( HEAD != NULL ){
 			cop = copCOPY_PCB( HEAD ); 
+			cop -> state = RUNNING;
 			remove_PCB(HEAD);
 			STACK = cop -> stackdsc;
-			_SS = FP_SEG(STACK -> base);
-			_SP = FP_OFF(STACK -> top );
+			new_ss = FP_SEG(STACK -> top);
+			new_sp = FP_OFF(STACK -> top );
+			_SS = new_ss;
+			_SP = new_sp;
+			return;
 		}else{
 			cop = NULL;
 			_SS = ss_save;
 			_SP = sp_save;
-		}
+			ss_save = NULL;
+			sp_save = NULL;
+			return;
 		}
 		//_iret;	
 }
