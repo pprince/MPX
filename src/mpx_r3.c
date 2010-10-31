@@ -9,12 +9,13 @@
 #include <string.h>
 #include <stdio.h>
 
-PCB *COP;
+PCB *cop;
 PCB *HEAD;
 ELEM *TEMP;
 ROOT *Root;
 STACKDSC *STACK;
 
+extern ROOT *rQueue, *wsQueue; //link in the values for these in r2
 
 unsigned char sys_stack[SYS_STACK_SIZE];
 unsigned short ss_save = NULL;
@@ -38,15 +39,15 @@ void interrupt sys_call(void){
 	new_sp += SYS_STACK_SIZE;
 	
 	if ( param_p -> op_code == IDLE ){
-		if ( COP != NULL){
-			if( COP -> state == READY || COP -> state == RUNNING ) COP -> state = BLOCKED;
-			insert_PCB(COP);
-			COP = NULL;
+		if ( cop != NULL){
+			if( cop -> state == READY || cop -> state == RUNNING ) cop -> state = BLOCKED;
+			insert_PCB(cop);
+			cop = NULL;
 		}
 	}
 	if( param_p -> op_code == EXIT ){
-			remove_PCB(COP);// remove from queue if in queue then in either case dealocate memory
-		COP = NULL;
+			remove_PCB(cop);// remove from queue if in queue then in either case dealocate memory
+		cop = NULL;
 	}
 
 	
@@ -59,19 +60,18 @@ void interrupt sys_call(void){
 }
 
 void dispatch(void){
-	Root = getRQueue();
+	HEAD = getHead_PCB();
 	if ( sp_save == NULL ){
 		ss_save = _SS;
 		sp_save = _SP;
-		if ( Root -> node != NULL ){
-			HEAD = getHead_PCB();
-			COP = copy_PCB( HEAD ); 
+		if ( HEAD != NULL ){
+			cop = copCOPY_PCB( HEAD ); 
 			remove_PCB(HEAD);
-			STACK = COP -> stackdsc;
+			STACK = cop -> stackdsc;
 			_SS = FP_SEG(STACK -> base);
 			_SP = FP_OFF(STACK -> top );
 		}else{
-			COP = NULL;
+			cop = NULL;
 			_SS = ss_save;
 			_SP = sp_save;
 		}
@@ -79,6 +79,48 @@ void dispatch(void){
 		//_iret;	
 }
 
+
+PCB *getHead_PCB(){
+		ELEM *incr;
+		PCB  *pointer;
+		
+		incr = rQueue -> node;//set node to the first node in the queque
+		while( incr  != NULL ){
+			pointer = incr -> process;
+			if ( pointer -> state == READY){
+				return pointer;
+			}
+			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
+		}
+		if (incr == NULL ){
+			incr = wsQueue -> node;//set node to the first node in the queque
+			while( incr  != NULL ){
+				pointer = incr -> process;
+				if ( pointer -> state == BLOCKED){
+				return pointer;
+			}
+			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
+		}
+		}
+}
+PCB *copCOPY_PCB(PCB* pointer){
+		PCB *tempPCB = allocate_PCB();
+		tempPCB -> state = pointer -> state;
+		tempPCB -> classType = pointer -> classType;
+		strcpy(tempPCB->name, pointer -> name);
+		tempPCB -> priority = pointer ->priority;
+		
+		// MEMDSC copy
+		tempPCB -> memdsc -> size = pointer -> memdsc -> size;
+		tempPCB -> memdsc -> loadADDR = pointer -> memdsc -> loadADDR;
+		tempPCB -> memdsc -> execADDR = pointer -> memdsc -> execADDR;
+		
+		//STACKDSC copy
+		memcpy(tempPCB->stackdsc->base,pointer -> stackdsc -> base, STACKSIZE);
+		
+	return tempPCB;
+
+}
 void mpxcmd_r3run(int argc, char *argv[]){
 	
 	
@@ -175,7 +217,9 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	insert_PCB(test4);
 	insert_PCB(test5);
 	
-//	dispatch();
+	
+	
+	dispatch();
 	
 	
 }
