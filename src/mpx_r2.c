@@ -20,13 +20,7 @@ void setRQueue( ROOT * root){
 void setWSQueue ( ROOT * root ) {
 	wsQueue = root;	
 }
-PCB *getHead_PCB(){
-	ELEM *temp;
-	PCB *tempPCB;
-	temp = rQueue -> node;
-	tempPCB = temp -> process;
-	return tempPCB;
-}
+
 /** Allocates the memory for a new Process Control Block and returns 
 	the pointer to the new PCB location in memory.
 */
@@ -419,9 +413,19 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 /** This function preforms a deep copy of a PCB.*/
 PCB *copy_PCB(PCB *pointer){ 
 		PCB *tempPCB = allocate_PCB();
-		memcpy(tempPCB,pointer,sizeof(PCB));
-		memcpy(tempPCB -> memdsc, pointer -> memdsc , sizeof(MEMDSC));
-		memcpy(tempPCB -> stackdsc ,pointer -> stackdsc, sizeof(STACKDSC));
+		tempPCB -> state = pointer -> state;
+		tempPCB -> classType = pointer -> classType;
+		strcpy(tempPCB->name, pointer -> name);
+		tempPCB -> priority = pointer ->priority;
+		
+		// MEMDSC copy
+		tempPCB -> memdsc -> size = pointer -> memdsc -> size;
+		tempPCB -> memdsc -> loadADDR = pointer -> memdsc -> loadADDR;
+		tempPCB -> memdsc -> execADDR = pointer -> memdsc -> execADDR;
+		
+		//STACKDSC copy
+		memcpy(tempPCB->stackdsc->base,pointer -> stackdsc -> base, STACKSIZE);
+		
 	return tempPCB;
 }
 /** This is a user function in the menu to delete a process it takes the process name as input */
