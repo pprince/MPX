@@ -28,25 +28,25 @@ tparams  *param_p;
 void interrupt sys_call(void){
 	
 	
-	
-	param_p = ( tparams*)(24+ ((unsigned int)MK_FP( _SS, _SP)));//code supplied by GA bryan 
-	//context_p = (tcontext*)(MK_FP(_SS,_SP));
+	cop-> stackdsc -> top = (unsigned char *) MK_FP(_SS, _SP);
+	param_p = ( tparams*)(sizeof(tcontext)+ ((unsigned int)MK_FP( _SS, _SP)));//code supplied by GA bryan 
+	context_p = (tcontext*)(MK_FP(_SS,_SP));
 	//SWITCH TO TEMP STACK
 	ss_save = _SS;
 	sp_save = _SP;
 	new_ss = FP_SEG(sys_stack);
 	new_sp = FP_OFF(sys_stack);
 	new_sp += SYS_STACK_SIZE;
+	_SS = new_ss;
+	_SP = new_sp;
 	
 	if ( param_p -> op_code == IDLE ){
-		if ( cop != NULL){
-			if( cop -> state == READY || cop -> state == RUNNING ) cop -> state = BLOCKED;
+			cop -> state = READY;
 			insert_PCB(cop);
 			cop = NULL;
-		}
 	}
 	if( param_p -> op_code == EXIT ){
-			remove_PCB(cop);// remove from queue if in queue then in either case dealocate memory
+		remove_PCB(cop);// remove from queue if in queue then in either case dealocate memory
 		cop = NULL;
 	}
 
@@ -220,10 +220,10 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	setup_PCB(test5,name5,APPLICATION,READY, 5);
 
 	insert_PCB(test1);
-	insert_PCB(test2);
-	insert_PCB(test3);
-	insert_PCB(test4);
-	insert_PCB(test5);
+	// insert_PCB(test2);
+	// insert_PCB(test3);
+	// insert_PCB(test4);
+	// insert_PCB(test5);
 	
 	
 	
