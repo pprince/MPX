@@ -2,6 +2,14 @@
 #include <stdlib.h> 
 #include <dos.h> 
 
+	DCB dcb;
+
+	int com_open (int *eflag_p, int baud_rate){
+		if(((eflag_p||baud_rate)==NULL)||(baud_rate<=0)||(dcb->ocFlag==OPEN)){
+			return;
+		}
+		
+	baud_rate_div = 115200 / (long) baud_rate
 
 	...
 	int mask;
@@ -12,17 +20,19 @@
 	outportb(PIC_MASK, mask);
 	enable();
 
-	int baud rate=115200/1200;
-	baud_rate_div = 115200 / (long) baud_rate;
+		
+	
+	}
+	
+	
+	
+	
+	int com_close (void);
+	int com_read (char *buf_p,int *count_p);
+	int com_write (char *buf_p,int *count_p);
 
 
-
-
-
-
-	char ringBugger[1000],size=0,get=0,put=0;
-
-	int push(char 'c'){
+	int pushRing(char 'c'){
 		if(size >= sizeof(ringBuffer)){
 			return -1;	
 		}
@@ -37,7 +47,7 @@
 		}
 	}
 	
-	int pop(void){
+	int popRing(void){
 		char c;
 		if (size==0){
 			return -1;
