@@ -29,8 +29,8 @@ void interrupt sys_call(void){
 	
 
 	cop-> stackdsc -> top = (unsigned char *) MK_FP(_SS, _SP);
-	param_p = ( tparams*)(sizeof(tcontext)+ ((unsigned int)MK_FP( _SS, _SP)));//code supplied by GA bryan 
-	context_p = (tcontext*)(MK_FP(_SS,_SP));
+	param_p = ( tparams*)(sizeof(tcontext) + cop -> stackdsc -> top);//code supplied by GA bryan
+	context_p = (tcontext*) cop -> stackdsc -> top;
 	//SWITCH TO TEMP STACK
 	
 	new_ss = FP_SEG(sys_stack);
@@ -96,9 +96,9 @@ PCB *getHead_PCB(){
 		incr = rQueue -> node;//set node to the first node in the queque
 		while( incr  != NULL ){
 			pointer = incr -> process;
-			if ( pointer -> state == READY){
+			//if ( pointer -> state == READY){
 				return pointer;
-			}
+			//}
 			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
 		}
 		return NULL;
@@ -151,7 +151,7 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	stack2 -> top = stack2 -> base + STACKSIZE - sizeof(tcontext);
 	stack3 -> top = stack3 -> base + STACKSIZE - sizeof(tcontext);
 	stack4 -> top = stack4 -> base + STACKSIZE - sizeof(tcontext);
-	stack5 -> top = stack4 -> base + STACKSIZE - sizeof(tcontext); 
+	stack5 -> top = stack5 -> base + STACKSIZE - sizeof(tcontext); 
 	
 	context1 = (tcontext*) stack1 -> top;
 	context2 = (tcontext*) stack2 -> top;
@@ -199,15 +199,15 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	setup_PCB(test5,name5,APPLICATION,READY, 5);
 
 	insert_PCB(test1);
-	// insert_PCB(test2);
-	// insert_PCB(test3);
-	// insert_PCB(test4);
-	// insert_PCB(test5);
+	insert_PCB(test2);
+	insert_PCB(test3);
+	insert_PCB(test4);
+	insert_PCB(test5);
 	
 	
-	
+	mpx_cls();
 	dispatch();
-	
+	mpxprompt_anykey();
 	
 }
 
