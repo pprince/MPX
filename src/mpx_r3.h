@@ -20,5 +20,5 @@ void interrupt sys_call(void);
 void interrupt dispatch(void);
 void mpxcmd_r3run(int argc, char *argv[]);
 PCB *getHead_PCB();
-PCB *copCOPY_PCB(PCB *pointer);
+PCB *copCOPY_PCB(PCB *tempPCB, PCB *pointer);
 #endif

@@ -9,8 +9,8 @@
 #include <string.h>
 #include <stdio.h>
 
-PCB *cop;
-PCB *HEAD;
+PCB far *cop;
+PCB far *HEAD;
 ELEM *TEMP;
 ROOT *Root;
 STACKDSC *STACK;
@@ -27,13 +27,12 @@ tparams  *param_p;
 
 void interrupt sys_call(void){
 	
-	
+
 	cop-> stackdsc -> top = (unsigned char *) MK_FP(_SS, _SP);
 	param_p = ( tparams*)(sizeof(tcontext)+ ((unsigned int)MK_FP( _SS, _SP)));//code supplied by GA bryan 
 	context_p = (tcontext*)(MK_FP(_SS,_SP));
 	//SWITCH TO TEMP STACK
-	ss_save = _SS;
-	sp_save = _SP;
+	
 	new_ss = FP_SEG(sys_stack);
 	new_sp = FP_OFF(sys_stack);
 	new_sp += SYS_STACK_SIZE;
@@ -46,7 +45,8 @@ void interrupt sys_call(void){
 			cop = NULL;
 	}
 	if( param_p -> op_code == EXIT ){
-		remove_PCB(cop);// remove from queue if in queue then in either case dealocate memory
+		remove_PCB(cop);
+		free_PCB(cop);
 		cop = NULL;
 	}
 
@@ -66,9 +66,10 @@ void interrupt dispatch(void){
 		sp_save = _SP;
 		}
 		HEAD = getHead_PCB();
+		STACK = HEAD -> stackdsc;
 		if ( HEAD != NULL ){
-			cop = copCOPY_PCB( HEAD ); 
-			cop -> state = RUNNING;
+			cop = HEAD;
+			cop -> state = READY;
 			remove_PCB(HEAD);
 			STACK = cop -> stackdsc;
 			new_ss = FP_SEG(STACK -> top);
@@ -100,35 +101,9 @@ PCB *getHead_PCB(){
 			}
 			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
 		}
-		if (incr == NULL ){
-			incr = wsQueue -> node;//set node to the first node in the queque
-			while( incr  != NULL ){
-				pointer = incr -> process;
-				if ( pointer -> state == BLOCKED){
-				return pointer;
-			}
-			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
-		}
-		}
+		return NULL;
 }
-PCB *copCOPY_PCB(PCB* pointer){
-		PCB *tempPCB = allocate_PCB();
-		tempPCB -> state = pointer -> state;
-		tempPCB -> classType = pointer -> classType;
-		strcpy(tempPCB->name, pointer -> name);
-		tempPCB -> priority = pointer ->priority;
-		
-		// MEMDSC copy
-		tempPCB -> memdsc -> size = pointer -> memdsc -> size;
-		tempPCB -> memdsc -> loadADDR = pointer -> memdsc -> loadADDR;
-		tempPCB -> memdsc -> execADDR = pointer -> memdsc -> execADDR;
-		
-		//STACKDSC copy
-		memcpy(tempPCB->stackdsc->base,pointer -> stackdsc -> base, STACKSIZE);
-		
-	return tempPCB;
 
-}
 void mpxcmd_r3run(int argc, char *argv[]){
 	
 	
@@ -157,6 +132,8 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	char name5[10] = "test5";
 	
 	sys_set_vec(sys_call);
+	//cop = allocate_PCB();
+	
 	
 	test1 = allocate_PCB();
 	test2 = allocate_PCB();
@@ -174,13 +151,15 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	stack2 -> top = stack2 -> base + STACKSIZE - sizeof(tcontext);
 	stack3 -> top = stack3 -> base + STACKSIZE - sizeof(tcontext);
 	stack4 -> top = stack4 -> base + STACKSIZE - sizeof(tcontext);
-	stack5 -> top = stack4 -> base + STACKSIZE - sizeof(tcontext);
+	stack5 -> top = stack4 -> base + STACKSIZE - sizeof(tcontext); 
 	
 	context1 = (tcontext*) stack1 -> top;
 	context2 = (tcontext*) stack2 -> top;
 	context3 = (tcontext*) stack3 -> top;
 	context4 = (tcontext*) stack4 -> top;
 	context5 = (tcontext*) stack5 -> top;
+	
+	
 	
 	context1->DS = _DS;
 	context1->ES = _ES;

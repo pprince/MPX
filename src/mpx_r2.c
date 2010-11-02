@@ -376,8 +376,8 @@ void remove_PCB( PCB *process ){
 		queue -> count -=1;
 	}
 	//Deallocate mem
-	free_PCB(process);
-	sys_free_mem(incr); //what will this do if incr is null
+	//free_PCB(process);
+	//sys_free_mem(incr); //what will this do if incr is null
 	
 	return;
 	}
