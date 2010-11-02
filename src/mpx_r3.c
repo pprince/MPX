@@ -9,6 +9,8 @@
 #include <string.h>
 #include <stdio.h>
 
+PCB *getHead_PCB();
+
 PCB far *cop;
 PCB far *HEAD;
 ELEM *TEMP;
@@ -131,8 +133,6 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	char name4[10] = "test4";
 	char name5[10] = "test5";
 	
-	sys_set_vec(sys_call);
-	//cop = allocate_PCB();
 	
 	
 	test1 = allocate_PCB();
@@ -211,3 +211,8 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	
 }
 
+void mpxcmd_gor4(int argc, char *argv[]){
+	mpx_cls();
+	dispatch();
+	mpxprompt_anykey();
+}

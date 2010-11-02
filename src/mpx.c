@@ -1,5 +1,6 @@
 #include "mpx_cmd.h"
 #include "mpx_util.h"
+#include "mpx_r3.h"
 #include "mpx_supt.h"
 
 /**
@@ -10,6 +11,7 @@
 void main(){
 	int err;
 	sys_init( MODULE_R1 + MODULE_R2 + MODULE_R3 ); //System initilization 
+	sys_set_vec(sys_call);
 	err = mpx_command_loop();
 	errorDecode(err);
 }

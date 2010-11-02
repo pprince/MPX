@@ -3,12 +3,13 @@
 #include "mpx_util.h"
 #include "mpx_r2.h"
 #include "mpx_r3.h"
+#include "mpx_r4.h"
 #include "mpx_supt.h"
 #include "mystdlib.h"
 #include <string.h>
 #include <stdio.h>
 
-loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
+void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	
 	static int count;
 	MEMDSC *tempMem;
@@ -22,7 +23,7 @@ loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	PCB *newPCB = allocate_PCB();
 	tempMem=newPCB->memdsc;
 		
-	if((argc==5)||(127<priority<-128)||((sys_check_program(argv[5],argv[3],&size,&offset))<=0)){
+	if((argc==5)||(127<priority<-128)&&((sys_check_program(argv[5],argv[3],&size,&offset))==0)){
 		
 		priority=atoi(argv[4]);
 		
@@ -60,7 +61,7 @@ loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	}
 }
 
-terminateProcess(int argc, char *argv[]){
+void terminateProcess(int argc, char *argv[]){
 
 	if (argc == 2){
 		char name[STRLEN];
@@ -70,7 +71,7 @@ terminateProcess(int argc, char *argv[]){
 	
 		if ( pointer != NULL){
 			remove_PCB(pointer);
-			sys_free_mem(argv[1]);
+			free_PCB(pointer);
 		}
 	}
 	
@@ -79,3 +80,4 @@ terminateProcess(int argc, char *argv[]){
 		return;
 	}
 }
+

@@ -19,6 +19,6 @@ int *cont_addr;
 void interrupt sys_call(void);
 void interrupt dispatch(void);
 void mpxcmd_r3run(int argc, char *argv[]);
-PCB *getHead_PCB();
-PCB *copCOPY_PCB(PCB *tempPCB, PCB *pointer);
+void mpxcmd_gor4(int argc, char *argv[]);
+
 #endif
