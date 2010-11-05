@@ -1,6 +1,6 @@
 # include "MPX_R5.h"
-#include <stdlib.h> 
-#include <dos.h> 
+# include <stdlib.h> 
+# include <dos.h> 
 
 	DCB dcb;
 
@@ -19,12 +19,33 @@
 	mask = mask & ~0x80;
 	outportb(PIC_MASK, mask);
 	enable();
-
-		
 	
 	}
 	
+	void interrupt level1(){
+		//check if open, check to find out what lvl 2 interrupt then call
+		int temp;
+		if(dcb->ocFlag==CLOSED){
+			outportb(EOI,EOI);
+		}
+		
+		else{
+			temp=inportb(INTID_REG&&0x07); //bit by bit and xxxx xxxx && 0000 0111
+			if(temp==2){
+				level2Write();
+			}
+			if(temp==4){
+				level2Read();
+			}
+			outportb(EOI,EOI);
+		}
+	}
 	
+	void level2Write(){
+	}
+	
+	void level2Read(){
+	}
 	
 	
 	int com_close (void);
