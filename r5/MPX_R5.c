@@ -22,6 +22,8 @@
 	
 	}
 	
+	int com_close (void){}
+	
 	void interrupt level1(){
 		//check if open, check to find out what lvl 2 interrupt then call
 		int temp;
@@ -31,7 +33,7 @@
 		}
 		
 		else{
-			temp=inportb(INTID_REG&&0x07); //bit by bit and xxxx xxxx && 0000 0111
+			temp=inportb(INTID_REG&&0x07); // 0011 1111 1001 and 0000 0111
 			if(temp==2){
 				level2Write();
 			}
@@ -68,10 +70,30 @@
 }
 	
 	void level2Read(){
+		//check if reading then read the incoming char, if not put the char into the buffer
+		char tempChar=inportb(COM1BASE);
+		if(dcb->status==READ){
+			dcb->Ibuff=tempChar;
+			dcb->Ibuff++;
+			dcb->count++;
+			
+			if(*(dcb->Ibuff) == '\r'){
+				*(dcb->Ibuff) = '\0';
+			}
+			
+			if(dcb->request==dcb->trans){
+				*dcb->ocFlagPtr=OPEN;
+				dcb->status=IDLE;	
+			}
+		}
+	
+		else if((dcb->status!=READ)&&((dcb->count)<(dcb->ringSize))){
+			dcb->ringBuffer[dcb->put]=tempChar;
+			dcb->put++;
+			dcb->trans++;
+		}
+	
 	}
-	
-	
-	int com_close (void){}
 	
 	int com_read (char *buf_p,int *count_p){
 		// check if null, open, idle, then set variables, disable interupts then read in until full or done, enable interupts, finish up
@@ -87,25 +109,20 @@
 		disable();
 		dcb->status=READ;
 		while(){ // add conditions
-		dcb->Ibuff++;
-		dcb->trans=0;
-		dcb->get++;
-		dcb->rSize--;	
+			dcb->Ibuff++;
+			dcb->trans=0;
+			dcb->get++;
+			dcb->rSize--;	
 		}
 		enable();
 		
  
-    if(*(dcb->Ibuff-1) == '\r'){
-		*(dcb->Ibuff-1) = '\0';
-    }
-    
-	else{
+ 
 		*dcb.Ibuff= '\0';
-	}
 
-    dcb->status=IDLE;
-    *dcb->ocFlag=SET;
-    *dcb->count=dcb->get;
+		dcb->status=IDLE;
+		*dcb->ocFlag=SET;
+	 	*dcb->count=dcb->get;
 		
 	}
 	

@@ -19,8 +19,8 @@
 	
 	
 	typedef struct deviceControlBlock{
-		char ringBuffer[1000];
-		int ringSize,get;
+		char ringBuffer[ringSize];
+		int ringSize,get,put;
 		
 		int * ocFlagPtr,count;
 		int ocFlag,status,currentOp,request,trans,rSize;
