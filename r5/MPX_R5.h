@@ -11,30 +11,27 @@
 	# define EOI 0x20
 	# define OPEN 0
 	# define CLOSED 1
-	# define AVAILABLE 0
-	# define IN_USE 1
 	# define READ 0
 	# define WRITE 1
 	# define IDLE 2
 	
 	
 	typedef struct deviceControlBlock{
-		char ringBuffer[ringSize];
-		int ringSize,get,put;
-		
-		int * ocFlagPtr,count;
-		int ocFlag,status,currentOp,request,trans,rSize;
+		char ringBuffer[512];
+		int * ocFlagPtr,Icount,Ocount;
+		int ocFlag,status,currentOp,request,trans,ringSize,get,put,count;
 		char* Ibuff,Obuff;
 		
 	}DCB;
 		
-	//prototypes
-	int com_open(int *, int ); 
-	int com_close(void); 
-	int com_read(char *, int *); 
-	int com_write(char *, int *); 
+	//prototypes	
 	void level2Write();
 	void level2Read();
 	void interrupt level1(void);
 	void interrupt (*oldfunc) (void);
+	int com_open(int *, int ); 
+	int com_close(void); 
+	int com_read(char *, int *); 
+	int com_write(char *, int *); 
+
 	
