@@ -9,11 +9,14 @@
 #include <string.h>
 #include <stdio.h>
 
+extern ROOT *rQueue, *wsQueue; //link in the values for these in r2
+
 void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	
 	static int count;
 	MEMDSC *tempMem;
 	unsigned char temptop;
+	char *dir, *name, *filename;
 	int size,offset,priority;
 	tcontext *tempContext;
 	unsigned int tempCS,tempIP,*tempCS2,*tempIP2,*tempDS;
@@ -22,22 +25,29 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		
 	PCB *newPCB = allocate_PCB();
 	tempMem=newPCB->memdsc;
+	dir = (char*) sys_alloc_mem(30 * sizeof(char));
+	name = (char*) sys_alloc_mem(30 * sizeof(char));
+	filename = (char*) sys_alloc_mem(30 * sizeof(char));
+	strcpy(dir,argv[4]);
+	strcpy(name,argv[1]);
+	strcpy(filename,argv[2]);
+	priority = atoi(argv[3]);
+	
+	if((argc==5)||(127<=priority<=-128)&&((sys_check_program(dir,filename,&size,&offset))==0)){
 		
-	if((argc==5)||(127<priority<-128)&&((sys_check_program(argv[5],argv[3],&size,&offset))==0)){
 		
-		priority=atoi(argv[4]);
-		
+
 		if( count == ZERO ){ //If first process allocate queue
 			tempRQueue = getRQueue();
 			tempWSQueue = getWSQueue();
 			tempRQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 			tempWSQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		}
-		
-		setup_PCB(newPCB,argv[2],APPLICATION,SUSPENDED_READY,priority);
 
-		
-		tempMem->loadADDR=sys_alloc_mem(size);
+		setup_PCB(newPCB,name,APPLICATION,SUSPENDED_READY,priority);
+
+
+		tempMem->loadADDR=(unsigned char*) sys_alloc_mem(size * sizeof(unsigned char));
 		tempMem->execADDR=tempMem->loadADDR+offset;
 		
 		//make sure all registers are properly set
@@ -50,7 +60,7 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		tempContext ->DS = _DS;
 
 		
-		sys_load_program(tempMem ->loadADDR,size,argv[5],argv[3]);
+		sys_load_program(tempMem ->loadADDR,size,dir,name);
 		
 		insert_PCB(newPCB);	
 		count++;//Update the number of times the function has run.
