@@ -18,19 +18,19 @@
 	
 	typedef struct deviceControlBlock{
 		char ringBuffer[512];
-		int * ocFlagPtr,Icount,Ocount;
+		int *ocFlagPtr,*Icount,*Ocount;
 		int ocFlag,status,currentOp,request,trans,ringSize,get,put,count;
-		char* Ibuff,Obuff;
+		char *Ibuff,*Obuff;
 		
 	}DCB;
 		
 	//prototypes	
 	void level2Write();
 	void level2Read();
-	void interrupt level1(void);
-	void interrupt (*oldfunc) (void);
+	void interrupt level1();
+	void interrupt (*oldfunc) ();
 	int com_open(int *, int ); 
-	int com_close(void); 
+	int com_close(); 
 	int com_read(char *, int *); 
 	int com_write(char *, int *); 
 
