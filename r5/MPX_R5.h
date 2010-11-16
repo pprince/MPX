@@ -10,11 +10,7 @@
 	# define PIC_MASK 0x21
 	# define EOI 0x20
 	# define OPEN 0
-	# define CLOSED 1
-	# define READ 0
-	# define WRITE 1
-	# define IDLE 2
-	
+	# define CLOSED 1	
 	
 	typedef struct deviceControlBlock{
 		char ringBuffer[512];
