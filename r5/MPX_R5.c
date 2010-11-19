@@ -22,7 +22,7 @@
 		dcbPtr.ringbufcount = 0;
           
 		oldfunc = getvect(INT_ID); //get the vector of the Windows comport interupt handler  
-		setvect(INT_ID, &level1); //comInt is interrupt handler      
+		setvect(INT_ID, &level1); //level1 is interrupt handler      
 		brd = 115200 / (long) baudrate; //calculate baud rate divisor
          
 		
@@ -33,11 +33,11 @@
         
 		disable(); // disable interupts 
 		mask = inportb(PIC_MASK); 
-		mask = mask & ~0x10; //This code enables the interrupt associated with bit 7
+		mask = mask & 0xEF; 
 		outportb(PIC_MASK, mask); 
 		enable(); // enable interupts
          
-		//enable approx level for COM1 in PIC Mask register 
+		//enable level for COM1 in PIC Mask register 
 		//Store 0x08 in modem control register 
 		outportb( MC, 0x08);//enables serial interrupts 
 		//store 0x01 in interrupt enable register 
@@ -55,7 +55,7 @@
 		dcbPtr.flag=CLOSED; 
 		disable(); //start enable 
 		mask = inportb(PIC_MASK); 
-		mask = mask | 0x10; //This code disables the interrupt associated with bit 7
+		mask = mask | 0x10; 
 		outportb(PIC_MASK, mask); 
 		enable(); //end enable 
          
@@ -109,9 +109,11 @@
 
 	void level2Read(){
 		char new;
-
+		char ret = '\r';
+		
 		new=inportb(BASE); //Read a character from the input register. 
-
+		if ( new != ret )
+		outportb(BASE, new);// ECHO BACK
 		//If the current status is not reading, store the character in the ring buffer. 
 		if(dcbPtr.status != READ){
 			if(dcbPtr.ringbufcount != size){
@@ -123,13 +125,13 @@
 			*dcbPtr.inbuff = new;
 			dcbPtr.inbuff++;
 			dcbPtr.indone++;
-
-			if(new== '\r' || (dcbPtr.indone ) >= *(dcbPtr.incount)){//If the count is not completed and the character is not CR, return. Do not signal completion. 
-				if(*(dcbPtr.inbuff-1) == '\r')
+				//If the count is not completed and the character is not CR, return. Do not signal completion. 
+			if(new== '\r' || (dcbPtr.indone ) >= *(dcbPtr.incount)){
+				if(*(dcbPtr.inbuff-1) == '\r'){
 					*(dcbPtr.inbuff-1) = '\0';
-				else
+				}else{
 					*dcbPtr.inbuff = '\0';
-
+				}
 				*dcbPtr.incount = dcbPtr.indone;
 				dcbPtr.status =IDLE;
 				*dcbPtr.flag_ptr = SET;
@@ -171,6 +173,7 @@
 				dcbPtr.inbuff++;
 				dcbPtr.ringbufout = (dcbPtr.ringbufout+1)%size;
 				dcbPtr.ringbufcount--;
+				
 			} //end while 
           
 			enable(); //enable interrupts 
@@ -188,7 +191,6 @@
 		dcbPtr.status = IDLE; //status back to IDLE 
 		*dcbPtr.flag_ptr = SET; //the event is over 
 		*dcbPtr.incount = dcbPtr.indone; 
-    
 	 return 0;
 	}
 

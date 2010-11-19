@@ -156,7 +156,7 @@ void main()
 			printf("\nerror displaying string!\n");
 			printf("error code = %d\n",rc);
 			abort_test();
-		}
+		 }
 
 		/* loop until output is done */
  		tstart = time(NULL);
