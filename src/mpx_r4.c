@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 extern ROOT *rQueue, *wsQueue; //link in the values for these in r2
-
+void * loadAddr;
 void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	
 	static int count;
@@ -22,7 +22,8 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	unsigned int tempCS,tempIP,*tempCS2,*tempIP2,*tempDS;
 	ROOT *tempRQueue,*tempWSQueue;
 	STACKDSC *temp;
-		
+	
+	int err = 0;
 	PCB *newPCB = allocate_PCB();
 	tempMem=newPCB->memdsc;
 	dir = (char*) sys_alloc_mem(30 * sizeof(char));
@@ -33,7 +34,8 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	strcpy(filename,argv[2]);
 	priority = atoi(argv[3]);
 	
-	if((argc==5)||(127<=priority<=-128)&&((sys_check_program(dir,filename,&size,&offset))==0)){
+	err =  = sys_check_program(dir,filename,&size,&offset);
+	if((argc==5)||(127<=priority<=-128)&&( err==0)){
 		
 		
 
@@ -47,11 +49,14 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		setup_PCB(newPCB,name,APPLICATION,SUSPENDED_READY,priority);
 
 
-		tempMem->loadADDR=(unsigned char*) sys_alloc_mem(size * sizeof(unsigned char));
-		tempMem->execADDR=tempMem->loadADDR+offset;
+		loadAddr = sys_alloc_mem(size);
+		tempMem->loadADDR= loadAddr;
+		tempMem->execADDR=tempMem->loadADDR + offset;
 		
 		//make sure all registers are properly set
 		temp= newPCB -> stackdsc;
+		temp -> top = temp -> base + STACKSIZE - sizeof(tcontext);
+		
 		tempContext = (tcontext *) (temp -> top);
 		tempContext ->IP=FP_OFF(tempMem->execADDR);
 		tempContext ->CS=FP_SEG(tempMem->execADDR);	
@@ -60,7 +65,7 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		tempContext ->DS = _DS;
 
 		
-		sys_load_program(tempMem ->loadADDR,size,dir,name);
+		 err = sys_load_program(tempMem ->loadADDR,size,dir,filename);
 		
 		insert_PCB(newPCB);	
 		count++;//Update the number of times the function has run.
