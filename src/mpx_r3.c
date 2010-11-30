@@ -11,8 +11,8 @@
 
 PCB *getHead_PCB();
 
-PCB far *cop;
-PCB far *HEAD;
+PCB *cop;
+PCB *HEAD;
 ELEM *TEMP;
 ROOT *Root;
 STACKDSC *STACK;
@@ -68,7 +68,7 @@ void interrupt dispatch(void){
 		sp_save = _SP;
 		}
 		HEAD = getHead_PCB();
-		STACK = HEAD -> stackdsc;
+		//STACK = HEAD -> stackdsc;
 		if ( HEAD != NULL ){
 			cop = HEAD;
 			cop -> state = READY;
@@ -78,14 +78,12 @@ void interrupt dispatch(void){
 			new_sp = FP_OFF(STACK -> top );
 			_SS = new_ss;
 			_SP = new_sp;
-			return;
 		}else{
 			cop = NULL;
 			_SS = ss_save;
 			_SP = sp_save;
 			ss_save = NULL;
 			sp_save = NULL;
-			return;
 		}
 		//_iret;	
 }
@@ -93,17 +91,14 @@ void interrupt dispatch(void){
 
 PCB *getHead_PCB(){
 		ELEM *incr;
-		PCB  *pointer;
+		PCB  *pointer= NULL;
 		
 		incr = rQueue -> node;//set node to the first node in the queque
-		while( incr  != NULL ){
+		if( incr  != NULL ){
 			pointer = incr -> process;
-			//if ( pointer -> state == READY){
-				return pointer;
-			//}
 			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
 		}
-		return NULL;
+		return pointer;
 }
 
 void mpxcmd_r3run(int argc, char *argv[]){

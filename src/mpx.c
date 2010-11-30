@@ -10,7 +10,7 @@
 */
 void main(){
 	int err;
-	sys_init( MODULE_R1 + MODULE_R2 + MODULE_R3 ); //System initilization 
+	sys_init( MODULE_R4 ); //System initilization
 	sys_set_vec(sys_call);
 	err = mpx_command_loop();
 	errorDecode(err);

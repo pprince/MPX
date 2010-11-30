@@ -5,8 +5,8 @@
 #include <string.h>
 #include <stdio.h>
 
-ROOT *rQueue; 
-ROOT *wsQueue;
+ROOT *rQueue=NULL;
+ROOT *wsQueue=NULL;
 
 ROOT *getRQueue(){
     return rQueue;
@@ -38,9 +38,9 @@ PCB *allocate_PCB( void ){
 	newPCB = (PCB*) sys_alloc_mem(sizeof(PCB));
 	stack = (unsigned char*) sys_alloc_mem(STACKSIZE*sizeof(unsigned char));
 	
-	if ( stack == NULL || 
+	if ( stack == NULL ||
 		 newStackDsc == NULL || 
-		 newMemDsc == NULL || 
+		 newMemDsc == NULL ||
 		 newPCB == NULL ) return NULL;
 	
 	//Setup Memory Descriptor with Default Values for Module 2
@@ -51,8 +51,8 @@ PCB *allocate_PCB( void ){
 	//Setup the Stack
 
 	memset(stack,0,STACKSIZE*sizeof(unsigned char));//ZERO out Stack to aid in debug....
-	newStackDsc -> base = stack; // x86 arch Stacks start at the Higest value 
-	newStackDsc -> top  = stack + STACKSIZE;// and go to lowest or n - 2 for Word alloc 
+	newStackDsc -> base = stack; // x86 arch Stacks start at the Higest value
+	newStackDsc -> top  = stack + STACKSIZE;// and go to lowest or n - 2 for Word alloc
 	
 	//Bundling Opereations of Stack Descripter Bellow
 	newPCB -> stackdsc = newStackDsc;  // stack descriptor is placed in the PCB
@@ -142,7 +142,7 @@ char *string_PCB( PCB *pointer){
 	if( stateType == SUSPENDED_READY ) strcpy(state ,"Suspended Ready");
 	if ( stateType == SUSPENDED_BLOCKED ) strcpy( state,"Suspended Blocked" ) ;
 	
-	
+
     sprintf(&line_buf,"Name: %s  Class: %s State: %s Priority: %d ", name, class, state,priority); 
 	
 	return line_buf;
@@ -160,7 +160,7 @@ void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){
    if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
 		ORD  = PORDR;
 	}
-	if( PCBpointer -> state == BLOCKED || 
+	if( PCBpointer -> state == BLOCKED ||
 		PCBpointer -> state == SUSPENDED_READY || 
 		PCBpointer -> state == SUSPENDED_BLOCKED ){
 		ORD  = FIFO;
@@ -277,7 +277,7 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 		node -> right = NULL;// set the link right to null
 		queueROOT -> node = node; // Set the first element in the queque to node of Type Element
 		queueROOT -> count += 1; // increase count by one
-		return; //exit out first node is in queque. 
+		return; //exit out first node is in queque.
 	}
 	
 	
@@ -298,12 +298,12 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 PCB *find_PCB( char *name){
 	ELEM *incr;
 	incr =  rQueue -> node; //set node to the first node in the queque
-	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first 
+	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first
 			incr= incr -> right; // progrees to the right 
 	}
 	if (incr == NULL ){
 	incr =  wsQueue -> node; //set node to the first node in the queque
-	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first 
+	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first
 			incr= incr -> right; // progrees to the right 
 	}
 	}
@@ -337,8 +337,8 @@ void remove_PCB( PCB *process ){
 	/* last in queue */
 	if ( queue -> count == 1 ){
 		incr = queue-> node;
-		free_PCB(incr->process);
-		sys_free_mem(queue->node);
+	       //	free_PCB(incr->process);
+		//sys_free_mem(queue->node);
 		queue -> node = NULL;
 		queue -> count -=1;
 		
@@ -411,7 +411,7 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 }
 
 /** This function preforms a deep copy of a PCB.*/
-PCB *copy_PCB(PCB *pointer){ 
+PCB *copy_PCB(PCB *pointer){
 		PCB *tempPCB = allocate_PCB();
 		tempPCB -> state = pointer -> state;
 		tempPCB -> classType = pointer -> classType;
@@ -457,10 +457,10 @@ void mpxcmd_block(int argc, char *argv[]){
 		
 		strcpy(name,argv[1]);
 		
-		pointer = find_PCB(name);
-		if ( pointer != NULL){
-			tempPCB = copy_PCB(pointer);
-			remove_PCB(pointer);
+		tempPCB = find_PCB(name);
+		if ( tempPCB != NULL){
+			//tempPCB = copy_PCB(pointer);
+			remove_PCB(tempPCB);
 			if( tempPCB -> state == READY || tempPCB -> state == RUNNING ) tempPCB -> state = BLOCKED;
 			if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = SUSPENDED_BLOCKED;
 			insert_PCB(tempPCB);
@@ -485,10 +485,10 @@ void mpxcmd_unblock(int argc, char *argv[]){
 		
 		strcpy(name,argv[1]);
 		
-		pointer = find_PCB(name);
-		if ( pointer != NULL){
-			tempPCB = copy_PCB(pointer);
-			remove_PCB(pointer);
+		tempPCB = find_PCB(name);
+		if ( tempPCB != NULL){
+			//tempPCB = copy_PCB(pointer);
+			remove_PCB(tempPCB);
 			if( tempPCB -> state == BLOCKED ) tempPCB -> state = READY;
 			if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = SUSPENDED_READY;
 			insert_PCB(tempPCB);
@@ -512,10 +512,10 @@ void mpxcmd_suspend(int argc, char *argv[]){
 		int buffs = STRLEN;
 		strcpy(name,argv[1]);
 		
-		pointer = find_PCB(name);
-		if ( pointer != NULL){
-			tempPCB = copy_PCB(pointer);
-			remove_PCB(pointer);
+		tempPCB = find_PCB(name);
+		if ( tempPCB != NULL){
+			//tempPCB = copy_PCB(tempPCB);
+			remove_PCB(tempPCB);
 			if( tempPCB -> state == READY || tempPCB -> state == RUNNING ) tempPCB -> state = SUSPENDED_READY;
 			if( tempPCB -> state == BLOCKED ) tempPCB -> state = SUSPENDED_BLOCKED;
 			insert_PCB(tempPCB);
@@ -540,10 +540,10 @@ void mpxcmd_resume(int argc, char *argv[]){
 		
 		strcpy(name,argv[1]);
 		
-		pointer = find_PCB(name);
+		tempPCB = find_PCB(name);
 		if ( pointer != NULL){
-			tempPCB = copy_PCB(pointer);
-			remove_PCB(pointer);
+			//tempPCB = copy_PCB(pointer);
+			remove_PCB(tempPCB);
 			if( tempPCB -> state == SUSPENDED_READY ) tempPCB -> state = READY;
 			if( tempPCB -> state == SUSPENDED_BLOCKED ) tempPCB -> state = BLOCKED;
 			insert_PCB(tempPCB);
@@ -573,12 +573,12 @@ void mpxcmd_setPriority(int argc, char *argv[]){
 			mpxprompt_anykey();
 			return;
 		}
-		pointer = find_PCB(name);
-		if ( pointer != NULL){
-			pointer -> priority = priority;
-			if( pointer -> state == READY ){
-					tempPCB = copy_PCB(pointer);
-					remove_PCB(pointer);
+		tempPCB = find_PCB(name);
+		if ( tempPCB != NULL){
+			tempPCB -> priority = priority;
+			if( tempPCB -> state == READY ){
+					//tempPCB = copy_PCB(pointer);
+					remove_PCB(tempPCB);
 					insert_PCB(tempPCB);
 					}
 		}else{

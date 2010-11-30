@@ -34,22 +34,22 @@ typedef struct stack{
 
 typedef struct process{
 	char name[STRLEN]; ///< character array containing 16 characters plus space for null
-	signed char classType; ///< class of process APPLICATION or SYSTEM
-	signed char priority;///< process priority ranges from -128 to +127
-	signed char state;///< stores the current states of the process
+	int classType; ///< class of process APPLICATION or SYSTEM
+	int priority;///< process priority ranges from -128 to +127
+	int state;///< stores the current states of the process
 	MEMDSC *memdsc;///< stores the description of the ADDRESS SPACE for the process	
 	STACKDSC *stackdsc;///< stores the description of the stack for each process;
 }PCB;
 
 typedef struct page{
 	PCB *process; ///< pointer to the PCB structure
-	unsigned char *left; ///< pointer to the left PCB structure
-	unsigned char *right;///< pointer to the right PCB structure
+	struct page *left; ///< pointer to the left PCB structure
+	struct page *right;///< pointer to the right PCB structure
 }ELEM;
 
 typedef struct root{
 	int count;
-	unsigned char *node;
+	ELEM *node;
 }ROOT;
 
 /* Functions Dec*/

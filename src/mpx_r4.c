@@ -19,7 +19,7 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	char *dir, *name, *filename;
 	int size,offset,priority;
 	tcontext *tempContext;
-	unsigned int tempCS,tempIP,*tempCS2,*tempIP2,*tempDS;
+	unsigned int *tempCS,*tempIP;
 	ROOT *tempRQueue,*tempWSQueue;
 	STACKDSC *temp;
 	
@@ -34,38 +34,36 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	strcpy(filename,argv[2]);
 	priority = atoi(argv[3]);
 	
-	err =  = sys_check_program(dir,filename,&size,&offset);
+	err = sys_check_program(dir,filename,&size,&offset);
 	if((argc==5)||(127<=priority<=-128)&&( err==0)){
 		
 		
 
-		if( count == ZERO ){ //If first process allocate queue
-			tempRQueue = getRQueue();
-			tempWSQueue = getWSQueue();
-			tempRQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
-			tempWSQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
-		}
+	      /*	if( count == ZERO ){ //If first process allocate queue
+			rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
+			wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
+		}   */
 
 		setup_PCB(newPCB,name,APPLICATION,SUSPENDED_READY,priority);
 
 
-		loadAddr = sys_alloc_mem(size);
-		tempMem->loadADDR= loadAddr;
-		tempMem->execADDR=tempMem->loadADDR + offset;
+		
+		newPCB->memdsc->loadADDR= sys_alloc_mem(size);;
+		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;// is this the correct address? 
 		
 		//make sure all registers are properly set
-		temp= newPCB -> stackdsc;
-		temp -> top = temp -> base + STACKSIZE - sizeof(tcontext);
 		
-		tempContext = (tcontext *) (temp -> top);
-		tempContext ->IP=FP_OFF(tempMem->execADDR);
-		tempContext ->CS=FP_SEG(tempMem->execADDR);	
-		tempContext ->FLAGS = 0x200;
+		newPCB -> stackdsc-> top = newPCB -> stackdsc-> base + STACKSIZE - sizeof(tcontext);
+		
+		tempContext = (tcontext *) (newPCB -> stackdsc-> top);
 		tempContext ->ES = _ES;
 		tempContext ->DS = _DS;
-
+		tempContext ->CS = FP_SEG(newPCB->memdsc->execADDR);
+		tempContext ->IP = FP_OFF(newPCB->memdsc->execADDR);
+		tempContext ->FLAGS = 0x200;
 		
-		 err = sys_load_program(tempMem ->loadADDR,size,dir,filename);
+		
+		 err = sys_load_program(newPCB->memdsc->loadADDR,size,dir,filename);
 		
 		insert_PCB(newPCB);	
 		count++;//Update the number of times the function has run.
