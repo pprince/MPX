@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-ROOT *rQueue=NULL;
+ROOT *rQueue=NULL; ///< declaring null roots for initial start of linked lists
 ROOT *wsQueue=NULL;
 
 ROOT *getRQueue(){
@@ -26,13 +26,13 @@ void setWSQueue ( ROOT * root ) {
 */
 PCB *allocate_PCB( void ){
 	PCB *newPCB; ///< pointer to the new PCB
-	int i;
+	int i; ///< counter
 	MEMDSC *newMemDsc;///< pointer to the Memory Descriptor
 	STACKDSC *newStackDsc;///<pointer to the stack descriptor
 	unsigned char *stack; ///< pointer to the stack low address
 	
 	
-	// Allocate memory to each of the disctenct parts of the PCB
+	// Allocate memory to each of the distinct parts of the PCB
 	newStackDsc = (STACKDSC*) sys_alloc_mem(sizeof(STACKDSC));
 	newMemDsc = (MEMDSC*) sys_alloc_mem(sizeof(MEMDSC));
 	newPCB = (PCB*) sys_alloc_mem(sizeof(PCB));
@@ -41,7 +41,7 @@ PCB *allocate_PCB( void ){
 	if ( stack == NULL ||
 		 newStackDsc == NULL || 
 		 newMemDsc == NULL ||
-		 newPCB == NULL ) return NULL;
+		 newPCB == NULL ) return NULL; ///< checks to make sure everything is allocated
 	
 	//Setup Memory Descriptor with Default Values for Module 2
 	newMemDsc -> size = 0;
@@ -62,7 +62,8 @@ PCB *allocate_PCB( void ){
 	
 	return newPCB;
 	
-};
+}
+
 /**
 This function releases all allocated memory related to a PCB. 
 */
@@ -92,18 +93,18 @@ int free_PCB( PCB *pointer /*< [in] is a pointer to a PCB  */ ){
 /** This Function initializes the contents of a PCB and checks the values if correct returns 0 if not returns 1. */
 //FIXME: Move to allocate, Create to setup
 int setup_PCB( PCB *pointer, char *Name, int classType, int state, int priority ){//FIXME: NO DATA VV
-	int ret;
+	int ret; ///< return int 0 or 1
 	char *name = pointer -> name;
-	ret = 0;
-	strcpy(name,Name);
+	ret = 0; ///< initially set to return valid setup
+	strcpy(name,Name); ///< sets the name variable in pcb to the function input variable Name
 	
-	if( find_PCB(name) == NULL){
-		if( classType == 1 || classType == 0 ){
+	if( find_PCB(name) == NULL){ ///< performs a search by name to find the pcb exits if none is found
+		if( classType == 1 || classType == 0 ){///< sets the setup to return a failed attempt if type is not 0 or 1
 			pointer -> classType = classType;
 		}else{
-			ret = 1;
+			ret = 1; 
 		}
-		 if( state == BLOCKED || 
+		 if( state == BLOCKED || ///< checks to make sure state is a valid number and if not sets setup to return a failure
 			 state == SUSPENDED_READY || 
 		     state == SUSPENDED_BLOCKED ||
 			 state == READY || 
@@ -111,9 +112,9 @@ int setup_PCB( PCB *pointer, char *Name, int classType, int state, int priority 
 		{
 		pointer -> state = state;
 		}else{
-			ret = 1;
+			ret = 1; 
 		}
-		if( priority <= 127 && priority >= -128){
+		if( priority <= 127 && priority >= -128){ ///<checks that priority is within the valid range and has setup return failure if not
 			pointer -> priority = priority;
 		}else{
 			ret = 1;
@@ -121,7 +122,7 @@ int setup_PCB( PCB *pointer, char *Name, int classType, int state, int priority 
 	}else{
 		ret = 1;
 	}
-	return ret;
+	return ret; ///< returns failure or sucess of setup
 }
 /** This function returns a character string with PCB information formatted. */
 char *string_PCB( PCB *pointer){
@@ -130,8 +131,8 @@ char *string_PCB( PCB *pointer){
 	signed char *classType = pointer -> classType;
 	signed char *stateType = pointer -> state;
 	signed char *priority = pointer -> priority;
-	char class[60];
-	char state[60];
+	char class[60]; ///< becomes classType
+	char state[60]; ///< becomes stateType
 	
 	if( classType == APPLICATION ) strcpy( class, "Application");
 	if( classType == SYSTEM ) strcpy( class, "System" );
@@ -145,25 +146,25 @@ char *string_PCB( PCB *pointer){
 
     sprintf(&line_buf,"Name: %s  Class: %s State: %s Priority: %d ", name, class, state,priority); 
 	
-	return line_buf;
+	return line_buf; ///< returns formatted string
 }
 
 /** This function inserts a PCB into its aproprate PCB Queue. */
 void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){ 
-   int ORD;
-   static int count;
-	if( count == ZERO ){
+   int ORD; ///< used to keep track of which queue the PCB belongs in
+   static int count; ///< counter which keeps track of how many times insert has ran
+	if( count == ZERO ){ ///< checks for first call of insert and allocates mem
 		rQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 		wsQueue = (ROOT*) sys_alloc_mem(sizeof(ROOT));
 	}
    
    if ( PCBpointer -> state == READY || PCBpointer -> state == RUNNING ){
-		ORD  = PORDR;
+		ORD  = PORDR; ///< if ready or running insert into priority order
 	}
 	if( PCBpointer -> state == BLOCKED ||
 		PCBpointer -> state == SUSPENDED_READY || 
 		PCBpointer -> state == SUSPENDED_BLOCKED ){
-		ORD  = FIFO;
+		ORD  = FIFO; ///< if blocked or suspended insert into first in first out
 	}
 	
    switch(ORD){
@@ -182,22 +183,22 @@ void insert_PCB(PCB *PCBpointer/*< pointer to a PCB to insert*/ ){
 /** This function inserts into a queue a element sorted by its priority lower number ( higher priority)  to high number( lower priority).*/ 
 void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKING
 	ELEM *node; // declare node of type element
-	ELEM *incr;
-	ELEM *temp1;
+	ELEM *incr; // used to traverse queue
+	ELEM *temp1; // used for temporary storage 
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
 	node -> process = PCBpointer;// add the PCB to the node
 	
-	if( queueROOT -> node == NULL ){ // if this is the first element ever in the queque
+	if( queueROOT -> node == NULL ){ // if this is the first element ever in the queue
 		node -> left = NULL;
 		node -> right = NULL;
-		queueROOT -> node = node; // Set the first element in the queque to node of Type Element
+		queueROOT -> node = node; // Set the first element in the queue to node of Type Element
 		queueROOT -> count += 1; // increase count by one
-		return; //exit out first node is in queque. 
+		return; //exit out first node is in queue. 
 	}
 	
-	incr = queueROOT -> node; //set node to the first node in the queque
+	incr = queueROOT -> node; //set node to the first node in the queue
 	while ( incr -> process -> priority <= node -> process -> priority  ){ // Process with the lowest priority goes first 
-			if( incr->right == NULL) break;
+			if( incr->right == NULL) break; // if the end is reaached quit
 			incr = incr -> right; // progrees to the right 
 			
 	}
@@ -205,6 +206,7 @@ void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKIN
 	/* There are three cases to check for head, tail, and middle*/
 	
 	/*head case*/
+	// if new pcb has lower priority than head make it the new head else put it afterwards
 	if ( incr -> left == NULL && incr-> right == NULL){
 		if( incr -> process -> priority <= node -> process -> priority ){
 			node-> left = incr;
@@ -215,21 +217,22 @@ void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKIN
 			node->left = NULL;
 			node->right = incr;
 			incr->left = node;
-			queueROOT -> node = node; //set quequeROOT to new head
+			queueROOT -> node = node; //set queueROOT to new head
 			queueROOT ->count +=1;
 		}
 		return;
 	}
-	if( incr -> left == NULL && incr->right != NULL ){ 
+	if( incr -> left == NULL && incr->right != NULL ){ // sets it after incr
 		node->left = NULL;
 		node->right = incr;
 		incr->left = node;
-		queueROOT -> node = node; //set quequeROOT to new head
+		queueROOT -> node = node; //set queueROOT to new head
 		queueROOT ->count +=1;
 		return;
 	}
 	
 	/*tail case*/
+	// if new pcb has higher priority make it the new tail
 	if( incr -> left != NULL && incr->right == NULL ){
 		
 		if( incr -> process -> priority <= node -> process -> priority ){
@@ -252,6 +255,7 @@ void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKIN
 	}
 	
 	/*middle case*/
+	// left-incr-node-right
 	if( incr -> left != NULL && incr->right != NULL){
 		incr = incr -> left;
 		temp1 = incr -> right;
@@ -263,33 +267,33 @@ void insert_PORDR( PCB *PCBpointer, ROOT *queueROOT ){ //FIXME: NO ERROR CHECKIN
 		return;
 	}
 }
-/** In this function we grow the queque to the right no matter of the Priority of the PCB.*/ 
+/** In this function we grow the queue to the right no matter of the Priority of the PCB.*/ 
 void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 	ELEM *node; // declare node of type element
-	ELEM *incr;
+	ELEM *incr; // traverses the queue
 	
 	
 	node = sys_alloc_mem( sizeof(ELEM)); // allocate Memory for node
 	node -> process = PCBpointer;// add the PCB to the node
 	
-	if( queueROOT -> node == NULL ){ // if this is the first element ever in the queque
+	if( queueROOT -> node == NULL ){ // if this is the first element ever in the queue
 		node -> left = NULL; // set the link left to null
 		node -> right = NULL;// set the link right to null
-		queueROOT -> node = node; // Set the first element in the queque to node of Type Element
+		queueROOT -> node = node; // Set the first element in the queue to node of Type Element
 		queueROOT -> count += 1; // increase count by one
-		return; //exit out first node is in queque.
+		return; //exit out first node is in queue.
 	}
 	
 	
-	/* INSERT INTO THE QUEQUE IN FIFO ORDER*/
-	incr = queueROOT -> node; //set node to the first node in the queque
+	/* INSERT INTO THE queue IN FIFO ORDER*/
+	incr = queueROOT -> node; //set node to the first node in the queue
 	while( incr -> right != NULL ){
-		incr = incr -> right; // progress forward to the right of the queque
+		incr = incr -> right; // progress forward to the right of the queue
 	}
 	 incr -> right = node;
 	 node -> left = incr; //set left to previous node
 	 node -> right = NULL; // set right to null 
-	 queueROOT -> count += 1; // increase count by one as the size of the queque has grown by one
+	 queueROOT -> count += 1; // increase count by one as the size of the queue has grown by one
 	 
 	 return;
 
@@ -297,12 +301,12 @@ void insert_FIFO( PCB *PCBpointer, ROOT *queueROOT){ //FIXME: NO ERROR HANDLING
 /** This function findes a PCB by its identifier (name)  and returns a pointer to its structures location. */
 PCB *find_PCB( char *name){
 	ELEM *incr;
-	incr =  rQueue -> node; //set node to the first node in the queque
+	incr =  rQueue -> node; //set node to the first node in the priority queue
 	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first
 			incr= incr -> right; // progrees to the right 
 	}
 	if (incr == NULL ){
-	incr =  wsQueue -> node; //set node to the first node in the queque
+	incr =  wsQueue -> node; //set node to the first node in the  FIFO queue
 	while ( strcmp(name,incr -> process -> name ) != 0 && incr != NULL){ // Process with the lowest priority goes first
 			incr= incr -> right; // progrees to the right 
 	}
@@ -317,12 +321,12 @@ PCB *find_PCB( char *name){
 /** This function removes a pcb and dealocates its resouces takes in a pointer to a PCBs location. */
 void remove_PCB( PCB *process ){
 	ROOT *queue;
-	ELEM *incr;
-	ELEM *temp1;
+	ELEM *incr; // traverses queue
+	ELEM *temp1; // used to hold left and right pcb
 	ELEM *temp2;
 	
 	if( find_PCB( process-> name ) == NULL ){ //case where pcb is not in queue
-		free_PCB(process); //deallocte mem
+		free_PCB(process); //deallocate mem
 		return; // return
 	}
 	
@@ -344,7 +348,7 @@ void remove_PCB( PCB *process ){
 		
 		return;
 	}
-	incr = queue-> node; //set node to the first node in the queque
+	incr = queue-> node; //set node to the first node in the queue
 	while ( (incr -> process != process ) && incr != NULL ){ // find the same process
 			incr = incr -> right; // progrees to the right 
 	}
@@ -383,6 +387,7 @@ void remove_PCB( PCB *process ){
 	}
 
 /** This is a user function that interacts with the user to create a PCB structure.*/
+// it prompts the user for information then attempts to allocate and setup the pcb then insert in the queue
 void mpxcmd_create_PCB(int argc, char *argv[]){
 	char name[STRLEN];
 	char line[MAX_LINE];
@@ -410,24 +415,25 @@ void mpxcmd_create_PCB(int argc, char *argv[]){
 	
 }
 
-/** This function preforms a deep copy of a PCB.*/
-PCB *copy_PCB(PCB *pointer){
-		PCB *tempPCB = allocate_PCB();
-		tempPCB -> state = pointer -> state;
-		tempPCB -> classType = pointer -> classType;
-		strcpy(tempPCB->name, pointer -> name);
-		tempPCB -> priority = pointer ->priority;
-		
-		// MEMDSC copy
-		tempPCB -> memdsc -> size = pointer -> memdsc -> size;
-		tempPCB -> memdsc -> loadADDR = pointer -> memdsc -> loadADDR;
-		tempPCB -> memdsc -> execADDR = pointer -> memdsc -> execADDR;
-		
-		//STACKDSC copy
-		memcpy(tempPCB->stackdsc->base,pointer -> stackdsc -> base, STACKSIZE);
-		
-	return tempPCB;
+///** This function preforms a deep copy of a PCB.*/
+//PCB *copy_PCB(PCB *pointer){
+//		PCB *tempPCB = allocate_PCB();
+//		tempPCB -> state = pointer -> state;
+//		tempPCB -> classType = pointer -> classType;
+//		strcpy(tempPCB->name, pointer -> name);
+//		tempPCB -> priority = pointer ->priority;
+//		
+//		// MEMDSC copy
+//		tempPCB -> memdsc -> size = pointer -> memdsc -> size;
+//		tempPCB -> memdsc -> loadADDR = pointer -> memdsc -> loadADDR;
+//		tempPCB -> memdsc -> execADDR = pointer -> memdsc -> execADDR;
+//		
+//		//STACKDSC copy
+//		memcpy(tempPCB->stackdsc->base,pointer -> stackdsc -> base, STACKSIZE);
+//		
+//	return tempPCB;
 }
+
 /** This is a user function in the menu to delete a process it takes the process name as input */
 void mpxcmd_delete_PCB(int argc, char *argv[]){
 	if (argc == 2){
@@ -636,7 +642,7 @@ void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs ad
 		char* lp;
 		char class[30];
 		char state[45];
-		//set node to the first node in the queque
+		//set node to the first node in the queue
 		lp = &line;
 		mpx_pager_init(" All PCB's In Queue:\n -----------------------------------------------------\n");
 		
@@ -649,7 +655,7 @@ void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs ad
 			lp = string_PCB(pointer);
 			mpx_pager(lp);
 			
-			incr = incr -> right; // progress forward to the right of the queque
+			incr = incr -> right; // progress forward to the right of the queue
 		}
 	    } 
 		if(wsQueue -> count > 0){
@@ -661,7 +667,7 @@ void mpxcmd_showAll_PCB(int argc, char *argv[]){ // Pagination function needs ad
 			lp = string_PCB(pointer);
 			mpx_pager(lp);
 			
-			incr = incr -> right; // progress forward to the right of the queque
+			incr = incr -> right; // progress forward to the right of the queue
 		}
 		}
 	}
@@ -681,7 +687,7 @@ void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs 
 		char* lp;
 		char class[30];
 		char state[45];
-		incr = rQueue -> node;//set node to the first node in the queque
+		incr = rQueue -> node;//set node to the first node in the queue
 		lp = &line;
 		mpx_pager_init(" All PCB's Ready State in Queues:\n -----------------------------------------------------\n");
 		while( incr != NULL ){
@@ -691,17 +697,17 @@ void mpxcmd_showReady_PCB(int argc, char *argv[]){ // Pagination function needs 
 			lp = string_PCB(pointer);
 			mpx_pager(lp);
 			}
-			incr = incr -> right; // progress forward to the right of the queque
+			incr = incr -> right; // progress forward to the right of the queue
 		}
 		
-		incr = wsQueue -> node;//set node to the first node in the queque
+		incr = wsQueue -> node;//set node to the first node in the queue
 		while( incr != NULL ){
 			pointer = incr -> process;
 			if ( pointer -> state == SUSPENDED_READY){
 			lp = string_PCB(pointer);
 			mpx_pager(lp);
 			}
-			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
+			incr = incr -> right; // progress forward to the right of the queue			incr = incr -> right; // progress forward to the right of the queue
 		}
 	}
 	else{
@@ -723,14 +729,14 @@ void mpxcmd_showBlocked_PCB(int argc, char *argv[]){ // Pagination function need
 		lp = &line;
 		mpx_pager_init(" All PCB's Blocked State in Queues:\n -----------------------------------------------------\n");
 		
-		incr = wsQueue -> node;//set node to the first node in the queque
+		incr = wsQueue -> node;//set node to the first node in the queue
 		while( incr  != NULL ){
 			pointer = incr -> process;
 			if ( pointer -> state == SUSPENDED_BLOCKED || pointer -> state == BLOCKED ){
 			lp = string_PCB(pointer);
 			mpx_pager(lp);
 			}
-			incr = incr -> right; // progress forward to the right of the queque			incr = incr -> right; // progress forward to the right of the queque
+			incr = incr -> right; // progress forward to the right of the queue			incr = incr -> right; // progress forward to the right of the queue
 		}
 	}
 	else{

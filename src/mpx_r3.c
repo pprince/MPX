@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdio.h>
 
-PCB *getHead_PCB();
+//PCB *getHead_PCB();
 
 PCB *cop;
 PCB *HEAD;
@@ -33,19 +33,23 @@ void interrupt sys_call(void){
 	cop-> stackdsc -> top = (unsigned char *) MK_FP(_SS, _SP);
 	param_p = ( tparams*)(sizeof(tcontext) + cop -> stackdsc -> top);//code supplied by GA bryan
 	context_p = (tcontext*) cop -> stackdsc -> top;
-	//SWITCH TO TEMP STACK
+	//SWITCH TO TEMP STACK by storing all of your variables in memory
 	
+	//replaces SS and SP
 	new_ss = FP_SEG(sys_stack);
 	new_sp = FP_OFF(sys_stack);
 	new_sp += SYS_STACK_SIZE;
 	_SS = new_ss;
 	_SP = new_sp;
 	
+	// if the idle opcode is sent then change staate to ready and insert into queue
 	if ( param_p -> op_code == IDLE ){
 			cop -> state = READY;
 			insert_PCB(cop);
 			cop = NULL;
 	}
+	
+	// if the exit opcode is sent then remove and free the pcb
 	if( param_p -> op_code == EXIT ){
 		remove_PCB(cop);
 		free_PCB(cop);
@@ -63,12 +67,14 @@ void interrupt sys_call(void){
 
 void interrupt dispatch(void){
 	
-	if ( sp_save == NULL ){
+	if ( sp_save == NULL ){ //saves the SS and SP from being overwritten if not already done
 		ss_save = _SS;
 		sp_save = _SP;
 		}
 		HEAD = getHead_PCB();
 		//STACK = HEAD -> stackdsc;
+		
+		// get a process from the ready queue then set the ss and sp to execute the new process
 		if ( HEAD != NULL ){
 			cop = HEAD;
 			cop -> state = READY;
@@ -78,7 +84,7 @@ void interrupt dispatch(void){
 			new_sp = FP_OFF(STACK -> top );
 			_SS = new_ss;
 			_SP = new_sp;
-		}else{
+		}else{ // if no process left return
 			cop = NULL;
 			_SS = ss_save;
 			_SP = sp_save;
@@ -88,7 +94,7 @@ void interrupt dispatch(void){
 		//_iret;	
 }
 
-
+	// returns the head pcb of the ready queue
 PCB *getHead_PCB(){
 		ELEM *incr;
 		PCB  *pointer= NULL;
@@ -101,6 +107,7 @@ PCB *getHead_PCB(){
 		return pointer;
 }
 
+// used to test r3 test processes
 void mpxcmd_r3run(int argc, char *argv[]){
 	
 	
@@ -206,6 +213,7 @@ void mpxcmd_r3run(int argc, char *argv[]){
 	
 }
 
+// used to test r4 test processes
 void mpxcmd_gor4(int argc, char *argv[]){
 	mpx_cls();
 	dispatch();

@@ -11,8 +11,11 @@
 
 extern ROOT *rQueue, *wsQueue; //link in the values for these in r2
 void * loadAddr;
+
+// loads a program into memory
 void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	
+	// sets up variables
 	static int count;
 	MEMDSC *tempMem;
 	unsigned char temptop;
@@ -23,6 +26,7 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	ROOT *tempRQueue,*tempWSQueue;
 	STACKDSC *temp;
 	
+	// initializes values
 	int err = 0;
 	PCB *newPCB = allocate_PCB();
 	tempMem=newPCB->memdsc;
@@ -34,8 +38,9 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	strcpy(filename,argv[2]);
 	priority = atoi(argv[3]);
 	
-	err = sys_check_program(dir,filename,&size,&offset);
-	if((argc==5)||(127<=priority<=-128)&&( err==0)){
+	err = sys_check_program(dir,filename,&size,&offset); 
+	
+	if((argc==5)||(127<=priority<=-128)&&( err==0)){ //checks for validity
 		
 		
 
@@ -47,8 +52,8 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		setup_PCB(newPCB,name,APPLICATION,SUSPENDED_READY,priority);
 
 
-		
-		newPCB->memdsc->loadADDR= sys_alloc_mem(size);;
+		// sets up the adressess
+		newPCB->memdsc->loadADDR= sys_alloc_mem(size);
 		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;// is this the correct address? 
 		
 		//make sure all registers are properly set
@@ -62,10 +67,10 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		tempContext ->IP = FP_OFF(newPCB->memdsc->execADDR);
 		tempContext ->FLAGS = 0x200;
 		
-		
+		// load the program into memory
 		 err = sys_load_program(newPCB->memdsc->loadADDR,size,dir,filename);
 		
-		insert_PCB(newPCB);	
+		insert_PCB(newPCB);	// put pcb into a queue
 		count++;//Update the number of times the function has run.
 		
 	}
@@ -74,6 +79,7 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	}
 }
 
+// removes process from memory
 void terminateProcess(int argc, char *argv[]){
 
 	if (argc == 2){
