@@ -71,15 +71,14 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		setup_PCB(newPCB,name,APPLICATION,SUSPENDED_READY,priority);
 
 
-<<<<<<< HEAD
 		// sets up the adressess
 		newPCB->memdsc->loadADDR= sys_alloc_mem(size);
 		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;// is this the correct address? 
-=======
+
 		
 		newPCB->memdsc->loadADDR= sys_alloc_mem(size);;
 		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;
->>>>>>> 812e01fefa98c5ec3f1bb1da6a2ce892851d7197
+
 		
 		//make sure all registers are properly set
 		

@@ -46,5 +46,4 @@ void interrupt sys_call(void);
 void interrupt dispatch(void);
 void mpxcmd_r3run(int argc, char *argv[]);
 void mpxcmd_gor4(int argc, char *argv[]);
-PCB *getHead_PCB();
 #endif

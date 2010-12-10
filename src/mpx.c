@@ -41,20 +41,18 @@ void main(){
 	STACKDSC *command_stack;
 	tcontext *command_context;
 	tcontext *tempContext;
-	int offset;
-	int sizex;
-	int priority;
-	int eventFlag, eventtFlag;
 	char dir[20] = "proc";
 	char name[20] = "idle";
 	char filename[20] = "IDLE";
+	int sizex,offset,priority;
+	int eventFlag, eventtFlag;
 	char command[20] = "Command_Hand";
 	sys_init( MODULE_R4 ); //System initilization
 	sys_set_vec(sys_call);
 
 	//Open Device Drivers
-	com_open( (int *) eventFlag, 1200);
-	trm_open(  (int *) eventtFlag );
+	//com_open( (int *) eventFlag, 1200);
+       //trm_open(  (int *) eventtFlag );
 
 	// Command Handler loop insertion
 	command_loop = allocate_PCB();
@@ -74,9 +72,9 @@ void main(){
 	setup_PCB(command_loop,command,SYSTEM,READY,-127);
 
 	insert_PCB(command_loop);
-	
-	//IDLE Process insertion 
-	
+
+	//IDLE Process insertion
+
 	sys_check_program(dir,filename,&sizex,&offset);
 
 	idlePCB = allocate_PCB();
