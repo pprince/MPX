@@ -1,3 +1,22 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	mpx_cmd.h
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: Header for mpx_cmd.c
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
 #ifndef MPX_CMD_HFILE
 #define MPX_CMD_HFILE
 

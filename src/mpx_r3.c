@@ -1,3 +1,24 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	mpx_cmd.c
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: Contains interrupt and dispatcher used for process and I/O
+	management.
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
+
 #include "dos.h"
 #include "mpx_cmd.h"
 #include "mpx_util.h"
@@ -16,6 +37,10 @@ PCB *HEAD;
 ELEM *TEMP;
 ROOT *Root;
 STACKDSC *STACK;
+tcontext *context_p;
+tparams  *param_p;
+//IOCB termCB;
+//IOCB comCB;
 
 extern ROOT *rQueue, *wsQueue; //link in the values for these in r2
 
@@ -28,6 +53,7 @@ tcontext *context_p;
 tparams  *param_p;
 //IOCB termCB;
 //IOCB comCB;
+
 
 
 void interrupt sys_call(void){

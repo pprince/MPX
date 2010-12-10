@@ -1,3 +1,24 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	mpx.c
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: This is the startup program. It sets initial values
+	and then calls the dispatcher.
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
+
 #include <dos.h>
 #include "mpx_supt.h"
 #include "mpx_util.h"
@@ -20,6 +41,10 @@ void main(){
 	STACKDSC *command_stack;
 	tcontext *command_context;
 	tcontext *tempContext;
+	int offset;
+
+	int priority;
+	int eventFlag, eventtFlag;
 	char dir[20] = "proc";
 	char name[20] = "idle";
 	char filename[20] = "IDLE";

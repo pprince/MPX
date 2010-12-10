@@ -1,3 +1,23 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	mpx_r2.c
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: Provides several supporting functions such as allocation and search
+	for PCB's
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
 #include "mpx_r2.h"
 #include "mpx_supt.h"
 #include "mystdlib.h"
