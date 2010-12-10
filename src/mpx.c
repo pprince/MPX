@@ -41,10 +41,6 @@ void main(){
 	STACKDSC *command_stack;
 	tcontext *command_context;
 	tcontext *tempContext;
-	int offset;
-
-	int priority;
-	int eventFlag, eventtFlag;
 	char dir[20] = "proc";
 	char name[20] = "idle";
 	char filename[20] = "IDLE";
@@ -55,8 +51,8 @@ void main(){
 	sys_set_vec(sys_call);
 
 	//Open Device Drivers
-	com_open( (int *) eventFlag, 1200);
-	trm_open(  (int *) eventtFlag );
+	//com_open( (int *) eventFlag, 1200);
+       //trm_open(  (int *) eventtFlag );
 
 	// Command Handler loop insertion
 	command_loop = allocate_PCB();
