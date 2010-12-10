@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdio.h>
 
-//PCB *getHead_PCB();
+PCB *getHead_PCB();
 
 PCB *cop;
 PCB *HEAD;
@@ -26,8 +26,8 @@ unsigned short new_ss = NULL;
 unsigned short new_sp = NULL;
 tcontext *context_p;
 tparams  *param_p;
-IOCB termCB;
-IOCB comCB;
+//IOCB termCB;
+//IOCB comCB;
 
 
 void interrupt sys_call(void){
@@ -59,23 +59,23 @@ void interrupt sys_call(void){
 		cop = NULL;
 	}
 	
-	if ( param_p -> op_code == READ ){
-		if( param_p -> device_id == TERMINAL ){
+	// if ( param_p -> op_code == READ ){
+		// if( param_p -> device_id == TERMINAL ){
 		
-		}
-		if ( param_p -> device_id == COM_PORT ){
+		// }
+		// if ( param_p -> device_id == COM_PORT ){
 		
-		}
-	}
-	if ( param_p -> op_code == WRITE ){
-		if( param_p -> device_id == TERMINAL ){
+		// }
+	// }
+	// if ( param_p -> op_code == WRITE ){
+		// if( param_p -> device_id == TERMINAL ){
 		
-		}
-		if( param_p -> device_id == COM_PORT ){
+		// }
+		// if( param_p -> device_id == COM_PORT ){
 		
-		}
+		// }
 		
-	}
+	// }
 	
 	
 
