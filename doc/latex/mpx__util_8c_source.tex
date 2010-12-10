@@ -67,7 +67,7 @@
 00073         \textcolor{keywordtype}{int} buflen = 3;
 00074         \textcolor{keywordtype}{char} buf[5];
 00075         buf[0] = \textcolor{charliteral}{' '};
-00076         sys\_req(READ, TERMINAL, buf, &buflen);
+00076         sys\_req(\hyperlink{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{READ}, TERMINAL, buf, &buflen);
 00077         \textcolor{keywordflow}{return} buf[0];
 00078 \}
 00079 
@@ -79,7 +79,7 @@
 00086 
 \hypertarget{mpx__util_8c_source_l00088}{}\hyperlink{mpx__util_8h_a781169ab05ad54c0d37253d73060b77f}{00088} \textcolor{keywordtype}{void} \hyperlink{mpx__util_8c_a781169ab05ad54c0d37253d73060b77f}{mpx_readline} ( \textcolor{keywordtype}{char} *buffer , \textcolor{keywordtype}{int} buflen  ) \{
 00089         \textcolor{keywordtype}{int} local\_buflen = buflen;
-00090         sys\_req(READ, TERMINAL, buffer, &local\_buflen);
+00090         sys\_req(\hyperlink{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{READ}, TERMINAL, buffer, &local\_buflen);
 00091 
 00092         \textcolor{comment}{/* remove newline from end of string. */}
 00093         \textcolor{keywordflow}{if}( buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)n'} || buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)r'} 

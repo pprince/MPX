@@ -38,12 +38,12 @@
 Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#ab6613e7bde642a754f71b9f60053cd1a">name</a> [STRLEN]</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">character array containing 16 characters plus space for null  <a href="#ab6613e7bde642a754f71b9f60053cd1a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">signed char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#abe608249826d4a0f04fba4398f967047">classType</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">class of process APPLICATION or SYSTEM  <a href="#abe608249826d4a0f04fba4398f967047"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">signed char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#a788405fd9aeccd863516f34d3ce1c41e">priority</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">process priority ranges from -128 to +127  <a href="#a788405fd9aeccd863516f34d3ce1c41e"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">signed char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#af8bb04355feac474fa959e3db52618c9">state</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">stores the current states of the process  <a href="#af8bb04355feac474fa959e3db52618c9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#ac83f8c634a3b58ea5364e9f90ee3bcc2">classType</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">class of process APPLICATION or SYSTEM  <a href="#ac83f8c634a3b58ea5364e9f90ee3bcc2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#a0d71749eff1f19063bfad58c4bf7ba64">priority</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">process priority ranges from -128 to +127  <a href="#a0d71749eff1f19063bfad58c4bf7ba64"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#a65d9093ba530e1d4e0a67f94d8a60345">state</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">stores the current states of the process  <a href="#a65d9093ba530e1d4e0a67f94d8a60345"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmem.html">MEMDSC</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#a163551ab7b60184b48e5d440fcd5c2b8">memdsc</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">stores the description of the ADDRESS SPACE for the process  <a href="#a163551ab7b60184b48e5d440fcd5c2b8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstack.html">STACKDSC</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprocess.html#a7e0fb37fbb9c155b18f75a94a8fc202b">stackdsc</a></td></tr>
@@ -51,14 +51,14 @@ Data Fields</h2></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 
-<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00035">35</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
+<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00054">54</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
 <hr/><h2>Field Documentation</h2>
-<a class="anchor" id="abe608249826d4a0f04fba4398f967047"></a><!-- doxytag: member="process::classType" ref="abe608249826d4a0f04fba4398f967047" args="" -->
+<a class="anchor" id="ac83f8c634a3b58ea5364e9f90ee3bcc2"></a><!-- doxytag: member="process::classType" ref="ac83f8c634a3b58ea5364e9f90ee3bcc2" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">signed char <a class="el" href="structprocess.html#abe608249826d4a0f04fba4398f967047">process::classType</a></td>
+          <td class="memname">int <a class="el" href="structprocess.html#ac83f8c634a3b58ea5364e9f90ee3bcc2">process::classType</a></td>
         </tr>
       </table>
 </div>
@@ -66,7 +66,7 @@ Data Fields</h2></td></tr>
 
 <p>class of process APPLICATION or SYSTEM </p>
 
-<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00037">37</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
+<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00056">56</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
 
 </div>
 </div>
@@ -83,7 +83,7 @@ Data Fields</h2></td></tr>
 
 <p>stores the description of the ADDRESS SPACE for the process </p>
 
-<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00040">40</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
+<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00059">59</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
 
 </div>
 </div>
@@ -100,16 +100,16 @@ Data Fields</h2></td></tr>
 
 <p>character array containing 16 characters plus space for null </p>
 
-<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00036">36</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
+<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00055">55</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a788405fd9aeccd863516f34d3ce1c41e"></a><!-- doxytag: member="process::priority" ref="a788405fd9aeccd863516f34d3ce1c41e" args="" -->
+<a class="anchor" id="a0d71749eff1f19063bfad58c4bf7ba64"></a><!-- doxytag: member="process::priority" ref="a0d71749eff1f19063bfad58c4bf7ba64" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">signed char <a class="el" href="structprocess.html#a788405fd9aeccd863516f34d3ce1c41e">process::priority</a></td>
+          <td class="memname">int <a class="el" href="structprocess.html#a0d71749eff1f19063bfad58c4bf7ba64">process::priority</a></td>
         </tr>
       </table>
 </div>
@@ -117,7 +117,7 @@ Data Fields</h2></td></tr>
 
 <p>process priority ranges from -128 to +127 </p>
 
-<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00038">38</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
+<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00057">57</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
 
 </div>
 </div>
@@ -134,16 +134,16 @@ Data Fields</h2></td></tr>
 
 <p>stores the description of the stack for each process; </p>
 
-<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00041">41</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
+<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00060">60</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af8bb04355feac474fa959e3db52618c9"></a><!-- doxytag: member="process::state" ref="af8bb04355feac474fa959e3db52618c9" args="" -->
+<a class="anchor" id="a65d9093ba530e1d4e0a67f94d8a60345"></a><!-- doxytag: member="process::state" ref="a65d9093ba530e1d4e0a67f94d8a60345" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">signed char <a class="el" href="structprocess.html#af8bb04355feac474fa959e3db52618c9">process::state</a></td>
+          <td class="memname">int <a class="el" href="structprocess.html#a65d9093ba530e1d4e0a67f94d8a60345">process::state</a></td>
         </tr>
       </table>
 </div>
@@ -151,7 +151,7 @@ Data Fields</h2></td></tr>
 
 <p>stores the current states of the process </p>
 
-<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00039">39</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
+<p>Definition at line <a class="el" href="mpx__r2_8h_source.html#l00058">58</a> of file <a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a>.</p>
 
 </div>
 </div>
@@ -159,7 +159,7 @@ Data Fields</h2></td></tr>
 <li>src/<a class="el" href="mpx__r2_8h_source.html">mpx_r2.h</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 12 2010 19:59:00 for PMOS Programmers Manual by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 10 2010 01:08:39 for PMOS Programmers Manual by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
