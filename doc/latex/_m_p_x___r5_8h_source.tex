@@ -1,0 +1,85 @@
+\hypertarget{_m_p_x___r5_8h_source}{
+\section{src/MPX\_\-R5.h}
+}
+
+\begin{DoxyCode}
+00001         \textcolor{comment}{//COM1 Addresses }
+\hypertarget{_m_p_x___r5_8h_source_l00002}{}\hyperlink{_m_p_x___r5_8h_a57912ff27e6b123b86821203a0338760}{00002} \textcolor{preprocessor}{#define INT\_ID 0X0C // interupt ID for windows interupt table}
+\hypertarget{_m_p_x___r5_8h_source_l00003}{}\hyperlink{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}{00003} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define BASE 0x3F8  //com1 base address}
+\hypertarget{_m_p_x___r5_8h_source_l00004}{}\hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{00004} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define INT\_EN BASE+1  // interupt enable}
+\hypertarget{_m_p_x___r5_8h_source_l00005}{}\hyperlink{_m_p_x___r5_8h_a4c32fec003a7f9e7fefc8b8b1f237dd8}{00005} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define BRD\_LSB BASE // LSB Baud Rate Devisor}
+\hypertarget{_m_p_x___r5_8h_source_l00006}{}\hyperlink{_m_p_x___r5_8h_aa071df7caa6499a431c734cc5adde587}{00006} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define BRD\_MSB BASE+1 // MSB Baud Rate Devisor}
+\hypertarget{_m_p_x___r5_8h_source_l00007}{}\hyperlink{_m_p_x___r5_8h_a2d1977759194644a0f9d516c4aed28d5}{00007} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define INT\_ID\_REG BASE+2}
+\hypertarget{_m_p_x___r5_8h_source_l00008}{}\hyperlink{_m_p_x___r5_8h_aa499bb75bb504909cd0a72baf48c4653}{00008} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define LC BASE+3 // Line control register}
+\hypertarget{_m_p_x___r5_8h_source_l00009}{}\hyperlink{_m_p_x___r5_8h_a71d9e511e7e302cd831e83581219e70d}{00009} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define MC BASE+4 // Modem Control Register}
+\hypertarget{_m_p_x___r5_8h_source_l00010}{}\hyperlink{_m_p_x___r5_8h_aeb0ce037090c628feafc65349031b214}{00010} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define LS BASE+5 // Line control status}
+\hypertarget{_m_p_x___r5_8h_source_l00011}{}\hyperlink{_m_p_x___r5_8h_ab9e061e05d689a5769936b213022102f}{00011} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define MS BASE+6 // Modem Control status}
+\hypertarget{_m_p_x___r5_8h_source_l00012}{}\hyperlink{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}{00012} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define PIC\_MASK 0X21 // Programmable Interupt Controler Mask}
+\hypertarget{_m_p_x___r5_8h_source_l00013}{}\hyperlink{_m_p_x___r5_8h_a5a66cf9d58dff90a490d82a1dbd56968}{00013} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define PIC\_CMD 0x20  // Programmable Interupt Controler Command}
+\hypertarget{_m_p_x___r5_8h_source_l00014}{}\hyperlink{_m_p_x___r5_8h_a04c9015da7e7ea45f3b80793809e2d7b}{00014} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define EOI 0x20}
+00015 \textcolor{preprocessor}{}
+00016 \textcolor{comment}{//Used in interrupt1}
+\hypertarget{_m_p_x___r5_8h_source_l00017}{}\hyperlink{_m_p_x___r5_8h_a28a41607cd2fd1347ed0a0fb2bfff51b}{00017} \textcolor{preprocessor}{#define WHATINTERRUPTBIT 0x07}
+00018 \textcolor{preprocessor}{}
+00019 \textcolor{comment}{//ring buffer size}
+\hypertarget{_m_p_x___r5_8h_source_l00020}{}\hyperlink{_m_p_x___r5_8h_aa23c661441688350614bd6a350d2b6ff}{00020} \textcolor{preprocessor}{#define size 256}
+00021 \textcolor{preprocessor}{}
+00022 \textcolor{comment}{//Flag states}
+\hypertarget{_m_p_x___r5_8h_source_l00023}{}\hyperlink{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{00023} \textcolor{preprocessor}{#define OPEN 1 //device open}
+\hypertarget{_m_p_x___r5_8h_source_l00024}{}\hyperlink{_m_p_x___r5_8h_ad6664b6aa0b2ec18771fe01aefa1e760}{00024} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define CLOSED 0 //device closed}
+\hypertarget{_m_p_x___r5_8h_source_l00025}{}\hyperlink{_m_p_x___r5_8h_a59da1d65e87a723efe808dbabb4fc205}{00025} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define SET 1 //event flag set}
+\hypertarget{_m_p_x___r5_8h_source_l00026}{}\hyperlink{_m_p_x___r5_8h_a269d0ebbb16b030f6fe231046e7c084a}{00026} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define FLAG\_CLEAR 0 //event flag cleared}
+\hypertarget{_m_p_x___r5_8h_source_l00027}{}\hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{00027} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define IDLE   0}
+\hypertarget{_m_p_x___r5_8h_source_l00028}{}\hyperlink{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{00028} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define READ   1}
+\hypertarget{_m_p_x___r5_8h_source_l00029}{}\hyperlink{_m_p_x___r5_8h_aa10f470e996d0f51210d24f442d25e1e}{00029} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define WRITE  2}
+00030 \textcolor{preprocessor}{}
+00031 \textcolor{comment}{//Error values returned}
+\hypertarget{_m_p_x___r5_8h_source_l00032}{}\hyperlink{_m_p_x___r5_8h_a258bb72419ef143530a2f8f55e7d57af}{00032} \textcolor{preprocessor}{#define NO\_ERROR 0 //no error}
+\hypertarget{_m_p_x___r5_8h_source_l00033}{}\hyperlink{_m_p_x___r5_8h_a42f75fbb27d3a1159a29d5868b80c9e5}{00033} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define INV\_FLAG -101 //invalid even flad pointer}
+\hypertarget{_m_p_x___r5_8h_source_l00034}{}\hyperlink{_m_p_x___r5_8h_a276439462cdb37334a206273dfa45353}{00034} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define INV\_BAUD -102 //invalid baud rate divisor}
+\hypertarget{_m_p_x___r5_8h_source_l00035}{}\hyperlink{_m_p_x___r5_8h_a11a6425698663340c746c656baef6949}{00035} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define PORT\_ALREADY\_OPEN -103 //port already open}
+\hypertarget{_m_p_x___r5_8h_source_l00036}{}\hyperlink{_m_p_x___r5_8h_a4756b09ce55b50d4572df688ab1f6af4}{00036} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define SERIAL\_PORT\_NOT\_OPEN -201 //serial port not open}
+\hypertarget{_m_p_x___r5_8h_source_l00037}{}\hyperlink{_m_p_x___r5_8h_afa0762350ba1d8d94c0181d1796ffbf9}{00037} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define READ\_PORT\_NOT\_OPEN -301 //port not open}
+\hypertarget{_m_p_x___r5_8h_source_l00038}{}\hyperlink{_m_p_x___r5_8h_ac190a708b2915f64edbdc4cde3f8e050}{00038} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define READ\_INV\_BUFF\_ADD -302 //invalid buffer address}
+\hypertarget{_m_p_x___r5_8h_source_l00039}{}\hyperlink{_m_p_x___r5_8h_a3ab3bced3b86630c93b536bf31038d73}{00039} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define READ\_INV\_COUNT -303 //invalid count address or count value}
+\hypertarget{_m_p_x___r5_8h_source_l00040}{}\hyperlink{_m_p_x___r5_8h_a2548589f0587c00c17f1f728a2f7df27}{00040} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define READ\_DEV\_BUSY -304 //device is busy}
+\hypertarget{_m_p_x___r5_8h_source_l00041}{}\hyperlink{_m_p_x___r5_8h_af804ad6fc86c1805c7594454b3c82ad1}{00041} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define WRITE\_PORT\_NOT\_OPEN -401}
+\hypertarget{_m_p_x___r5_8h_source_l00042}{}\hyperlink{_m_p_x___r5_8h_a797bf4ab0b22dc0ded1a5de881a204e2}{00042} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define WRITE\_INV\_BUFF\_ADD -402}
+\hypertarget{_m_p_x___r5_8h_source_l00043}{}\hyperlink{_m_p_x___r5_8h_a5fd366716d87428651c80e10cdf6803d}{00043} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define WRITE\_INV\_COUNT -403}
+\hypertarget{_m_p_x___r5_8h_source_l00044}{}\hyperlink{_m_p_x___r5_8h_a897dcfa373c0039a2db00f3662419275}{00044} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define WRITE\_DEV\_BUSY -404}
+00045 \textcolor{preprocessor}{}   
+00046 \textcolor{comment}{//global variables }
+\hypertarget{_m_p_x___r5_8h_source_l00047}{}\hyperlink{_m_p_x___r5_8h_a8e251dc6b3970d91b5e576f4b62a0518}{00047} \textcolor{keywordtype}{int} \hyperlink{_m_p_x___r5_8h_a8e251dc6b3970d91b5e576f4b62a0518}{callInt}=0; 
+\hypertarget{_m_p_x___r5_8h_source_l00048}{}\hyperlink{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}{00048} \textcolor{keywordtype}{int} \hyperlink{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}{num}; 
+00049   
+\hypertarget{_m_p_x___r5_8h_source_l00050}{}\hyperlink{structdevice}{00050} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structdevice}{device}\{ 
+\hypertarget{_m_p_x___r5_8h_source_l00051}{}\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{00051}         \textcolor{keywordtype}{int} \hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag}; \textcolor{comment}{//indicate if device is open or closed. }
+\hypertarget{_m_p_x___r5_8h_source_l00052}{}\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{00052}         \textcolor{keywordtype}{int} *\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{flag_ptr}; \textcolor{comment}{//pointer to event flag }
+\hypertarget{_m_p_x___r5_8h_source_l00053}{}\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{00053}         \textcolor{keywordtype}{int}  \hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status}; \textcolor{comment}{//status code: IDLE, READ, WRITE }
+\hypertarget{_m_p_x___r5_8h_source_l00054}{}\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{00054}         \textcolor{keywordtype}{char} *\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}; \textcolor{comment}{//pointer to requester's buffer; read data placed here }
+\hypertarget{_m_p_x___r5_8h_source_l00055}{}\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{00055}         \textcolor{keywordtype}{int} *\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{incount}; \textcolor{comment}{//max number of chars can be placed in requester's buffer }
+\hypertarget{_m_p_x___r5_8h_source_l00056}{}\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{00056}         \textcolor{keywordtype}{int} \hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone}; \textcolor{comment}{//number of chars that have been placed in requester's buffer
+       }
+\hypertarget{_m_p_x___r5_8h_source_l00057}{}\hyperlink{structdevice_a32acea82810b51d93df2d3ced6cdffb7}{00057}         \textcolor{keywordtype}{char} *\hyperlink{structdevice_a32acea82810b51d93df2d3ced6cdffb7}{outbuff}; 
+\hypertarget{_m_p_x___r5_8h_source_l00058}{}\hyperlink{structdevice_ae597c46dee282a47174100b12525b424}{00058}         \textcolor{keywordtype}{int} *\hyperlink{structdevice_ae597c46dee282a47174100b12525b424}{outcount}; 
+\hypertarget{_m_p_x___r5_8h_source_l00059}{}\hyperlink{structdevice_ab7c43127bcb340d678131fd04c37ba05}{00059}         \textcolor{keywordtype}{int} \hyperlink{structdevice_ab7c43127bcb340d678131fd04c37ba05}{outdone}; 
+\hypertarget{_m_p_x___r5_8h_source_l00060}{}\hyperlink{structdevice_add9c4fe8b331128af0f655bc74410ffd}{00060}         \textcolor{keywordtype}{char} \hyperlink{structdevice_add9c4fe8b331128af0f655bc74410ffd}{ringbuf}[size]; \textcolor{comment}{//ring buffer }
+\hypertarget{_m_p_x___r5_8h_source_l00061}{}\hyperlink{structdevice_a87b6f10cd47f45a38cfa264c298acc04}{00061}         \textcolor{keywordtype}{int} \hyperlink{structdevice_a87b6f10cd47f45a38cfa264c298acc04}{ringbufin}; \textcolor{comment}{//where write next char will be placed }
+\hypertarget{_m_p_x___r5_8h_source_l00062}{}\hyperlink{structdevice_ac5f863bd4d89e6182fb4c517d93afb8e}{00062}         \textcolor{keywordtype}{int} \hyperlink{structdevice_ac5f863bd4d89e6182fb4c517d93afb8e}{ringbufout}; \textcolor{comment}{//where remove next char from buffer }
+\hypertarget{_m_p_x___r5_8h_source_l00063}{}\hyperlink{structdevice_ad06a8146a22a605c0f463b212774cc92}{00063}         \textcolor{keywordtype}{int} \hyperlink{structdevice_ad06a8146a22a605c0f463b212774cc92}{ringbufcount}; \textcolor{comment}{//number of stored but not read chars from buffer }
+00064 \}\hyperlink{structdevice}{DCB}; 
+00065    
+00066 \textcolor{comment}{//typedef struct device DCB; }
+\hypertarget{_m_p_x___r5_8h_source_l00067}{}\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{00067} \hyperlink{structdevice}{DCB} \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr};
+00068    
+00069 \textcolor{comment}{//prototypes }
+00070 \textcolor{keywordtype}{int} \hyperlink{_m_p_x___r5_8_c_a0f07dfc5a6bf6db22a31ba4f2e7d2f35}{com_open}(\textcolor{keywordtype}{int} *, \textcolor{keywordtype}{int} ); 
+00071 \textcolor{keywordtype}{int} \hyperlink{_m_p_x___r5_8_c_aa39f1d25e881ffac9559b2fe816fe943}{com_close}(\textcolor{keywordtype}{void}); 
+00072 \textcolor{keywordtype}{int} \hyperlink{_m_p_x___r5_8_c_a5d2d449f4aadb74a2eb2b4aadeaf4b57}{com_read}(\textcolor{keywordtype}{char} *, \textcolor{keywordtype}{int} *); 
+00073 \textcolor{keywordtype}{int} \hyperlink{_m_p_x___r5_8_c_af03ea2dd941f2ecc4035da028d1f41b5}{com_write}(\textcolor{keywordtype}{char} *, \textcolor{keywordtype}{int} *); 
+00074 \textcolor{keywordtype}{void} interrupt \hyperlink{_m_p_x___r5_8_c_a49235bff2654267b70d5656543f2ba81}{level1}();
+00075 \textcolor{keywordtype}{void} \hyperlink{_m_p_x___r5_8_c_a4e674e8641ca22513d0e38e17f9df632}{level2Write}();
+00076 \textcolor{keywordtype}{void} \hyperlink{_m_p_x___r5_8_c_aa1236f07727d3a0a5182b8594b043dad}{level2Read}();
+\hypertarget{_m_p_x___r5_8h_source_l00077}{}\hyperlink{_m_p_x___r5_8h_aecebfaddee878c55ece8a1aa8ac843d4}{00077} \textcolor{keywordtype}{void} interrupt (*\hyperlink{_m_p_x___r5_8h_aecebfaddee878c55ece8a1aa8ac843d4}{oldfunc}) (void);  
+00078         
+\end{DoxyCode}

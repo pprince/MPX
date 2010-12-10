@@ -1,0 +1,458 @@
+\contentsline {chapter}{\numberline {1}Data Structure Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Data Structures}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}File Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}File List}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Data Structure Documentation}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}context Struct Reference}{5}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Detailed Description}{5}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Field Documentation}{6}{subsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.2.1}AX}{6}{subsubsection.3.1.2.1}
+\contentsline {subsubsection}{\numberline {3.1.2.2}AX}{6}{subsubsection.3.1.2.2}
+\contentsline {subsubsection}{\numberline {3.1.2.3}BP}{6}{subsubsection.3.1.2.3}
+\contentsline {subsubsection}{\numberline {3.1.2.4}BP}{6}{subsubsection.3.1.2.4}
+\contentsline {subsubsection}{\numberline {3.1.2.5}BX}{6}{subsubsection.3.1.2.5}
+\contentsline {subsubsection}{\numberline {3.1.2.6}BX}{6}{subsubsection.3.1.2.6}
+\contentsline {subsubsection}{\numberline {3.1.2.7}CS}{6}{subsubsection.3.1.2.7}
+\contentsline {subsubsection}{\numberline {3.1.2.8}CS}{6}{subsubsection.3.1.2.8}
+\contentsline {subsubsection}{\numberline {3.1.2.9}CX}{6}{subsubsection.3.1.2.9}
+\contentsline {subsubsection}{\numberline {3.1.2.10}CX}{6}{subsubsection.3.1.2.10}
+\contentsline {subsubsection}{\numberline {3.1.2.11}DI}{6}{subsubsection.3.1.2.11}
+\contentsline {subsubsection}{\numberline {3.1.2.12}DI}{7}{subsubsection.3.1.2.12}
+\contentsline {subsubsection}{\numberline {3.1.2.13}DS}{7}{subsubsection.3.1.2.13}
+\contentsline {subsubsection}{\numberline {3.1.2.14}DS}{7}{subsubsection.3.1.2.14}
+\contentsline {subsubsection}{\numberline {3.1.2.15}DX}{7}{subsubsection.3.1.2.15}
+\contentsline {subsubsection}{\numberline {3.1.2.16}DX}{7}{subsubsection.3.1.2.16}
+\contentsline {subsubsection}{\numberline {3.1.2.17}ES}{7}{subsubsection.3.1.2.17}
+\contentsline {subsubsection}{\numberline {3.1.2.18}ES}{7}{subsubsection.3.1.2.18}
+\contentsline {subsubsection}{\numberline {3.1.2.19}FLAGS}{7}{subsubsection.3.1.2.19}
+\contentsline {subsubsection}{\numberline {3.1.2.20}FLAGS}{7}{subsubsection.3.1.2.20}
+\contentsline {subsubsection}{\numberline {3.1.2.21}IP}{7}{subsubsection.3.1.2.21}
+\contentsline {subsubsection}{\numberline {3.1.2.22}IP}{7}{subsubsection.3.1.2.22}
+\contentsline {subsubsection}{\numberline {3.1.2.23}SI}{8}{subsubsection.3.1.2.23}
+\contentsline {subsubsection}{\numberline {3.1.2.24}SI}{8}{subsubsection.3.1.2.24}
+\contentsline {section}{\numberline {3.2}device Struct Reference}{8}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Detailed Description}{8}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Field Documentation}{8}{subsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.2.1}flag}{8}{subsubsection.3.2.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2.2}flag\_\discretionary {-}{}{}ptr}{8}{subsubsection.3.2.2.2}
+\contentsline {subsubsection}{\numberline {3.2.2.3}inbuff}{9}{subsubsection.3.2.2.3}
+\contentsline {subsubsection}{\numberline {3.2.2.4}incount}{9}{subsubsection.3.2.2.4}
+\contentsline {subsubsection}{\numberline {3.2.2.5}indone}{9}{subsubsection.3.2.2.5}
+\contentsline {subsubsection}{\numberline {3.2.2.6}outbuff}{9}{subsubsection.3.2.2.6}
+\contentsline {subsubsection}{\numberline {3.2.2.7}outcount}{9}{subsubsection.3.2.2.7}
+\contentsline {subsubsection}{\numberline {3.2.2.8}outdone}{9}{subsubsection.3.2.2.8}
+\contentsline {subsubsection}{\numberline {3.2.2.9}ringbuf}{9}{subsubsection.3.2.2.9}
+\contentsline {subsubsection}{\numberline {3.2.2.10}ringbufcount}{9}{subsubsection.3.2.2.10}
+\contentsline {subsubsection}{\numberline {3.2.2.11}ringbufin}{9}{subsubsection.3.2.2.11}
+\contentsline {subsubsection}{\numberline {3.2.2.12}ringbufout}{9}{subsubsection.3.2.2.12}
+\contentsline {subsubsection}{\numberline {3.2.2.13}status}{9}{subsubsection.3.2.2.13}
+\contentsline {section}{\numberline {3.3}mem Struct Reference}{10}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Detailed Description}{10}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Field Documentation}{10}{subsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.2.1}execADDR}{10}{subsubsection.3.3.2.1}
+\contentsline {subsubsection}{\numberline {3.3.2.2}loadADDR}{10}{subsubsection.3.3.2.2}
+\contentsline {subsubsection}{\numberline {3.3.2.3}size}{10}{subsubsection.3.3.2.3}
+\contentsline {section}{\numberline {3.4}mpx\_\discretionary {-}{}{}cmd Struct Reference}{10}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Detailed Description}{11}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Field Documentation}{11}{subsection.3.4.2}
+\contentsline {subsubsection}{\numberline {3.4.2.1}cmd\_\discretionary {-}{}{}function}{11}{subsubsection.3.4.2.1}
+\contentsline {subsubsection}{\numberline {3.4.2.2}cmd\_\discretionary {-}{}{}name}{11}{subsubsection.3.4.2.2}
+\contentsline {subsubsection}{\numberline {3.4.2.3}next}{11}{subsubsection.3.4.2.3}
+\contentsline {section}{\numberline {3.5}page Struct Reference}{11}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Detailed Description}{11}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Field Documentation}{12}{subsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.2.1}left}{12}{subsubsection.3.5.2.1}
+\contentsline {subsubsection}{\numberline {3.5.2.2}process}{12}{subsubsection.3.5.2.2}
+\contentsline {subsubsection}{\numberline {3.5.2.3}right}{12}{subsubsection.3.5.2.3}
+\contentsline {section}{\numberline {3.6}params Struct Reference}{12}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Detailed Description}{12}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Field Documentation}{12}{subsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.2.1}buf\_\discretionary {-}{}{}addr}{12}{subsubsection.3.6.2.1}
+\contentsline {subsubsection}{\numberline {3.6.2.2}cont\_\discretionary {-}{}{}addr}{12}{subsubsection.3.6.2.2}
+\contentsline {subsubsection}{\numberline {3.6.2.3}device\_\discretionary {-}{}{}id}{13}{subsubsection.3.6.2.3}
+\contentsline {subsubsection}{\numberline {3.6.2.4}op\_\discretionary {-}{}{}code}{13}{subsubsection.3.6.2.4}
+\contentsline {section}{\numberline {3.7}process Struct Reference}{13}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Detailed Description}{13}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Field Documentation}{13}{subsection.3.7.2}
+\contentsline {subsubsection}{\numberline {3.7.2.1}classType}{13}{subsubsection.3.7.2.1}
+\contentsline {subsubsection}{\numberline {3.7.2.2}memdsc}{14}{subsubsection.3.7.2.2}
+\contentsline {subsubsection}{\numberline {3.7.2.3}name}{14}{subsubsection.3.7.2.3}
+\contentsline {subsubsection}{\numberline {3.7.2.4}priority}{14}{subsubsection.3.7.2.4}
+\contentsline {subsubsection}{\numberline {3.7.2.5}stackdsc}{14}{subsubsection.3.7.2.5}
+\contentsline {subsubsection}{\numberline {3.7.2.6}state}{14}{subsubsection.3.7.2.6}
+\contentsline {section}{\numberline {3.8}root Struct Reference}{14}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Detailed Description}{14}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Field Documentation}{15}{subsection.3.8.2}
+\contentsline {subsubsection}{\numberline {3.8.2.1}count}{15}{subsubsection.3.8.2.1}
+\contentsline {subsubsection}{\numberline {3.8.2.2}node}{15}{subsubsection.3.8.2.2}
+\contentsline {section}{\numberline {3.9}stack Struct Reference}{15}{section.3.9}
+\contentsline {subsection}{\numberline {3.9.1}Detailed Description}{15}{subsection.3.9.1}
+\contentsline {subsection}{\numberline {3.9.2}Field Documentation}{15}{subsection.3.9.2}
+\contentsline {subsubsection}{\numberline {3.9.2.1}base}{15}{subsubsection.3.9.2.1}
+\contentsline {subsubsection}{\numberline {3.9.2.2}top}{15}{subsubsection.3.9.2.2}
+\contentsline {chapter}{\numberline {4}File Documentation}{17}{chapter.4}
+\contentsline {section}{\numberline {4.1}src/MPX.C File Reference}{17}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Function Documentation}{17}{subsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.1.1}main}{17}{subsubsection.4.1.1.1}
+\contentsline {section}{\numberline {4.2}src/MPX.C}{19}{section.4.2}
+\contentsline {section}{\numberline {4.3}src/MPX\_\discretionary {-}{}{}CMD.C File Reference}{20}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Function Documentation}{21}{subsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1.1}mpx\_\discretionary {-}{}{}add\_\discretionary {-}{}{}command}{21}{subsubsection.4.3.1.1}
+\contentsline {subsubsection}{\numberline {4.3.1.2}mpx\_\discretionary {-}{}{}command\_\discretionary {-}{}{}loop}{22}{subsubsection.4.3.1.2}
+\contentsline {subsubsection}{\numberline {4.3.1.3}mpxcmd\_\discretionary {-}{}{}date}{23}{subsubsection.4.3.1.3}
+\contentsline {subsubsection}{\numberline {4.3.1.4}mpxcmd\_\discretionary {-}{}{}exit}{25}{subsubsection.4.3.1.4}
+\contentsline {subsubsection}{\numberline {4.3.1.5}mpxcmd\_\discretionary {-}{}{}help}{25}{subsubsection.4.3.1.5}
+\contentsline {subsubsection}{\numberline {4.3.1.6}mpxcmd\_\discretionary {-}{}{}load}{26}{subsubsection.4.3.1.6}
+\contentsline {subsubsection}{\numberline {4.3.1.7}mpxcmd\_\discretionary {-}{}{}prompt}{27}{subsubsection.4.3.1.7}
+\contentsline {subsubsection}{\numberline {4.3.1.8}mpxcmd\_\discretionary {-}{}{}version}{27}{subsubsection.4.3.1.8}
+\contentsline {subsection}{\numberline {4.3.2}Variable Documentation}{27}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}anykey\_\discretionary {-}{}{}str}{27}{subsubsection.4.3.2.1}
+\contentsline {subsubsection}{\numberline {4.3.2.2}cmd\_\discretionary {-}{}{}head}{27}{subsubsection.4.3.2.2}
+\contentsline {subsubsection}{\numberline {4.3.2.3}prompt\_\discretionary {-}{}{}str}{28}{subsubsection.4.3.2.3}
+\contentsline {subsubsection}{\numberline {4.3.2.4}welcome\_\discretionary {-}{}{}message\_\discretionary {-}{}{}str}{28}{subsubsection.4.3.2.4}
+\contentsline {section}{\numberline {4.4}src/MPX\_\discretionary {-}{}{}CMD.C}{28}{section.4.4}
+\contentsline {section}{\numberline {4.5}src/mpx\_\discretionary {-}{}{}cmd.h File Reference}{33}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Define Documentation}{34}{subsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.1.1}MAX\_\discretionary {-}{}{}ARGS}{34}{subsubsection.4.5.1.1}
+\contentsline {subsubsection}{\numberline {4.5.1.2}MAX\_\discretionary {-}{}{}LINE}{34}{subsubsection.4.5.1.2}
+\contentsline {subsection}{\numberline {4.5.2}Typedef Documentation}{34}{subsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.2.1}mpx\_\discretionary {-}{}{}cmd\_\discretionary {-}{}{}t}{34}{subsubsection.4.5.2.1}
+\contentsline {subsection}{\numberline {4.5.3}Function Documentation}{34}{subsection.4.5.3}
+\contentsline {subsubsection}{\numberline {4.5.3.1}mpx\_\discretionary {-}{}{}command\_\discretionary {-}{}{}loop}{34}{subsubsection.4.5.3.1}
+\contentsline {subsubsection}{\numberline {4.5.3.2}mpxcmd\_\discretionary {-}{}{}date}{36}{subsubsection.4.5.3.2}
+\contentsline {subsubsection}{\numberline {4.5.3.3}mpxcmd\_\discretionary {-}{}{}exit}{37}{subsubsection.4.5.3.3}
+\contentsline {subsubsection}{\numberline {4.5.3.4}mpxcmd\_\discretionary {-}{}{}help}{38}{subsubsection.4.5.3.4}
+\contentsline {subsubsection}{\numberline {4.5.3.5}mpxcmd\_\discretionary {-}{}{}load}{38}{subsubsection.4.5.3.5}
+\contentsline {subsubsection}{\numberline {4.5.3.6}mpxcmd\_\discretionary {-}{}{}prompt}{39}{subsubsection.4.5.3.6}
+\contentsline {subsubsection}{\numberline {4.5.3.7}mpxcmd\_\discretionary {-}{}{}version}{39}{subsubsection.4.5.3.7}
+\contentsline {section}{\numberline {4.6}src/mpx\_\discretionary {-}{}{}cmd.h}{40}{section.4.6}
+\contentsline {section}{\numberline {4.7}src/mpx\_\discretionary {-}{}{}r2.c File Reference}{41}{section.4.7}
+\contentsline {subsection}{\numberline {4.7.1}Function Documentation}{42}{subsection.4.7.1}
+\contentsline {subsubsection}{\numberline {4.7.1.1}allocate\_\discretionary {-}{}{}PCB}{42}{subsubsection.4.7.1.1}
+\contentsline {subsubsection}{\numberline {4.7.1.2}find\_\discretionary {-}{}{}PCB}{43}{subsubsection.4.7.1.2}
+\contentsline {subsubsection}{\numberline {4.7.1.3}free\_\discretionary {-}{}{}PCB}{44}{subsubsection.4.7.1.3}
+\contentsline {subsubsection}{\numberline {4.7.1.4}insert\_\discretionary {-}{}{}FIFO}{44}{subsubsection.4.7.1.4}
+\contentsline {subsubsection}{\numberline {4.7.1.5}insert\_\discretionary {-}{}{}PCB}{45}{subsubsection.4.7.1.5}
+\contentsline {subsubsection}{\numberline {4.7.1.6}insert\_\discretionary {-}{}{}PORDR}{46}{subsubsection.4.7.1.6}
+\contentsline {subsubsection}{\numberline {4.7.1.7}mpxcmd\_\discretionary {-}{}{}block}{47}{subsubsection.4.7.1.7}
+\contentsline {subsubsection}{\numberline {4.7.1.8}mpxcmd\_\discretionary {-}{}{}create\_\discretionary {-}{}{}PCB}{48}{subsubsection.4.7.1.8}
+\contentsline {subsubsection}{\numberline {4.7.1.9}mpxcmd\_\discretionary {-}{}{}delete\_\discretionary {-}{}{}PCB}{49}{subsubsection.4.7.1.9}
+\contentsline {subsubsection}{\numberline {4.7.1.10}mpxcmd\_\discretionary {-}{}{}resume}{49}{subsubsection.4.7.1.10}
+\contentsline {subsubsection}{\numberline {4.7.1.11}mpxcmd\_\discretionary {-}{}{}setPriority}{50}{subsubsection.4.7.1.11}
+\contentsline {subsubsection}{\numberline {4.7.1.12}mpxcmd\_\discretionary {-}{}{}show\_\discretionary {-}{}{}PCB}{50}{subsubsection.4.7.1.12}
+\contentsline {subsubsection}{\numberline {4.7.1.13}mpxcmd\_\discretionary {-}{}{}showAll\_\discretionary {-}{}{}PCB}{51}{subsubsection.4.7.1.13}
+\contentsline {subsubsection}{\numberline {4.7.1.14}mpxcmd\_\discretionary {-}{}{}showBlocked\_\discretionary {-}{}{}PCB}{52}{subsubsection.4.7.1.14}
+\contentsline {subsubsection}{\numberline {4.7.1.15}mpxcmd\_\discretionary {-}{}{}showReady\_\discretionary {-}{}{}PCB}{52}{subsubsection.4.7.1.15}
+\contentsline {subsubsection}{\numberline {4.7.1.16}mpxcmd\_\discretionary {-}{}{}suspend}{53}{subsubsection.4.7.1.16}
+\contentsline {subsubsection}{\numberline {4.7.1.17}mpxcmd\_\discretionary {-}{}{}unblock}{54}{subsubsection.4.7.1.17}
+\contentsline {subsubsection}{\numberline {4.7.1.18}remove\_\discretionary {-}{}{}PCB}{54}{subsubsection.4.7.1.18}
+\contentsline {subsubsection}{\numberline {4.7.1.19}setup\_\discretionary {-}{}{}PCB}{55}{subsubsection.4.7.1.19}
+\contentsline {subsubsection}{\numberline {4.7.1.20}string\_\discretionary {-}{}{}PCB}{56}{subsubsection.4.7.1.20}
+\contentsline {subsection}{\numberline {4.7.2}Variable Documentation}{57}{subsection.4.7.2}
+\contentsline {subsubsection}{\numberline {4.7.2.1}rQueue}{57}{subsubsection.4.7.2.1}
+\contentsline {subsubsection}{\numberline {4.7.2.2}wsQueue}{57}{subsubsection.4.7.2.2}
+\contentsline {section}{\numberline {4.8}src/mpx\_\discretionary {-}{}{}r2.c}{57}{section.4.8}
+\contentsline {section}{\numberline {4.9}src/mpx\_\discretionary {-}{}{}r2.h File Reference}{69}{section.4.9}
+\contentsline {subsection}{\numberline {4.9.1}Define Documentation}{71}{subsection.4.9.1}
+\contentsline {subsubsection}{\numberline {4.9.1.1}APPLICATION}{71}{subsubsection.4.9.1.1}
+\contentsline {subsubsection}{\numberline {4.9.1.2}BLOCKED}{71}{subsubsection.4.9.1.2}
+\contentsline {subsubsection}{\numberline {4.9.1.3}FIFO}{72}{subsubsection.4.9.1.3}
+\contentsline {subsubsection}{\numberline {4.9.1.4}MAX\_\discretionary {-}{}{}LINE}{72}{subsubsection.4.9.1.4}
+\contentsline {subsubsection}{\numberline {4.9.1.5}PORDR}{72}{subsubsection.4.9.1.5}
+\contentsline {subsubsection}{\numberline {4.9.1.6}READY}{72}{subsubsection.4.9.1.6}
+\contentsline {subsubsection}{\numberline {4.9.1.7}RUNNING}{72}{subsubsection.4.9.1.7}
+\contentsline {subsubsection}{\numberline {4.9.1.8}STACKSIZE}{72}{subsubsection.4.9.1.8}
+\contentsline {subsubsection}{\numberline {4.9.1.9}STRLEN}{72}{subsubsection.4.9.1.9}
+\contentsline {subsubsection}{\numberline {4.9.1.10}SUSPENDED\_\discretionary {-}{}{}BLOCKED}{72}{subsubsection.4.9.1.10}
+\contentsline {subsubsection}{\numberline {4.9.1.11}SUSPENDED\_\discretionary {-}{}{}READY}{72}{subsubsection.4.9.1.11}
+\contentsline {subsubsection}{\numberline {4.9.1.12}SYSTEM}{73}{subsubsection.4.9.1.12}
+\contentsline {subsubsection}{\numberline {4.9.1.13}ZERO}{73}{subsubsection.4.9.1.13}
+\contentsline {subsection}{\numberline {4.9.2}Typedef Documentation}{73}{subsection.4.9.2}
+\contentsline {subsubsection}{\numberline {4.9.2.1}ELEM}{73}{subsubsection.4.9.2.1}
+\contentsline {subsubsection}{\numberline {4.9.2.2}MEMDSC}{73}{subsubsection.4.9.2.2}
+\contentsline {subsubsection}{\numberline {4.9.2.3}PCB}{73}{subsubsection.4.9.2.3}
+\contentsline {subsubsection}{\numberline {4.9.2.4}ROOT}{73}{subsubsection.4.9.2.4}
+\contentsline {subsubsection}{\numberline {4.9.2.5}STACKDSC}{73}{subsubsection.4.9.2.5}
+\contentsline {subsection}{\numberline {4.9.3}Function Documentation}{73}{subsection.4.9.3}
+\contentsline {subsubsection}{\numberline {4.9.3.1}allocate\_\discretionary {-}{}{}PCB}{73}{subsubsection.4.9.3.1}
+\contentsline {subsubsection}{\numberline {4.9.3.2}find\_\discretionary {-}{}{}PCB}{74}{subsubsection.4.9.3.2}
+\contentsline {subsubsection}{\numberline {4.9.3.3}free\_\discretionary {-}{}{}PCB}{74}{subsubsection.4.9.3.3}
+\contentsline {subsubsection}{\numberline {4.9.3.4}getRQueue}{75}{subsubsection.4.9.3.4}
+\contentsline {subsubsection}{\numberline {4.9.3.5}getWSQueue}{75}{subsubsection.4.9.3.5}
+\contentsline {subsubsection}{\numberline {4.9.3.6}insert\_\discretionary {-}{}{}FIFO}{75}{subsubsection.4.9.3.6}
+\contentsline {subsubsection}{\numberline {4.9.3.7}insert\_\discretionary {-}{}{}PCB}{76}{subsubsection.4.9.3.7}
+\contentsline {subsubsection}{\numberline {4.9.3.8}insert\_\discretionary {-}{}{}PORDR}{77}{subsubsection.4.9.3.8}
+\contentsline {subsubsection}{\numberline {4.9.3.9}mpxcmd\_\discretionary {-}{}{}block}{78}{subsubsection.4.9.3.9}
+\contentsline {subsubsection}{\numberline {4.9.3.10}mpxcmd\_\discretionary {-}{}{}create\_\discretionary {-}{}{}PCB}{79}{subsubsection.4.9.3.10}
+\contentsline {subsubsection}{\numberline {4.9.3.11}mpxcmd\_\discretionary {-}{}{}delete\_\discretionary {-}{}{}PCB}{79}{subsubsection.4.9.3.11}
+\contentsline {subsubsection}{\numberline {4.9.3.12}mpxcmd\_\discretionary {-}{}{}resume}{80}{subsubsection.4.9.3.12}
+\contentsline {subsubsection}{\numberline {4.9.3.13}mpxcmd\_\discretionary {-}{}{}setPriority}{80}{subsubsection.4.9.3.13}
+\contentsline {subsubsection}{\numberline {4.9.3.14}mpxcmd\_\discretionary {-}{}{}show\_\discretionary {-}{}{}PCB}{81}{subsubsection.4.9.3.14}
+\contentsline {subsubsection}{\numberline {4.9.3.15}mpxcmd\_\discretionary {-}{}{}showAll\_\discretionary {-}{}{}PCB}{81}{subsubsection.4.9.3.15}
+\contentsline {subsubsection}{\numberline {4.9.3.16}mpxcmd\_\discretionary {-}{}{}showBlocked\_\discretionary {-}{}{}PCB}{82}{subsubsection.4.9.3.16}
+\contentsline {subsubsection}{\numberline {4.9.3.17}mpxcmd\_\discretionary {-}{}{}showReady\_\discretionary {-}{}{}PCB}{83}{subsubsection.4.9.3.17}
+\contentsline {subsubsection}{\numberline {4.9.3.18}mpxcmd\_\discretionary {-}{}{}suspend}{84}{subsubsection.4.9.3.18}
+\contentsline {subsubsection}{\numberline {4.9.3.19}mpxcmd\_\discretionary {-}{}{}unblock}{84}{subsubsection.4.9.3.19}
+\contentsline {subsubsection}{\numberline {4.9.3.20}setRQueue}{85}{subsubsection.4.9.3.20}
+\contentsline {subsubsection}{\numberline {4.9.3.21}setup\_\discretionary {-}{}{}PCB}{85}{subsubsection.4.9.3.21}
+\contentsline {subsubsection}{\numberline {4.9.3.22}setWSQueue}{86}{subsubsection.4.9.3.22}
+\contentsline {section}{\numberline {4.10}src/mpx\_\discretionary {-}{}{}r2.h}{86}{section.4.10}
+\contentsline {section}{\numberline {4.11}src/mpx\_\discretionary {-}{}{}r3.c File Reference}{87}{section.4.11}
+\contentsline {subsection}{\numberline {4.11.1}Function Documentation}{88}{subsection.4.11.1}
+\contentsline {subsubsection}{\numberline {4.11.1.1}dispatch}{88}{subsubsection.4.11.1.1}
+\contentsline {subsubsection}{\numberline {4.11.1.2}getHead\_\discretionary {-}{}{}PCB}{89}{subsubsection.4.11.1.2}
+\contentsline {subsubsection}{\numberline {4.11.1.3}mpxcmd\_\discretionary {-}{}{}gor4}{89}{subsubsection.4.11.1.3}
+\contentsline {subsubsection}{\numberline {4.11.1.4}mpxcmd\_\discretionary {-}{}{}r3run}{89}{subsubsection.4.11.1.4}
+\contentsline {subsubsection}{\numberline {4.11.1.5}sys\_\discretionary {-}{}{}call}{91}{subsubsection.4.11.1.5}
+\contentsline {subsection}{\numberline {4.11.2}Variable Documentation}{92}{subsection.4.11.2}
+\contentsline {subsubsection}{\numberline {4.11.2.1}context\_\discretionary {-}{}{}p}{92}{subsubsection.4.11.2.1}
+\contentsline {subsubsection}{\numberline {4.11.2.2}cop}{92}{subsubsection.4.11.2.2}
+\contentsline {subsubsection}{\numberline {4.11.2.3}HEAD}{92}{subsubsection.4.11.2.3}
+\contentsline {subsubsection}{\numberline {4.11.2.4}new\_\discretionary {-}{}{}sp}{92}{subsubsection.4.11.2.4}
+\contentsline {subsubsection}{\numberline {4.11.2.5}new\_\discretionary {-}{}{}ss}{92}{subsubsection.4.11.2.5}
+\contentsline {subsubsection}{\numberline {4.11.2.6}param\_\discretionary {-}{}{}p}{93}{subsubsection.4.11.2.6}
+\contentsline {subsubsection}{\numberline {4.11.2.7}Root}{93}{subsubsection.4.11.2.7}
+\contentsline {subsubsection}{\numberline {4.11.2.8}rQueue}{93}{subsubsection.4.11.2.8}
+\contentsline {subsubsection}{\numberline {4.11.2.9}sp\_\discretionary {-}{}{}save}{93}{subsubsection.4.11.2.9}
+\contentsline {subsubsection}{\numberline {4.11.2.10}ss\_\discretionary {-}{}{}save}{93}{subsubsection.4.11.2.10}
+\contentsline {subsubsection}{\numberline {4.11.2.11}STACK}{93}{subsubsection.4.11.2.11}
+\contentsline {subsubsection}{\numberline {4.11.2.12}sys\_\discretionary {-}{}{}stack}{93}{subsubsection.4.11.2.12}
+\contentsline {subsubsection}{\numberline {4.11.2.13}TEMP}{93}{subsubsection.4.11.2.13}
+\contentsline {subsubsection}{\numberline {4.11.2.14}wsQueue}{93}{subsubsection.4.11.2.14}
+\contentsline {section}{\numberline {4.12}src/mpx\_\discretionary {-}{}{}r3.c}{93}{section.4.12}
+\contentsline {section}{\numberline {4.13}src/MPX\_\discretionary {-}{}{}R3.H File Reference}{98}{section.4.13}
+\contentsline {subsection}{\numberline {4.13.1}Define Documentation}{98}{subsection.4.13.1}
+\contentsline {subsubsection}{\numberline {4.13.1.1}SYS\_\discretionary {-}{}{}STACK\_\discretionary {-}{}{}SIZE}{98}{subsubsection.4.13.1.1}
+\contentsline {subsection}{\numberline {4.13.2}Typedef Documentation}{98}{subsection.4.13.2}
+\contentsline {subsubsection}{\numberline {4.13.2.1}tcontext}{98}{subsubsection.4.13.2.1}
+\contentsline {subsubsection}{\numberline {4.13.2.2}tparams}{98}{subsubsection.4.13.2.2}
+\contentsline {subsection}{\numberline {4.13.3}Function Documentation}{98}{subsection.4.13.3}
+\contentsline {subsubsection}{\numberline {4.13.3.1}dispatch}{98}{subsubsection.4.13.3.1}
+\contentsline {subsubsection}{\numberline {4.13.3.2}mpxcmd\_\discretionary {-}{}{}gor4}{99}{subsubsection.4.13.3.2}
+\contentsline {subsubsection}{\numberline {4.13.3.3}mpxcmd\_\discretionary {-}{}{}r3run}{99}{subsubsection.4.13.3.3}
+\contentsline {subsubsection}{\numberline {4.13.3.4}sys\_\discretionary {-}{}{}call}{101}{subsubsection.4.13.3.4}
+\contentsline {section}{\numberline {4.14}src/MPX\_\discretionary {-}{}{}R3.H}{102}{section.4.14}
+\contentsline {section}{\numberline {4.15}src/mpx\_\discretionary {-}{}{}r4.c File Reference}{103}{section.4.15}
+\contentsline {subsection}{\numberline {4.15.1}Function Documentation}{103}{subsection.4.15.1}
+\contentsline {subsubsection}{\numberline {4.15.1.1}loadProgram}{103}{subsubsection.4.15.1.1}
+\contentsline {subsubsection}{\numberline {4.15.1.2}terminateProcess}{104}{subsubsection.4.15.1.2}
+\contentsline {subsection}{\numberline {4.15.2}Variable Documentation}{105}{subsection.4.15.2}
+\contentsline {subsubsection}{\numberline {4.15.2.1}loadAddr}{105}{subsubsection.4.15.2.1}
+\contentsline {subsubsection}{\numberline {4.15.2.2}rQueue}{105}{subsubsection.4.15.2.2}
+\contentsline {subsubsection}{\numberline {4.15.2.3}wsQueue}{105}{subsubsection.4.15.2.3}
+\contentsline {section}{\numberline {4.16}src/mpx\_\discretionary {-}{}{}r4.c}{105}{section.4.16}
+\contentsline {section}{\numberline {4.17}src/mpx\_\discretionary {-}{}{}r4.c.BASE.c File Reference}{107}{section.4.17}
+\contentsline {subsection}{\numberline {4.17.1}Function Documentation}{108}{subsection.4.17.1}
+\contentsline {subsubsection}{\numberline {4.17.1.1}loadProgram}{108}{subsubsection.4.17.1.1}
+\contentsline {subsubsection}{\numberline {4.17.1.2}terminateProcess}{109}{subsubsection.4.17.1.2}
+\contentsline {subsection}{\numberline {4.17.2}Variable Documentation}{109}{subsection.4.17.2}
+\contentsline {subsubsection}{\numberline {4.17.2.1}loadAddr}{109}{subsubsection.4.17.2.1}
+\contentsline {subsubsection}{\numberline {4.17.2.2}rQueue}{109}{subsubsection.4.17.2.2}
+\contentsline {subsubsection}{\numberline {4.17.2.3}wsQueue}{110}{subsubsection.4.17.2.3}
+\contentsline {section}{\numberline {4.18}src/mpx\_\discretionary {-}{}{}r4.c.BASE.c}{110}{section.4.18}
+\contentsline {section}{\numberline {4.19}src/mpx\_\discretionary {-}{}{}r4.c.LOCAL.c File Reference}{111}{section.4.19}
+\contentsline {subsection}{\numberline {4.19.1}Function Documentation}{112}{subsection.4.19.1}
+\contentsline {subsubsection}{\numberline {4.19.1.1}loadProgram}{112}{subsubsection.4.19.1.1}
+\contentsline {subsubsection}{\numberline {4.19.1.2}terminateProcess}{113}{subsubsection.4.19.1.2}
+\contentsline {subsection}{\numberline {4.19.2}Variable Documentation}{113}{subsection.4.19.2}
+\contentsline {subsubsection}{\numberline {4.19.2.1}loadAddr}{113}{subsubsection.4.19.2.1}
+\contentsline {subsubsection}{\numberline {4.19.2.2}rQueue}{114}{subsubsection.4.19.2.2}
+\contentsline {subsubsection}{\numberline {4.19.2.3}wsQueue}{114}{subsubsection.4.19.2.3}
+\contentsline {section}{\numberline {4.20}src/mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}{114}{section.4.20}
+\contentsline {section}{\numberline {4.21}src/mpx\_\discretionary {-}{}{}r4.c.REMOTE.c File Reference}{115}{section.4.21}
+\contentsline {subsection}{\numberline {4.21.1}Function Documentation}{116}{subsection.4.21.1}
+\contentsline {subsubsection}{\numberline {4.21.1.1}loadProgram}{116}{subsubsection.4.21.1.1}
+\contentsline {subsubsection}{\numberline {4.21.1.2}terminateProcess}{117}{subsubsection.4.21.1.2}
+\contentsline {subsection}{\numberline {4.21.2}Variable Documentation}{118}{subsection.4.21.2}
+\contentsline {subsubsection}{\numberline {4.21.2.1}loadAddr}{118}{subsubsection.4.21.2.1}
+\contentsline {subsubsection}{\numberline {4.21.2.2}rQueue}{118}{subsubsection.4.21.2.2}
+\contentsline {subsubsection}{\numberline {4.21.2.3}wsQueue}{118}{subsubsection.4.21.2.3}
+\contentsline {section}{\numberline {4.22}src/mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}{118}{section.4.22}
+\contentsline {section}{\numberline {4.23}src/mpx\_\discretionary {-}{}{}r4.h File Reference}{119}{section.4.23}
+\contentsline {subsection}{\numberline {4.23.1}Function Documentation}{120}{subsection.4.23.1}
+\contentsline {subsubsection}{\numberline {4.23.1.1}loadProgram}{120}{subsubsection.4.23.1.1}
+\contentsline {subsubsection}{\numberline {4.23.1.2}terminateProcess}{121}{subsubsection.4.23.1.2}
+\contentsline {section}{\numberline {4.24}src/mpx\_\discretionary {-}{}{}r4.h}{121}{section.4.24}
+\contentsline {section}{\numberline {4.25}src/MPX\_\discretionary {-}{}{}R5.C File Reference}{122}{section.4.25}
+\contentsline {subsection}{\numberline {4.25.1}Function Documentation}{122}{subsection.4.25.1}
+\contentsline {subsubsection}{\numberline {4.25.1.1}com\_\discretionary {-}{}{}close}{122}{subsubsection.4.25.1.1}
+\contentsline {subsubsection}{\numberline {4.25.1.2}com\_\discretionary {-}{}{}open}{123}{subsubsection.4.25.1.2}
+\contentsline {subsubsection}{\numberline {4.25.1.3}com\_\discretionary {-}{}{}read}{123}{subsubsection.4.25.1.3}
+\contentsline {subsubsection}{\numberline {4.25.1.4}com\_\discretionary {-}{}{}write}{124}{subsubsection.4.25.1.4}
+\contentsline {subsubsection}{\numberline {4.25.1.5}level1}{125}{subsubsection.4.25.1.5}
+\contentsline {subsubsection}{\numberline {4.25.1.6}level2Read}{125}{subsubsection.4.25.1.6}
+\contentsline {subsubsection}{\numberline {4.25.1.7}level2Write}{126}{subsubsection.4.25.1.7}
+\contentsline {section}{\numberline {4.26}src/MPX\_\discretionary {-}{}{}R5.C}{126}{section.4.26}
+\contentsline {section}{\numberline {4.27}src/MPX\_\discretionary {-}{}{}R5.h File Reference}{130}{section.4.27}
+\contentsline {subsection}{\numberline {4.27.1}Define Documentation}{132}{subsection.4.27.1}
+\contentsline {subsubsection}{\numberline {4.27.1.1}BASE}{132}{subsubsection.4.27.1.1}
+\contentsline {subsubsection}{\numberline {4.27.1.2}BRD\_\discretionary {-}{}{}LSB}{132}{subsubsection.4.27.1.2}
+\contentsline {subsubsection}{\numberline {4.27.1.3}BRD\_\discretionary {-}{}{}MSB}{132}{subsubsection.4.27.1.3}
+\contentsline {subsubsection}{\numberline {4.27.1.4}CLOSED}{132}{subsubsection.4.27.1.4}
+\contentsline {subsubsection}{\numberline {4.27.1.5}EOI}{132}{subsubsection.4.27.1.5}
+\contentsline {subsubsection}{\numberline {4.27.1.6}FLAG\_\discretionary {-}{}{}CLEAR}{132}{subsubsection.4.27.1.6}
+\contentsline {subsubsection}{\numberline {4.27.1.7}IDLE}{132}{subsubsection.4.27.1.7}
+\contentsline {subsubsection}{\numberline {4.27.1.8}INT\_\discretionary {-}{}{}EN}{132}{subsubsection.4.27.1.8}
+\contentsline {subsubsection}{\numberline {4.27.1.9}INT\_\discretionary {-}{}{}ID}{132}{subsubsection.4.27.1.9}
+\contentsline {subsubsection}{\numberline {4.27.1.10}INT\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}REG}{132}{subsubsection.4.27.1.10}
+\contentsline {subsubsection}{\numberline {4.27.1.11}INV\_\discretionary {-}{}{}BAUD}{132}{subsubsection.4.27.1.11}
+\contentsline {subsubsection}{\numberline {4.27.1.12}INV\_\discretionary {-}{}{}FLAG}{133}{subsubsection.4.27.1.12}
+\contentsline {subsubsection}{\numberline {4.27.1.13}LC}{133}{subsubsection.4.27.1.13}
+\contentsline {subsubsection}{\numberline {4.27.1.14}LS}{133}{subsubsection.4.27.1.14}
+\contentsline {subsubsection}{\numberline {4.27.1.15}MC}{133}{subsubsection.4.27.1.15}
+\contentsline {subsubsection}{\numberline {4.27.1.16}MS}{133}{subsubsection.4.27.1.16}
+\contentsline {subsubsection}{\numberline {4.27.1.17}NO\_\discretionary {-}{}{}ERROR}{133}{subsubsection.4.27.1.17}
+\contentsline {subsubsection}{\numberline {4.27.1.18}OPEN}{133}{subsubsection.4.27.1.18}
+\contentsline {subsubsection}{\numberline {4.27.1.19}PIC\_\discretionary {-}{}{}CMD}{133}{subsubsection.4.27.1.19}
+\contentsline {subsubsection}{\numberline {4.27.1.20}PIC\_\discretionary {-}{}{}MASK}{133}{subsubsection.4.27.1.20}
+\contentsline {subsubsection}{\numberline {4.27.1.21}PORT\_\discretionary {-}{}{}ALREADY\_\discretionary {-}{}{}OPEN}{133}{subsubsection.4.27.1.21}
+\contentsline {subsubsection}{\numberline {4.27.1.22}READ}{133}{subsubsection.4.27.1.22}
+\contentsline {subsubsection}{\numberline {4.27.1.23}READ\_\discretionary {-}{}{}DEV\_\discretionary {-}{}{}BUSY}{134}{subsubsection.4.27.1.23}
+\contentsline {subsubsection}{\numberline {4.27.1.24}READ\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}BUFF\_\discretionary {-}{}{}ADD}{134}{subsubsection.4.27.1.24}
+\contentsline {subsubsection}{\numberline {4.27.1.25}READ\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}COUNT}{134}{subsubsection.4.27.1.25}
+\contentsline {subsubsection}{\numberline {4.27.1.26}READ\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}{134}{subsubsection.4.27.1.26}
+\contentsline {subsubsection}{\numberline {4.27.1.27}SERIAL\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}{134}{subsubsection.4.27.1.27}
+\contentsline {subsubsection}{\numberline {4.27.1.28}SET}{134}{subsubsection.4.27.1.28}
+\contentsline {subsubsection}{\numberline {4.27.1.29}size}{134}{subsubsection.4.27.1.29}
+\contentsline {subsubsection}{\numberline {4.27.1.30}WHATINTERRUPTBIT}{134}{subsubsection.4.27.1.30}
+\contentsline {subsubsection}{\numberline {4.27.1.31}WRITE}{134}{subsubsection.4.27.1.31}
+\contentsline {subsubsection}{\numberline {4.27.1.32}WRITE\_\discretionary {-}{}{}DEV\_\discretionary {-}{}{}BUSY}{134}{subsubsection.4.27.1.32}
+\contentsline {subsubsection}{\numberline {4.27.1.33}WRITE\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}BUFF\_\discretionary {-}{}{}ADD}{134}{subsubsection.4.27.1.33}
+\contentsline {subsubsection}{\numberline {4.27.1.34}WRITE\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}COUNT}{135}{subsubsection.4.27.1.34}
+\contentsline {subsubsection}{\numberline {4.27.1.35}WRITE\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}{135}{subsubsection.4.27.1.35}
+\contentsline {subsection}{\numberline {4.27.2}Typedef Documentation}{135}{subsection.4.27.2}
+\contentsline {subsubsection}{\numberline {4.27.2.1}DCB}{135}{subsubsection.4.27.2.1}
+\contentsline {subsection}{\numberline {4.27.3}Function Documentation}{135}{subsection.4.27.3}
+\contentsline {subsubsection}{\numberline {4.27.3.1}com\_\discretionary {-}{}{}close}{135}{subsubsection.4.27.3.1}
+\contentsline {subsubsection}{\numberline {4.27.3.2}com\_\discretionary {-}{}{}open}{135}{subsubsection.4.27.3.2}
+\contentsline {subsubsection}{\numberline {4.27.3.3}com\_\discretionary {-}{}{}read}{136}{subsubsection.4.27.3.3}
+\contentsline {subsubsection}{\numberline {4.27.3.4}com\_\discretionary {-}{}{}write}{137}{subsubsection.4.27.3.4}
+\contentsline {subsubsection}{\numberline {4.27.3.5}level1}{138}{subsubsection.4.27.3.5}
+\contentsline {subsubsection}{\numberline {4.27.3.6}level2Read}{138}{subsubsection.4.27.3.6}
+\contentsline {subsubsection}{\numberline {4.27.3.7}level2Write}{139}{subsubsection.4.27.3.7}
+\contentsline {subsection}{\numberline {4.27.4}Variable Documentation}{139}{subsection.4.27.4}
+\contentsline {subsubsection}{\numberline {4.27.4.1}callInt}{139}{subsubsection.4.27.4.1}
+\contentsline {subsubsection}{\numberline {4.27.4.2}dcbPtr}{139}{subsubsection.4.27.4.2}
+\contentsline {subsubsection}{\numberline {4.27.4.3}num}{139}{subsubsection.4.27.4.3}
+\contentsline {subsubsection}{\numberline {4.27.4.4}oldfunc}{139}{subsubsection.4.27.4.4}
+\contentsline {section}{\numberline {4.28}src/MPX\_\discretionary {-}{}{}R5.h}{140}{section.4.28}
+\contentsline {section}{\numberline {4.29}src/mpx\_\discretionary {-}{}{}util.c File Reference}{141}{section.4.29}
+\contentsline {subsection}{\numberline {4.29.1}Define Documentation}{142}{subsection.4.29.1}
+\contentsline {subsubsection}{\numberline {4.29.1.1}LINES\_\discretionary {-}{}{}PER\_\discretionary {-}{}{}PAGE}{142}{subsubsection.4.29.1.1}
+\contentsline {subsection}{\numberline {4.29.2}Function Documentation}{142}{subsection.4.29.2}
+\contentsline {subsubsection}{\numberline {4.29.2.1}errorDecode}{142}{subsubsection.4.29.2.1}
+\contentsline {subsubsection}{\numberline {4.29.2.2}mpx\_\discretionary {-}{}{}cls}{143}{subsubsection.4.29.2.2}
+\contentsline {subsubsection}{\numberline {4.29.2.3}mpx\_\discretionary {-}{}{}pager}{143}{subsubsection.4.29.2.3}
+\contentsline {subsubsection}{\numberline {4.29.2.4}mpx\_\discretionary {-}{}{}pager\_\discretionary {-}{}{}init}{144}{subsubsection.4.29.2.4}
+\contentsline {subsubsection}{\numberline {4.29.2.5}mpx\_\discretionary {-}{}{}readline}{144}{subsubsection.4.29.2.5}
+\contentsline {subsubsection}{\numberline {4.29.2.6}mpxprompt\_\discretionary {-}{}{}anykey}{145}{subsubsection.4.29.2.6}
+\contentsline {subsubsection}{\numberline {4.29.2.7}mpxprompt\_\discretionary {-}{}{}int}{145}{subsubsection.4.29.2.7}
+\contentsline {subsubsection}{\numberline {4.29.2.8}mpxprompt\_\discretionary {-}{}{}yn}{145}{subsubsection.4.29.2.8}
+\contentsline {section}{\numberline {4.30}src/mpx\_\discretionary {-}{}{}util.c}{145}{section.4.30}
+\contentsline {section}{\numberline {4.31}src/mpx\_\discretionary {-}{}{}util.h File Reference}{148}{section.4.31}
+\contentsline {subsection}{\numberline {4.31.1}Function Documentation}{148}{subsection.4.31.1}
+\contentsline {subsubsection}{\numberline {4.31.1.1}errorDecode}{148}{subsubsection.4.31.1.1}
+\contentsline {subsubsection}{\numberline {4.31.1.2}mpx\_\discretionary {-}{}{}cls}{149}{subsubsection.4.31.1.2}
+\contentsline {subsubsection}{\numberline {4.31.1.3}mpx\_\discretionary {-}{}{}pager}{150}{subsubsection.4.31.1.3}
+\contentsline {subsubsection}{\numberline {4.31.1.4}mpx\_\discretionary {-}{}{}pager\_\discretionary {-}{}{}init}{150}{subsubsection.4.31.1.4}
+\contentsline {subsubsection}{\numberline {4.31.1.5}mpx\_\discretionary {-}{}{}readline}{150}{subsubsection.4.31.1.5}
+\contentsline {subsubsection}{\numberline {4.31.1.6}mpxprompt\_\discretionary {-}{}{}anykey}{151}{subsubsection.4.31.1.6}
+\contentsline {subsubsection}{\numberline {4.31.1.7}mpxprompt\_\discretionary {-}{}{}int}{151}{subsubsection.4.31.1.7}
+\contentsline {subsubsection}{\numberline {4.31.1.8}mpxprompt\_\discretionary {-}{}{}yn}{151}{subsubsection.4.31.1.8}
+\contentsline {section}{\numberline {4.32}src/mpx\_\discretionary {-}{}{}util.h}{152}{section.4.32}
+\contentsline {section}{\numberline {4.33}src/procs-\/r3.c File Reference}{152}{section.4.33}
+\contentsline {subsection}{\numberline {4.33.1}Define Documentation}{152}{subsection.4.33.1}
+\contentsline {subsubsection}{\numberline {4.33.1.1}RC\_\discretionary {-}{}{}1}{152}{subsubsection.4.33.1.1}
+\contentsline {subsubsection}{\numberline {4.33.1.2}RC\_\discretionary {-}{}{}2}{152}{subsubsection.4.33.1.2}
+\contentsline {subsubsection}{\numberline {4.33.1.3}RC\_\discretionary {-}{}{}3}{152}{subsubsection.4.33.1.3}
+\contentsline {subsubsection}{\numberline {4.33.1.4}RC\_\discretionary {-}{}{}4}{153}{subsubsection.4.33.1.4}
+\contentsline {subsubsection}{\numberline {4.33.1.5}RC\_\discretionary {-}{}{}5}{153}{subsubsection.4.33.1.5}
+\contentsline {subsection}{\numberline {4.33.2}Function Documentation}{153}{subsection.4.33.2}
+\contentsline {subsubsection}{\numberline {4.33.2.1}test1\_\discretionary {-}{}{}R3}{153}{subsubsection.4.33.2.1}
+\contentsline {subsubsection}{\numberline {4.33.2.2}test2\_\discretionary {-}{}{}R3}{153}{subsubsection.4.33.2.2}
+\contentsline {subsubsection}{\numberline {4.33.2.3}test3\_\discretionary {-}{}{}R3}{153}{subsubsection.4.33.2.3}
+\contentsline {subsubsection}{\numberline {4.33.2.4}test4\_\discretionary {-}{}{}R3}{153}{subsubsection.4.33.2.4}
+\contentsline {subsubsection}{\numberline {4.33.2.5}test5\_\discretionary {-}{}{}R3}{153}{subsubsection.4.33.2.5}
+\contentsline {section}{\numberline {4.34}src/procs-\/r3.c}{153}{section.4.34}
+\contentsline {section}{\numberline {4.35}src/trmdrive.c File Reference}{156}{section.4.35}
+\contentsline {subsection}{\numberline {4.35.1}Define Documentation}{158}{subsection.4.35.1}
+\contentsline {subsubsection}{\numberline {4.35.1.1}BS}{158}{subsubsection.4.35.1.1}
+\contentsline {subsubsection}{\numberline {4.35.1.2}CLOSE\_\discretionary {-}{}{}FILE}{158}{subsubsection.4.35.1.2}
+\contentsline {subsubsection}{\numberline {4.35.1.3}CR}{158}{subsubsection.4.35.1.3}
+\contentsline {subsubsection}{\numberline {4.35.1.4}DEV\_\discretionary {-}{}{}IDLE}{158}{subsubsection.4.35.1.4}
+\contentsline {subsubsection}{\numberline {4.35.1.5}DEV\_\discretionary {-}{}{}READ}{158}{subsubsection.4.35.1.5}
+\contentsline {subsubsection}{\numberline {4.35.1.6}DEV\_\discretionary {-}{}{}WRITE}{158}{subsubsection.4.35.1.6}
+\contentsline {subsubsection}{\numberline {4.35.1.7}ESC}{158}{subsubsection.4.35.1.7}
+\contentsline {subsubsection}{\numberline {4.35.1.8}GET\_\discretionary {-}{}{}CHAR}{158}{subsubsection.4.35.1.8}
+\contentsline {subsubsection}{\numberline {4.35.1.9}KBD\_\discretionary {-}{}{}INTNUM}{159}{subsubsection.4.35.1.9}
+\contentsline {subsubsection}{\numberline {4.35.1.10}KBD\_\discretionary {-}{}{}LEVEL}{159}{subsubsection.4.35.1.10}
+\contentsline {subsubsection}{\numberline {4.35.1.11}LF}{159}{subsubsection.4.35.1.11}
+\contentsline {subsubsection}{\numberline {4.35.1.12}MAX\_\discretionary {-}{}{}XPOS}{159}{subsubsection.4.35.1.12}
+\contentsline {subsubsection}{\numberline {4.35.1.13}MAX\_\discretionary {-}{}{}YPOS}{159}{subsubsection.4.35.1.13}
+\contentsline {subsubsection}{\numberline {4.35.1.14}OPEN\_\discretionary {-}{}{}FILE}{159}{subsubsection.4.35.1.14}
+\contentsline {subsubsection}{\numberline {4.35.1.15}PIC\_\discretionary {-}{}{}CMD}{159}{subsubsection.4.35.1.15}
+\contentsline {subsubsection}{\numberline {4.35.1.16}PIC\_\discretionary {-}{}{}MASK}{159}{subsubsection.4.35.1.16}
+\contentsline {subsubsection}{\numberline {4.35.1.17}RESET}{159}{subsubsection.4.35.1.17}
+\contentsline {subsubsection}{\numberline {4.35.1.18}SET}{159}{subsubsection.4.35.1.18}
+\contentsline {subsubsection}{\numberline {4.35.1.19}WRITE\_\discretionary {-}{}{}FILE}{159}{subsubsection.4.35.1.19}
+\contentsline {subsubsection}{\numberline {4.35.1.20}WRITE\_\discretionary {-}{}{}ONLY}{160}{subsubsection.4.35.1.20}
+\contentsline {subsection}{\numberline {4.35.2}Typedef Documentation}{160}{subsection.4.35.2}
+\contentsline {subsubsection}{\numberline {4.35.2.1}byte}{160}{subsubsection.4.35.2.1}
+\contentsline {subsubsection}{\numberline {4.35.2.2}context}{160}{subsubsection.4.35.2.2}
+\contentsline {subsubsection}{\numberline {4.35.2.3}word}{160}{subsubsection.4.35.2.3}
+\contentsline {subsection}{\numberline {4.35.3}Function Documentation}{160}{subsection.4.35.3}
+\contentsline {subsubsection}{\numberline {4.35.3.1}clear\_\discretionary {-}{}{}scr}{160}{subsubsection.4.35.3.1}
+\contentsline {subsubsection}{\numberline {4.35.3.2}goto\_\discretionary {-}{}{}xy}{160}{subsubsection.4.35.3.2}
+\contentsline {subsubsection}{\numberline {4.35.3.3}kbd\_\discretionary {-}{}{}ihand}{160}{subsubsection.4.35.3.3}
+\contentsline {subsubsection}{\numberline {4.35.3.4}out\_\discretionary {-}{}{}char}{160}{subsubsection.4.35.3.4}
+\contentsline {subsubsection}{\numberline {4.35.3.5}trm\_\discretionary {-}{}{}clear}{160}{subsubsection.4.35.3.5}
+\contentsline {subsubsection}{\numberline {4.35.3.6}trm\_\discretionary {-}{}{}close}{160}{subsubsection.4.35.3.6}
+\contentsline {subsubsection}{\numberline {4.35.3.7}trm\_\discretionary {-}{}{}getc}{160}{subsubsection.4.35.3.7}
+\contentsline {subsubsection}{\numberline {4.35.3.8}trm\_\discretionary {-}{}{}gotoxy}{161}{subsubsection.4.35.3.8}
+\contentsline {subsubsection}{\numberline {4.35.3.9}trm\_\discretionary {-}{}{}open}{161}{subsubsection.4.35.3.9}
+\contentsline {subsubsection}{\numberline {4.35.3.10}trm\_\discretionary {-}{}{}read}{161}{subsubsection.4.35.3.10}
+\contentsline {subsubsection}{\numberline {4.35.3.11}trm\_\discretionary {-}{}{}write}{161}{subsubsection.4.35.3.11}
+\contentsline {subsection}{\numberline {4.35.4}Variable Documentation}{161}{subsection.4.35.4}
+\contentsline {subsubsection}{\numberline {4.35.4.1}con\_\discretionary {-}{}{}handle}{161}{subsubsection.4.35.4.1}
+\contentsline {subsubsection}{\numberline {4.35.4.2}dcb\_\discretionary {-}{}{}trm}{161}{subsubsection.4.35.4.2}
+\contentsline {subsubsection}{\numberline {4.35.4.3}eflag\_\discretionary {-}{}{}p}{161}{subsubsection.4.35.4.3}
+\contentsline {subsubsection}{\numberline {4.35.4.4}in\_\discretionary {-}{}{}buf\_\discretionary {-}{}{}p}{161}{subsubsection.4.35.4.4}
+\contentsline {subsubsection}{\numberline {4.35.4.5}in\_\discretionary {-}{}{}count\_\discretionary {-}{}{}p}{161}{subsubsection.4.35.4.5}
+\contentsline {subsubsection}{\numberline {4.35.4.6}in\_\discretionary {-}{}{}ctr}{161}{subsubsection.4.35.4.6}
+\contentsline {subsubsection}{\numberline {4.35.4.7}in\_\discretionary {-}{}{}max}{161}{subsubsection.4.35.4.7}
+\contentsline {subsubsection}{\numberline {4.35.4.8}old\_\discretionary {-}{}{}kbhand\_\discretionary {-}{}{}p}{161}{subsubsection.4.35.4.8}
+\contentsline {subsubsection}{\numberline {4.35.4.9}open}{162}{subsubsection.4.35.4.9}
+\contentsline {subsubsection}{\numberline {4.35.4.10}out\_\discretionary {-}{}{}buf\_\discretionary {-}{}{}p}{162}{subsubsection.4.35.4.10}
+\contentsline {subsubsection}{\numberline {4.35.4.11}out\_\discretionary {-}{}{}count\_\discretionary {-}{}{}p}{162}{subsubsection.4.35.4.11}
+\contentsline {subsubsection}{\numberline {4.35.4.12}out\_\discretionary {-}{}{}ctr}{162}{subsubsection.4.35.4.12}
+\contentsline {subsubsection}{\numberline {4.35.4.13}out\_\discretionary {-}{}{}max}{162}{subsubsection.4.35.4.13}
+\contentsline {subsubsection}{\numberline {4.35.4.14}pendc}{162}{subsubsection.4.35.4.14}
+\contentsline {subsubsection}{\numberline {4.35.4.15}regs}{162}{subsubsection.4.35.4.15}
+\contentsline {subsubsection}{\numberline {4.35.4.16}segs}{162}{subsubsection.4.35.4.16}
+\contentsline {subsubsection}{\numberline {4.35.4.17}status}{162}{subsubsection.4.35.4.17}
+\contentsline {section}{\numberline {4.36}src/trmdrive.c}{162}{section.4.36}
+\contentsline {section}{\numberline {4.37}src/trmdrive.h File Reference}{173}{section.4.37}
+\contentsline {subsection}{\numberline {4.37.1}Define Documentation}{173}{subsection.4.37.1}
+\contentsline {subsubsection}{\numberline {4.37.1.1}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}CL\_\discretionary {-}{}{}CLFAIL}{173}{subsubsection.4.37.1.1}
+\contentsline {subsubsection}{\numberline {4.37.1.2}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}CL\_\discretionary {-}{}{}NOTOPN}{173}{subsubsection.4.37.1.2}
+\contentsline {subsubsection}{\numberline {4.37.1.3}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}ALROPN}{173}{subsubsection.4.37.1.3}
+\contentsline {subsubsection}{\numberline {4.37.1.4}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}INVEFP}{173}{subsubsection.4.37.1.4}
+\contentsline {subsubsection}{\numberline {4.37.1.5}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}OPFAIL}{174}{subsubsection.4.37.1.5}
+\contentsline {subsubsection}{\numberline {4.37.1.6}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}DVBUSY}{174}{subsubsection.4.37.1.6}
+\contentsline {subsubsection}{\numberline {4.37.1.7}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}INVBUF}{174}{subsubsection.4.37.1.7}
+\contentsline {subsubsection}{\numberline {4.37.1.8}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}INVCNT}{174}{subsubsection.4.37.1.8}
+\contentsline {subsubsection}{\numberline {4.37.1.9}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}NOTOPN}{174}{subsubsection.4.37.1.9}
+\contentsline {subsubsection}{\numberline {4.37.1.10}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}DVBUSY}{174}{subsubsection.4.37.1.10}
+\contentsline {subsubsection}{\numberline {4.37.1.11}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}INVBUF}{174}{subsubsection.4.37.1.11}
+\contentsline {subsubsection}{\numberline {4.37.1.12}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}INVCNT}{174}{subsubsection.4.37.1.12}
+\contentsline {subsubsection}{\numberline {4.37.1.13}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}NOTOPN}{174}{subsubsection.4.37.1.13}
+\contentsline {subsubsection}{\numberline {4.37.1.14}ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}XY\_\discretionary {-}{}{}INVPOS}{174}{subsubsection.4.37.1.14}
+\contentsline {subsection}{\numberline {4.37.2}Function Documentation}{174}{subsection.4.37.2}
+\contentsline {subsubsection}{\numberline {4.37.2.1}trm\_\discretionary {-}{}{}clear}{174}{subsubsection.4.37.2.1}
+\contentsline {subsubsection}{\numberline {4.37.2.2}trm\_\discretionary {-}{}{}close}{175}{subsubsection.4.37.2.2}
+\contentsline {subsubsection}{\numberline {4.37.2.3}trm\_\discretionary {-}{}{}getc}{175}{subsubsection.4.37.2.3}
+\contentsline {subsubsection}{\numberline {4.37.2.4}trm\_\discretionary {-}{}{}gotoxy}{175}{subsubsection.4.37.2.4}
+\contentsline {subsubsection}{\numberline {4.37.2.5}trm\_\discretionary {-}{}{}open}{175}{subsubsection.4.37.2.5}
+\contentsline {subsubsection}{\numberline {4.37.2.6}trm\_\discretionary {-}{}{}read}{175}{subsubsection.4.37.2.6}
+\contentsline {subsubsection}{\numberline {4.37.2.7}trm\_\discretionary {-}{}{}write}{175}{subsubsection.4.37.2.7}
+\contentsline {section}{\numberline {4.38}src/trmdrive.h}{175}{section.4.38}

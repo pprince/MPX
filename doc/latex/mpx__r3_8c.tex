@@ -1,0 +1,507 @@
+\hypertarget{mpx__r3_8c}{
+\section{src/mpx\_\-r3.c File Reference}
+\label{mpx__r3_8c}\index{src/mpx\_\-r3.c@{src/mpx\_\-r3.c}}
+}
+{\ttfamily \#include \char`\"{}dos.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-cmd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-util.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r2.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r3.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}procs-\/r3.c\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-supt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mystdlib.h\char`\"{}}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structprocess}{PCB} $\ast$ \hyperlink{mpx__r3_8c_aa7b04f866ead346c0357975285de0c38}{getHead\_\-PCB} ()
+\item 
+void interrupt \hyperlink{mpx__r3_8c_abeb8ddb92acb8fa40e902b98f2a1ccfb}{sys\_\-call} (void)
+\item 
+void interrupt \hyperlink{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{dispatch} (void)
+\item 
+void \hyperlink{mpx__r3_8c_a204c76cc251c17612164688f0b1272ad}{mpxcmd\_\-r3run} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{mpx__r3_8c_afff189bf2a21f1da2a30be81b57da08d}{mpxcmd\_\-gor4} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structprocess}{PCB} $\ast$ \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop}
+\item 
+\hyperlink{structprocess}{PCB} $\ast$ \hyperlink{mpx__r3_8c_a47c9132f8122c8d3c1e281fb0b55f245}{HEAD}
+\item 
+\hyperlink{structpage}{ELEM} $\ast$ \hyperlink{mpx__r3_8c_aeed57115855ba3138c62906b800593bd}{TEMP}
+\item 
+\hyperlink{structroot}{ROOT} $\ast$ \hyperlink{mpx__r3_8c_a6351400e4f3f082a5b60cb51735024ef}{Root}
+\item 
+\hyperlink{structstack}{STACKDSC} $\ast$ \hyperlink{mpx__r3_8c_a5a528d0c0f300410569d8b820fd7a803}{STACK}
+\item 
+\hyperlink{structcontext}{tcontext} $\ast$ \hyperlink{mpx__r3_8c_a66a5f6b4272d2caa8085e571fdd61c70}{context\_\-p}
+\item 
+\hyperlink{structparams}{tparams} $\ast$ \hyperlink{mpx__r3_8c_aba65384dc26beadd1cf4106e7e60a482}{param\_\-p}
+\item 
+\hyperlink{structroot}{ROOT} $\ast$ \hyperlink{mpx__r3_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue}
+\begin{DoxyCompactList}\small\item\em declaring null roots for initial start of linked lists \item\end{DoxyCompactList}\item 
+\hyperlink{structroot}{ROOT} $\ast$ \hyperlink{mpx__r3_8c_a8dec03d44c5fad121b5568399d1cf278}{wsQueue}
+\item 
+unsigned char \hyperlink{mpx__r3_8c_a5e9ba16a803c3deb38f984cba2e42d5f}{sys\_\-stack} \mbox{[}SYS\_\-STACK\_\-SIZE\mbox{]}
+\item 
+unsigned short \hyperlink{mpx__r3_8c_aab74ba3fd0cd88eb3e908a0916cf39ca}{ss\_\-save} = NULL
+\item 
+unsigned short \hyperlink{mpx__r3_8c_a8687fceb4a02634b3967391b0b584c4c}{sp\_\-save} = NULL
+\item 
+unsigned short \hyperlink{mpx__r3_8c_a15a3c2a819d08f7ea4c3f453ca0f7f9c}{new\_\-ss} = NULL
+\item 
+unsigned short \hyperlink{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}{new\_\-sp} = NULL
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!dispatch@{dispatch}}
+\index{dispatch@{dispatch}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{dispatch}]{\setlength{\rightskip}{0pt plus 5cm}void interrupt dispatch (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00117}{117} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+
+
+
+\begin{DoxyCode}
+                             \{
+        
+        \textcolor{keywordflow}{if} ( \hyperlink{mpx__r3_8c_a8687fceb4a02634b3967391b0b584c4c}{sp_save} == NULL )\{ \textcolor{comment}{//saves the SS and SP from being overwritten if n
+      ot already done}
+                \hyperlink{mpx__r3_8c_aab74ba3fd0cd88eb3e908a0916cf39ca}{ss_save} = \_SS;
+                \hyperlink{mpx__r3_8c_a8687fceb4a02634b3967391b0b584c4c}{sp_save} = \_SP;
+                \}
+                \hyperlink{mpx__r3_8c_a47c9132f8122c8d3c1e281fb0b55f245}{HEAD} = \hyperlink{mpx__r3_8c_aa7b04f866ead346c0357975285de0c38}{getHead_PCB}();
+                \textcolor{comment}{//STACK = HEAD -> stackdsc;}
+                
+                \textcolor{comment}{// get a process from the ready queue then set the ss and sp to e
+      xecute the new process}
+                \textcolor{keywordflow}{if} ( \hyperlink{mpx__r3_8c_a47c9132f8122c8d3c1e281fb0b55f245}{HEAD} != NULL )\{
+                        \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} = \hyperlink{mpx__r3_8c_a47c9132f8122c8d3c1e281fb0b55f245}{HEAD};
+                        \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} -> state = READY;
+                        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(\hyperlink{mpx__r3_8c_a47c9132f8122c8d3c1e281fb0b55f245}{HEAD});
+                        \hyperlink{mpx__r3_8c_a5a528d0c0f300410569d8b820fd7a803}{STACK} = \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} -> stackdsc;
+                        \hyperlink{mpx__r3_8c_a15a3c2a819d08f7ea4c3f453ca0f7f9c}{new_ss} = FP\_SEG(\hyperlink{mpx__r3_8c_a5a528d0c0f300410569d8b820fd7a803}{STACK} -> top);
+                        \hyperlink{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}{new_sp} = FP\_OFF(\hyperlink{mpx__r3_8c_a5a528d0c0f300410569d8b820fd7a803}{STACK} -> top );
+                        \_SS = \hyperlink{mpx__r3_8c_a15a3c2a819d08f7ea4c3f453ca0f7f9c}{new_ss};
+                        \_SP = \hyperlink{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}{new_sp};
+                \}\textcolor{keywordflow}{else}\{ \textcolor{comment}{// if no process left return}
+                        \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} = NULL;
+                        \_SS = \hyperlink{mpx__r3_8c_aab74ba3fd0cd88eb3e908a0916cf39ca}{ss_save};
+                        \_SP = \hyperlink{mpx__r3_8c_a8687fceb4a02634b3967391b0b584c4c}{sp_save};
+                        \hyperlink{mpx__r3_8c_aab74ba3fd0cd88eb3e908a0916cf39ca}{ss_save} = NULL;
+                        \hyperlink{mpx__r3_8c_a8687fceb4a02634b3967391b0b584c4c}{sp_save} = NULL;
+                \}
+                \textcolor{comment}{//\_iret;        }
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__r3_8c_aa7b04f866ead346c0357975285de0c38}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!getHead\_\-PCB@{getHead\_\-PCB}}
+\index{getHead\_\-PCB@{getHead\_\-PCB}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{getHead\_\-PCB}]{\setlength{\rightskip}{0pt plus 5cm}{\bf PCB} $\ast$ getHead\_\-PCB (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__r3_8c_aa7b04f866ead346c0357975285de0c38}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00147}{147} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+
+
+
+\begin{DoxyCode}
+                  \{
+                \hyperlink{structpage}{ELEM} *incr;
+                \hyperlink{structprocess}{PCB}  *pointer= NULL;
+                
+                incr = \hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue} -> node;\textcolor{comment}{//set node to the first node in the queque}
+                \textcolor{keywordflow}{if}( incr  != NULL )\{
+                        pointer = incr -> \hyperlink{structprocess}{process};
+                        incr = incr -> right; \textcolor{comment}{// progress forward to the right of
+       the queque                     incr = incr -> right; // progress forward to the 
+      right of the queque}
+                \}
+                \textcolor{keywordflow}{return} pointer;
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__r3_8c_afff189bf2a21f1da2a30be81b57da08d}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!mpxcmd\_\-gor4@{mpxcmd\_\-gor4}}
+\index{mpxcmd\_\-gor4@{mpxcmd\_\-gor4}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{mpxcmd\_\-gor4}]{\setlength{\rightskip}{0pt plus 5cm}void mpxcmd\_\-gor4 (
+\begin{DoxyParamCaption}
+\item[{int}]{ argc, }
+\item[{char $\ast$}]{ argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__r3_8c_afff189bf2a21f1da2a30be81b57da08d}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00266}{266} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+
+
+
+\begin{DoxyCode}
+                                        \{
+        \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+        \hyperlink{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{dispatch}();
+        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__r3_8c_a204c76cc251c17612164688f0b1272ad}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!mpxcmd\_\-r3run@{mpxcmd\_\-r3run}}
+\index{mpxcmd\_\-r3run@{mpxcmd\_\-r3run}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{mpxcmd\_\-r3run}]{\setlength{\rightskip}{0pt plus 5cm}void mpxcmd\_\-r3run (
+\begin{DoxyParamCaption}
+\item[{int}]{ argc, }
+\item[{char $\ast$}]{ argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__r3_8c_a204c76cc251c17612164688f0b1272ad}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00160}{160} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+
+
+
+\begin{DoxyCode}
+                                         \{
+        
+        
+        \hyperlink{structprocess}{PCB} *test1;
+        \hyperlink{structprocess}{PCB} *test2;
+        \hyperlink{structprocess}{PCB} *test3;
+        \hyperlink{structprocess}{PCB} *test4;
+        \hyperlink{structprocess}{PCB} *test5;
+        
+        \hyperlink{structstack}{STACKDSC} *stack1;
+        \hyperlink{structstack}{STACKDSC} *stack2;
+        \hyperlink{structstack}{STACKDSC} *stack3;
+        \hyperlink{structstack}{STACKDSC} *stack4;
+        \hyperlink{structstack}{STACKDSC} *stack5;
+        
+        \hyperlink{structcontext}{tcontext} *context1;
+        \hyperlink{structcontext}{tcontext} *context2;
+        \hyperlink{structcontext}{tcontext} *context3;
+        \hyperlink{structcontext}{tcontext} *context4;
+        \hyperlink{structcontext}{tcontext} *context5;
+        
+        \textcolor{keywordtype}{char} name1[10] = \textcolor{stringliteral}{"test1"};
+        \textcolor{keywordtype}{char} name2[10] = \textcolor{stringliteral}{"test2"};
+        \textcolor{keywordtype}{char} name3[10] = \textcolor{stringliteral}{"test3"};
+        \textcolor{keywordtype}{char} name4[10] = \textcolor{stringliteral}{"test4"};
+        \textcolor{keywordtype}{char} name5[10] = \textcolor{stringliteral}{"test5"};
+        
+        
+        
+        test1 = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        test2 = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        test3 = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        test4 = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        test5 = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        
+        stack1 = test1 -> stackdsc;
+        stack2 = test2 -> stackdsc;
+        stack3 = test3 -> stackdsc;
+        stack4 = test4 -> stackdsc;
+        stack5 = test5 -> stackdsc;
+        
+        stack1 -> top = stack1 -> base + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+        stack2 -> top = stack2 -> base + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+        stack3 -> top = stack3 -> base + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+        stack4 -> top = stack4 -> base + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+        stack5 -> top = stack5 -> base + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext}); 
+        
+        context1 = (\hyperlink{structcontext}{tcontext}*) stack1 -> top;
+        context2 = (\hyperlink{structcontext}{tcontext}*) stack2 -> top;
+        context3 = (\hyperlink{structcontext}{tcontext}*) stack3 -> top;
+        context4 = (\hyperlink{structcontext}{tcontext}*) stack4 -> top;
+        context5 = (\hyperlink{structcontext}{tcontext}*) stack5 -> top;
+        
+        
+        
+        context1->DS = \_DS;
+        context1->ES = \_ES;
+        context1->CS = FP\_SEG(&\hyperlink{procs-r3_8c_ae4496e9c01adc7562ce34516c13226a0}{test1_R3});
+        context1->IP = FP\_OFF(&\hyperlink{procs-r3_8c_ae4496e9c01adc7562ce34516c13226a0}{test1_R3});
+        context1->FLAGS = 0x200;
+        
+        context2->\hyperlink{structcontext_a657e73663a4443be61a078d31c28ee3e}{DS} = \_DS;
+        context2->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+        context2->\hyperlink{structcontext_a0b41903d1fa3b4e1ce892f59480323b5}{CS} = FP\_SEG(&\hyperlink{procs-r3_8c_ab61a49e4507b3dba1bfad0cc9510d0a6}{test2_R3});
+        context2->\hyperlink{structcontext_a02ac427e75af0dfe7d649dc8821cde0a}{IP} = FP\_OFF(&\hyperlink{procs-r3_8c_ab61a49e4507b3dba1bfad0cc9510d0a6}{test2_R3});
+        context2->\hyperlink{structcontext_a251dc5ae40a989bef945d2df6925f9a3}{FLAGS} = 0x200;
+        
+        context3->\hyperlink{structcontext_a657e73663a4443be61a078d31c28ee3e}{DS} = \_DS;
+        context3->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+        context3->\hyperlink{structcontext_a0b41903d1fa3b4e1ce892f59480323b5}{CS} = FP\_SEG(&\hyperlink{procs-r3_8c_a453a58ecc6482a24bf02e7caf67aa41a}{test3_R3});
+        context3->\hyperlink{structcontext_a02ac427e75af0dfe7d649dc8821cde0a}{IP} = FP\_OFF(&\hyperlink{procs-r3_8c_a453a58ecc6482a24bf02e7caf67aa41a}{test3_R3});
+        context3->\hyperlink{structcontext_a251dc5ae40a989bef945d2df6925f9a3}{FLAGS} = 0x200;
+        
+        context4->\hyperlink{structcontext_a657e73663a4443be61a078d31c28ee3e}{DS} = \_DS;
+        context4->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+        context4->\hyperlink{structcontext_a0b41903d1fa3b4e1ce892f59480323b5}{CS} = FP\_SEG(&\hyperlink{procs-r3_8c_aaa737ca092fa5d35b33665401852fb7b}{test4_R3});
+        context4->\hyperlink{structcontext_a02ac427e75af0dfe7d649dc8821cde0a}{IP} = FP\_OFF(&\hyperlink{procs-r3_8c_aaa737ca092fa5d35b33665401852fb7b}{test4_R3});
+        context4->\hyperlink{structcontext_a251dc5ae40a989bef945d2df6925f9a3}{FLAGS} = 0x200;
+        
+        context5->\hyperlink{structcontext_a657e73663a4443be61a078d31c28ee3e}{DS} = \_DS;
+        context5->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+        context5->\hyperlink{structcontext_a0b41903d1fa3b4e1ce892f59480323b5}{CS} = FP\_SEG(&\hyperlink{procs-r3_8c_abe909889e9cb85d683914b291867a6e6}{test5_R3});
+        context5->\hyperlink{structcontext_a02ac427e75af0dfe7d649dc8821cde0a}{IP} = FP\_OFF(&\hyperlink{procs-r3_8c_abe909889e9cb85d683914b291867a6e6}{test5_R3});
+        context5->\hyperlink{structcontext_a251dc5ae40a989bef945d2df6925f9a3}{FLAGS} = 0x200;
+        context5->\hyperlink{structcontext_a657e73663a4443be61a078d31c28ee3e}{DS} = \_DS;
+        
+        \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(test1,name1,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY}, 1);
+        \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(test2,name2,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY}, 2);
+        \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(test3,name3,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY}, 3);
+        \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(test4,name4,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY}, 4);
+        \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(test5,name5,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY}, 5);
+
+        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(test1);
+        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(test2);
+        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(test3);
+        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(test4);
+        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(test5);
+        
+        
+        \hyperlink{mpx__util_8c_a8cf3281978ba1652fd5d643e1a41f70b}{mpx_cls}();
+        \hyperlink{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{dispatch}();
+        \hyperlink{mpx__util_8c_a338d01dfe3c80732c00450203c85b964}{mpxprompt_anykey}();
+        
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__r3_8c_abeb8ddb92acb8fa40e902b98f2a1ccfb}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!sys\_\-call@{sys\_\-call}}
+\index{sys\_\-call@{sys\_\-call}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{sys\_\-call}]{\setlength{\rightskip}{0pt plus 5cm}void interrupt sys\_\-call (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__r3_8c_abeb8ddb92acb8fa40e902b98f2a1ccfb}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00059}{59} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+
+
+
+\begin{DoxyCode}
+                             \{
+        
+
+        \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop}-> stackdsc -> top = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *) MK\_FP(\_SS, \_SP);
+        \hyperlink{mpx__r3_8c_aba65384dc26beadd1cf4106e7e60a482}{param_p} = ( \hyperlink{structparams}{tparams}*)(\textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext}) + \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} -> stackdsc -> top);\textcolor{comment}{//code s
+      upplied by GA bryan}
+        \hyperlink{mpx__r3_8c_a66a5f6b4272d2caa8085e571fdd61c70}{context_p} = (\hyperlink{structcontext}{tcontext}*) \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} -> stackdsc -> top;
+        \textcolor{comment}{//SWITCH TO TEMP STACK by storing all of your variables in memory}
+        
+        \textcolor{comment}{//replaces SS and SP}
+        \hyperlink{mpx__r3_8c_a15a3c2a819d08f7ea4c3f453ca0f7f9c}{new_ss} = FP\_SEG(\hyperlink{mpx__r3_8c_a5e9ba16a803c3deb38f984cba2e42d5f}{sys_stack});
+        \hyperlink{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}{new_sp} = FP\_OFF(\hyperlink{mpx__r3_8c_a5e9ba16a803c3deb38f984cba2e42d5f}{sys_stack});
+        \hyperlink{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}{new_sp} += SYS\_STACK\_SIZE;
+        \_SS = \hyperlink{mpx__r3_8c_a15a3c2a819d08f7ea4c3f453ca0f7f9c}{new_ss};
+        \_SP = \hyperlink{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}{new_sp};
+        
+        \textcolor{comment}{// if the idle opcode is sent then change staate to ready and insert into
+       queue}
+        \textcolor{keywordflow}{if} ( \hyperlink{mpx__r3_8c_aba65384dc26beadd1cf4106e7e60a482}{param_p} -> op\_code == \hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE} )\{
+                        \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} -> state = READY;
+                        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(\hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop});
+                        \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} = NULL;
+        \}
+        
+        \textcolor{comment}{// if the exit opcode is sent then remove and free the pcb}
+        \textcolor{keywordflow}{if}( \hyperlink{mpx__r3_8c_aba65384dc26beadd1cf4106e7e60a482}{param_p} -> op\_code == EXIT )\{
+                \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(\hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop});
+                \hyperlink{mpx__r2_8c_a79890f055b1d0fccf1962bbde4877caa}{free_PCB}(\hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop});
+                \hyperlink{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{cop} = NULL;
+        \}
+        
+        \textcolor{comment}{// if ( param\_p -> op\_code == READ )\{}
+                \textcolor{comment}{// if( param\_p -> device\_id == TERMINAL )\{}
+                
+                \textcolor{comment}{// \}}
+                \textcolor{comment}{// if ( param\_p -> device\_id == COM\_PORT )\{}
+                
+                \textcolor{comment}{// \}}
+        \textcolor{comment}{// \}}
+        \textcolor{comment}{// if ( param\_p -> op\_code == WRITE )\{}
+                \textcolor{comment}{// if( param\_p -> device\_id == TERMINAL )\{}
+                
+                \textcolor{comment}{// \}}
+                \textcolor{comment}{// if( param\_p -> device\_id == COM\_PORT )\{}
+                
+                \textcolor{comment}{// \}}
+                
+        \textcolor{comment}{// \}}
+        
+        
+
+        
+        \textcolor{comment}{// FIXME NO ERROR CHECKING }
+        \textcolor{comment}{//context\_p -> AX = 0;}
+        
+        \textcolor{comment}{//CALL TO DISPATCHER}
+        \hyperlink{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{dispatch}();
+        
+\}
+\end{DoxyCode}
+
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{mpx__r3_8c_a66a5f6b4272d2caa8085e571fdd61c70}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!context\_\-p@{context\_\-p}}
+\index{context\_\-p@{context\_\-p}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{context\_\-p}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tcontext} $\ast$ {\bf context\_\-p}}}
+\label{mpx__r3_8c_a66a5f6b4272d2caa8085e571fdd61c70}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00040}{40} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!cop@{cop}}
+\index{cop@{cop}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{cop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf PCB}$\ast$ {\bf cop}}}
+\label{mpx__r3_8c_a199c6145b9b5ee43b3961894ee22830a}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00035}{35} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a47c9132f8122c8d3c1e281fb0b55f245}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!HEAD@{HEAD}}
+\index{HEAD@{HEAD}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{HEAD}]{\setlength{\rightskip}{0pt plus 5cm}{\bf PCB}$\ast$ {\bf HEAD}}}
+\label{mpx__r3_8c_a47c9132f8122c8d3c1e281fb0b55f245}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00036}{36} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!new\_\-sp@{new\_\-sp}}
+\index{new\_\-sp@{new\_\-sp}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{new\_\-sp}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf new\_\-sp} = NULL}}
+\label{mpx__r3_8c_a1838f728cba427f51c6c45aa89cec007}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00051}{51} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a15a3c2a819d08f7ea4c3f453ca0f7f9c}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!new\_\-ss@{new\_\-ss}}
+\index{new\_\-ss@{new\_\-ss}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{new\_\-ss}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf new\_\-ss} = NULL}}
+\label{mpx__r3_8c_a15a3c2a819d08f7ea4c3f453ca0f7f9c}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00050}{50} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_aba65384dc26beadd1cf4106e7e60a482}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!param\_\-p@{param\_\-p}}
+\index{param\_\-p@{param\_\-p}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{param\_\-p}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tparams} $\ast$ {\bf param\_\-p}}}
+\label{mpx__r3_8c_aba65384dc26beadd1cf4106e7e60a482}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00041}{41} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a6351400e4f3f082a5b60cb51735024ef}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!Root@{Root}}
+\index{Root@{Root}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{Root}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ROOT}$\ast$ {\bf Root}}}
+\label{mpx__r3_8c_a6351400e4f3f082a5b60cb51735024ef}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00038}{38} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_afe54c168944e64a28d76b6e4d3abb391}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!rQueue@{rQueue}}
+\index{rQueue@{rQueue}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{rQueue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ROOT}$\ast$ {\bf rQueue}}}
+\label{mpx__r3_8c_afe54c168944e64a28d76b6e4d3abb391}
+
+
+declaring null roots for initial start of linked lists 
+
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00028}{28} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+
+\hypertarget{mpx__r3_8c_a8687fceb4a02634b3967391b0b584c4c}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!sp\_\-save@{sp\_\-save}}
+\index{sp\_\-save@{sp\_\-save}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{sp\_\-save}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf sp\_\-save} = NULL}}
+\label{mpx__r3_8c_a8687fceb4a02634b3967391b0b584c4c}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00049}{49} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_aab74ba3fd0cd88eb3e908a0916cf39ca}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!ss\_\-save@{ss\_\-save}}
+\index{ss\_\-save@{ss\_\-save}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{ss\_\-save}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short {\bf ss\_\-save} = NULL}}
+\label{mpx__r3_8c_aab74ba3fd0cd88eb3e908a0916cf39ca}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00048}{48} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a5a528d0c0f300410569d8b820fd7a803}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!STACK@{STACK}}
+\index{STACK@{STACK}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{STACK}]{\setlength{\rightskip}{0pt plus 5cm}{\bf STACKDSC}$\ast$ {\bf STACK}}}
+\label{mpx__r3_8c_a5a528d0c0f300410569d8b820fd7a803}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00039}{39} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a5e9ba16a803c3deb38f984cba2e42d5f}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!sys\_\-stack@{sys\_\-stack}}
+\index{sys\_\-stack@{sys\_\-stack}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{sys\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf sys\_\-stack}\mbox{[}SYS\_\-STACK\_\-SIZE\mbox{]}}}
+\label{mpx__r3_8c_a5e9ba16a803c3deb38f984cba2e42d5f}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00047}{47} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_aeed57115855ba3138c62906b800593bd}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!TEMP@{TEMP}}
+\index{TEMP@{TEMP}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{TEMP}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ELEM}$\ast$ {\bf TEMP}}}
+\label{mpx__r3_8c_aeed57115855ba3138c62906b800593bd}
+
+
+Definition at line \hyperlink{mpx__r3_8c_source_l00037}{37} of file \hyperlink{mpx__r3_8c_source}{mpx\_\-r3.c}.
+
+\hypertarget{mpx__r3_8c_a8dec03d44c5fad121b5568399d1cf278}{
+\index{mpx\_\-r3.c@{mpx\_\-r3.c}!wsQueue@{wsQueue}}
+\index{wsQueue@{wsQueue}!mpx_r3.c@{mpx\_\-r3.c}}
+\subsubsection[{wsQueue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ROOT} $\ast$ {\bf wsQueue}}}
+\label{mpx__r3_8c_a8dec03d44c5fad121b5568399d1cf278}
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00029}{29} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+

@@ -32,13 +32,13 @@
 
 PCB *getHead_PCB();
 
-PCB *cop;
-PCB *HEAD;
-ELEM *TEMP;
-ROOT *Root;
-STACKDSC *STACK;
-tcontext *context_p;
-tparams  *param_p;
+PCB *cop;///< The current operating process.
+PCB *HEAD;///< The head node poped off of the queue.
+ELEM *TEMP;///< The struct that holds nodes.
+ROOT *Root;///< Root of the queue
+STACKDSC *STACK;///< Pointer to the stack descriptor for the PCB.
+tcontext *context_p;///< Pointer to the context struct that is overlayed onto the stack.
+tparams  *param_p;///< Pointer to the paramiters that are pushed on to the stack when an intrupt is triggerd.
 //IOCB termCB;
 //IOCB comCB;
 
@@ -49,10 +49,7 @@ unsigned short ss_save = NULL;
 unsigned short sp_save = NULL;
 unsigned short new_ss = NULL;
 unsigned short new_sp = NULL;
-tcontext *context_p;
-tparams  *param_p;
-//IOCB termCB;
-//IOCB comCB;
+
 
 
 
@@ -85,23 +82,23 @@ void interrupt sys_call(void){
 		cop = NULL;
 	}
 	
-	// if ( param_p -> op_code == READ ){
-		// if( param_p -> device_id == TERMINAL ){
+	if ( param_p -> op_code == READ ){
+		if( param_p -> device_id == TERMINAL ){
 		
-		// }
-		// if ( param_p -> device_id == COM_PORT ){
+		}
+		if ( param_p -> device_id == COM_PORT ){
 		
-		// }
-	// }
-	// if ( param_p -> op_code == WRITE ){
-		// if( param_p -> device_id == TERMINAL ){
+		}
+	}
+	if ( param_p -> op_code == WRITE ){
+		if( param_p -> device_id == TERMINAL ){
 		
-		// }
-		// if( param_p -> device_id == COM_PORT ){
+		}
+		if( param_p -> device_id == COM_PORT ){
 		
-		// }
+		}
 		
-	// }
+	}
 	
 	
 

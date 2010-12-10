@@ -318,7 +318,7 @@ Functions</h2></td></tr>
 
 <p><div class="fragment"><pre class="fragment">                                                                                                                                               {
         <span class="keywordtype">int</span> local_buflen = buflen;
-        sys_req(READ, TERMINAL, buffer, &amp;local_buflen);
+        sys_req(<a class="code" href="_m_p_x___r5_8h.html#ada74e7db007a68e763f20c17f2985356">READ</a>, TERMINAL, buffer, &amp;local_buflen);
 
         <span class="comment">/* remove newline from end of string. */</span>
         <span class="keywordflow">if</span>( buffer[strlen(buffer)-1] == <span class="charliteral">&#39;\n&#39;</span> || buffer[strlen(buffer)-1] == <span class="charliteral">&#39;\r&#39;</span> ) {
@@ -354,7 +354,7 @@ Functions</h2></td></tr>
         <span class="keywordtype">int</span> buflen = 3;
         <span class="keywordtype">char</span> buf[5];
         buf[0] = <span class="charliteral">&#39; &#39;</span>;
-        sys_req(READ, TERMINAL, buf, &amp;buflen);
+        sys_req(<a class="code" href="_m_p_x___r5_8h.html#ada74e7db007a68e763f20c17f2985356">READ</a>, TERMINAL, buf, &amp;buflen);
         <span class="keywordflow">return</span> buf[0];
 }
 </pre></div></p>
@@ -423,7 +423,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 12 2010 19:58:59 for PMOS Programmers Manual by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 10 2010 01:08:39 for PMOS Programmers Manual by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

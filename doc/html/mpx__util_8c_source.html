@@ -90,7 +90,7 @@
 <a name="l00073"></a>00073         <span class="keywordtype">int</span> buflen = 3;
 <a name="l00074"></a>00074         <span class="keywordtype">char</span> buf[5];
 <a name="l00075"></a>00075         buf[0] = <span class="charliteral">&#39; &#39;</span>;
-<a name="l00076"></a>00076         sys_req(READ, TERMINAL, buf, &amp;buflen);
+<a name="l00076"></a>00076         sys_req(<a class="code" href="_m_p_x___r5_8h.html#ada74e7db007a68e763f20c17f2985356">READ</a>, TERMINAL, buf, &amp;buflen);
 <a name="l00077"></a>00077         <span class="keywordflow">return</span> buf[0];
 <a name="l00078"></a>00078 }
 <a name="l00079"></a>00079 
@@ -102,7 +102,7 @@
 <a name="l00086"></a>00086 
 <a name="l00088"></a><a class="code" href="mpx__util_8h.html#a781169ab05ad54c0d37253d73060b77f">00088</a> <span class="keywordtype">void</span> <a class="code" href="mpx__util_8c.html#a781169ab05ad54c0d37253d73060b77f" title="Readline function reads in a line from the Terminal.">mpx_readline</a> ( <span class="keywordtype">char</span> *buffer , <span class="keywordtype">int</span> buflen  ) {
 <a name="l00089"></a>00089         <span class="keywordtype">int</span> local_buflen = buflen;
-<a name="l00090"></a>00090         sys_req(READ, TERMINAL, buffer, &amp;local_buflen);
+<a name="l00090"></a>00090         sys_req(<a class="code" href="_m_p_x___r5_8h.html#ada74e7db007a68e763f20c17f2985356">READ</a>, TERMINAL, buffer, &amp;local_buflen);
 <a name="l00091"></a>00091 
 <a name="l00092"></a>00092         <span class="comment">/* remove newline from end of string. */</span>
 <a name="l00093"></a>00093         <span class="keywordflow">if</span>( buffer[strlen(buffer)-1] == <span class="charliteral">&#39;\n&#39;</span> || buffer[strlen(buffer)-1] == <span class="charliteral">&#39;\r&#39;</span> ) {
@@ -174,7 +174,7 @@
 <a name="l00163"></a>00163 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 12 2010 19:58:59 for PMOS Programmers Manual by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 10 2010 01:08:38 for PMOS Programmers Manual by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

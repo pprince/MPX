@@ -27,85 +27,106 @@
 <h1>src/mpx_r2.h</h1>  </div>
 </div>
 <div class="contents">
-<a href="mpx__r2_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef MPX_R2_HFILE</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MPX_R2_HFILE</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="comment">/* Symbolic Constants */</span>
-<a name="l00004"></a><a class="code" href="mpx__r2_8h.html#a6fb7181d994ee98e735494be55809708">00004</a> <span class="preprocessor">#define RUNNING  0///&lt; state is Defined as 0</span>
-<a name="l00005"></a><a class="code" href="mpx__r2_8h.html#ad1235d5ce36f7267285e82dccd428aa6">00005</a> <span class="preprocessor"></span><span class="preprocessor">#define READY   1///&lt; state is Defined as  1</span>
-<a name="l00006"></a><a class="code" href="mpx__r2_8h.html#a48f6457243719e7031768d4100741159">00006</a> <span class="preprocessor"></span><span class="preprocessor">#define BLOCKED 2 ///&lt; state is defined as 2</span>
-<a name="l00007"></a>00007 <span class="preprocessor"></span>
-<a name="l00008"></a><a class="code" href="mpx__r2_8h.html#a07b1141143e8825b04670da23fca8cc7">00008</a> <span class="preprocessor">#define SUSPENDED_READY    3 ///&lt; is defined by 3</span>
-<a name="l00009"></a><a class="code" href="mpx__r2_8h.html#a6e41bb5a80c5049e8d364bab8ee4d73a">00009</a> <span class="preprocessor"></span><span class="preprocessor">#define SUSPENDED_BLOCKED  4 ///&lt; is defined by 4</span>
-<a name="l00010"></a>00010 <span class="preprocessor"></span>
-<a name="l00011"></a><a class="code" href="mpx__r2_8h.html#a21b97df85e65556468b28a576311271c">00011</a> <span class="preprocessor">#define SYSTEM  1 ///&lt; is defined as 1</span>
-<a name="l00012"></a><a class="code" href="mpx__r2_8h.html#a796bd7c6ba2e59281760fb155c6287e8">00012</a> <span class="preprocessor"></span><span class="preprocessor">#define APPLICATION  0  ///&lt; is defined as 0 </span>
-<a name="l00013"></a>00013 <span class="preprocessor"></span>
-<a name="l00014"></a><a class="code" href="mpx__r2_8h.html#a21d9543c516fffee84a7963224271f95">00014</a> <span class="preprocessor">#define STACKSIZE   1024 ///&lt; is the size of the stack in Bytes</span>
-<a name="l00015"></a><a class="code" href="mpx__r2_8h.html#a278cf415676752815cfb411cb0b32802">00015</a> <span class="preprocessor"></span><span class="preprocessor">#define STRLEN    16///&lt; is the length of a string for name</span>
-<a name="l00016"></a>00016 <span class="preprocessor"></span>
-<a name="l00017"></a><a class="code" href="mpx__r2_8h.html#ace032edafb5fe32666cf53a1e7a957e0">00017</a> <span class="preprocessor">#define PORDR  1 ///&lt; is the Priority Order flag</span>
-<a name="l00018"></a><a class="code" href="mpx__r2_8h.html#af6bc2702f6a1a4bb063b0726d90999da">00018</a> <span class="preprocessor"></span><span class="preprocessor">#define FIFO   0 ///&lt; is the First In First Out Order flag</span>
-<a name="l00019"></a><a class="code" href="mpx__r2_8h.html#ac328e551bde3d39b6d7b8cc9e048d941">00019</a> <span class="preprocessor"></span><span class="preprocessor">#define ZERO   0</span>
-<a name="l00020"></a>00020 <span class="preprocessor"></span>
-<a name="l00021"></a><a class="code" href="mpx__r2_8h.html#a842ed03f27719bc87666bfd1f75415b8">00021</a> <span class="preprocessor">#define MAX_LINE        1024</span>
-<a name="l00022"></a>00022 <span class="preprocessor"></span>
-<a name="l00023"></a>00023 <span class="comment">/* Type Definitions and Structures */</span>
-<a name="l00024"></a><a class="code" href="structmem.html">00024</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structmem.html">mem</a>{
-<a name="l00025"></a><a class="code" href="structmem.html#a2f6285207fccce5cfe6a24037bd780c3">00025</a>         <span class="keywordtype">int</span> <a class="code" href="structmem.html#a2f6285207fccce5cfe6a24037bd780c3" title="Number of words in memory.">size</a>;
-<a name="l00026"></a><a class="code" href="structmem.html#a8f5a4db03ee0560e6bd4dd602ad753c0">00026</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structmem.html#a8f5a4db03ee0560e6bd4dd602ad753c0" title="Address to load data to.">loadADDR</a>;
-<a name="l00027"></a><a class="code" href="structmem.html#a5340491e17307817e6dca3b1d260d18a">00027</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structmem.html#a5340491e17307817e6dca3b1d260d18a" title="Address of first INSTRUCTION.">execADDR</a>;
-<a name="l00028"></a>00028 }<a class="code" href="structmem.html">MEMDSC</a>;
-<a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="structstack.html">00030</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structstack.html">stack</a>{
-<a name="l00031"></a><a class="code" href="structstack.html#adf145fa22a24464ff19409e2618a583d">00031</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structstack.html#adf145fa22a24464ff19409e2618a583d" title="pointer to the top of the stack">top</a>; 
-<a name="l00032"></a><a class="code" href="structstack.html#a1cdb71e486a79747d482aa46f6b10290">00032</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structstack.html#a1cdb71e486a79747d482aa46f6b10290" title="pointer to the bottom of the stack">base</a>;
-<a name="l00033"></a>00033 }<a class="code" href="structstack.html">STACKDSC</a>;
-<a name="l00034"></a>00034 
-<a name="l00035"></a><a class="code" href="structprocess.html">00035</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structprocess.html">process</a>{
-<a name="l00036"></a><a class="code" href="structprocess.html#ab6613e7bde642a754f71b9f60053cd1a">00036</a>         <span class="keywordtype">char</span> <a class="code" href="structprocess.html#ab6613e7bde642a754f71b9f60053cd1a" title="character array containing 16 characters plus space for null">name</a>[STRLEN]; 
-<a name="l00037"></a><a class="code" href="structprocess.html#abe608249826d4a0f04fba4398f967047">00037</a>         <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structprocess.html#abe608249826d4a0f04fba4398f967047" title="class of process APPLICATION or SYSTEM">classType</a>; 
-<a name="l00038"></a><a class="code" href="structprocess.html#a788405fd9aeccd863516f34d3ce1c41e">00038</a>         <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structprocess.html#a788405fd9aeccd863516f34d3ce1c41e" title="process priority ranges from -128 to +127">priority</a>;
-<a name="l00039"></a><a class="code" href="structprocess.html#af8bb04355feac474fa959e3db52618c9">00039</a>         <span class="keywordtype">signed</span> <span class="keywordtype">char</span> <a class="code" href="structprocess.html#af8bb04355feac474fa959e3db52618c9" title="stores the current states of the process">state</a>;
-<a name="l00040"></a><a class="code" href="structprocess.html#a163551ab7b60184b48e5d440fcd5c2b8">00040</a>         <a class="code" href="structmem.html">MEMDSC</a> *<a class="code" href="structprocess.html#a163551ab7b60184b48e5d440fcd5c2b8" title="stores the description of the ADDRESS SPACE for the process">memdsc</a>;
-<a name="l00041"></a><a class="code" href="structprocess.html#a7e0fb37fbb9c155b18f75a94a8fc202b">00041</a>         <a class="code" href="structstack.html">STACKDSC</a> *<a class="code" href="structprocess.html#a7e0fb37fbb9c155b18f75a94a8fc202b" title="stores the description of the stack for each process;">stackdsc</a>;
-<a name="l00042"></a>00042 }<a class="code" href="structprocess.html">PCB</a>;
-<a name="l00043"></a>00043 
-<a name="l00044"></a><a class="code" href="structpage.html">00044</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structpage.html">page</a>{
-<a name="l00045"></a><a class="code" href="structpage.html#af3cc0e1320b79159b230f154f1a95f0d">00045</a>         <a class="code" href="structprocess.html">PCB</a> *<a class="code" href="structprocess.html">process</a>; 
-<a name="l00046"></a><a class="code" href="structpage.html#a450d16b8cb803158a4dab05bb36fd7f5">00046</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structpage.html#a450d16b8cb803158a4dab05bb36fd7f5" title="pointer to the left PCB structure">left</a>; 
-<a name="l00047"></a><a class="code" href="structpage.html#a59bb1b5eca2d579befcc93a2833f4dfd">00047</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structpage.html#a59bb1b5eca2d579befcc93a2833f4dfd" title="pointer to the right PCB structure">right</a>;
-<a name="l00048"></a>00048 }<a class="code" href="structpage.html">ELEM</a>;
-<a name="l00049"></a>00049 
-<a name="l00050"></a><a class="code" href="structroot.html">00050</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structroot.html">root</a>{
-<a name="l00051"></a><a class="code" href="structroot.html#afa78d0408d4af29e936332a04739d59c">00051</a>         <span class="keywordtype">int</span> <a class="code" href="structroot.html#afa78d0408d4af29e936332a04739d59c">count</a>;
-<a name="l00052"></a><a class="code" href="structroot.html#acf8c9d6dbd37a892a1b45394c1595f1a">00052</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structroot.html#acf8c9d6dbd37a892a1b45394c1595f1a">node</a>;
-<a name="l00053"></a>00053 }<a class="code" href="structroot.html">ROOT</a>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057 <span class="comment">/* Functions Dec*/</span>
-<a name="l00058"></a>00058 <a class="code" href="structprocess.html">PCB</a> *<a class="code" href="mpx__r2_8h.html#a0a89c7278d6fea2f8a18dbb0cafbb975">alloocate_PCB</a>(<span class="keywordtype">void</span>);
-<a name="l00059"></a>00059 <span class="keywordtype">int</span> <a class="code" href="mpx__r2_8c.html#a79890f055b1d0fccf1962bbde4877caa" title="This function releases all allocated memory related to a PCB.">free_PCB</a>( <a class="code" href="structprocess.html">PCB</a> *pointer);
-<a name="l00060"></a>00060 <span class="keywordtype">int</span> <a class="code" href="mpx__r2_8c.html#a316c9619aba53c03c17afbc0a0dbf096" title="This Function initializes the contents of a PCB and checks the values if correct returns 0 if not ret...">setup_PCB</a>( <a class="code" href="structprocess.html">PCB</a> *pointer, <span class="keywordtype">char</span> *name, <span class="keywordtype">int</span> classType, <span class="keywordtype">int</span> state, <span class="keywordtype">int</span> priority );
-<a name="l00061"></a>00061 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#aa3b334e3a5afd6e590917667ad359a6f" title="This function inserts a PCB into its aproprate PCB Queue.">insert_PCB</a>(<a class="code" href="structprocess.html">PCB</a> *PCBpointer<span class="comment">/*&lt; pointer to a PCB to insert*/</span> );
-<a name="l00062"></a>00062 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a722f27bfb24e46ffd7eb86fb34024ed9" title="This function inserts into a queue a element sorted by its priority lower number ( higher priority) t...">insert_PORDR</a>( <a class="code" href="structprocess.html">PCB</a> *PCBpointer, <a class="code" href="structroot.html">ROOT</a> *quequeROOT );
-<a name="l00063"></a>00063 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a58a3e3525ed6385f632835b55ab7d7d1" title="In this function we grow the queque to the right no matter of the Priority of the PCB...">insert_FIFO</a>( <a class="code" href="structprocess.html">PCB</a> *PCBpointer, <a class="code" href="structroot.html">ROOT</a> *quequeROOT);
-<a name="l00064"></a>00064 <a class="code" href="structprocess.html">PCB</a> *<a class="code" href="mpx__r2_8c.html#a612a6abcb66c688a32f33abc93ff3990" title="This function findes a PCB by its identifier (name) and returns a pointer to its structures location...">find_PCB</a>( <span class="keywordtype">char</span> *name);
-<a name="l00065"></a>00065 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a782285c58822e411fb75be1e65fe1104" title="This is a user function that interacts with the user to create a PCB structure.">mpxcmd_create_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00066"></a>00066 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae6d6afa9fefa158029528a24841c453a" title="This is a user function in the menu to delete a process it takes the process name as input...">mpxcmd_delete_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00067"></a>00067 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae8eb72663ecff92c27ab06e3560fd0d4" title="This is a user function in the menu that puts a process in the blocked state it takes the process nam...">mpxcmd_block</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00068"></a>00068 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a1363a7b6156a84057936c3fd91d91f69" title="This is a user function in the menu that puts a process in the unblocked state it takes the process n...">mpxcmd_unblock</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00069"></a>00069 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a697f0f432dba18606d9e514eda9cd073" title="This is a user function in the menu that puts a process in the suspend state it takes the process nam...">mpxcmd_suspend</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00070"></a>00070 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a3c47daf087934d234d896e35e4c03f3b" title="This is a user function in the menu that puts a process in the ready state if previously blocked and ...">mpxcmd_resume</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00071"></a>00071 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a4505a685b9ab69940541dc4e973e0f01" title="This is a user function from the menu it changes the priority of a PCB and takes the name and desired...">mpxcmd_setPriority</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00072"></a>00072 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae52d77243725636a3b23d05235fee141" title="This is a user command from the menu it is used to show information about a specific PCB...">mpxcmd_show_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00073"></a>00073 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a69559f93fe1b569abf6e846a426191a9" title="This is a user functions that shows name and state of all processes.">mpxcmd_showAll_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00074"></a>00074 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#aeaac6d37294f767e31c3789971c5ecd4" title="This is a user function that shows all non-suspended processes followed by suspended processes...">mpxcmd_showReady_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00075"></a>00075 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae1ef92a5e3a8869ec269a23b3b854c9b" title="This is a user function that shows all blocked processes followed by non-blocked processes.">mpxcmd_showBlocked_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
-<a name="l00076"></a>00076 <span class="preprocessor">#endif</span>
+<a href="mpx__r2_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/***********************************************************************</span>
+<a name="l00002"></a>00002 <span class="comment">        MPX: The MultiProgramming eXecutive</span>
+<a name="l00003"></a>00003 <span class="comment">        Project to Accompany</span>
+<a name="l00004"></a>00004 <span class="comment">        A Practical Approach to Operating Systems</span>
+<a name="l00005"></a>00005 <span class="comment">        Malcolm G. Lane &amp; James D. Mooney</span>
+<a name="l00006"></a>00006 <span class="comment">        Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.</span>
+<a name="l00007"></a>00007 <span class="comment"></span>
+<a name="l00008"></a>00008 <span class="comment">        File Name:      mpx_r2.h</span>
+<a name="l00009"></a>00009 <span class="comment"></span>
+<a name="l00010"></a>00010 <span class="comment">        Author: Nathaniel Clay and Nicholas Yanak</span>
+<a name="l00011"></a>00011 <span class="comment">        Version: 1.1</span>
+<a name="l00012"></a>00012 <span class="comment">        Date:  12/9/2010</span>
+<a name="l00013"></a>00013 <span class="comment"></span>
+<a name="l00014"></a>00014 <span class="comment">        Purpose: This is the header for r2</span>
+<a name="l00015"></a>00015 <span class="comment"></span>
+<a name="l00016"></a>00016 <span class="comment">                </span>
+<a name="l00017"></a>00017 <span class="comment">        Environment: Windows XP 32 bit</span>
+<a name="l00018"></a>00018 <span class="comment"></span>
+<a name="l00019"></a>00019 <span class="comment">************************************************************************/</span>
+<a name="l00020"></a>00020 <span class="preprocessor">#ifndef MPX_R2_HFILE</span>
+<a name="l00021"></a>00021 <span class="preprocessor"></span><span class="preprocessor">#define MPX_R2_HFILE</span>
+<a name="l00022"></a>00022 <span class="preprocessor"></span><span class="comment">/* Symbolic Constants */</span>
+<a name="l00023"></a><a class="code" href="mpx__r2_8h.html#a6fb7181d994ee98e735494be55809708">00023</a> <span class="preprocessor">#define RUNNING  0///&lt; state is Defined as 0</span>
+<a name="l00024"></a><a class="code" href="mpx__r2_8h.html#ad1235d5ce36f7267285e82dccd428aa6">00024</a> <span class="preprocessor"></span><span class="preprocessor">#define READY   1///&lt; state is Defined as  1</span>
+<a name="l00025"></a><a class="code" href="mpx__r2_8h.html#a48f6457243719e7031768d4100741159">00025</a> <span class="preprocessor"></span><span class="preprocessor">#define BLOCKED 2 ///&lt; state is defined as 2</span>
+<a name="l00026"></a>00026 <span class="preprocessor"></span>
+<a name="l00027"></a><a class="code" href="mpx__r2_8h.html#a07b1141143e8825b04670da23fca8cc7">00027</a> <span class="preprocessor">#define SUSPENDED_READY    3 ///&lt; is defined by 3</span>
+<a name="l00028"></a><a class="code" href="mpx__r2_8h.html#a6e41bb5a80c5049e8d364bab8ee4d73a">00028</a> <span class="preprocessor"></span><span class="preprocessor">#define SUSPENDED_BLOCKED  4 ///&lt; is defined by 4</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span>
+<a name="l00030"></a><a class="code" href="mpx__r2_8h.html#a21b97df85e65556468b28a576311271c">00030</a> <span class="preprocessor">#define SYSTEM  1 ///&lt; is defined as 1</span>
+<a name="l00031"></a><a class="code" href="mpx__r2_8h.html#a796bd7c6ba2e59281760fb155c6287e8">00031</a> <span class="preprocessor"></span><span class="preprocessor">#define APPLICATION  0  ///&lt; is defined as 0 </span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span>
+<a name="l00033"></a><a class="code" href="mpx__r2_8h.html#a21d9543c516fffee84a7963224271f95">00033</a> <span class="preprocessor">#define STACKSIZE   1024 ///&lt; is the size of the stack in Bytes</span>
+<a name="l00034"></a><a class="code" href="mpx__r2_8h.html#a278cf415676752815cfb411cb0b32802">00034</a> <span class="preprocessor"></span><span class="preprocessor">#define STRLEN    16///&lt; is the length of a string for name</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span>
+<a name="l00036"></a><a class="code" href="mpx__r2_8h.html#ace032edafb5fe32666cf53a1e7a957e0">00036</a> <span class="preprocessor">#define PORDR  1 ///&lt; is the Priority Order flag</span>
+<a name="l00037"></a><a class="code" href="mpx__r2_8h.html#af6bc2702f6a1a4bb063b0726d90999da">00037</a> <span class="preprocessor"></span><span class="preprocessor">#define FIFO   0 ///&lt; is the First In First Out Order flag</span>
+<a name="l00038"></a><a class="code" href="mpx__r2_8h.html#ac328e551bde3d39b6d7b8cc9e048d941">00038</a> <span class="preprocessor"></span><span class="preprocessor">#define ZERO   0</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span>
+<a name="l00040"></a><a class="code" href="mpx__r2_8h.html#a842ed03f27719bc87666bfd1f75415b8">00040</a> <span class="preprocessor">#define MAX_LINE        1024</span>
+<a name="l00041"></a>00041 <span class="preprocessor"></span>
+<a name="l00042"></a>00042 <span class="comment">/* Type Definitions and Structures */</span>
+<a name="l00043"></a><a class="code" href="structmem.html">00043</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structmem.html">mem</a>{
+<a name="l00044"></a><a class="code" href="structmem.html#a2f6285207fccce5cfe6a24037bd780c3">00044</a>         <span class="keywordtype">int</span> <a class="code" href="structmem.html#a2f6285207fccce5cfe6a24037bd780c3" title="Number of words in memory.">size</a>;
+<a name="l00045"></a><a class="code" href="structmem.html#a8f5a4db03ee0560e6bd4dd602ad753c0">00045</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structmem.html#a8f5a4db03ee0560e6bd4dd602ad753c0" title="Address to load data to.">loadADDR</a>;
+<a name="l00046"></a><a class="code" href="structmem.html#a5340491e17307817e6dca3b1d260d18a">00046</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structmem.html#a5340491e17307817e6dca3b1d260d18a" title="Address of first INSTRUCTION.">execADDR</a>;
+<a name="l00047"></a>00047 }<a class="code" href="structmem.html">MEMDSC</a>;
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="structstack.html">00049</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structstack.html">stack</a>{
+<a name="l00050"></a><a class="code" href="structstack.html#adf145fa22a24464ff19409e2618a583d">00050</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structstack.html#adf145fa22a24464ff19409e2618a583d" title="pointer to the top of the stack">top</a>; 
+<a name="l00051"></a><a class="code" href="structstack.html#a1cdb71e486a79747d482aa46f6b10290">00051</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code" href="structstack.html#a1cdb71e486a79747d482aa46f6b10290" title="pointer to the bottom of the stack">base</a>;
+<a name="l00052"></a>00052 }<a class="code" href="structstack.html">STACKDSC</a>;
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="structprocess.html">00054</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structprocess.html">process</a>{
+<a name="l00055"></a><a class="code" href="structprocess.html#ab6613e7bde642a754f71b9f60053cd1a">00055</a>         <span class="keywordtype">char</span> <a class="code" href="structprocess.html#ab6613e7bde642a754f71b9f60053cd1a" title="character array containing 16 characters plus space for null">name</a>[STRLEN]; 
+<a name="l00056"></a><a class="code" href="structprocess.html#ac83f8c634a3b58ea5364e9f90ee3bcc2">00056</a>         <span class="keywordtype">int</span> <a class="code" href="structprocess.html#ac83f8c634a3b58ea5364e9f90ee3bcc2" title="class of process APPLICATION or SYSTEM">classType</a>; 
+<a name="l00057"></a><a class="code" href="structprocess.html#a0d71749eff1f19063bfad58c4bf7ba64">00057</a>         <span class="keywordtype">int</span> <a class="code" href="structprocess.html#a0d71749eff1f19063bfad58c4bf7ba64" title="process priority ranges from -128 to +127">priority</a>;
+<a name="l00058"></a><a class="code" href="structprocess.html#a65d9093ba530e1d4e0a67f94d8a60345">00058</a>         <span class="keywordtype">int</span> <a class="code" href="structprocess.html#a65d9093ba530e1d4e0a67f94d8a60345" title="stores the current states of the process">state</a>;
+<a name="l00059"></a><a class="code" href="structprocess.html#a163551ab7b60184b48e5d440fcd5c2b8">00059</a>         <a class="code" href="structmem.html">MEMDSC</a> *<a class="code" href="structprocess.html#a163551ab7b60184b48e5d440fcd5c2b8" title="stores the description of the ADDRESS SPACE for the process">memdsc</a>;
+<a name="l00060"></a><a class="code" href="structprocess.html#a7e0fb37fbb9c155b18f75a94a8fc202b">00060</a>         <a class="code" href="structstack.html">STACKDSC</a> *<a class="code" href="structprocess.html#a7e0fb37fbb9c155b18f75a94a8fc202b" title="stores the description of the stack for each process;">stackdsc</a>;
+<a name="l00061"></a>00061 }<a class="code" href="structprocess.html">PCB</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="structpage.html">00063</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structpage.html">page</a>{
+<a name="l00064"></a><a class="code" href="structpage.html#af3cc0e1320b79159b230f154f1a95f0d">00064</a>         <a class="code" href="structprocess.html">PCB</a> *<a class="code" href="structprocess.html">process</a>; 
+<a name="l00065"></a><a class="code" href="structpage.html#aea88d51a55db952658327da1995fc8aa">00065</a>         <span class="keyword">struct </span><a class="code" href="structpage.html">page</a> *<a class="code" href="structpage.html#aea88d51a55db952658327da1995fc8aa" title="pointer to the left PCB structure">left</a>; 
+<a name="l00066"></a><a class="code" href="structpage.html#a72bca7218659f6f6e4e94cc0bacc26d1">00066</a>         <span class="keyword">struct </span><a class="code" href="structpage.html">page</a> *<a class="code" href="structpage.html#a72bca7218659f6f6e4e94cc0bacc26d1" title="pointer to the right PCB structure">right</a>;
+<a name="l00067"></a>00067 }<a class="code" href="structpage.html">ELEM</a>;
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="structroot.html">00069</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structroot.html">root</a>{
+<a name="l00070"></a><a class="code" href="structroot.html#afa78d0408d4af29e936332a04739d59c">00070</a>         <span class="keywordtype">int</span> <a class="code" href="structroot.html#afa78d0408d4af29e936332a04739d59c">count</a>;
+<a name="l00071"></a><a class="code" href="structroot.html#ac45fb12cfcffd5cf8fba2a0ebd6d6479">00071</a>         <a class="code" href="structpage.html">ELEM</a> *<a class="code" href="structroot.html#ac45fb12cfcffd5cf8fba2a0ebd6d6479">node</a>;
+<a name="l00072"></a>00072 }<a class="code" href="structroot.html">ROOT</a>;
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 <span class="comment">/* Functions Dec*/</span>
+<a name="l00075"></a>00075 <a class="code" href="structprocess.html">PCB</a> *<a class="code" href="mpx__r2_8c.html#a58a8a1ea0a96b9ecf0be29179a5a0a1e" title="Allocates the memory for a new Process Control Block and returns the pointer to the new PCB location ...">allocate_PCB</a>(<span class="keywordtype">void</span>);
+<a name="l00076"></a>00076 <span class="keywordtype">int</span> <a class="code" href="mpx__r2_8c.html#a79890f055b1d0fccf1962bbde4877caa" title="This function releases all allocated memory related to a PCB.">free_PCB</a>( <a class="code" href="structprocess.html">PCB</a> *pointer);
+<a name="l00077"></a>00077 <span class="keywordtype">int</span> <a class="code" href="mpx__r2_8c.html#a316c9619aba53c03c17afbc0a0dbf096" title="This Function initializes the contents of a PCB and checks the values if correct returns 0 if not ret...">setup_PCB</a>( <a class="code" href="structprocess.html">PCB</a> *pointer, <span class="keywordtype">char</span> *name, <span class="keywordtype">int</span> classType, <span class="keywordtype">int</span> state, <span class="keywordtype">int</span> priority );
+<a name="l00078"></a>00078 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#aa3b334e3a5afd6e590917667ad359a6f" title="This function inserts a PCB into its aproprate PCB Queue.">insert_PCB</a>(<a class="code" href="structprocess.html">PCB</a> *PCBpointer<span class="comment">/*&lt; pointer to a PCB to insert*/</span> );
+<a name="l00079"></a>00079 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a722f27bfb24e46ffd7eb86fb34024ed9" title="This function inserts into a queue a element sorted by its priority lower number ( higher priority) t...">insert_PORDR</a>( <a class="code" href="structprocess.html">PCB</a> *PCBpointer, <a class="code" href="structroot.html">ROOT</a> *quequeROOT );
+<a name="l00080"></a>00080 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a58a3e3525ed6385f632835b55ab7d7d1" title="In this function we grow the queue to the right no matter of the Priority of the PCB.">insert_FIFO</a>( <a class="code" href="structprocess.html">PCB</a> *PCBpointer, <a class="code" href="structroot.html">ROOT</a> *quequeROOT);
+<a name="l00081"></a>00081 <a class="code" href="structprocess.html">PCB</a> *<a class="code" href="mpx__r2_8c.html#a612a6abcb66c688a32f33abc93ff3990" title="This function findes a PCB by its identifier (name) and returns a pointer to its structures location...">find_PCB</a>( <span class="keywordtype">char</span> *name);
+<a name="l00082"></a>00082 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a782285c58822e411fb75be1e65fe1104" title="This is a user function that interacts with the user to create a PCB structure.">mpxcmd_create_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00083"></a>00083 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae6d6afa9fefa158029528a24841c453a" title="This function preforms a deep copy of a PCB.">mpxcmd_delete_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00084"></a>00084 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae8eb72663ecff92c27ab06e3560fd0d4" title="This is a user function in the menu that puts a process in the blocked state it takes the process nam...">mpxcmd_block</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00085"></a>00085 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a1363a7b6156a84057936c3fd91d91f69" title="This is a user function in the menu that puts a process in the unblocked state it takes the process n...">mpxcmd_unblock</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00086"></a>00086 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a697f0f432dba18606d9e514eda9cd073" title="This is a user function in the menu that puts a process in the suspend state it takes the process nam...">mpxcmd_suspend</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00087"></a>00087 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a3c47daf087934d234d896e35e4c03f3b" title="This is a user function in the menu that puts a process in the ready state if previously blocked and ...">mpxcmd_resume</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00088"></a>00088 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a4505a685b9ab69940541dc4e973e0f01" title="This is a user function from the menu it changes the priority of a PCB and takes the name and desired...">mpxcmd_setPriority</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00089"></a>00089 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae52d77243725636a3b23d05235fee141" title="This is a user command from the menu it is used to show information about a specific PCB...">mpxcmd_show_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00090"></a>00090 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#a69559f93fe1b569abf6e846a426191a9" title="This is a user functions that shows name and state of all processes.">mpxcmd_showAll_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00091"></a>00091 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#aeaac6d37294f767e31c3789971c5ecd4" title="This is a user function that shows all non-suspended processes followed by suspended processes...">mpxcmd_showReady_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00092"></a>00092 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8c.html#ae1ef92a5e3a8869ec269a23b3b854c9b" title="This is a user function that shows all blocked processes followed by non-blocked processes.">mpxcmd_showBlocked_PCB</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]);
+<a name="l00093"></a>00093 <a class="code" href="structroot.html">ROOT</a> * <a class="code" href="mpx__r2_8h.html#a7de84381f99e7270debabbe96e3da1ee">getRQueue</a>();
+<a name="l00094"></a>00094 <a class="code" href="structroot.html">ROOT</a> * <a class="code" href="mpx__r2_8h.html#a953218d3a6a8c2db0695416696a155eb">getWSQueue</a>();
+<a name="l00095"></a>00095 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8h.html#a40b9c943f189ef9c55f67df7cc19dfa3">setRQueue</a>(<a class="code" href="structroot.html">ROOT</a> *<a class="code" href="structroot.html">root</a> );
+<a name="l00096"></a>00096 <span class="keywordtype">void</span> <a class="code" href="mpx__r2_8h.html#ad399528fdf03e1da81b6bace6dbb707a">setWSQueue</a>(<a class="code" href="structroot.html">ROOT</a> *<a class="code" href="structroot.html">root</a>);
+<a name="l00097"></a>00097 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Oct 12 2010 19:58:59 for PMOS Programmers Manual by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 10 2010 01:08:37 for PMOS Programmers Manual by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

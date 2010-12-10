@@ -131,12 +131,9 @@
 	}
 	/* This is a reaad interupt*/
 	void level2Read(){
-		char new;
-		char ret = '\r';
-		
-		new=inportb(BASE); //Read a character from the input register. 
-		if ( new != ret )
-		outportb(BASE, new);// ECHO BACK
+	
+	
+	
 		//If the current status is not reading, store the character in the ring buffer. 
 		if(dcbPtr.status != READ){
 			if(dcbPtr.ringbufcount != size){

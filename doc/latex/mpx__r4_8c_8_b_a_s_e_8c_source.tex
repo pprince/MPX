@@ -1,0 +1,105 @@
+\hypertarget{mpx__r4_8c_8_b_a_s_e_8c_source}{
+\section{src/mpx\_\-r4.c.BASE.c}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "dos.h"}
+00002 \textcolor{preprocessor}{#include "\hyperlink{mpx__cmd_8h}{mpx_cmd.h}"}
+00003 \textcolor{preprocessor}{#include "\hyperlink{mpx__util_8h}{mpx_util.h}"}
+00004 \textcolor{preprocessor}{#include "\hyperlink{mpx__r2_8h}{mpx_r2.h}"}
+00005 \textcolor{preprocessor}{#include "\hyperlink{_m_p_x___r3_8_h}{mpx_r3.h}"}
+00006 \textcolor{preprocessor}{#include "\hyperlink{mpx__r4_8h}{mpx_r4.h}"}
+00007 \textcolor{preprocessor}{#include "mpx\_supt.h"}
+00008 \textcolor{preprocessor}{#include "mystdlib.h"}
+00009 \textcolor{preprocessor}{#include <string.h>}
+00010 \textcolor{preprocessor}{#include <stdio.h>}
+00011 
+00012 \textcolor{keyword}{extern} \hyperlink{structroot}{ROOT} *\hyperlink{mpx__r2_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue}, *\hyperlink{mpx__r2_8c_ac4950750e25f86d7ee69d6bcca87ef5f}{wsQueue}; \textcolor{comment}{//link in the values for these in r2}
+\hypertarget{mpx__r4_8c_8_b_a_s_e_8c_source_l00013}{}\hyperlink{mpx__r4_8c_8_b_a_s_e_8c_a872ebd998619bdbaa3b905883e648502}{00013} \textcolor{keywordtype}{void} * \hyperlink{mpx__r4_8c_a872ebd998619bdbaa3b905883e648502}{loadAddr};
+\hypertarget{mpx__r4_8c_8_b_a_s_e_8c_source_l00014}{}\hyperlink{mpx__r4_8c_8_b_a_s_e_8c_a794e5f6c45d4d9b18fff6a530ce90f86}{00014} \textcolor{keywordtype}{void} \hyperlink{mpx__r4_8c_a794e5f6c45d4d9b18fff6a530ce90f86}{loadProgram}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])\{ \textcolor{comment}{//name,fileName,priority,path}
+00015         
+00016         \textcolor{keyword}{static} \textcolor{keywordtype}{int} count;
+00017         \hyperlink{structmem}{MEMDSC} *tempMem;
+00018         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temptop;
+00019         \textcolor{keywordtype}{char} *dir, *name, *filename;
+00020         \textcolor{keywordtype}{int} size,offset,priority;
+00021         \hyperlink{structcontext}{tcontext} *tempContext;
+00022         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *tempCS,*tempIP;
+00023         \hyperlink{structroot}{ROOT} *tempRQueue,*tempWSQueue;
+00024         \hyperlink{structstack}{STACKDSC} *temp;
+00025         
+00026         \textcolor{keywordtype}{int} err = 0;
+00027         \hyperlink{structprocess}{PCB} *newPCB = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+00028         tempMem=newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc};
+00029         dir = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(30 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));
+00030         name = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(30 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));
+00031         filename = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(30 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));
+00032         strcpy(dir,argv[4]);
+00033         strcpy(name,argv[1]);
+00034         strcpy(filename,argv[2]);
+00035         priority = atoi(argv[3]);
+00036         
+00037         err = sys\_check\_program(dir,filename,&size,&offset);
+00038         \textcolor{keywordflow}{if}((argc==5)||(127<=priority<=-128)&&( err==0))\{
+00039                 
+00040                 
+00041 
+00042               \textcolor{comment}{/*        if( count == ZERO )\{ //If first process allocate queue}
+00043 \textcolor{comment}{                        rQueue = (ROOT*) sys\_alloc\_mem(sizeof(ROOT));}
+00044 \textcolor{comment}{                        wsQueue = (ROOT*) sys\_alloc\_mem(sizeof(ROOT));}
+00045 \textcolor{comment}{                \}   */}
+00046 
+00047                 \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(newPCB,name,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY},priority);
+00048 
+00049 
+00050                 
+00051                 newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR}= sys\_alloc\_mem(size);;
+00052                 newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR}=newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR} + offset;\textcolor{comment}{// is 
+      this the correct address? }
+00053                 
+00054                 \textcolor{comment}{//make sure all registers are properly set}
+00055                 
+00056                 newPCB -> stackdsc-> top = newPCB -> stackdsc-> base + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} 
+      - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+00057                 
+00058                 tempContext = (\hyperlink{structcontext}{tcontext} *) (newPCB -> stackdsc-> top);
+00059                 tempContext ->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+00060                 tempContext ->DS = \_DS;
+00061                 tempContext ->CS = FP\_SEG(newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+00062                 tempContext ->IP = FP\_OFF(newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+00063                 tempContext ->FLAGS = 0x200;
+00064                 
+00065                 
+00066                  err = sys\_load\_program(newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR},size,dir,filenam
+      e);
+00067                 
+00068                 \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(newPCB);     
+00069                 count++;\textcolor{comment}{//Update the number of times the function has run.}
+00070                 
+00071         \}
+00072         \textcolor{keywordflow}{else}\{
+00073                 printf(\textcolor{stringliteral}{"Wrong or invalid arguments entered."});
+00074         \}
+00075 \}
+00076 
+\hypertarget{mpx__r4_8c_8_b_a_s_e_8c_source_l00077}{}\hyperlink{mpx__r4_8c_8_b_a_s_e_8c_aaa714b85ce262f949d018430daf6da00}{00077} \textcolor{keywordtype}{void} \hyperlink{mpx__r4_8c_aaa714b85ce262f949d018430daf6da00}{terminateProcess}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])\{
+00078 
+00079         \textcolor{keywordflow}{if} (argc == 2)\{
+00080                 \textcolor{keywordtype}{char} name[STRLEN];
+00081                 \hyperlink{structprocess}{PCB} *pointer;
+00082                 strcpy(name,argv[1]);
+00083                 pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+00084         
+00085                 \textcolor{keywordflow}{if} ( pointer != NULL)\{
+00086                         \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+00087                         \hyperlink{mpx__r2_8c_a79890f055b1d0fccf1962bbde4877caa}{free_PCB}(pointer);
+00088                 \}
+00089         \}
+00090         
+00091         \textcolor{keywordflow}{else}\{
+00092                 printf(\textcolor{stringliteral}{"Wrong arguments entered."});
+00093                 \textcolor{keywordflow}{return};
+00094         \}
+00095 \}
+00096 
+\end{DoxyCode}

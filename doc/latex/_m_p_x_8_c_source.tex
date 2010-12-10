@@ -1,0 +1,106 @@
+\hypertarget{_m_p_x_8_c_source}{
+\section{src/MPX.C}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/***********************************************************************}
+00002 \textcolor{comment}{        MPX: The MultiProgramming eXecutive}
+00003 \textcolor{comment}{        Project to Accompany}
+00004 \textcolor{comment}{        A Practical Approach to Operating Systems}
+00005 \textcolor{comment}{        Malcolm G. Lane & James D. Mooney}
+00006 \textcolor{comment}{        Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.}
+00007 \textcolor{comment}{}
+00008 \textcolor{comment}{        File Name:      mpx.c}
+00009 \textcolor{comment}{}
+00010 \textcolor{comment}{        Author: Nathaniel Clay and Nicholas Yanak}
+00011 \textcolor{comment}{        Version: 1.1}
+00012 \textcolor{comment}{        Date:  12/9/2010}
+00013 \textcolor{comment}{}
+00014 \textcolor{comment}{        Purpose: This is the startup program. It sets initial values}
+00015 \textcolor{comment}{        and then calls the dispatcher.}
+00016 \textcolor{comment}{}
+00017 \textcolor{comment}{                }
+00018 \textcolor{comment}{        Environment: Windows XP 32 bit}
+00019 \textcolor{comment}{}
+00020 \textcolor{comment}{************************************************************************/}
+00021 
+00022 \textcolor{preprocessor}{#include <dos.h>}
+00023 \textcolor{preprocessor}{#include "mpx\_supt.h"}
+00024 \textcolor{preprocessor}{#include "\hyperlink{mpx__util_8h}{mpx_util.h}"}
+00025 \textcolor{preprocessor}{#include "\hyperlink{mpx__cmd_8h}{mpx_cmd.h}"}
+00026 \textcolor{preprocessor}{#include "\hyperlink{mpx__r4_8h}{mpx_r4.h}"}
+00027 \textcolor{preprocessor}{#include "\hyperlink{_m_p_x___r3_8_h}{mpx_r3.h}"}
+00028 \textcolor{preprocessor}{#include "\hyperlink{mpx__r2_8h}{mpx_r2.h}"}
+00029 \textcolor{preprocessor}{#include "\hyperlink{_m_p_x___r5_8h}{mpx_r5.h}"}
+00030 \textcolor{preprocessor}{#include "\hyperlink{trmdrive_8h}{TRMDRIVE.H}"}
+00031 
+00032 
+\hypertarget{_m_p_x_8_c_source_l00038}{}\hyperlink{_m_p_x_8_c_acdef7a1fd863a6d3770c1268cb06add3}{00038} \textcolor{keywordtype}{void} \hyperlink{_m_p_x_8_c_acdef7a1fd863a6d3770c1268cb06add3}{main}()\{
+00039         \textcolor{keywordtype}{int} err;
+00040         \hyperlink{structprocess}{PCB} *command\_loop, *idlePCB;
+00041         \hyperlink{structstack}{STACKDSC} *command\_stack;
+00042         \hyperlink{structcontext}{tcontext} *command\_context;
+00043         \hyperlink{structcontext}{tcontext} *tempContext;
+00044         \textcolor{keywordtype}{char} dir[20] = \textcolor{stringliteral}{"proc"};
+00045         \textcolor{keywordtype}{char} name[20] = \textcolor{stringliteral}{"idle"};
+00046         \textcolor{keywordtype}{char} filename[20] = \textcolor{stringliteral}{"IDLE"};
+00047         \textcolor{keywordtype}{int} sizex,offset,priority;
+00048         \textcolor{keywordtype}{int} eventFlag, eventtFlag;
+00049         \textcolor{keywordtype}{char} command[20] = \textcolor{stringliteral}{"Command\_Hand"};
+00050         sys\_init( MODULE\_R4 ); \textcolor{comment}{//System initilization}
+00051         sys\_set\_vec(\hyperlink{mpx__r3_8c_abeb8ddb92acb8fa40e902b98f2a1ccfb}{sys_call});
+00052 
+00053         \textcolor{comment}{//Open Device Drivers}
+00054         \textcolor{comment}{//com\_open( (int *) eventFlag, 1200);}
+00055        \textcolor{comment}{//trm\_open(  (int *) eventtFlag );}
+00056 
+00057         \textcolor{comment}{// Command Handler loop insertion}
+00058         command\_loop = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+00059 
+00060         command\_stack = command\_loop -> stackdsc;
+00061 
+00062         command\_stack->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top} = command\_stack->\hyperlink{structstack_a1cdb71e486a79747d482aa46f6b10290}{base} + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+00063 
+00064         command\_context = (\hyperlink{structcontext}{tcontext}*) command\_stack->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top};
+00065 
+00066         command\_context->DS = \_DS;
+00067         command\_context->ES = \_ES;
+00068         command\_context->CS = FP\_SEG(&\hyperlink{_m_p_x___c_m_d_8_c_ab2f64c5ce0432edca230a87739501703}{mpx_command_loop});
+00069         command\_context->IP = FP\_OFF(&\hyperlink{_m_p_x___c_m_d_8_c_ab2f64c5ce0432edca230a87739501703}{mpx_command_loop});
+00070         command\_context->FLAGS = 0x200;
+00071 
+00072         \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(command\_loop,command,\hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY},-127);
+00073 
+00074         \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(command\_loop);
+00075 
+00076         \textcolor{comment}{//IDLE Process insertion}
+00077 
+00078         sys\_check\_program(dir,filename,&sizex,&offset);
+00079 
+00080         idlePCB = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+00081         \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(idlePCB,name,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY},127);
+00082 
+00083         idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR} = sys\_alloc\_mem(sizex);
+00084         idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR} = idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR} + offset;
+00085 
+00086         idlePCB->\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc}->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top} = idlePCB->\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc}->\hyperlink{structstack_a1cdb71e486a79747d482aa46f6b10290}{base} + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(
+      \hyperlink{structcontext}{tcontext});
+00087 
+00088         tempContext = (\hyperlink{structcontext}{tcontext} *) (idlePCB->\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc}->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top});
+00089         tempContext->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+00090         tempContext->DS = \_DS;
+00091         tempContext->CS = FP\_SEG(idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+00092         tempContext->IP = FP\_OFF(idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+00093         tempContext->FLAGS = 0x200;
+00094 
+00095         sys\_load\_program(idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR},sizex,dir,filename);
+00096 
+00097         \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(idlePCB);
+00098 
+00099 
+00100         \hyperlink{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{dispatch}();
+00101         printf(\textcolor{stringliteral}{"exit sucess"});
+00102         \textcolor{comment}{//mpxprompt\_anykey();}
+00103         sys\_exit();
+00104 \}
+\end{DoxyCode}

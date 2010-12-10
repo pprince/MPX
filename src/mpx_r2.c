@@ -25,8 +25,8 @@
 #include <string.h>
 #include <stdio.h>
 
-ROOT *rQueue=NULL; ///< declaring null roots for initial start of linked lists
-ROOT *wsQueue=NULL;
+ROOT *rQueue=NULL; ///< The varable for the Ready Queue root.
+ROOT *wsQueue=NULL;///< The varable for the Wait State Queue root.
 
 
 

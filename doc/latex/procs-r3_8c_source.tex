@@ -1,0 +1,204 @@
+\hypertarget{procs-r3_8c_source}{
+\section{src/procs-\/r3.c}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/***********************************************************}
+00002 \textcolor{comment}{        MPX: The MultiProgramming eXecutive}
+00003 \textcolor{comment}{        Project to Accompany}
+00004 \textcolor{comment}{        A Practical Approach to Operating Systems}
+00005 \textcolor{comment}{        Malcolm G. Lane & James D. Mooney}
+00006 \textcolor{comment}{        Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.}
+00007 \textcolor{comment}{}
+00008 \textcolor{comment}{        File Name: procs-r3.c}
+00009 \textcolor{comment}{}
+00010 \textcolor{comment}{        Author: M.G.Lane, J. Mooney}
+00011 \textcolor{comment}{        Version: 2.0}
+00012 \textcolor{comment}{        Date: 01/03/93}
+00013 \textcolor{comment}{}
+00014 \textcolor{comment}{        Purpose: Process Management command procedures}
+00015 \textcolor{comment}{}
+00016 \textcolor{comment}{}
+00017 \textcolor{comment}{        Environments: This file is system independent.}
+00018 \textcolor{comment}{                }
+00019 \textcolor{comment}{        Procedures:}
+00020 \textcolor{comment}{                             test1\_R3 - test process}
+00021 \textcolor{comment}{                             test2\_R3 - test process}
+00022 \textcolor{comment}{                             test3\_R3 - test process}
+00023 \textcolor{comment}{                             test4\_R3 - test process}
+00024 \textcolor{comment}{                             test5\_R3 - test process}
+00025 \textcolor{comment}{}
+00026 \textcolor{comment}{*****************************************************************************}
+00027 \textcolor{comment}{}
+00028 \textcolor{comment}{  Change Log:}
+00029 \textcolor{comment}{}
+00030 \textcolor{comment}{        05/16/88  mgl   Initial Version}
+00031 \textcolor{comment}{        07/17/88  mgl   Final documentation changes}
+00032 \textcolor{comment}{        08/13/92  jdm   Update for Version 2.0}
+00033 \textcolor{comment}{        12/23/92  jdm   Revised count values}
+00034 \textcolor{comment}{        12/28/92  jdm   changed file name, moved to support}
+00035 \textcolor{comment}{        01/03/93  jdm   changed test procedure names}
+00036 \textcolor{comment}{}
+00037 \textcolor{comment}{*****************************************************************************/}
+00038 
+00039 \textcolor{preprocessor}{#include "mpx\_supt.h"}
+00040 
+00041 \textcolor{comment}{/* loop counts */}
+00042 
+\hypertarget{procs-r3_8c_source_l00043}{}\hyperlink{procs-r3_8c_a69bb368d802d94815d8480c1196eb868}{00043} \textcolor{preprocessor}{#define RC\_1 1}
+\hypertarget{procs-r3_8c_source_l00044}{}\hyperlink{procs-r3_8c_aecb625779f85a782d04475c4fb74ebc5}{00044} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define RC\_2 2}
+\hypertarget{procs-r3_8c_source_l00045}{}\hyperlink{procs-r3_8c_acf180d856b90414b8bed369054fcd763}{00045} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define RC\_3 3}
+\hypertarget{procs-r3_8c_source_l00046}{}\hyperlink{procs-r3_8c_ac76d64b147c7d9537915e51c7dc02bc1}{00046} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define RC\_4 4}
+\hypertarget{procs-r3_8c_source_l00047}{}\hyperlink{procs-r3_8c_acba6a931785dc419ad6337bc9c1a24f8}{00047} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define RC\_5 5}
+00048 \textcolor{preprocessor}{}
+00049 
+00050 
+00051 
+00052 
+00053 
+00054 \textcolor{comment}{/*}
+00055 \textcolor{comment}{        Procedures: testx\_R3 (x = 1, 2, 3, 4, 5)}
+00056 \textcolor{comment}{}
+00057 \textcolor{comment}{        Purpose: test processes for Module R3}
+00058 \textcolor{comment}{}
+00059 \textcolor{comment}{}
+00060 \textcolor{comment}{        Parameters: none        }
+00061 \textcolor{comment}{}
+00062 \textcolor{comment}{        Return value: none}
+00063 \textcolor{comment}{}
+00064 \textcolor{comment}{        Calls:  sys\_req}
+00065 \textcolor{comment}{                printf}
+00066 \textcolor{comment}{}
+00067 \textcolor{comment}{        Globals: none}
+00068 \textcolor{comment}{}
+00069 \textcolor{comment}{        Algorithm:}
+00070 \textcolor{comment}{}
+00071 \textcolor{comment}{           Each process prints a message to the screen and gives up}
+00072 \textcolor{comment}{           control to the dispatcher using sys\_req.  Each process}
+00073 \textcolor{comment}{           loops a certain number of times, displaying a message to}
+00074 \textcolor{comment}{           the screen inside the loop.  (test1 loops 5 times, test2}
+00075 \textcolor{comment}{           loops 10, test3 loops 15, test4 loops 20, and test5 loops}
+00076 \textcolor{comment}{           25 times).  Each test process eventually requests}
+00077 \textcolor{comment}{           termination.  If a dispatcher dispatches a test process}
+00078 \textcolor{comment}{           after it requested termination, it prints a message}
+00079 \textcolor{comment}{           indicating so, and the process starts over.}
+00080 \textcolor{comment}{*/}
+00081 
+00082 
+\hypertarget{procs-r3_8c_source_l00083}{}\hyperlink{procs-r3_8c_ae4496e9c01adc7562ce34516c13226a0}{00083} \textcolor{keywordtype}{void} \hyperlink{procs-r3_8c_ae4496e9c01adc7562ce34516c13226a0}{test1_R3}()
+00084 \{
+00085         \textcolor{keywordtype}{int} ix; \textcolor{comment}{/* loop index */}
+00086         
+00087         \textcolor{comment}{/* repeat forever if termination fails */}
+00088         \textcolor{keywordflow}{while} (TRUE) \{
+00089 
+00090                 \textcolor{comment}{/* loop for the prescribed number of times */}
+00091                 \textcolor{keywordflow}{for} (ix=1; ix <= RC\_1; ix++) \{
+00092 
+00093                         \textcolor{comment}{/* give up control to the dispatcher */}
+00094                         printf(\textcolor{stringliteral}{"test1 dispatched; loop count = %d\(\backslash\)n"},ix);
+00095                         sys\_req(\hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}, NO\_DEV, NULL, 0);
+00096                 \}
+00097 
+00098                 \textcolor{comment}{/* request termination */}
+00099                 sys\_req(EXIT, NO\_DEV, NULL, 0);
+00100 
+00101                 \textcolor{comment}{/* display error message if dispatched again */}
+00102                 printf (\textcolor{stringliteral}{"test1 dispatched after it exited!!!\(\backslash\)n"});
+00103         \}
+00104  \}
+00105 
+\hypertarget{procs-r3_8c_source_l00106}{}\hyperlink{procs-r3_8c_ab61a49e4507b3dba1bfad0cc9510d0a6}{00106} \textcolor{keywordtype}{void} \hyperlink{procs-r3_8c_ab61a49e4507b3dba1bfad0cc9510d0a6}{test2_R3}()
+00107 \{
+00108         \textcolor{keywordtype}{int} ix; \textcolor{comment}{/* loop index */}
+00109         
+00110         \textcolor{comment}{/* repeat forever if termination fails */}
+00111         \textcolor{keywordflow}{while} (TRUE) \{
+00112 
+00113                 \textcolor{comment}{/* loop for the prescribed number of times */}
+00114                 \textcolor{keywordflow}{for} (ix=1; ix <= RC\_2; ix++) \{
+00115 
+00116                         \textcolor{comment}{/* give up control to the dispatcher */}
+00117                         printf(\textcolor{stringliteral}{"test2 dispatched; loop count = %d\(\backslash\)n"},ix);
+00118                         sys\_req(\hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}, NO\_DEV, NULL, 0);
+00119                 \}
+00120 
+00121                 \textcolor{comment}{/* request termination */}
+00122                 sys\_req(EXIT, NO\_DEV, NULL, 0);
+00123 
+00124                 \textcolor{comment}{/* display error message if dispatched again */}
+00125                 printf (\textcolor{stringliteral}{"test2 dispatched after it exited!!!\(\backslash\)n"});
+00126         \}
+00127  \}
+00128 
+\hypertarget{procs-r3_8c_source_l00129}{}\hyperlink{procs-r3_8c_a453a58ecc6482a24bf02e7caf67aa41a}{00129} \textcolor{keywordtype}{void} \hyperlink{procs-r3_8c_a453a58ecc6482a24bf02e7caf67aa41a}{test3_R3}()
+00130 \{
+00131         \textcolor{keywordtype}{int} ix; \textcolor{comment}{/* loop index */}
+00132         
+00133         \textcolor{comment}{/* repeat forever if termination fails */}
+00134         \textcolor{keywordflow}{while} (TRUE) \{
+00135 
+00136                 \textcolor{comment}{/* loop for the prescribed number of times */}
+00137                 \textcolor{keywordflow}{for} (ix=1; ix <= RC\_3; ix++) \{
+00138 
+00139                         \textcolor{comment}{/* give up control to the dispatcher */}
+00140                         printf(\textcolor{stringliteral}{"test3 dispatched; loop count = %d\(\backslash\)n"},ix);
+00141                         sys\_req(\hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}, NO\_DEV, NULL, 0);
+00142                 \}
+00143 
+00144                 \textcolor{comment}{/* request termination */}
+00145                 sys\_req(EXIT, NO\_DEV, NULL, 0);
+00146 
+00147                 \textcolor{comment}{/* display error message if dispatched again */}
+00148                 printf (\textcolor{stringliteral}{"test3 dispatched after it exited!!!\(\backslash\)n"});
+00149         \}
+00150  \}
+00151 
+\hypertarget{procs-r3_8c_source_l00152}{}\hyperlink{procs-r3_8c_aaa737ca092fa5d35b33665401852fb7b}{00152} \textcolor{keywordtype}{void} \hyperlink{procs-r3_8c_aaa737ca092fa5d35b33665401852fb7b}{test4_R3}()
+00153 \{
+00154         \textcolor{keywordtype}{int} ix; \textcolor{comment}{/* loop index */}
+00155         
+00156         \textcolor{comment}{/* repeat forever if termination fails */}
+00157         \textcolor{keywordflow}{while} (TRUE) \{
+00158 
+00159                 \textcolor{comment}{/* loop for the prescribed number of times */}
+00160                 \textcolor{keywordflow}{for} (ix=1; ix <= RC\_4; ix++) \{
+00161 
+00162                         \textcolor{comment}{/* give up control to the dispatcher */}
+00163                         printf(\textcolor{stringliteral}{"test4 dispatched; loop count = %d\(\backslash\)n"},ix);
+00164                         sys\_req(\hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}, NO\_DEV, NULL, 0);
+00165                 \}
+00166 
+00167                 \textcolor{comment}{/* request termination */}
+00168                 sys\_req(EXIT, NO\_DEV, NULL, 0);
+00169 
+00170                 \textcolor{comment}{/* display error message if dispatched again */}
+00171                 printf (\textcolor{stringliteral}{"test4 dispatched after it exited!!!\(\backslash\)n"});
+00172         \}
+00173  \}
+00174 
+\hypertarget{procs-r3_8c_source_l00175}{}\hyperlink{procs-r3_8c_abe909889e9cb85d683914b291867a6e6}{00175} \textcolor{keywordtype}{void} \hyperlink{procs-r3_8c_abe909889e9cb85d683914b291867a6e6}{test5_R3}()
+00176 \{
+00177         \textcolor{keywordtype}{int} ix; \textcolor{comment}{/* loop index */}
+00178         
+00179         \textcolor{comment}{/* repeat forever if termination fails */}
+00180         \textcolor{keywordflow}{while} (TRUE) \{
+00181 
+00182                 \textcolor{comment}{/* loop for the prescribed number of times */}
+00183                 \textcolor{keywordflow}{for} (ix=1; ix <= RC\_5; ix++) \{
+00184 
+00185                         \textcolor{comment}{/* give up control to the dispatcher */}
+00186                         printf(\textcolor{stringliteral}{"test5 dispatched; loop count = %d\(\backslash\)n"},ix);
+00187                         sys\_req(\hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}, NO\_DEV, NULL, 0);
+00188                 \}
+00189 
+00190                 \textcolor{comment}{/* request termination */}
+00191                 sys\_req(EXIT, NO\_DEV, NULL, 0);
+00192 
+00193                 \textcolor{comment}{/* display error message if dispatched again */}
+00194                 printf (\textcolor{stringliteral}{"test5 dispatched after it exited!!!\(\backslash\)n"});
+00195         \}
+00196  \}
+00197 
+00198 \textcolor{comment}{/* END OF FILE */}
+\end{DoxyCode}

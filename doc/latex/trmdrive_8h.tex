@@ -1,0 +1,278 @@
+\hypertarget{trmdrive_8h}{
+\section{src/trmdrive.h File Reference}
+\label{trmdrive_8h}\index{src/trmdrive.h@{src/trmdrive.h}}
+}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{trmdrive_8h_a4cf9f35af3ffda71ffb9eef6f3ac9d52}{ERR\_\-TRM\_\-OP\_\-INVEFP}~(-\/101)
+\item 
+\#define \hyperlink{trmdrive_8h_aa972fb46ff1456a5b14a87df4d951f9c}{ERR\_\-TRM\_\-OP\_\-ALROPN}~(-\/102)
+\item 
+\#define \hyperlink{trmdrive_8h_aa690cb6d0876fcaacd02349985603865}{ERR\_\-TRM\_\-OP\_\-OPFAIL}~(-\/103)
+\item 
+\#define \hyperlink{trmdrive_8h_a6e8307d1f4ea25f3de1c116588bd2687}{ERR\_\-TRM\_\-CL\_\-NOTOPN}~(-\/201)
+\item 
+\#define \hyperlink{trmdrive_8h_ab39b0610b72802dee7b107f07441c567}{ERR\_\-TRM\_\-CL\_\-CLFAIL}~(-\/202)
+\item 
+\#define \hyperlink{trmdrive_8h_acd7f66a8b5804b680e88c57fdb9f5c8b}{ERR\_\-TRM\_\-RD\_\-NOTOPN}~(-\/301)
+\item 
+\#define \hyperlink{trmdrive_8h_abe5aa098b0bfd36bdd58d3144c6b744c}{ERR\_\-TRM\_\-RD\_\-INVBUF}~(-\/302)
+\item 
+\#define \hyperlink{trmdrive_8h_a5ec87cfe72b9788e814e4e990215e996}{ERR\_\-TRM\_\-RD\_\-INVCNT}~(-\/303)
+\item 
+\#define \hyperlink{trmdrive_8h_ae21f21acb228f04036e1f98920cd81f1}{ERR\_\-TRM\_\-RD\_\-DVBUSY}~(-\/304)
+\item 
+\#define \hyperlink{trmdrive_8h_a3c10e11f4e0cf603833fb7e5ea0899f1}{ERR\_\-TRM\_\-WR\_\-NOTOPN}~(-\/401)
+\item 
+\#define \hyperlink{trmdrive_8h_a2b8ca84261c888152c1534d4255cc1bb}{ERR\_\-TRM\_\-WR\_\-INVBUF}~(-\/402)
+\item 
+\#define \hyperlink{trmdrive_8h_a2135b20688c1210a7c0dcc12b6766435}{ERR\_\-TRM\_\-WR\_\-INVCNT}~(-\/403)
+\item 
+\#define \hyperlink{trmdrive_8h_ad0bb37a6e62d86a8b69f4ac6593c4375}{ERR\_\-TRM\_\-WR\_\-DVBUSY}~(-\/404)
+\item 
+\#define \hyperlink{trmdrive_8h_a5e245d8c878f1c2db3d67e26bf79c614}{ERR\_\-TRM\_\-XY\_\-INVPOS}~(-\/601)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{trmdrive_8h_aee9fd9776a799025c31cffe736facb3f}{trm\_\-open} (int $\ast$ef\_\-p)
+\item 
+int \hyperlink{trmdrive_8h_ae63092252bd7a24cbaacad2fef6332d2}{trm\_\-close} (void)
+\item 
+int \hyperlink{trmdrive_8h_a3de0bf4ec770b397e43b734abd993ce3}{trm\_\-read} (char $\ast$buf\_\-p, int $\ast$count\_\-p)
+\item 
+void \hyperlink{trmdrive_8h_a0b41209d0a7740637f03d4033f9ac339}{trm\_\-getc} (void)
+\item 
+int \hyperlink{trmdrive_8h_a348ab00f7a4abfced31c928644335fb6}{trm\_\-write} (char $\ast$buf\_\-p, int $\ast$count\_\-p)
+\item 
+int \hyperlink{trmdrive_8h_ae586641189b36f988e24e938899d2dee}{trm\_\-clear} (void)
+\item 
+int \hyperlink{trmdrive_8h_ace638fe5b8176ecc1997df1486d6ee09}{trm\_\-gotoxy} (int xpos, int ypos)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{trmdrive_8h_ab39b0610b72802dee7b107f07441c567}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-CL\_\-CLFAIL@{ERR\_\-TRM\_\-CL\_\-CLFAIL}}
+\index{ERR\_\-TRM\_\-CL\_\-CLFAIL@{ERR\_\-TRM\_\-CL\_\-CLFAIL}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-CL\_\-CLFAIL}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-CL\_\-CLFAIL~(-\/202)}}
+\label{trmdrive_8h_ab39b0610b72802dee7b107f07441c567}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00039}{39} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_a6e8307d1f4ea25f3de1c116588bd2687}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-CL\_\-NOTOPN@{ERR\_\-TRM\_\-CL\_\-NOTOPN}}
+\index{ERR\_\-TRM\_\-CL\_\-NOTOPN@{ERR\_\-TRM\_\-CL\_\-NOTOPN}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-CL\_\-NOTOPN}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-CL\_\-NOTOPN~(-\/201)}}
+\label{trmdrive_8h_a6e8307d1f4ea25f3de1c116588bd2687}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00038}{38} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_aa972fb46ff1456a5b14a87df4d951f9c}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-OP\_\-ALROPN@{ERR\_\-TRM\_\-OP\_\-ALROPN}}
+\index{ERR\_\-TRM\_\-OP\_\-ALROPN@{ERR\_\-TRM\_\-OP\_\-ALROPN}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-OP\_\-ALROPN}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-OP\_\-ALROPN~(-\/102)}}
+\label{trmdrive_8h_aa972fb46ff1456a5b14a87df4d951f9c}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00035}{35} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_a4cf9f35af3ffda71ffb9eef6f3ac9d52}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-OP\_\-INVEFP@{ERR\_\-TRM\_\-OP\_\-INVEFP}}
+\index{ERR\_\-TRM\_\-OP\_\-INVEFP@{ERR\_\-TRM\_\-OP\_\-INVEFP}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-OP\_\-INVEFP}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-OP\_\-INVEFP~(-\/101)}}
+\label{trmdrive_8h_a4cf9f35af3ffda71ffb9eef6f3ac9d52}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00034}{34} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_aa690cb6d0876fcaacd02349985603865}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-OP\_\-OPFAIL@{ERR\_\-TRM\_\-OP\_\-OPFAIL}}
+\index{ERR\_\-TRM\_\-OP\_\-OPFAIL@{ERR\_\-TRM\_\-OP\_\-OPFAIL}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-OP\_\-OPFAIL}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-OP\_\-OPFAIL~(-\/103)}}
+\label{trmdrive_8h_aa690cb6d0876fcaacd02349985603865}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00036}{36} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_ae21f21acb228f04036e1f98920cd81f1}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-RD\_\-DVBUSY@{ERR\_\-TRM\_\-RD\_\-DVBUSY}}
+\index{ERR\_\-TRM\_\-RD\_\-DVBUSY@{ERR\_\-TRM\_\-RD\_\-DVBUSY}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-RD\_\-DVBUSY}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-RD\_\-DVBUSY~(-\/304)}}
+\label{trmdrive_8h_ae21f21acb228f04036e1f98920cd81f1}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00044}{44} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_abe5aa098b0bfd36bdd58d3144c6b744c}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-RD\_\-INVBUF@{ERR\_\-TRM\_\-RD\_\-INVBUF}}
+\index{ERR\_\-TRM\_\-RD\_\-INVBUF@{ERR\_\-TRM\_\-RD\_\-INVBUF}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-RD\_\-INVBUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-RD\_\-INVBUF~(-\/302)}}
+\label{trmdrive_8h_abe5aa098b0bfd36bdd58d3144c6b744c}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00042}{42} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_a5ec87cfe72b9788e814e4e990215e996}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-RD\_\-INVCNT@{ERR\_\-TRM\_\-RD\_\-INVCNT}}
+\index{ERR\_\-TRM\_\-RD\_\-INVCNT@{ERR\_\-TRM\_\-RD\_\-INVCNT}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-RD\_\-INVCNT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-RD\_\-INVCNT~(-\/303)}}
+\label{trmdrive_8h_a5ec87cfe72b9788e814e4e990215e996}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00043}{43} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_acd7f66a8b5804b680e88c57fdb9f5c8b}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-RD\_\-NOTOPN@{ERR\_\-TRM\_\-RD\_\-NOTOPN}}
+\index{ERR\_\-TRM\_\-RD\_\-NOTOPN@{ERR\_\-TRM\_\-RD\_\-NOTOPN}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-RD\_\-NOTOPN}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-RD\_\-NOTOPN~(-\/301)}}
+\label{trmdrive_8h_acd7f66a8b5804b680e88c57fdb9f5c8b}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00041}{41} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_ad0bb37a6e62d86a8b69f4ac6593c4375}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-WR\_\-DVBUSY@{ERR\_\-TRM\_\-WR\_\-DVBUSY}}
+\index{ERR\_\-TRM\_\-WR\_\-DVBUSY@{ERR\_\-TRM\_\-WR\_\-DVBUSY}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-WR\_\-DVBUSY}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-WR\_\-DVBUSY~(-\/404)}}
+\label{trmdrive_8h_ad0bb37a6e62d86a8b69f4ac6593c4375}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00049}{49} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_a2b8ca84261c888152c1534d4255cc1bb}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-WR\_\-INVBUF@{ERR\_\-TRM\_\-WR\_\-INVBUF}}
+\index{ERR\_\-TRM\_\-WR\_\-INVBUF@{ERR\_\-TRM\_\-WR\_\-INVBUF}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-WR\_\-INVBUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-WR\_\-INVBUF~(-\/402)}}
+\label{trmdrive_8h_a2b8ca84261c888152c1534d4255cc1bb}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00047}{47} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_a2135b20688c1210a7c0dcc12b6766435}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-WR\_\-INVCNT@{ERR\_\-TRM\_\-WR\_\-INVCNT}}
+\index{ERR\_\-TRM\_\-WR\_\-INVCNT@{ERR\_\-TRM\_\-WR\_\-INVCNT}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-WR\_\-INVCNT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-WR\_\-INVCNT~(-\/403)}}
+\label{trmdrive_8h_a2135b20688c1210a7c0dcc12b6766435}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00048}{48} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_a3c10e11f4e0cf603833fb7e5ea0899f1}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-WR\_\-NOTOPN@{ERR\_\-TRM\_\-WR\_\-NOTOPN}}
+\index{ERR\_\-TRM\_\-WR\_\-NOTOPN@{ERR\_\-TRM\_\-WR\_\-NOTOPN}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-WR\_\-NOTOPN}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-WR\_\-NOTOPN~(-\/401)}}
+\label{trmdrive_8h_a3c10e11f4e0cf603833fb7e5ea0899f1}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00046}{46} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+\hypertarget{trmdrive_8h_a5e245d8c878f1c2db3d67e26bf79c614}{
+\index{trmdrive.h@{trmdrive.h}!ERR\_\-TRM\_\-XY\_\-INVPOS@{ERR\_\-TRM\_\-XY\_\-INVPOS}}
+\index{ERR\_\-TRM\_\-XY\_\-INVPOS@{ERR\_\-TRM\_\-XY\_\-INVPOS}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{ERR\_\-TRM\_\-XY\_\-INVPOS}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERR\_\-TRM\_\-XY\_\-INVPOS~(-\/601)}}
+\label{trmdrive_8h_a5e245d8c878f1c2db3d67e26bf79c614}
+
+
+Definition at line \hyperlink{trmdrive_8h_source_l00051}{51} of file \hyperlink{trmdrive_8h_source}{trmdrive.h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{trmdrive_8h_ae586641189b36f988e24e938899d2dee}{
+\index{trmdrive.h@{trmdrive.h}!trm\_\-clear@{trm\_\-clear}}
+\index{trm\_\-clear@{trm\_\-clear}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{trm\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}int trm\_\-clear (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{trmdrive_8h_ae586641189b36f988e24e938899d2dee}
+
+
+Definition at line \hyperlink{trmdrive_8c_source_l00393}{393} of file \hyperlink{trmdrive_8c_source}{trmdrive.c}.
+
+\hypertarget{trmdrive_8h_ae63092252bd7a24cbaacad2fef6332d2}{
+\index{trmdrive.h@{trmdrive.h}!trm\_\-close@{trm\_\-close}}
+\index{trm\_\-close@{trm\_\-close}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{trm\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int trm\_\-close (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{trmdrive_8h_ae63092252bd7a24cbaacad2fef6332d2}
+
+
+Definition at line \hyperlink{trmdrive_8c_source_l00235}{235} of file \hyperlink{trmdrive_8c_source}{trmdrive.c}.
+
+\hypertarget{trmdrive_8h_a0b41209d0a7740637f03d4033f9ac339}{
+\index{trmdrive.h@{trmdrive.h}!trm\_\-getc@{trm\_\-getc}}
+\index{trm\_\-getc@{trm\_\-getc}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{trm\_\-getc}]{\setlength{\rightskip}{0pt plus 5cm}void trm\_\-getc (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{trmdrive_8h_a0b41209d0a7740637f03d4033f9ac339}
+
+
+Definition at line \hyperlink{trmdrive_8c_source_l00480}{480} of file \hyperlink{trmdrive_8c_source}{trmdrive.c}.
+
+\hypertarget{trmdrive_8h_ace638fe5b8176ecc1997df1486d6ee09}{
+\index{trmdrive.h@{trmdrive.h}!trm\_\-gotoxy@{trm\_\-gotoxy}}
+\index{trm\_\-gotoxy@{trm\_\-gotoxy}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{trm\_\-gotoxy}]{\setlength{\rightskip}{0pt plus 5cm}int trm\_\-gotoxy (
+\begin{DoxyParamCaption}
+\item[{int}]{ xpos, }
+\item[{int}]{ ypos}
+\end{DoxyParamCaption}
+)}}
+\label{trmdrive_8h_ace638fe5b8176ecc1997df1486d6ee09}
+
+
+Definition at line \hyperlink{trmdrive_8c_source_l00422}{422} of file \hyperlink{trmdrive_8c_source}{trmdrive.c}.
+
+\hypertarget{trmdrive_8h_aee9fd9776a799025c31cffe736facb3f}{
+\index{trmdrive.h@{trmdrive.h}!trm\_\-open@{trm\_\-open}}
+\index{trm\_\-open@{trm\_\-open}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{trm\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}int trm\_\-open (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ ef\_\-p}
+\end{DoxyParamCaption}
+)}}
+\label{trmdrive_8h_aee9fd9776a799025c31cffe736facb3f}
+
+
+Definition at line \hyperlink{trmdrive_8c_source_l00176}{176} of file \hyperlink{trmdrive_8c_source}{trmdrive.c}.
+
+\hypertarget{trmdrive_8h_a3de0bf4ec770b397e43b734abd993ce3}{
+\index{trmdrive.h@{trmdrive.h}!trm\_\-read@{trm\_\-read}}
+\index{trm\_\-read@{trm\_\-read}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{trm\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}int trm\_\-read (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ buf\_\-p, }
+\item[{int $\ast$}]{ count\_\-p}
+\end{DoxyParamCaption}
+)}}
+\label{trmdrive_8h_a3de0bf4ec770b397e43b734abd993ce3}
+
+
+Definition at line \hyperlink{trmdrive_8c_source_l00282}{282} of file \hyperlink{trmdrive_8c_source}{trmdrive.c}.
+
+\hypertarget{trmdrive_8h_a348ab00f7a4abfced31c928644335fb6}{
+\index{trmdrive.h@{trmdrive.h}!trm\_\-write@{trm\_\-write}}
+\index{trm\_\-write@{trm\_\-write}!trmdrive.h@{trmdrive.h}}
+\subsubsection[{trm\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}int trm\_\-write (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ buf\_\-p, }
+\item[{int $\ast$}]{ count\_\-p}
+\end{DoxyParamCaption}
+)}}
+\label{trmdrive_8h_a348ab00f7a4abfced31c928644335fb6}
+
+
+Definition at line \hyperlink{trmdrive_8c_source_l00331}{331} of file \hyperlink{trmdrive_8c_source}{trmdrive.c}.
+

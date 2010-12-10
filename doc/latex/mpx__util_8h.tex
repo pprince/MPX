@@ -252,7 +252,7 @@ Definition at line \hyperlink{mpx__util_8c_source_l00088}{88} of file \hyperlink
                                                                                  
                                                                     \{
         \textcolor{keywordtype}{int} local\_buflen = buflen;
-        sys\_req(READ, TERMINAL, buffer, &local\_buflen);
+        sys\_req(\hyperlink{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{READ}, TERMINAL, buffer, &local\_buflen);
 
         \textcolor{comment}{/* remove newline from end of string. */}
         \textcolor{keywordflow}{if}( buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)n'} || buffer[strlen(buffer)-1] == \textcolor{charliteral}{'\(\backslash\)r'} 
@@ -289,7 +289,7 @@ Definition at line \hyperlink{mpx__util_8c_source_l00071}{71} of file \hyperlink
         \textcolor{keywordtype}{int} buflen = 3;
         \textcolor{keywordtype}{char} buf[5];
         buf[0] = \textcolor{charliteral}{' '};
-        sys\_req(READ, TERMINAL, buf, &buflen);
+        sys\_req(\hyperlink{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{READ}, TERMINAL, buf, &buflen);
         \textcolor{keywordflow}{return} buf[0];
 \}
 \end{DoxyCode}
