@@ -1,3 +1,24 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	mpx_cmd.c
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: Contains functions and supporting code available in the
+	main menu of PMOS.
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************
+
 #include "mpx_supt.h"
 #include "mpx_cmd.h"
 #include "mpx_util.h"
@@ -36,11 +57,11 @@ void mpx_add_command( char *cmd_name, void(*cmd_function)(int argc, char *argv[]
 	command->next = NULL;
 
 	/* add the command to the global list of commands. */
-	if ( cmd_head == NULL ) {
+	if ( cmd_head == NULL ) { ///< simply adds if list empty
 		cmd_head = command;
 	} else {
 		mpx_cmd_t *last_command = cmd_head;
-		while ( last_command->next != NULL ) {
+		while ( last_command->next != NULL ) { ///< traverses list until end is reached then adds
 			last_command = last_command->next;
 		}
 		last_command->next = command;
@@ -91,12 +112,12 @@ int mpx_command_loop (void) {
 
 		mpx_readline(cmd_line, MAX_LINE-1);	
 
-		cmd_argv[0] = strtok(cmd_line, " ");
+		cmd_argv[0] = strtok(cmd_line, " "); ///< takes first word of user input as the command 
 		cmd_argc++;
 
 		/* cmd_line is invalidated after this point; use cmd_argv[] instead. */
 
-		for(i=0; i<MAX_ARGS; i++){
+		for(i=0; i<MAX_ARGS; i++){ ///< goes through the user input and takes each word as a token for later use as arguments in command
 			cmd_argv[cmd_argc] = strtok(NULL, " ");
 			if( cmd_argv[cmd_argc] == NULL ){
 				break;
@@ -114,7 +135,7 @@ int mpx_command_loop (void) {
 		/* run the command function that the user requested,
 		 * or print an error message if it is not valid. */
 		command = cmd_head;
-		while (command != NULL) {
+		while (command != NULL) { ///< searches the list for a matching command
 			if ( strcmp(command->cmd_name, cmd_argv[0]) == 0 ) {
 				command->cmd_function( cmd_argc, cmd_argv );
 				break;
@@ -141,14 +162,14 @@ void mpxcmd_load (int argc, char *argv[]) {
 
 	mpx_cls();
 
-	if( sys_open_dir(NULL) != 0 ){
+	if( sys_open_dir(NULL) != 0 ){ ///< attempts to open the directory
 		printf("WARNING: Failed to open MPX directory!\n");
 		printf("%s", anykey_str); mpxprompt_anykey();
 		return;
 	}
 
 	mpx_pager_init("  Contents of MPX Directory (.mpx Files):\n  =======================================\n    SIZE        NAME\n    ----------  -------------------------------------------\n");
-	while( sys_get_entry(buf, 9, &file_size) == 0 ){
+	while( sys_get_entry(buf, 9, &file_size) == 0 ){ ///< gets a file and puts the name in buf until none left
 		/* snprintf(&line_buf, MAX_LINE, "    %10ld  %s", file_size, buf); */
 		sprintf(&line_buf, "    %10ld  %s", file_size, buf);
 		mpx_pager(&line_buf);
@@ -177,12 +198,12 @@ void mpxcmd_help(int argc, char *argv[]){
 
 	
 	if(argc==2){ // specific function help
-		fp=fopen(buffer,"r");
-		fseek(fp,0,SEEK_END);
-		fileSize=ftell(fp);
-		rewind(fp);
+		fp=fopen(buffer,"r"); ///< opens the file
+		fseek(fp,0,SEEK_END); ///< goes to the end of the file
+		fileSize=ftell(fp); ///< finds out the size of the file
+		rewind(fp); ///< returns to the beginning
 		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
-		data = fread (buffer,1,fileSize,fp);
+		data = fread (buffer,1,fileSize,fp); ///< writes to the buffer the prints out
 		
 		printf("%s",buffer);
 	}
@@ -222,7 +243,7 @@ void mpxcmd_version (int argc, char *argv[]) {
 	printf("                             *  Nathan Clay  *\n");
 	printf("\n");
 	printf("\n");
-	printf("  WVU Fall 2010 CS450 w/ Lec. Camille Hayhearst\n");
+	printf("  WVU Fall 2010 CS450 w/ Lec. Camille Hayhurst\n");
 
 	printf("%s", anykey_str); mpxprompt_anykey();
 	return;

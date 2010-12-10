@@ -82,7 +82,7 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 // removes process from memory
 void terminateProcess(int argc, char *argv[]){
 
-	if (argc == 2){
+	if (argc == 2){ // checks for args then searches for process
 		char name[STRLEN];
 		PCB *pointer;
 		strcpy(name,argv[1]);
