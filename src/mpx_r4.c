@@ -76,10 +76,6 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;// is this the correct address? 
 
 		
-		newPCB->memdsc->loadADDR= sys_alloc_mem(size);;
-		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;
-
-		
 		//make sure all registers are properly set
 		
 		newPCB -> stackdsc-> top = newPCB -> stackdsc-> base + STACKSIZE - sizeof(tcontext);

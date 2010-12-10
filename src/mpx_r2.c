@@ -328,7 +328,7 @@ PCB *find_PCB( char *name){
 	}
 
 }
-/** This function removes a pcb and dealocates its resouces takes in a pointer to a PCBs location. */
+/** This function removes a pcb queue. */
 void remove_PCB( PCB *process ){
 	ROOT *queue;
 	ELEM *incr; // traverses queue
@@ -454,6 +454,7 @@ void mpxcmd_delete_PCB(int argc, char *argv[]){
 	pointer = find_PCB(name);
 	
 	if ( pointer != NULL){
+		remove_PCB(pointer);
 		remove_PCB(pointer);
 	}else{
 		printf("Process Name not found!");
