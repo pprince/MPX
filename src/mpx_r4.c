@@ -20,7 +20,6 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 	int size,offset,priority;
 	tcontext *tempContext;
 	unsigned int *tempCS,*tempIP;
-	ROOT *tempRQueue,*tempWSQueue;
 	STACKDSC *temp;
 	
 	int err = 0;
@@ -49,7 +48,7 @@ void loadProgram(int argc, char *argv[]){ //name,fileName,priority,path
 
 		
 		newPCB->memdsc->loadADDR= sys_alloc_mem(size);;
-		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;// is this the correct address? 
+		newPCB->memdsc->execADDR=newPCB->memdsc->loadADDR + offset;
 		
 		//make sure all registers are properly set
 		

@@ -115,7 +115,7 @@
 #define MODULE_F	0x4000
 
 
-
+
 /* Type and structure definitions */
 
 typedef int flag;

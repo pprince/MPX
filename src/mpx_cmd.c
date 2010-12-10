@@ -209,13 +209,11 @@ void mpxcmd_version (int argc, char *argv[]) {
 	mpx_cls();
 	printf("\n");
 	printf("  ==============================================\n");
-	printf("  = MPX System Version R1 - September 17, 2010 =\n");
+	printf("  = MPX System Version R6 - December  8, 2010 =\n");
 	printf("  ==============================================\n");
 	printf("\n");
 	printf("      by the members of PERPETUAL MOTION SQUAD:\n");
 	printf("                        --------- ------ -----\n");
-	printf("\n");
-	printf("             *  Paul Prince  *\n");
 	printf("\n");
 	printf("                     *  Nicholas Yanak  *\n");
 	printf("\n");
@@ -330,6 +328,7 @@ void mpxcmd_exit (int argc, char *argv[]) {
 	printf("Are you sure you want to terminate MPX?\n");
 	if( mpxprompt_yn() ) {
 		printf("EXITING.\n");
-		sys_exit();
+		//sys_exit();
+		sys_req(EXIT, NO_DEV, NULL, 0);
 	}
 }

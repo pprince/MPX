@@ -16,6 +16,13 @@ unsigned char *buf_addr;
 int *cont_addr;
 } tparams;
 
+typedef struct IOCB {
+	char *name;
+	void ( funct *) (void); 
+	PCB * IO_OP;
+} IOCB;
+
+
 void interrupt sys_call(void);
 void interrupt dispatch(void);
 void mpxcmd_r3run(int argc, char *argv[]);

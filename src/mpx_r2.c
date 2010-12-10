@@ -8,18 +8,8 @@
 ROOT *rQueue=NULL;
 ROOT *wsQueue=NULL;
 
-ROOT *getRQueue(){
-    return rQueue;
-}
-ROOT *getWSQueue(){
-	return wsQueue;
-}
-void setRQueue( ROOT * root){
-	rQueue = root;	
-}
-void setWSQueue ( ROOT * root ) {
-	wsQueue = root;	
-}
+
+
 
 /** Allocates the memory for a new Process Control Block and returns 
 	the pointer to the new PCB location in memory.
