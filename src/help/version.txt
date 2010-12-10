@@ -1,1 +1,1 @@
-This command is used by typing "version". It shows detailed information about the current version of PMOS.
+This function is used by typing "version". It display detailed information about the current version of PMOS.

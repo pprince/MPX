@@ -1,0 +1,1 @@
+This function is used by typing "loadProc name fileName priority path" where name is the name you would like to give the process, the fileName is the name of the file to load, the priority is -128 to 127, and path is the location of the file you want to load into memory.

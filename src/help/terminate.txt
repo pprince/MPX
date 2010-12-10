@@ -1,0 +1,1 @@
+This function is used by typing "terminate name" where name is the process you would like to remove from memory.

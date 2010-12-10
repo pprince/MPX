@@ -1,1 +1,1 @@
-This function is used by typing "create". It will then prompt you for the name,type,and,priority. Where name is the name of the process, type is 0 for application 1 for system, and priority is a value from -128 to 127.
+This function is used by typing "show name" where name is the name of the function you wish to view info about.

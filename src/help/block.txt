@@ -1,1 +1,1 @@
-This function is used by typing "block name". Where name is the -process you want blocked.
+This function is used by typing "block name". Where name is the process you want blocked.
