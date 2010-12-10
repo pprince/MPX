@@ -1,3 +1,23 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	mpx_r4.c
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: Contains function and support for adding and removing programs 
+	into/from memory
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
 #include "dos.h"
 #include "mpx_cmd.h"
 #include "mpx_util.h"

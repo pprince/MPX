@@ -1,3 +1,24 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	mystdlib.h
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: fixes certain turbo c problems with strings
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
+
+
 /* MPX changes to stdlib.h:
  * 	1 - remove declarations of exit() which conflict with given mpx_supt.c
  */
