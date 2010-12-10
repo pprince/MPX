@@ -1,0 +1,55 @@
+\hypertarget{_m_p_x___r3_8_h_source}{
+\section{src/MPX\_\-R3.H}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/***********************************************************************}
+00002 \textcolor{comment}{        MPX: The MultiProgramming eXecutive}
+00003 \textcolor{comment}{        Project to Accompany}
+00004 \textcolor{comment}{        A Practical Approach to Operating Systems}
+00005 \textcolor{comment}{        Malcolm G. Lane & James D. Mooney}
+00006 \textcolor{comment}{        Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.}
+00007 \textcolor{comment}{}
+00008 \textcolor{comment}{        File Name:      mpx\_r3.h}
+00009 \textcolor{comment}{}
+00010 \textcolor{comment}{        Author: Nathaniel Clay and Nicholas Yanak}
+00011 \textcolor{comment}{        Version: 1.1}
+00012 \textcolor{comment}{        Date:  12/9/2010}
+00013 \textcolor{comment}{}
+00014 \textcolor{comment}{        Purpose: This is the header for r3}
+00015 \textcolor{comment}{}
+00016 \textcolor{comment}{                }
+00017 \textcolor{comment}{        Environment: Windows XP 32 bit}
+00018 \textcolor{comment}{}
+00019 \textcolor{comment}{************************************************************************/}
+00020 \textcolor{preprocessor}{#ifndef MPX\_R3\_HFILE}
+00021 \textcolor{preprocessor}{}\textcolor{preprocessor}{#define MPX\_R3\_HFILE}
+00022 \textcolor{preprocessor}{}
+\hypertarget{_m_p_x___r3_8_h_source_l00023}{}\hyperlink{_m_p_x___r3_8_h_aca4404f2715f3a392a0d6bc0d73c0da0}{00023} \textcolor{preprocessor}{#define SYS\_STACK\_SIZE 200}
+00024 \textcolor{preprocessor}{} 
+\hypertarget{_m_p_x___r3_8_h_source_l00025}{}\hyperlink{structcontext}{00025} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structcontext}{context} \{
+\hypertarget{_m_p_x___r3_8_h_source_l00026}{}\hyperlink{structcontext_a6b7fc81c19dfbd3a1438eb7738a712d8}{00026}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \hyperlink{structcontext_a036a2e025f269d00b084e69796f45680}{BP}, \hyperlink{structcontext_a71fd72ac821b4c932ad6f5befd4a5ea4}{DI}, \hyperlink{structcontext_a6b7fc81c19dfbd3a1438eb7738a712d8}{SI}, \hyperlink{structcontext_a657e73663a4443be61a078d31c28ee3e}{DS}, \hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES};
+\hypertarget{_m_p_x___r3_8_h_source_l00027}{}\hyperlink{structcontext_a520e6d1f4fcf543e914e536248da306e}{00027}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \hyperlink{structcontext_a520e6d1f4fcf543e914e536248da306e}{DX}, \hyperlink{structcontext_a7f06dbf351fa2b704708aadf139eb1d4}{CX}, \hyperlink{structcontext_acd2a72acb8e494afd3c30c3614e567ee}{BX}, \hyperlink{structcontext_ac566b46485abbfc32ce69987dfbd0d1f}{AX};
+\hypertarget{_m_p_x___r3_8_h_source_l00028}{}\hyperlink{structcontext_a02ac427e75af0dfe7d649dc8821cde0a}{00028}         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \hyperlink{structcontext_a02ac427e75af0dfe7d649dc8821cde0a}{IP}, \hyperlink{structcontext_a0b41903d1fa3b4e1ce892f59480323b5}{CS}, \hyperlink{structcontext_a251dc5ae40a989bef945d2df6925f9a3}{FLAGS};
+00029 \} \hyperlink{structcontext}{tcontext};
+00030 
+\hypertarget{_m_p_x___r3_8_h_source_l00031}{}\hyperlink{structparams}{00031} \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structparams}{params} \{ 
+\hypertarget{_m_p_x___r3_8_h_source_l00032}{}\hyperlink{structparams_a6241c070629ecc889aeaebd1665d2950}{00032} \textcolor{keywordtype}{int} \hyperlink{structparams_a6241c070629ecc889aeaebd1665d2950}{op_code};
+\hypertarget{_m_p_x___r3_8_h_source_l00033}{}\hyperlink{structparams_a85b8d139fb9b97b59b21b4fca0afcf07}{00033} \textcolor{keywordtype}{int} \hyperlink{structparams_a85b8d139fb9b97b59b21b4fca0afcf07}{device_id};
+\hypertarget{_m_p_x___r3_8_h_source_l00034}{}\hyperlink{structparams_a0eff67154314736e9b186ae54c9749e2}{00034} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{structparams_a0eff67154314736e9b186ae54c9749e2}{buf_addr};
+\hypertarget{_m_p_x___r3_8_h_source_l00035}{}\hyperlink{structparams_a6b66484b500caf1b1aaba794d77a7102}{00035} \textcolor{keywordtype}{int} *\hyperlink{structparams_a6b66484b500caf1b1aaba794d77a7102}{cont_addr};
+00036 \} \hyperlink{structparams}{tparams};
+00037 \textcolor{comment}{/*}
+00038 \textcolor{comment}{typedef struct IOCB \{}
+00039 \textcolor{comment}{        char *name;}
+00040 \textcolor{comment}{        void ( funct *) (void); }
+00041 \textcolor{comment}{        PCB * IO\_OP;}
+00042 \textcolor{comment}{\} IOCB;}
+00043 \textcolor{comment}{*/}
+00044 
+00045 \textcolor{keywordtype}{void} interrupt \hyperlink{mpx__r3_8c_abeb8ddb92acb8fa40e902b98f2a1ccfb}{sys_call}(\textcolor{keywordtype}{void});
+00046 \textcolor{keywordtype}{void} interrupt \hyperlink{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{dispatch}(\textcolor{keywordtype}{void});
+00047 \textcolor{keywordtype}{void} \hyperlink{mpx__r3_8c_a204c76cc251c17612164688f0b1272ad}{mpxcmd_r3run}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00048 \textcolor{keywordtype}{void} \hyperlink{mpx__r3_8c_afff189bf2a21f1da2a30be81b57da08d}{mpxcmd_gor4}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[]);
+00049 \textcolor{preprocessor}{#endif}
+\end{DoxyCode}

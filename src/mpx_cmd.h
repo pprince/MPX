@@ -23,16 +23,16 @@
 
 /* Symbolic Constants */ 
 
-#define	MAX_LINE	1024
-#define	MAX_ARGS	10
+#define	MAX_LINE	1024 ///< MAX_LINE defines the maximum size of a line in MPX.
+#define	MAX_ARGS	10  ///< MAX_ARGS defines the maximum number of arguments that MPX will accept.
 
 
 /* Types */
 
 typedef struct mpx_cmd {
-	char *cmd_name;
-	struct mpx_cmd *next;
-	void (*cmd_function)(int argc, char *argv[]);
+	char *cmd_name;  ///< The varable cmd_name holds the name of the command that will be typed in to the MPX command Line.
+	struct mpx_cmd *next; ///< The pointer to the next mpx_cmd struct.
+	void (*cmd_function)(int argc, char *argv[]);///< Function pointer to the command to be executed by the command Handler.
 } mpx_cmd_t;
 
 

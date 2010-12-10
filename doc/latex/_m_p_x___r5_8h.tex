@@ -1,0 +1,860 @@
+\hypertarget{_m_p_x___r5_8h}{
+\section{src/MPX\_\-R5.h File Reference}
+\label{_m_p_x___r5_8h}\index{src/MPX\_\-R5.h@{src/MPX\_\-R5.h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdevice}{device}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a57912ff27e6b123b86821203a0338760}{INT\_\-ID}~0X0C
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}{BASE}~0x3F8
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{INT\_\-EN}~BASE+1
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a4c32fec003a7f9e7fefc8b8b1f237dd8}{BRD\_\-LSB}~BASE
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_aa071df7caa6499a431c734cc5adde587}{BRD\_\-MSB}~BASE+1
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a2d1977759194644a0f9d516c4aed28d5}{INT\_\-ID\_\-REG}~BASE+2
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_aa499bb75bb504909cd0a72baf48c4653}{LC}~BASE+3
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a71d9e511e7e302cd831e83581219e70d}{MC}~BASE+4
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_aeb0ce037090c628feafc65349031b214}{LS}~BASE+5
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_ab9e061e05d689a5769936b213022102f}{MS}~BASE+6
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}{PIC\_\-MASK}~0X21
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a5a66cf9d58dff90a490d82a1dbd56968}{PIC\_\-CMD}~0x20
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a04c9015da7e7ea45f3b80793809e2d7b}{EOI}~0x20
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a28a41607cd2fd1347ed0a0fb2bfff51b}{WHATINTERRUPTBIT}~0x07
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_aa23c661441688350614bd6a350d2b6ff}{size}~256
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{OPEN}~1
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_ad6664b6aa0b2ec18771fe01aefa1e760}{CLOSED}~0
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a59da1d65e87a723efe808dbabb4fc205}{SET}~1
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a269d0ebbb16b030f6fe231046e7c084a}{FLAG\_\-CLEAR}~0
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}~0
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{READ}~1
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_aa10f470e996d0f51210d24f442d25e1e}{WRITE}~2
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a258bb72419ef143530a2f8f55e7d57af}{NO\_\-ERROR}~0
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a42f75fbb27d3a1159a29d5868b80c9e5}{INV\_\-FLAG}~-\/101
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a276439462cdb37334a206273dfa45353}{INV\_\-BAUD}~-\/102
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a11a6425698663340c746c656baef6949}{PORT\_\-ALREADY\_\-OPEN}~-\/103
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a4756b09ce55b50d4572df688ab1f6af4}{SERIAL\_\-PORT\_\-NOT\_\-OPEN}~-\/201
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_afa0762350ba1d8d94c0181d1796ffbf9}{READ\_\-PORT\_\-NOT\_\-OPEN}~-\/301
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_ac190a708b2915f64edbdc4cde3f8e050}{READ\_\-INV\_\-BUFF\_\-ADD}~-\/302
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a3ab3bced3b86630c93b536bf31038d73}{READ\_\-INV\_\-COUNT}~-\/303
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a2548589f0587c00c17f1f728a2f7df27}{READ\_\-DEV\_\-BUSY}~-\/304
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_af804ad6fc86c1805c7594454b3c82ad1}{WRITE\_\-PORT\_\-NOT\_\-OPEN}~-\/401
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a797bf4ab0b22dc0ded1a5de881a204e2}{WRITE\_\-INV\_\-BUFF\_\-ADD}~-\/402
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a5fd366716d87428651c80e10cdf6803d}{WRITE\_\-INV\_\-COUNT}~-\/403
+\item 
+\#define \hyperlink{_m_p_x___r5_8h_a897dcfa373c0039a2db00f3662419275}{WRITE\_\-DEV\_\-BUSY}~-\/404
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structdevice}{device} \hyperlink{_m_p_x___r5_8h_a58b98e227f76f87cf6e341a66770f9e4}{DCB}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_m_p_x___r5_8h_a4a6717eaeef77abf4f0604a3c91e26be}{com\_\-open} (int $\ast$, int)
+\item 
+int \hyperlink{_m_p_x___r5_8h_aa39f1d25e881ffac9559b2fe816fe943}{com\_\-close} (void)
+\item 
+int \hyperlink{_m_p_x___r5_8h_aa7371bdaf13daffa9cb2abeec22755de}{com\_\-read} (char $\ast$, int $\ast$)
+\item 
+int \hyperlink{_m_p_x___r5_8h_ad6bffe8f80cce75f1162d0b4c8e98a9c}{com\_\-write} (char $\ast$, int $\ast$)
+\item 
+void interrupt \hyperlink{_m_p_x___r5_8h_a49235bff2654267b70d5656543f2ba81}{level1} ()
+\item 
+void \hyperlink{_m_p_x___r5_8h_a4e674e8641ca22513d0e38e17f9df632}{level2Write} ()
+\item 
+void \hyperlink{_m_p_x___r5_8h_aa1236f07727d3a0a5182b8594b043dad}{level2Read} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_m_p_x___r5_8h_a8e251dc6b3970d91b5e576f4b62a0518}{callInt} = 0
+\item 
+int \hyperlink{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}{num}
+\item 
+\hyperlink{structdevice}{DCB} \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}
+\item 
+void interrupt($\ast$ \hyperlink{_m_p_x___r5_8h_aecebfaddee878c55ece8a1aa8ac843d4}{oldfunc} )(void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!BASE@{BASE}}
+\index{BASE@{BASE}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{BASE}]{\setlength{\rightskip}{0pt plus 5cm}\#define BASE~0x3F8}}
+\label{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00003}{3} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a4c32fec003a7f9e7fefc8b8b1f237dd8}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!BRD\_\-LSB@{BRD\_\-LSB}}
+\index{BRD\_\-LSB@{BRD\_\-LSB}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{BRD\_\-LSB}]{\setlength{\rightskip}{0pt plus 5cm}\#define BRD\_\-LSB~BASE}}
+\label{_m_p_x___r5_8h_a4c32fec003a7f9e7fefc8b8b1f237dd8}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00005}{5} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_aa071df7caa6499a431c734cc5adde587}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!BRD\_\-MSB@{BRD\_\-MSB}}
+\index{BRD\_\-MSB@{BRD\_\-MSB}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{BRD\_\-MSB}]{\setlength{\rightskip}{0pt plus 5cm}\#define BRD\_\-MSB~BASE+1}}
+\label{_m_p_x___r5_8h_aa071df7caa6499a431c734cc5adde587}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00006}{6} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_ad6664b6aa0b2ec18771fe01aefa1e760}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!CLOSED@{CLOSED}}
+\index{CLOSED@{CLOSED}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{CLOSED}]{\setlength{\rightskip}{0pt plus 5cm}\#define CLOSED~0}}
+\label{_m_p_x___r5_8h_ad6664b6aa0b2ec18771fe01aefa1e760}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00024}{24} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a04c9015da7e7ea45f3b80793809e2d7b}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!EOI@{EOI}}
+\index{EOI@{EOI}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{EOI}]{\setlength{\rightskip}{0pt plus 5cm}\#define EOI~0x20}}
+\label{_m_p_x___r5_8h_a04c9015da7e7ea45f3b80793809e2d7b}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00014}{14} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a269d0ebbb16b030f6fe231046e7c084a}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!FLAG\_\-CLEAR@{FLAG\_\-CLEAR}}
+\index{FLAG\_\-CLEAR@{FLAG\_\-CLEAR}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{FLAG\_\-CLEAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define FLAG\_\-CLEAR~0}}
+\label{_m_p_x___r5_8h_a269d0ebbb16b030f6fe231046e7c084a}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00026}{26} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!IDLE@{IDLE}}
+\index{IDLE@{IDLE}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{IDLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define IDLE~0}}
+\label{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00027}{27} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!INT\_\-EN@{INT\_\-EN}}
+\index{INT\_\-EN@{INT\_\-EN}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{INT\_\-EN}]{\setlength{\rightskip}{0pt plus 5cm}\#define INT\_\-EN~BASE+1}}
+\label{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00004}{4} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a57912ff27e6b123b86821203a0338760}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!INT\_\-ID@{INT\_\-ID}}
+\index{INT\_\-ID@{INT\_\-ID}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{INT\_\-ID}]{\setlength{\rightskip}{0pt plus 5cm}\#define INT\_\-ID~0X0C}}
+\label{_m_p_x___r5_8h_a57912ff27e6b123b86821203a0338760}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00002}{2} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a2d1977759194644a0f9d516c4aed28d5}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!INT\_\-ID\_\-REG@{INT\_\-ID\_\-REG}}
+\index{INT\_\-ID\_\-REG@{INT\_\-ID\_\-REG}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{INT\_\-ID\_\-REG}]{\setlength{\rightskip}{0pt plus 5cm}\#define INT\_\-ID\_\-REG~BASE+2}}
+\label{_m_p_x___r5_8h_a2d1977759194644a0f9d516c4aed28d5}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00007}{7} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a276439462cdb37334a206273dfa45353}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!INV\_\-BAUD@{INV\_\-BAUD}}
+\index{INV\_\-BAUD@{INV\_\-BAUD}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{INV\_\-BAUD}]{\setlength{\rightskip}{0pt plus 5cm}\#define INV\_\-BAUD~-\/102}}
+\label{_m_p_x___r5_8h_a276439462cdb37334a206273dfa45353}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00034}{34} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a42f75fbb27d3a1159a29d5868b80c9e5}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!INV\_\-FLAG@{INV\_\-FLAG}}
+\index{INV\_\-FLAG@{INV\_\-FLAG}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{INV\_\-FLAG}]{\setlength{\rightskip}{0pt plus 5cm}\#define INV\_\-FLAG~-\/101}}
+\label{_m_p_x___r5_8h_a42f75fbb27d3a1159a29d5868b80c9e5}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00033}{33} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_aa499bb75bb504909cd0a72baf48c4653}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!LC@{LC}}
+\index{LC@{LC}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{LC}]{\setlength{\rightskip}{0pt plus 5cm}\#define LC~BASE+3}}
+\label{_m_p_x___r5_8h_aa499bb75bb504909cd0a72baf48c4653}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00008}{8} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_aeb0ce037090c628feafc65349031b214}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!LS@{LS}}
+\index{LS@{LS}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{LS}]{\setlength{\rightskip}{0pt plus 5cm}\#define LS~BASE+5}}
+\label{_m_p_x___r5_8h_aeb0ce037090c628feafc65349031b214}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00010}{10} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a71d9e511e7e302cd831e83581219e70d}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!MC@{MC}}
+\index{MC@{MC}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{MC}]{\setlength{\rightskip}{0pt plus 5cm}\#define MC~BASE+4}}
+\label{_m_p_x___r5_8h_a71d9e511e7e302cd831e83581219e70d}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00009}{9} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_ab9e061e05d689a5769936b213022102f}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!MS@{MS}}
+\index{MS@{MS}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{MS}]{\setlength{\rightskip}{0pt plus 5cm}\#define MS~BASE+6}}
+\label{_m_p_x___r5_8h_ab9e061e05d689a5769936b213022102f}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00011}{11} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a258bb72419ef143530a2f8f55e7d57af}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!NO\_\-ERROR@{NO\_\-ERROR}}
+\index{NO\_\-ERROR@{NO\_\-ERROR}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{NO\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define NO\_\-ERROR~0}}
+\label{_m_p_x___r5_8h_a258bb72419ef143530a2f8f55e7d57af}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00032}{32} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!OPEN@{OPEN}}
+\index{OPEN@{OPEN}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{OPEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define OPEN~1}}
+\label{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00023}{23} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a5a66cf9d58dff90a490d82a1dbd56968}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!PIC\_\-CMD@{PIC\_\-CMD}}
+\index{PIC\_\-CMD@{PIC\_\-CMD}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{PIC\_\-CMD}]{\setlength{\rightskip}{0pt plus 5cm}\#define PIC\_\-CMD~0x20}}
+\label{_m_p_x___r5_8h_a5a66cf9d58dff90a490d82a1dbd56968}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00013}{13} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!PIC\_\-MASK@{PIC\_\-MASK}}
+\index{PIC\_\-MASK@{PIC\_\-MASK}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{PIC\_\-MASK}]{\setlength{\rightskip}{0pt plus 5cm}\#define PIC\_\-MASK~0X21}}
+\label{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00012}{12} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a11a6425698663340c746c656baef6949}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!PORT\_\-ALREADY\_\-OPEN@{PORT\_\-ALREADY\_\-OPEN}}
+\index{PORT\_\-ALREADY\_\-OPEN@{PORT\_\-ALREADY\_\-OPEN}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{PORT\_\-ALREADY\_\-OPEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define PORT\_\-ALREADY\_\-OPEN~-\/103}}
+\label{_m_p_x___r5_8h_a11a6425698663340c746c656baef6949}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00035}{35} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!READ@{READ}}
+\index{READ@{READ}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{READ}]{\setlength{\rightskip}{0pt plus 5cm}\#define READ~1}}
+\label{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00028}{28} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a2548589f0587c00c17f1f728a2f7df27}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!READ\_\-DEV\_\-BUSY@{READ\_\-DEV\_\-BUSY}}
+\index{READ\_\-DEV\_\-BUSY@{READ\_\-DEV\_\-BUSY}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{READ\_\-DEV\_\-BUSY}]{\setlength{\rightskip}{0pt plus 5cm}\#define READ\_\-DEV\_\-BUSY~-\/304}}
+\label{_m_p_x___r5_8h_a2548589f0587c00c17f1f728a2f7df27}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00040}{40} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_ac190a708b2915f64edbdc4cde3f8e050}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!READ\_\-INV\_\-BUFF\_\-ADD@{READ\_\-INV\_\-BUFF\_\-ADD}}
+\index{READ\_\-INV\_\-BUFF\_\-ADD@{READ\_\-INV\_\-BUFF\_\-ADD}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{READ\_\-INV\_\-BUFF\_\-ADD}]{\setlength{\rightskip}{0pt plus 5cm}\#define READ\_\-INV\_\-BUFF\_\-ADD~-\/302}}
+\label{_m_p_x___r5_8h_ac190a708b2915f64edbdc4cde3f8e050}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00038}{38} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a3ab3bced3b86630c93b536bf31038d73}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!READ\_\-INV\_\-COUNT@{READ\_\-INV\_\-COUNT}}
+\index{READ\_\-INV\_\-COUNT@{READ\_\-INV\_\-COUNT}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{READ\_\-INV\_\-COUNT}]{\setlength{\rightskip}{0pt plus 5cm}\#define READ\_\-INV\_\-COUNT~-\/303}}
+\label{_m_p_x___r5_8h_a3ab3bced3b86630c93b536bf31038d73}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00039}{39} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_afa0762350ba1d8d94c0181d1796ffbf9}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!READ\_\-PORT\_\-NOT\_\-OPEN@{READ\_\-PORT\_\-NOT\_\-OPEN}}
+\index{READ\_\-PORT\_\-NOT\_\-OPEN@{READ\_\-PORT\_\-NOT\_\-OPEN}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{READ\_\-PORT\_\-NOT\_\-OPEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define READ\_\-PORT\_\-NOT\_\-OPEN~-\/301}}
+\label{_m_p_x___r5_8h_afa0762350ba1d8d94c0181d1796ffbf9}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00037}{37} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a4756b09ce55b50d4572df688ab1f6af4}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!SERIAL\_\-PORT\_\-NOT\_\-OPEN@{SERIAL\_\-PORT\_\-NOT\_\-OPEN}}
+\index{SERIAL\_\-PORT\_\-NOT\_\-OPEN@{SERIAL\_\-PORT\_\-NOT\_\-OPEN}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{SERIAL\_\-PORT\_\-NOT\_\-OPEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIAL\_\-PORT\_\-NOT\_\-OPEN~-\/201}}
+\label{_m_p_x___r5_8h_a4756b09ce55b50d4572df688ab1f6af4}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00036}{36} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a59da1d65e87a723efe808dbabb4fc205}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!SET@{SET}}
+\index{SET@{SET}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{SET}]{\setlength{\rightskip}{0pt plus 5cm}\#define SET~1}}
+\label{_m_p_x___r5_8h_a59da1d65e87a723efe808dbabb4fc205}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00025}{25} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_aa23c661441688350614bd6a350d2b6ff}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!size@{size}}
+\index{size@{size}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}\#define size~256}}
+\label{_m_p_x___r5_8h_aa23c661441688350614bd6a350d2b6ff}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00020}{20} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a28a41607cd2fd1347ed0a0fb2bfff51b}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!WHATINTERRUPTBIT@{WHATINTERRUPTBIT}}
+\index{WHATINTERRUPTBIT@{WHATINTERRUPTBIT}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{WHATINTERRUPTBIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define WHATINTERRUPTBIT~0x07}}
+\label{_m_p_x___r5_8h_a28a41607cd2fd1347ed0a0fb2bfff51b}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00017}{17} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_aa10f470e996d0f51210d24f442d25e1e}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!WRITE@{WRITE}}
+\index{WRITE@{WRITE}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{WRITE}]{\setlength{\rightskip}{0pt plus 5cm}\#define WRITE~2}}
+\label{_m_p_x___r5_8h_aa10f470e996d0f51210d24f442d25e1e}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00029}{29} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a897dcfa373c0039a2db00f3662419275}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!WRITE\_\-DEV\_\-BUSY@{WRITE\_\-DEV\_\-BUSY}}
+\index{WRITE\_\-DEV\_\-BUSY@{WRITE\_\-DEV\_\-BUSY}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{WRITE\_\-DEV\_\-BUSY}]{\setlength{\rightskip}{0pt plus 5cm}\#define WRITE\_\-DEV\_\-BUSY~-\/404}}
+\label{_m_p_x___r5_8h_a897dcfa373c0039a2db00f3662419275}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00044}{44} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a797bf4ab0b22dc0ded1a5de881a204e2}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!WRITE\_\-INV\_\-BUFF\_\-ADD@{WRITE\_\-INV\_\-BUFF\_\-ADD}}
+\index{WRITE\_\-INV\_\-BUFF\_\-ADD@{WRITE\_\-INV\_\-BUFF\_\-ADD}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{WRITE\_\-INV\_\-BUFF\_\-ADD}]{\setlength{\rightskip}{0pt plus 5cm}\#define WRITE\_\-INV\_\-BUFF\_\-ADD~-\/402}}
+\label{_m_p_x___r5_8h_a797bf4ab0b22dc0ded1a5de881a204e2}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00042}{42} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a5fd366716d87428651c80e10cdf6803d}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!WRITE\_\-INV\_\-COUNT@{WRITE\_\-INV\_\-COUNT}}
+\index{WRITE\_\-INV\_\-COUNT@{WRITE\_\-INV\_\-COUNT}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{WRITE\_\-INV\_\-COUNT}]{\setlength{\rightskip}{0pt plus 5cm}\#define WRITE\_\-INV\_\-COUNT~-\/403}}
+\label{_m_p_x___r5_8h_a5fd366716d87428651c80e10cdf6803d}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00043}{43} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_af804ad6fc86c1805c7594454b3c82ad1}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!WRITE\_\-PORT\_\-NOT\_\-OPEN@{WRITE\_\-PORT\_\-NOT\_\-OPEN}}
+\index{WRITE\_\-PORT\_\-NOT\_\-OPEN@{WRITE\_\-PORT\_\-NOT\_\-OPEN}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{WRITE\_\-PORT\_\-NOT\_\-OPEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define WRITE\_\-PORT\_\-NOT\_\-OPEN~-\/401}}
+\label{_m_p_x___r5_8h_af804ad6fc86c1805c7594454b3c82ad1}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00041}{41} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{_m_p_x___r5_8h_a58b98e227f76f87cf6e341a66770f9e4}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!DCB@{DCB}}
+\index{DCB@{DCB}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{DCB}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf device} {\bf DCB}}}
+\label{_m_p_x___r5_8h_a58b98e227f76f87cf6e341a66770f9e4}
+
+
+\subsection{Function Documentation}
+\hypertarget{_m_p_x___r5_8h_aa39f1d25e881ffac9559b2fe816fe943}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!com\_\-close@{com\_\-close}}
+\index{com\_\-close@{com\_\-close}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{com\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int com\_\-close (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x___r5_8h_aa39f1d25e881ffac9559b2fe816fe943}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8_c_source_l00049}{49} of file \hyperlink{_m_p_x___r5_8_c_source}{MPX\_\-R5.C}.
+
+
+
+
+\begin{DoxyCode}
+                            \{
+                \textcolor{keywordtype}{int} mask; 
+        
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag} != \hyperlink{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{OPEN}) \textcolor{comment}{//check that port is open}
+                        \textcolor{keywordflow}{return} SERIAL\_PORT\_NOT\_OPEN; 
+         
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag}=CLOSED; 
+                disable(); \textcolor{comment}{//start enable }
+                mask = inportb(\hyperlink{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}{PIC_MASK}); 
+                mask = mask | 0x10; 
+                outportb(\hyperlink{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}{PIC_MASK}, mask); 
+                enable(); \textcolor{comment}{//end enable }
+         
+                outportb( \hyperlink{_m_p_x___r5_8h_ab9e061e05d689a5769936b213022102f}{MS},0x00); \textcolor{comment}{// clears Modem Control Status}
+                outportb( \hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{INT_EN},0x00); \textcolor{comment}{// clears int\_en}
+                setvect( \hyperlink{_m_p_x___r5_8h_a57912ff27e6b123b86821203a0338760}{INT_ID}, \hyperlink{_m_p_x___r5_8h_aecebfaddee878c55ece8a1aa8ac843d4}{oldfunc}); \textcolor{comment}{//restore Microsoft interupt }
+         
+                \textcolor{keywordflow}{return} 0; 
+        
+        \}
+\end{DoxyCode}
+
+
+\hypertarget{_m_p_x___r5_8h_a4a6717eaeef77abf4f0604a3c91e26be}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!com\_\-open@{com\_\-open}}
+\index{com\_\-open@{com\_\-open}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{com\_\-open}]{\setlength{\rightskip}{0pt plus 5cm}int com\_\-open (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x___r5_8h_a4a6717eaeef77abf4f0604a3c91e26be}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8_c_source_l00006}{6} of file \hyperlink{_m_p_x___r5_8_c_source}{MPX\_\-R5.C}.
+
+
+
+
+\begin{DoxyCode}
+                                               \{
+                \textcolor{keywordtype}{long} brd;
+                \textcolor{keywordtype}{int} mask;
+
+                \textcolor{keywordflow}{if}(eflag == NULL)
+                        \textcolor{keywordflow}{return} INV\_FLAG; \textcolor{comment}{// invalid flag}
+                \textcolor{keywordflow}{if}(baudrate <= 0)
+                        \textcolor{keywordflow}{return} INV\_BAUD;  \textcolor{comment}{// invalid baud}
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag}==\hyperlink{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{OPEN}) \textcolor{comment}{// Make sure that the device is not open.}
+                        \textcolor{keywordflow}{return} PORT\_ALREADY\_OPEN;
+
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag} = OPEN;
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{flag_ptr} = eflag;
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} = IDLE; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a87b6f10cd47f45a38cfa264c298acc04}{ringbufin} = 0; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac5f863bd4d89e6182fb4c517d93afb8e}{ringbufout} = 0; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ad06a8146a22a605c0f463b212774cc92}{ringbufcount} = 0;
+          
+                \hyperlink{_m_p_x___r5_8h_aecebfaddee878c55ece8a1aa8ac843d4}{oldfunc} = getvect(\hyperlink{_m_p_x___r5_8h_a57912ff27e6b123b86821203a0338760}{INT_ID}); \textcolor{comment}{//get the vector of the Windows compor
+      t interupt handler  }
+                setvect(\hyperlink{_m_p_x___r5_8h_a57912ff27e6b123b86821203a0338760}{INT_ID}, &\hyperlink{_m_p_x___r5_8_c_a49235bff2654267b70d5656543f2ba81}{level1}); \textcolor{comment}{//level1 is interrupt handler      }
+                brd = 115200 / (long) baudrate; \textcolor{comment}{//calculate baud rate divisor}
+         
+                
+                outportb(\hyperlink{_m_p_x___r5_8h_aa499bb75bb504909cd0a72baf48c4653}{LC}, 0x80); \textcolor{comment}{//store 0x80 in line control register }
+                outportb(\hyperlink{_m_p_x___r5_8h_a4c32fec003a7f9e7fefc8b8b1f237dd8}{BRD_LSB}, brd & 0xFF); \textcolor{comment}{//is Baud rate devisor LSB       }
+                outportb(\hyperlink{_m_p_x___r5_8h_aa071df7caa6499a431c734cc5adde587}{BRD_MSB},(brd>>8) & 0xFF); \textcolor{comment}{//is Baud rate devisor MSB   }
+                outportb(\hyperlink{_m_p_x___r5_8h_aa499bb75bb504909cd0a72baf48c4653}{LC}, 0x03); \textcolor{comment}{//store 0x03 in line control register }
+        
+                disable(); \textcolor{comment}{// disable interupts }
+                mask = inportb(\hyperlink{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}{PIC_MASK}); 
+                mask = mask & 0xEF; 
+                outportb(\hyperlink{_m_p_x___r5_8h_a89831dd7cb646bfa61461e0b1d91add7}{PIC_MASK}, mask); 
+                enable(); \textcolor{comment}{// enable interupts}
+         
+                \textcolor{comment}{//enable level for COM1 in PIC Mask register }
+                \textcolor{comment}{//Store 0x08 in modem control register }
+                outportb( \hyperlink{_m_p_x___r5_8h_a71d9e511e7e302cd831e83581219e70d}{MC}, 0x08);\textcolor{comment}{//enables serial interrupts }
+                \textcolor{comment}{//store 0x01 in interrupt enable register }
+                outportb( \hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{INT_EN}, 0x01);\textcolor{comment}{//enables input ready interrupts }
+         
+    \textcolor{keywordflow}{return} 0; \textcolor{comment}{// return zero if no error.}
+        \}
+\end{DoxyCode}
+
+
+\hypertarget{_m_p_x___r5_8h_aa7371bdaf13daffa9cb2abeec22755de}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!com\_\-read@{com\_\-read}}
+\index{com\_\-read@{com\_\-read}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{com\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}int com\_\-read (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{, }
+\item[{int $\ast$}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x___r5_8h_aa7371bdaf13daffa9cb2abeec22755de}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8_c_source_l00143}{143} of file \hyperlink{_m_p_x___r5_8_c_source}{MPX\_\-R5.C}.
+
+
+
+
+\begin{DoxyCode}
+                                               \{
+                \textcolor{comment}{//Validate the supplied parameters. }
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag} != \hyperlink{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{OPEN}) \textcolor{comment}{//check if device is open}
+                        \textcolor{keywordflow}{return} READ\_PORT\_NOT\_OPEN;
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} != \hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}) \textcolor{comment}{//check if device is idle}
+                        \textcolor{keywordflow}{return} READ\_DEV\_BUSY;
+                \textcolor{keywordflow}{if}( buf\_p == NULL) \textcolor{comment}{//check if buffer is empty }
+                        \textcolor{keywordflow}{return} READ\_INV\_BUFF\_ADD; 
+                \textcolor{keywordflow}{if}( &count\_p == NULL) \textcolor{comment}{//check if count pointer is null }
+                        \textcolor{keywordflow}{return} READ\_INV\_COUNT;  
+        \textcolor{comment}{// Initialize the input buffer variables (not the ring buffer!) and set t
+      he status to reading. }
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff} = buf\_p; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{incount} = count\_p; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone} = 0; 
+
+                *(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{flag_ptr}) = \hyperlink{_m_p_x___r5_8h_a269d0ebbb16b030f6fe231046e7c084a}{FLAG_CLEAR}; \textcolor{comment}{//clear event flag}
+                
+                disable(); \textcolor{comment}{//disable interrupts }
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status}=READ; \textcolor{comment}{//we are now reading}
+
+                \textcolor{comment}{/* Copy characters from the ring buffer to the requestor's buffer
+      , }
+\textcolor{comment}{                until the ring buffer is emptied, the requested count has been }
+\textcolor{comment}{                reached, or a CR (ENTER) code has been found. The copied }
+\textcolor{comment}{                characters should, of course, be removed from the ring buffer.}
+\textcolor{comment}{                Either input interrupts or all interrupts should be disabled }
+\textcolor{comment}{                during the copying. */} 
+
+                \textcolor{keywordflow}{while}((\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ad06a8146a22a605c0f463b212774cc92}{ringbufcount} >0) && (\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}-1 !=\textcolor{charliteral}{'\(\backslash\)r'} && (
+      \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone} >= *(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{incount}))))\{
+                                *((\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff})) = \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_add9c4fe8b331128af0f655bc74410ffd}{ringbuf}[\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.
+      \hyperlink{structdevice_ac5f863bd4d89e6182fb4c517d93afb8e}{ringbufout}]; 
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone}++; 
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}++;
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac5f863bd4d89e6182fb4c517d93afb8e}{ringbufout} = (\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac5f863bd4d89e6182fb4c517d93afb8e}{ringbufout}+1)%\hyperlink{_m_p_x___r5_8h_aa23c661441688350614bd6a350d2b6ff}{size};
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ad06a8146a22a605c0f463b212774cc92}{ringbufcount}--;
+                                
+                        \} \textcolor{comment}{//end while }
+          
+                        enable(); \textcolor{comment}{//enable interrupts }
+        
+                \textcolor{comment}{//the requestor buffer is not yet full     }
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone} < *(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{incount})) 
+                        \textcolor{keywordflow}{return} 0;  
+                \textcolor{keywordflow}{if}(*(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}-1) == \textcolor{charliteral}{'\(\backslash\)r'})
+                        *(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}-1) = \textcolor{charliteral}{'\(\backslash\)0'};
+                \textcolor{keywordflow}{else}
+                        *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff} = \textcolor{charliteral}{'\(\backslash\)0'};
+                
+                \textcolor{comment}{//Reset the DCB status to idle, set the event flag, and}
+                \textcolor{comment}{//return the actual count to the requestor's variable. }
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} = IDLE; \textcolor{comment}{//status back to IDLE }
+                *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{flag_ptr} = SET; \textcolor{comment}{//the event is over }
+                *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{incount} = \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone}; 
+         \textcolor{keywordflow}{return} 0;
+        \}
+\end{DoxyCode}
+
+
+\hypertarget{_m_p_x___r5_8h_ad6bffe8f80cce75f1162d0b4c8e98a9c}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!com\_\-write@{com\_\-write}}
+\index{com\_\-write@{com\_\-write}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{com\_\-write}]{\setlength{\rightskip}{0pt plus 5cm}int com\_\-write (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{, }
+\item[{int $\ast$}]{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x___r5_8h_ad6bffe8f80cce75f1162d0b4c8e98a9c}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8_c_source_l00197}{197} of file \hyperlink{_m_p_x___r5_8_c_source}{MPX\_\-R5.C}.
+
+
+
+
+\begin{DoxyCode}
+                                                \{
+                \textcolor{keywordtype}{int} mask; 
+                \textcolor{comment}{//Ensure that the input parameters are valid. }
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag} != \hyperlink{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{OPEN}) \textcolor{comment}{//check if device is open }
+                        \textcolor{keywordflow}{return} WRITE\_PORT\_NOT\_OPEN; 
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} != \hyperlink{_m_p_x___r5_8h_a9c21a7caee326d7803b94ae1952b27ca}{IDLE}) \textcolor{comment}{//check if device is idle }
+                        \textcolor{keywordflow}{return} WRITE\_DEV\_BUSY; 
+                \textcolor{keywordflow}{if}(buf\_p == NULL) \textcolor{comment}{//check if buffer is empty }
+                        \textcolor{keywordflow}{return} WRITE\_INV\_BUFF\_ADD; 
+                \textcolor{keywordflow}{if}(count\_p == NULL) \textcolor{comment}{//check pointer is null }
+                        \textcolor{keywordflow}{return} WRITE\_INV\_COUNT; 
+                
+                \textcolor{comment}{//Install the buffer pointer and counters in the DCB, and set the
+       current status to writing. }
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a32acea82810b51d93df2d3ced6cdffb7}{outbuff} = buf\_p; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ae597c46dee282a47174100b12525b424}{outcount} = count\_p; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab7c43127bcb340d678131fd04c37ba05}{outdone} = 0; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} = WRITE;
+                \textcolor{comment}{//Clear the caller's event flag. }
+                *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{flag_ptr} = FLAG\_CLEAR; 
+                
+                \textcolor{comment}{//Get the first character from the requestor's buffer and store i
+      t in the output register. }
+                outportb(\hyperlink{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}{BASE}, *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a32acea82810b51d93df2d3ced6cdffb7}{outbuff}); 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a32acea82810b51d93df2d3ced6cdffb7}{outbuff}++; 
+                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab7c43127bcb340d678131fd04c37ba05}{outdone}++; 
+         
+                 
+                 \textcolor{comment}{//Enable write interrupts by setting bit 1 of the Interrupt Enab
+      le register. }
+                 \textcolor{comment}{//This must be done by setting the register to the logical or of
+       its previous }
+                 \textcolor{comment}{//contents and 0x02. }
+
+                mask = inportb(\hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{INT_EN}); 
+                mask = mask | 0x02; 
+                outportb(\hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{INT_EN},mask); 
+    
+        \textcolor{keywordflow}{return} 0; 
+        \}
+\end{DoxyCode}
+
+
+\hypertarget{_m_p_x___r5_8h_a49235bff2654267b70d5656543f2ba81}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!level1@{level1}}
+\index{level1@{level1}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{level1}]{\setlength{\rightskip}{0pt plus 5cm}void interrupt level1 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x___r5_8h_a49235bff2654267b70d5656543f2ba81}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8_c_source_l00070}{70} of file \hyperlink{_m_p_x___r5_8_c_source}{MPX\_\-R5.C}.
+
+
+
+
+\begin{DoxyCode}
+                               \{
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ac2d4a1d39c1a5a858d88f2482d6900c8}{flag} != \hyperlink{_m_p_x___r5_8h_a1354b70ac6803a06beebe84f61b5f95b}{OPEN})\{ 
+                        outportb(\hyperlink{_m_p_x___r5_8h_a5a66cf9d58dff90a490d82a1dbd56968}{PIC_CMD}, \hyperlink{_m_p_x___r5_8h_a04c9015da7e7ea45f3b80793809e2d7b}{EOI});\textcolor{comment}{//clear interupt PIC command regis
+      ter }
+                        \textcolor{keywordflow}{return}; 
+                \} \textcolor{keywordflow}{else}\{ 
+                        \hyperlink{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}{num} = ((inportb(\hyperlink{_m_p_x___r5_8h_a2d1977759194644a0f9d516c4aed28d5}{INT_ID_REG}) & WHATINTERRUPTBIT));
+                        \textcolor{keywordflow}{if} (\hyperlink{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}{num} == 2) \textcolor{comment}{// 0000 0010 : write interrupt }
+                                \hyperlink{_m_p_x___r5_8_c_a4e674e8641ca22513d0e38e17f9df632}{level2Write}(); 
+                        \textcolor{keywordflow}{if} (\hyperlink{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}{num} == 4) \textcolor{comment}{// 0000 0100 : read interrupt }
+                                \hyperlink{_m_p_x___r5_8_c_aa1236f07727d3a0a5182b8594b043dad}{level2Read}();     
+                        outportb(\hyperlink{_m_p_x___r5_8h_a5a66cf9d58dff90a490d82a1dbd56968}{PIC_CMD}, \hyperlink{_m_p_x___r5_8h_a04c9015da7e7ea45f3b80793809e2d7b}{EOI}); \textcolor{comment}{//clear interupt PIC command regi
+      ster }
+                \} 
+    \textcolor{keywordflow}{return}; 
+
+        \}
+\end{DoxyCode}
+
+
+\hypertarget{_m_p_x___r5_8h_aa1236f07727d3a0a5182b8594b043dad}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!level2Read@{level2Read}}
+\index{level2Read@{level2Read}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{level2Read}]{\setlength{\rightskip}{0pt plus 5cm}void level2Read (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x___r5_8h_aa1236f07727d3a0a5182b8594b043dad}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8_c_source_l00110}{110} of file \hyperlink{_m_p_x___r5_8_c_source}{MPX\_\-R5.C}.
+
+
+
+
+\begin{DoxyCode}
+                         \{
+                \textcolor{keywordtype}{char} \textcolor{keyword}{new};
+                \textcolor{keywordtype}{char} ret = \textcolor{charliteral}{'\(\backslash\)r'};
+                
+                \textcolor{keyword}{new}=inportb(\hyperlink{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}{BASE}); \textcolor{comment}{//Read a character from the input register. }
+                \textcolor{keywordflow}{if} ( \textcolor{keyword}{new} != ret )
+                outportb(\hyperlink{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}{BASE}, \textcolor{keyword}{new});\textcolor{comment}{// ECHO BACK}
+                \textcolor{comment}{//If the current status is not reading, store the character in th
+      e ring buffer. }
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} != \hyperlink{_m_p_x___r5_8h_ada74e7db007a68e763f20c17f2985356}{READ})\{
+                        \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ad06a8146a22a605c0f463b212774cc92}{ringbufcount} != \hyperlink{_m_p_x___r5_8h_aa23c661441688350614bd6a350d2b6ff}{size})\{
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_add9c4fe8b331128af0f655bc74410ffd}{ringbuf}[\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a87b6f10cd47f45a38cfa264c298acc04}{ringbufin}]= \textcolor{keyword}{new};
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a87b6f10cd47f45a38cfa264c298acc04}{ringbufin} = (\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a87b6f10cd47f45a38cfa264c298acc04}{ringbufin}+1)%\hyperlink{_m_p_x___r5_8h_aa23c661441688350614bd6a350d2b6ff}{size};
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ad06a8146a22a605c0f463b212774cc92}{ringbufcount}++;
+                        \}
+                \}\textcolor{keywordflow}{else}\{ \textcolor{comment}{//status is reading}
+                        *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff} = \textcolor{keyword}{new};
+                        \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}++;
+                        \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone}++;
+                                \textcolor{comment}{//If the count is not completed and the character
+       is not CR, return. Do not signal completion. }
+                        \textcolor{keywordflow}{if}(\textcolor{keyword}{new}== \textcolor{charliteral}{'\(\backslash\)r'} || (\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone} ) >= *(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{incount}))\{
+                                \textcolor{keywordflow}{if}(*(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}-1) == \textcolor{charliteral}{'\(\backslash\)r'})\{
+                                        *(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff}-1) = \textcolor{charliteral}{'\(\backslash\)0'};
+                                \}\textcolor{keywordflow}{else}\{
+                                        *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a031f8856932341c5b5bf979b4da0d5df}{inbuff} = \textcolor{charliteral}{'\(\backslash\)0'};
+                                \}
+                                *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab46085fdbca4da85dfbbbf7baafc4612}{incount} = \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aff338e9d555a8f740e997650a862b523}{indone};
+                                \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} =IDLE;
+                                *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{flag_ptr} = SET;
+                \}\textcolor{comment}{//end if}
+        \}\textcolor{comment}{//end else}
+
+        \}
+\end{DoxyCode}
+
+
+\hypertarget{_m_p_x___r5_8h_a4e674e8641ca22513d0e38e17f9df632}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!level2Write@{level2Write}}
+\index{level2Write@{level2Write}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{level2Write}]{\setlength{\rightskip}{0pt plus 5cm}void level2Write (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x___r5_8h_a4e674e8641ca22513d0e38e17f9df632}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8_c_source_l00086}{86} of file \hyperlink{_m_p_x___r5_8_c_source}{MPX\_\-R5.C}.
+
+
+
+
+\begin{DoxyCode}
+                          \{
+
+                \textcolor{keywordtype}{int} mask; 
+         
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}. \hyperlink{trmdrive_8c_a6e27f49150e9a14580fb313cc2777e00}{status} != \hyperlink{_m_p_x___r5_8h_aa10f470e996d0f51210d24f442d25e1e}{WRITE}) 
+                        \textcolor{keywordflow}{return}; \textcolor{comment}{//Ignore the interrupt and return}
+
+                \textcolor{keywordflow}{if}(\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab7c43127bcb340d678131fd04c37ba05}{outdone} < *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ae597c46dee282a47174100b12525b424}{outcount})\{
+                        outportb(\hyperlink{_m_p_x___r5_8h_a79bcfb6bde984f42d1124b068a509af7}{BASE}, *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a32acea82810b51d93df2d3ced6cdffb7}{outbuff});
+                        \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_a32acea82810b51d93df2d3ced6cdffb7}{outbuff}++; 
+                        \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_ab7c43127bcb340d678131fd04c37ba05}{outdone}++;
+                        \textcolor{keywordflow}{return};
+                \}\textcolor{keywordflow}{else}\{
+
+                        \hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aaaefcdae0117d89bef5340a1e3f432e1}{status} = IDLE;
+                        *\hyperlink{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{dcbPtr}.\hyperlink{structdevice_aa14e67b7bd4e2bc5751268f0be91983f}{flag_ptr} = SET;
+
+                        mask = inportb(\hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{INT_EN});
+                        mask = mask&~0x02;
+                        outportb(\hyperlink{_m_p_x___r5_8h_a8dc8a6ba32861f0a3cbd89fa1ec0d216}{INT_EN}, mask);
+                        \textcolor{keywordflow}{return};
+                \}
+        \}
+\end{DoxyCode}
+
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{_m_p_x___r5_8h_a8e251dc6b3970d91b5e576f4b62a0518}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!callInt@{callInt}}
+\index{callInt@{callInt}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{callInt}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf callInt} = 0}}
+\label{_m_p_x___r5_8h_a8e251dc6b3970d91b5e576f4b62a0518}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00047}{47} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!dcbPtr@{dcbPtr}}
+\index{dcbPtr@{dcbPtr}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{dcbPtr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DCB} {\bf dcbPtr}}}
+\label{_m_p_x___r5_8h_acf6724d515070007ff4ac39c32640311}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00067}{67} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!num@{num}}
+\index{num@{num}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{num}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf num}}}
+\label{_m_p_x___r5_8h_a86cf672daa4e0ad11ad10efc894d19c8}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00048}{48} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+
+\hypertarget{_m_p_x___r5_8h_aecebfaddee878c55ece8a1aa8ac843d4}{
+\index{MPX\_\-R5.h@{MPX\_\-R5.h}!oldfunc@{oldfunc}}
+\index{oldfunc@{oldfunc}!MPX_R5.h@{MPX\_\-R5.h}}
+\subsubsection[{oldfunc}]{\setlength{\rightskip}{0pt plus 5cm}void interrupt($\ast$ {\bf oldfunc})(void)}}
+\label{_m_p_x___r5_8h_aecebfaddee878c55ece8a1aa8ac843d4}
+
+
+Definition at line \hyperlink{_m_p_x___r5_8h_source_l00077}{77} of file \hyperlink{_m_p_x___r5_8h_source}{MPX\_\-R5.h}.
+

@@ -1,0 +1,113 @@
+\hypertarget{_m_p_x_8_c}{
+\section{src/MPX.C File Reference}
+\label{_m_p_x_8_c}\index{src/MPX.C@{src/MPX.C}}
+}
+{\ttfamily \#include $<$dos.h$>$}\par
+{\ttfamily \#include \char`\"{}mpx\_\-supt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-util.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-cmd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r4.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r3.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r2.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r5.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}TRMDRIVE.H\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_m_p_x_8_c_acdef7a1fd863a6d3770c1268cb06add3}{main} ()
+\begin{DoxyCompactList}\small\item\em Entry Point of MPX. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_m_p_x_8_c_acdef7a1fd863a6d3770c1268cb06add3}{
+\index{MPX.C@{MPX.C}!main@{main}}
+\index{main@{main}!MPX.C@{MPX.C}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}void main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{_m_p_x_8_c_acdef7a1fd863a6d3770c1268cb06add3}
+
+
+Entry Point of MPX. 
+
+This is the entry point of MPX, it calls the mpx\_\-command\_\-loop. The Command Loop function starts the display of the Welcome Message and the inital home screen of MPX. 
+
+Definition at line \hyperlink{_m_p_x_8_c_source_l00038}{38} of file \hyperlink{_m_p_x_8_c_source}{MPX.C}.
+
+
+
+
+\begin{DoxyCode}
+           \{
+        \textcolor{keywordtype}{int} err;
+        \hyperlink{structprocess}{PCB} *command\_loop, *idlePCB;
+        \hyperlink{structstack}{STACKDSC} *command\_stack;
+        \hyperlink{structcontext}{tcontext} *command\_context;
+        \hyperlink{structcontext}{tcontext} *tempContext;
+        \textcolor{keywordtype}{char} dir[20] = \textcolor{stringliteral}{"proc"};
+        \textcolor{keywordtype}{char} name[20] = \textcolor{stringliteral}{"idle"};
+        \textcolor{keywordtype}{char} filename[20] = \textcolor{stringliteral}{"IDLE"};
+        \textcolor{keywordtype}{int} sizex,offset,priority;
+        \textcolor{keywordtype}{int} eventFlag, eventtFlag;
+        \textcolor{keywordtype}{char} command[20] = \textcolor{stringliteral}{"Command\_Hand"};
+        sys\_init( MODULE\_R4 ); \textcolor{comment}{//System initilization}
+        sys\_set\_vec(\hyperlink{mpx__r3_8c_abeb8ddb92acb8fa40e902b98f2a1ccfb}{sys_call});
+
+        \textcolor{comment}{//Open Device Drivers}
+        \textcolor{comment}{//com\_open( (int *) eventFlag, 1200);}
+       \textcolor{comment}{//trm\_open(  (int *) eventtFlag );}
+
+        \textcolor{comment}{// Command Handler loop insertion}
+        command\_loop = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+
+        command\_stack = command\_loop -> stackdsc;
+
+        command\_stack->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top} = command\_stack->\hyperlink{structstack_a1cdb71e486a79747d482aa46f6b10290}{base} + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+
+        command\_context = (\hyperlink{structcontext}{tcontext}*) command\_stack->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top};
+
+        command\_context->DS = \_DS;
+        command\_context->ES = \_ES;
+        command\_context->CS = FP\_SEG(&\hyperlink{_m_p_x___c_m_d_8_c_ab2f64c5ce0432edca230a87739501703}{mpx_command_loop});
+        command\_context->IP = FP\_OFF(&\hyperlink{_m_p_x___c_m_d_8_c_ab2f64c5ce0432edca230a87739501703}{mpx_command_loop});
+        command\_context->FLAGS = 0x200;
+
+        \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(command\_loop,command,\hyperlink{mpx__r2_8h_a21b97df85e65556468b28a576311271c}{SYSTEM},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY},-127);
+
+        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(command\_loop);
+
+        \textcolor{comment}{//IDLE Process insertion}
+
+        sys\_check\_program(dir,filename,&sizex,&offset);
+
+        idlePCB = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(idlePCB,name,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_ad1235d5ce36f7267285e82dccd428aa6}{READY},127);
+
+        idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR} = sys\_alloc\_mem(sizex);
+        idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR} = idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR} + offset;
+
+        idlePCB->\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc}->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top} = idlePCB->\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc}->\hyperlink{structstack_a1cdb71e486a79747d482aa46f6b10290}{base} + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} - \textcolor{keyword}{sizeof}(
+      \hyperlink{structcontext}{tcontext});
+
+        tempContext = (\hyperlink{structcontext}{tcontext} *) (idlePCB->\hyperlink{structprocess_a7e0fb37fbb9c155b18f75a94a8fc202b}{stackdsc}->\hyperlink{structstack_adf145fa22a24464ff19409e2618a583d}{top});
+        tempContext->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+        tempContext->DS = \_DS;
+        tempContext->CS = FP\_SEG(idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+        tempContext->IP = FP\_OFF(idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+        tempContext->FLAGS = 0x200;
+
+        sys\_load\_program(idlePCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR},sizex,dir,filename);
+
+        \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(idlePCB);
+
+
+        \hyperlink{mpx__r3_8c_ad4150c832feb766384417ab7bae70089}{dispatch}();
+        printf(\textcolor{stringliteral}{"exit sucess"});
+        \textcolor{comment}{//mpxprompt\_anykey();}
+        sys\_exit();
+\}
+\end{DoxyCode}
+
+

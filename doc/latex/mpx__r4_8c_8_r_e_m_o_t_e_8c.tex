@@ -1,0 +1,191 @@
+\hypertarget{mpx__r4_8c_8_r_e_m_o_t_e_8c}{
+\section{src/mpx\_\-r4.c.REMOTE.c File Reference}
+\label{mpx__r4_8c_8_r_e_m_o_t_e_8c}\index{src/mpx\_\-r4.c.REMOTE.c@{src/mpx\_\-r4.c.REMOTE.c}}
+}
+{\ttfamily \#include \char`\"{}dos.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-cmd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-util.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r2.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r3.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-r4.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mpx\_\-supt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mystdlib.h\char`\"{}}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_a794e5f6c45d4d9b18fff6a530ce90f86}{loadProgram} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_aaa714b85ce262f949d018430daf6da00}{terminateProcess} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structroot}{ROOT} $\ast$ \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_afe54c168944e64a28d76b6e4d3abb391}{rQueue}
+\begin{DoxyCompactList}\small\item\em declaring null roots for initial start of linked lists \item\end{DoxyCompactList}\item 
+\hyperlink{structroot}{ROOT} $\ast$ \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_a8dec03d44c5fad121b5568399d1cf278}{wsQueue}
+\item 
+void $\ast$ \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_a872ebd998619bdbaa3b905883e648502}{loadAddr}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{mpx__r4_8c_8_r_e_m_o_t_e_8c_a794e5f6c45d4d9b18fff6a530ce90f86}{
+\index{mpx\_\-r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}!loadProgram@{loadProgram}}
+\index{loadProgram@{loadProgram}!mpx_r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}}
+\subsubsection[{loadProgram}]{\setlength{\rightskip}{0pt plus 5cm}void loadProgram (
+\begin{DoxyParamCaption}
+\item[{int}]{ argc, }
+\item[{char $\ast$}]{ argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__r4_8c_8_r_e_m_o_t_e_8c_a794e5f6c45d4d9b18fff6a530ce90f86}
+
+
+Definition at line \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_source_l00014}{14} of file \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_source}{mpx\_\-r4.c.REMOTE.c}.
+
+
+
+
+\begin{DoxyCode}
+                                        \{ \textcolor{comment}{//name,fileName,priority,path}
+        
+        \textcolor{keyword}{static} \textcolor{keywordtype}{int} count;
+        \hyperlink{structmem}{MEMDSC} *tempMem;
+        \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} temptop;
+        \textcolor{keywordtype}{char} *dir, *name, *filename;
+        \textcolor{keywordtype}{int} size,offset,priority;
+        \hyperlink{structcontext}{tcontext} *tempContext;
+        \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *tempCS,*tempIP;
+        \hyperlink{structstack}{STACKDSC} *temp;
+        
+        \textcolor{keywordtype}{int} err = 0;
+        \hyperlink{structprocess}{PCB} *newPCB = \hyperlink{mpx__r2_8c_a58a8a1ea0a96b9ecf0be29179a5a0a1e}{allocate_PCB}();
+        tempMem=newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc};
+        dir = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(30 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));
+        name = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(30 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));
+        filename = (\textcolor{keywordtype}{char}*) sys\_alloc\_mem(30 * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));
+        strcpy(dir,argv[4]);
+        strcpy(name,argv[1]);
+        strcpy(filename,argv[2]);
+        priority = atoi(argv[3]);
+        
+        err = sys\_check\_program(dir,filename,&size,&offset);
+        \textcolor{keywordflow}{if}((argc==5)||(127<=priority<=-128)&&( err==0))\{
+                
+                
+
+              \textcolor{comment}{/*        if( count == ZERO )\{ //If first process allocate queue}
+\textcolor{comment}{                        rQueue = (ROOT*) sys\_alloc\_mem(sizeof(ROOT));}
+\textcolor{comment}{                        wsQueue = (ROOT*) sys\_alloc\_mem(sizeof(ROOT));}
+\textcolor{comment}{                \}   */}
+
+                \hyperlink{mpx__r2_8c_a316c9619aba53c03c17afbc0a0dbf096}{setup_PCB}(newPCB,name,\hyperlink{mpx__r2_8h_a796bd7c6ba2e59281760fb155c6287e8}{APPLICATION},\hyperlink{mpx__r2_8h_a07b1141143e8825b04670da23fca8cc7}{SUSPENDED_READY},priority);
+
+
+                
+                newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR}= sys\_alloc\_mem(size);;
+                newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR}=newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR} + offset;
+                
+                \textcolor{comment}{//make sure all registers are properly set}
+                
+                newPCB -> stackdsc-> top = newPCB -> stackdsc-> base + \hyperlink{mpx__r2_8h_a21d9543c516fffee84a7963224271f95}{STACKSIZE} 
+      - \textcolor{keyword}{sizeof}(\hyperlink{structcontext}{tcontext});
+                
+                tempContext = (\hyperlink{structcontext}{tcontext} *) (newPCB -> stackdsc-> top);
+                tempContext ->\hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES} = \_ES;
+                tempContext ->DS = \_DS;
+                tempContext ->CS = FP\_SEG(newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+                tempContext ->IP = FP\_OFF(newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a5340491e17307817e6dca3b1d260d18a}{execADDR});
+                tempContext ->FLAGS = 0x200;
+                
+                
+                 err = sys\_load\_program(newPCB->\hyperlink{structprocess_a163551ab7b60184b48e5d440fcd5c2b8}{memdsc}->\hyperlink{structmem_a8f5a4db03ee0560e6bd4dd602ad753c0}{loadADDR},size,dir,filenam
+      e);
+                
+                \hyperlink{mpx__r2_8c_aa3b334e3a5afd6e590917667ad359a6f}{insert_PCB}(newPCB);     
+                count++;\textcolor{comment}{//Update the number of times the function has run.}
+                
+        \}
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong or invalid arguments entered."});
+        \}
+\}
+\end{DoxyCode}
+
+
+\hypertarget{mpx__r4_8c_8_r_e_m_o_t_e_8c_aaa714b85ce262f949d018430daf6da00}{
+\index{mpx\_\-r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}!terminateProcess@{terminateProcess}}
+\index{terminateProcess@{terminateProcess}!mpx_r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}}
+\subsubsection[{terminateProcess}]{\setlength{\rightskip}{0pt plus 5cm}void terminateProcess (
+\begin{DoxyParamCaption}
+\item[{int}]{ argc, }
+\item[{char $\ast$}]{ argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{mpx__r4_8c_8_r_e_m_o_t_e_8c_aaa714b85ce262f949d018430daf6da00}
+
+
+Definition at line \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_source_l00076}{76} of file \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_source}{mpx\_\-r4.c.REMOTE.c}.
+
+
+
+
+\begin{DoxyCode}
+                                             \{
+
+        \textcolor{keywordflow}{if} (argc == 2)\{
+                \textcolor{keywordtype}{char} name[STRLEN];
+                \hyperlink{structprocess}{PCB} *pointer;
+                strcpy(name,argv[1]);
+                pointer = \hyperlink{mpx__r2_8c_a612a6abcb66c688a32f33abc93ff3990}{find_PCB}(name);
+        
+                \textcolor{keywordflow}{if} ( pointer != NULL)\{
+                        \hyperlink{mpx__r2_8c_af30a3658210d449b4b53e5be2ed2bc2e}{remove_PCB}(pointer);
+                        \hyperlink{mpx__r2_8c_a79890f055b1d0fccf1962bbde4877caa}{free_PCB}(pointer);
+                \}
+        \}
+        
+        \textcolor{keywordflow}{else}\{
+                printf(\textcolor{stringliteral}{"Wrong arguments entered."});
+                \textcolor{keywordflow}{return};
+        \}
+\}
+\end{DoxyCode}
+
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{mpx__r4_8c_8_r_e_m_o_t_e_8c_a872ebd998619bdbaa3b905883e648502}{
+\index{mpx\_\-r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}!loadAddr@{loadAddr}}
+\index{loadAddr@{loadAddr}!mpx_r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}}
+\subsubsection[{loadAddr}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ {\bf loadAddr}}}
+\label{mpx__r4_8c_8_r_e_m_o_t_e_8c_a872ebd998619bdbaa3b905883e648502}
+
+
+Definition at line \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_source_l00013}{13} of file \hyperlink{mpx__r4_8c_8_r_e_m_o_t_e_8c_source}{mpx\_\-r4.c.REMOTE.c}.
+
+\hypertarget{mpx__r4_8c_8_r_e_m_o_t_e_8c_afe54c168944e64a28d76b6e4d3abb391}{
+\index{mpx\_\-r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}!rQueue@{rQueue}}
+\index{rQueue@{rQueue}!mpx_r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}}
+\subsubsection[{rQueue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ROOT}$\ast$ {\bf rQueue}}}
+\label{mpx__r4_8c_8_r_e_m_o_t_e_8c_afe54c168944e64a28d76b6e4d3abb391}
+
+
+declaring null roots for initial start of linked lists 
+
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00028}{28} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+
+\hypertarget{mpx__r4_8c_8_r_e_m_o_t_e_8c_a8dec03d44c5fad121b5568399d1cf278}{
+\index{mpx\_\-r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}!wsQueue@{wsQueue}}
+\index{wsQueue@{wsQueue}!mpx_r4.c.REMOTE.c@{mpx\_\-r4.c.REMOTE.c}}
+\subsubsection[{wsQueue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ROOT} $\ast$ {\bf wsQueue}}}
+\label{mpx__r4_8c_8_r_e_m_o_t_e_8c_a8dec03d44c5fad121b5568399d1cf278}
+
+
+Definition at line \hyperlink{mpx__r2_8c_source_l00029}{29} of file \hyperlink{mpx__r2_8c_source}{mpx\_\-r2.c}.
+

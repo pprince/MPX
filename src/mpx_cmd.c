@@ -38,7 +38,7 @@ char *welcome_message_str       = "\n\n  Welcome to Perpetual Motion Squad's Ope
 char *anykey_str                = "\n<<Press Enter to Continue.>>";/**< Any Key String stores the value of the prompt for the user to press return.*/
 
 
-mpx_cmd_t *cmd_head = NULL;
+mpx_cmd_t *cmd_head = NULL; /**< pointer to the head node in the comand list. */
 
 
 void mpx_add_command( char *cmd_name, void(*cmd_function)(int argc, char *argv[]) ) {
@@ -73,12 +73,12 @@ void mpx_add_command( char *cmd_name, void(*cmd_function)(int argc, char *argv[]
 */
 int mpx_command_loop (void) {
 
-	char cmd_line[MAX_LINE];
-	char *cmd_argv[MAX_ARGS+1];
-	int  cmd_argc;
+	char cmd_line[MAX_LINE];///< Character String for the command line.
+	char *cmd_argv[MAX_ARGS+1];///< Token array for the argv.
+	int  cmd_argc;///< The varable for the arg count ie how many total arguments are there in the argv array.
 	int  i;
-	mpx_cmd_t *command;
-
+	mpx_cmd_t *command;///< The pointer to the command list.
+	//Add commands to the command list 
 	mpx_add_command( "help", mpxcmd_help );
 	mpx_add_command("load", mpxcmd_load );
 	mpx_add_command("date", mpxcmd_date );
@@ -102,22 +102,22 @@ int mpx_command_loop (void) {
 
 	for(;;){ /* infinite loop */
 
-		mpx_cls();
+		mpx_cls(); //clear screan
 
-		printf("%s", welcome_message_str);
+		printf("%s", welcome_message_str);//prints the welcome string
 
-		printf("%s", prompt_str);
+		printf("%s", prompt_str); // prints the prompt
 
 		cmd_argc = 0;
 
-		mpx_readline(cmd_line, MAX_LINE-1);	
+		mpx_readline(cmd_line, MAX_LINE-1);	//reads line in from input 
 
-		cmd_argv[0] = strtok(cmd_line, " "); ///< takes first word of user input as the command 
+		cmd_argv[0] = strtok(cmd_line, " "); // takes first word of user input as the command 
 		cmd_argc++;
 
 		/* cmd_line is invalidated after this point; use cmd_argv[] instead. */
 
-		for(i=0; i<MAX_ARGS; i++){ ///< goes through the user input and takes each word as a token for later use as arguments in command
+		for(i=0; i<MAX_ARGS; i++){ // goes through the user input and takes each word as a token for later use as arguments in command
 			cmd_argv[cmd_argc] = strtok(NULL, " ");
 			if( cmd_argv[cmd_argc] == NULL ){
 				break;
@@ -135,7 +135,7 @@ int mpx_command_loop (void) {
 		/* run the command function that the user requested,
 		 * or print an error message if it is not valid. */
 		command = cmd_head;
-		while (command != NULL) { ///< searches the list for a matching command
+		while (command != NULL) { // searches the list for a matching command
 			if ( strcmp(command->cmd_name, cmd_argv[0]) == 0 ) {
 				command->cmd_function( cmd_argc, cmd_argv );
 				break;
@@ -162,14 +162,14 @@ void mpxcmd_load (int argc, char *argv[]) {
 
 	mpx_cls();
 
-	if( sys_open_dir(NULL) != 0 ){ ///< attempts to open the directory
+	if( sys_open_dir(NULL) != 0 ){ // attempts to open the directory
 		printf("WARNING: Failed to open MPX directory!\n");
 		printf("%s", anykey_str); mpxprompt_anykey();
 		return;
 	}
 
 	mpx_pager_init("  Contents of MPX Directory (.mpx Files):\n  =======================================\n    SIZE        NAME\n    ----------  -------------------------------------------\n");
-	while( sys_get_entry(buf, 9, &file_size) == 0 ){ ///< gets a file and puts the name in buf until none left
+	while( sys_get_entry(buf, 9, &file_size) == 0 ){ // gets a file and puts the name in buf until none left
 		/* snprintf(&line_buf, MAX_LINE, "    %10ld  %s", file_size, buf); */
 		sprintf(&line_buf, "    %10ld  %s", file_size, buf);
 		mpx_pager(&line_buf);
@@ -198,12 +198,12 @@ void mpxcmd_help(int argc, char *argv[]){
 
 	
 	if(argc==2){ // specific function help
-		fp=fopen(buffer,"r"); ///< opens the file
-		fseek(fp,0,SEEK_END); ///< goes to the end of the file
-		fileSize=ftell(fp); ///< finds out the size of the file
-		rewind(fp); ///< returns to the beginning
+		fp=fopen(buffer,"r"); // opens the file
+		fseek(fp,0,SEEK_END); // goes to the end of the file
+		fileSize=ftell(fp); // finds out the size of the file
+		rewind(fp); // returns to the beginning
 		buffer = (char*) sys_alloc_mem(sizeof(char)*fileSize);
-		data = fread (buffer,1,fileSize,fp); ///< writes to the buffer the prints out
+		data = fread (buffer,1,fileSize,fp); // writes to the buffer the prints out
 		
 		printf("%s",buffer);
 	}

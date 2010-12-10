@@ -1,0 +1,678 @@
+\hypertarget{trmdrive_8c_source}{
+\section{src/trmdrive.c}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/********************************************************************}
+00002 \textcolor{comment}{        MPX: The MultiProgramming eXecutive}
+00003 \textcolor{comment}{        Project to Accompany}
+00004 \textcolor{comment}{        A Practical Approach to Operating Systems}
+00005 \textcolor{comment}{        Malcolm G. Lane & James D. Mooney}
+00006 \textcolor{comment}{        Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.}
+00007 \textcolor{comment}{        }
+00008 \textcolor{comment}{        File Name: trmdrive.c}
+00009 \textcolor{comment}{}
+00010 \textcolor{comment}{        Authors: M.G. Lane, A. Ghosal, J. Mooney}
+00011 \textcolor{comment}{        Version: 2.1b}
+00012 \textcolor{comment}{        Date: 11/10/93}
+00013 \textcolor{comment}{}
+00014 \textcolor{comment}{        Purpose: Terminal (Console) Driver}
+00015 \textcolor{comment}{}
+00016 \textcolor{comment}{        This module is a direct driver for keyboard input and}
+00017 \textcolor{comment}{        screen output.  These devices are collectively called}
+00018 \textcolor{comment}{        the "terminal."  Note that the screen output does *not*}
+00019 \textcolor{comment}{        use interrupts.}
+00020 \textcolor{comment}{}
+00021 \textcolor{comment}{        This version does not support simultaneous input and}
+00022 \textcolor{comment}{        output, or typeahead.  Note that the screen driver does}
+00023 \textcolor{comment}{        *not* use interrupts, and does *not* call IO\_complete.}
+00024 \textcolor{comment}{}
+00025 \textcolor{comment}{        This driver uses BIOS functions for screen output and}
+00026 \textcolor{comment}{        keyboard input.  It should be portable across all}
+00027 \textcolor{comment}{        keyboards and video modes.}
+00028 \textcolor{comment}{}
+00029 \textcolor{comment}{        Environments: IBM-PC, TURBO-C.}
+00030 \textcolor{comment}{                }
+00031 \textcolor{comment}{        Procedures:     trm\_open        open the terminal}
+00032 \textcolor{comment}{                        trm\_close       close the terminal}
+00033 \textcolor{comment}{                        trm\_read        begin a keyboard read}
+00034 \textcolor{comment}{                        trm\_getc        process keyboard characters}
+00035 \textcolor{comment}{                        trm\_write       perform a screen write}
+00036 \textcolor{comment}{                        trm\_clear       clear the screen}
+00037 \textcolor{comment}{                        trm\_gotoxy      set cursor position}
+00038 \textcolor{comment}{                        kbd\_ihand       handle keyboard interrupts}
+00039 \textcolor{comment}{                        trm\_getc        get processed characters}
+00040 \textcolor{comment}{}
+00041 \textcolor{comment}{}
+00042 \textcolor{comment}{**************************************************************************}
+00043 \textcolor{comment}{}
+00044 \textcolor{comment}{        Change Log:}
+00045 \textcolor{comment}{}
+00046 \textcolor{comment}{        04/21/88  akg   revise IOFIN parameters}
+00047 \textcolor{comment}{        05/08/88  mgl   enhance driver, add tab support.}
+00048 \textcolor{comment}{        05/09/88  mgl   change to far pointers for con\_read and con\_write}
+00049 \textcolor{comment}{        08/02/88  mgl   enabled code for 8088, 8086 that had been}
+00050 \textcolor{comment}{                              conditionally omitted.}
+00051 \textcolor{comment}{        12/11/92  jdm   restructured for MPX 2.0}
+00052 \textcolor{comment}{        12/30/92  jdm   corrected name conflict (clear\_scr)}
+00053 \textcolor{comment}{        03/30/93  jdm   corrected errors in trm\_getc}
+00054 \textcolor{comment}{        03/30/93  jdm   final version for V2.0b}
+00055 \textcolor{comment}{        11/10/93  jdm   updated for large model; removed IO\_complete}
+00056 \textcolor{comment}{}
+00057 \textcolor{comment}{**************************************************************************/}
+00058 
+00059 \textcolor{preprocessor}{#include <dos.h>}
+00060 
+\hypertarget{trmdrive_8c_source_l00061}{}\hyperlink{trmdrive_8c_a285e72252c100e2508e4e933a0738f2b}{00061} \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} word;
+\hypertarget{trmdrive_8c_source_l00062}{}\hyperlink{trmdrive_8c_a0c8186d9b9b7880309c27230bbb5e69d}{00062} \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} byte;
+00063 
+00064 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\hyperlink{structcontext}{context} \{
+\hypertarget{trmdrive_8c_source_l00065}{}\hyperlink{structcontext_ad8b8154f6a98c5e72b28e6031f135c74}{00065}         \hyperlink{trmdrive_8c_a285e72252c100e2508e4e933a0738f2b}{word} \hyperlink{structcontext_a036a2e025f269d00b084e69796f45680}{BP}, \hyperlink{structcontext_a71fd72ac821b4c932ad6f5befd4a5ea4}{DI}, \hyperlink{structcontext_a6b7fc81c19dfbd3a1438eb7738a712d8}{SI}, \hyperlink{structcontext_a657e73663a4443be61a078d31c28ee3e}{DS}, \hyperlink{structcontext_a81a78fef7bda3a5dd852b28a905890ab}{ES};
+\hypertarget{trmdrive_8c_source_l00066}{}\hyperlink{structcontext_ae026892abe9326a36108fcaeb08a4436}{00066}         \hyperlink{trmdrive_8c_a285e72252c100e2508e4e933a0738f2b}{word} \hyperlink{structcontext_a520e6d1f4fcf543e914e536248da306e}{DX}, \hyperlink{structcontext_a7f06dbf351fa2b704708aadf139eb1d4}{CX}, \hyperlink{structcontext_acd2a72acb8e494afd3c30c3614e567ee}{BX}, \hyperlink{structcontext_ac566b46485abbfc32ce69987dfbd0d1f}{AX};
+\hypertarget{trmdrive_8c_source_l00067}{}\hyperlink{structcontext_aed5e26918558117081c7d87f485577ee}{00067}         \hyperlink{trmdrive_8c_a285e72252c100e2508e4e933a0738f2b}{word} \hyperlink{structcontext_a02ac427e75af0dfe7d649dc8821cde0a}{IP}, \hyperlink{structcontext_a0b41903d1fa3b4e1ce892f59480323b5}{CS}, \hyperlink{structcontext_a251dc5ae40a989bef945d2df6925f9a3}{FLAGS};
+00068         \} \hyperlink{structcontext}{context};
+00069 
+00070 \textcolor{preprocessor}{#include "mpx\_supt.h"}
+00071 \textcolor{preprocessor}{#include "\hyperlink{trmdrive_8h}{trmdrive.h}"}
+00072 
+00073 \textcolor{comment}{/* define 8259 PIC ports */}
+\hypertarget{trmdrive_8c_source_l00074}{}\hyperlink{trmdrive_8c_a5a66cf9d58dff90a490d82a1dbd56968}{00074} \textcolor{preprocessor}{#define PIC\_CMD         0x20}
+\hypertarget{trmdrive_8c_source_l00075}{}\hyperlink{trmdrive_8c_a89831dd7cb646bfa61461e0b1d91add7}{00075} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define PIC\_MASK        0x21}
+00076 \textcolor{preprocessor}{}
+00077 \textcolor{comment}{/* keyboard interrupt level */}
+\hypertarget{trmdrive_8c_source_l00078}{}\hyperlink{trmdrive_8c_a96eb1b55fb4bf833830e2b4a8904dcc1}{00078} \textcolor{preprocessor}{#define KBD\_LEVEL 1}
+00079 \textcolor{preprocessor}{}
+00080 
+00081 \textcolor{comment}{/* general definitions */}
+\hypertarget{trmdrive_8c_source_l00082}{}\hyperlink{trmdrive_8c_a59da1d65e87a723efe808dbabb4fc205}{00082} \textcolor{preprocessor}{#define SET             1}
+\hypertarget{trmdrive_8c_source_l00083}{}\hyperlink{trmdrive_8c_ab702106cf3b3e96750b6845ded4e0299}{00083} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define RESET           0}
+\hypertarget{trmdrive_8c_source_l00084}{}\hyperlink{trmdrive_8c_a876ce77f3c672c7162658151e648389e}{00084} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define CR              0x0D}
+\hypertarget{trmdrive_8c_source_l00085}{}\hyperlink{trmdrive_8c_a350c9d6cb81908d59427ee96844d1a9c}{00085} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define LF              0x0A}
+\hypertarget{trmdrive_8c_source_l00086}{}\hyperlink{trmdrive_8c_a580a88f98668df1ac5e1683cae31c0b3}{00086} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define BS              0x08}
+\hypertarget{trmdrive_8c_source_l00087}{}\hyperlink{trmdrive_8c_a4af1b6159e447ba72652bb7fcdfa726e}{00087} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ESC             0x1B}
+00088 \textcolor{preprocessor}{}
+00089 \textcolor{comment}{/* DCB status codes */}
+\hypertarget{trmdrive_8c_source_l00090}{}\hyperlink{trmdrive_8c_a6f821c66a608d5628538df4c12dcf4b9}{00090} \textcolor{preprocessor}{#define DEV\_IDLE        0}
+\hypertarget{trmdrive_8c_source_l00091}{}\hyperlink{trmdrive_8c_a3f47505e8d2a38e687fb188f4446e82d}{00091} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define DEV\_READ        1}
+\hypertarget{trmdrive_8c_source_l00092}{}\hyperlink{trmdrive_8c_ac7fcef4df7db28b4f5a684c08150c313}{00092} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define DEV\_WRITE       2}
+00093 \textcolor{preprocessor}{}
+00094 \textcolor{comment}{/* define keyboard interrupt number */}
+\hypertarget{trmdrive_8c_source_l00095}{}\hyperlink{trmdrive_8c_a52651037a009b9f7f5f5c3bc16338855}{00095} \textcolor{preprocessor}{#define KBD\_INTNUM      (0x08 + KBD\_LEVEL)}
+00096 \textcolor{preprocessor}{}
+00097 \textcolor{comment}{/* MSDOS interrupt parameters */}
+\hypertarget{trmdrive_8c_source_l00098}{}\hyperlink{trmdrive_8c_a1cdb6843f65f6b83b92156cb3ec61356}{00098} \textcolor{preprocessor}{#define OPEN\_FILE       0x3D}
+\hypertarget{trmdrive_8c_source_l00099}{}\hyperlink{trmdrive_8c_a8621afafdb55c59b3c89f2483dbb96fe}{00099} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define CLOSE\_FILE      0x3E}
+\hypertarget{trmdrive_8c_source_l00100}{}\hyperlink{trmdrive_8c_afa3f0ba7c4f5385d75bcce6005b6ad23}{00100} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define WRITE\_FILE      0x40}
+\hypertarget{trmdrive_8c_source_l00101}{}\hyperlink{trmdrive_8c_a0313b418faebd660e3c9a80108060d7e}{00101} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define GET\_CHAR        0x06}
+00102 \textcolor{preprocessor}{}
+\hypertarget{trmdrive_8c_source_l00103}{}\hyperlink{trmdrive_8c_afacd8708d4c64220663e1d08a8f4574d}{00103} \textcolor{preprocessor}{#define WRITE\_ONLY      0x01}
+00104 \textcolor{preprocessor}{}
+\hypertarget{trmdrive_8c_source_l00105}{}\hyperlink{trmdrive_8c_a2738a84bf27a63fe0b4c66148659f3f2}{00105} \textcolor{preprocessor}{#define MAX\_XPOS        79}
+\hypertarget{trmdrive_8c_source_l00106}{}\hyperlink{trmdrive_8c_ac2bb4deaeb5afb4e1d400837742cf075}{00106} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define MAX\_YPOS        23}
+00107 \textcolor{preprocessor}{}
+00108 \textcolor{comment}{/* register structures for MS-DOS interrupts */}
+\hypertarget{trmdrive_8c_source_l00109}{}\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{00109} \textcolor{keyword}{union }REGS \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs};
+\hypertarget{trmdrive_8c_source_l00110}{}\hyperlink{trmdrive_8c_a6d1d66d9778cd1920c9001dac5712514}{00110} \textcolor{keyword}{struct }SREGS \hyperlink{trmdrive_8c_a6d1d66d9778cd1920c9001dac5712514}{segs};
+00111 
+00112 \textcolor{comment}{/* DCB structure */}
+00113 \textcolor{keyword}{struct }\{
+\hypertarget{trmdrive_8c_source_l00114}{}\hyperlink{trmdrive_8c_a912be61f950f50de1e9b0e771fb6dc9e}{00114}         flag    \hyperlink{trmdrive_8c_a912be61f950f50de1e9b0e771fb6dc9e}{open};
+\hypertarget{trmdrive_8c_source_l00115}{}\hyperlink{trmdrive_8c_a6e27f49150e9a14580fb313cc2777e00}{00115}         \textcolor{keywordtype}{int}     \hyperlink{trmdrive_8c_a6e27f49150e9a14580fb313cc2777e00}{status};
+\hypertarget{trmdrive_8c_source_l00116}{}\hyperlink{trmdrive_8c_a41b220127b635de783a4be42ff740be3}{00116}         \textcolor{keywordtype}{int}     *\hyperlink{trmdrive_8c_a41b220127b635de783a4be42ff740be3}{eflag_p};
+\hypertarget{trmdrive_8c_source_l00117}{}\hyperlink{trmdrive_8c_afb1f64f6f7c740502841d6abd86265b1}{00117}         \textcolor{keywordtype}{char}    *\hyperlink{trmdrive_8c_afb1f64f6f7c740502841d6abd86265b1}{out_buf_p};
+\hypertarget{trmdrive_8c_source_l00118}{}\hyperlink{trmdrive_8c_aa5934e03243a68f1d91fa82d3461f43e}{00118}         \textcolor{keywordtype}{int}     *\hyperlink{trmdrive_8c_aa5934e03243a68f1d91fa82d3461f43e}{out_count_p};
+\hypertarget{trmdrive_8c_source_l00119}{}\hyperlink{trmdrive_8c_a50aac1c3e57e91f2878bc44c0fab5be1}{00119}         \textcolor{keywordtype}{int}     \hyperlink{trmdrive_8c_a50aac1c3e57e91f2878bc44c0fab5be1}{out_max};
+\hypertarget{trmdrive_8c_source_l00120}{}\hyperlink{trmdrive_8c_a0994a050449882d347de52eb985a670d}{00120}         \textcolor{keywordtype}{int}     \hyperlink{trmdrive_8c_a0994a050449882d347de52eb985a670d}{out_ctr};
+\hypertarget{trmdrive_8c_source_l00121}{}\hyperlink{trmdrive_8c_a5e1a1ffcb44306ac7356ddee8a98efa2}{00121}         \textcolor{keywordtype}{char}    *\hyperlink{trmdrive_8c_a5e1a1ffcb44306ac7356ddee8a98efa2}{in_buf_p};
+\hypertarget{trmdrive_8c_source_l00122}{}\hyperlink{trmdrive_8c_af3e3db6e4a00143431bf4d92753dc8f9}{00122}         \textcolor{keywordtype}{int}     *\hyperlink{trmdrive_8c_af3e3db6e4a00143431bf4d92753dc8f9}{in_count_p};
+\hypertarget{trmdrive_8c_source_l00123}{}\hyperlink{trmdrive_8c_a376e56df9f6d3e9b1608350ea736f831}{00123}         \textcolor{keywordtype}{int}     \hyperlink{trmdrive_8c_a376e56df9f6d3e9b1608350ea736f831}{in_max};
+\hypertarget{trmdrive_8c_source_l00124}{}\hyperlink{trmdrive_8c_a74ba485aabb72c838a6ec9b0e4aaaff3}{00124}         \textcolor{keywordtype}{int}     \hyperlink{trmdrive_8c_a74ba485aabb72c838a6ec9b0e4aaaff3}{in_ctr};
+00125         \} \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm} = \{FALSE, \hyperlink{trmdrive_8c_a6f821c66a608d5628538df4c12dcf4b9}{DEV_IDLE}\};
+00126 
+00127 \textcolor{comment}{/* ptr to saved keyboard interrupt vector */}
+\hypertarget{trmdrive_8c_source_l00128}{}\hyperlink{trmdrive_8c_ae0117ec71cfad7cb444a3af48e82db69}{00128} \textcolor{keywordtype}{void} interrupt (* \hyperlink{trmdrive_8c_ae0117ec71cfad7cb444a3af48e82db69}{old_kbhand_p}) (void) = NULL;
+00129 
+00130 \textcolor{comment}{/* MS-DOS handle for console (screen) output */}
+\hypertarget{trmdrive_8c_source_l00131}{}\hyperlink{trmdrive_8c_a679f108c9d4e6b006d00e83ec2a4aa96}{00131} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a679f108c9d4e6b006d00e83ec2a4aa96}{con_handle};
+00132 
+00133 \textcolor{comment}{/* pending keyboard character count */}
+\hypertarget{trmdrive_8c_source_l00134}{}\hyperlink{trmdrive_8c_a152186ebee09ccf193037184a35ae013}{00134} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a152186ebee09ccf193037184a35ae013}{pendc} = 0;
+00135 
+00136 \textcolor{comment}{/*extern flag mpx\_active;*/}
+00137 
+00138 \textcolor{comment}{/* declare keyboard interrupt handler */}
+00139 \textcolor{keywordtype}{void} interrupt \hyperlink{trmdrive_8c_aebfcd164b5b67675c3d7f86be3f68e94}{kbd_ihand}(\textcolor{keywordtype}{void});
+00140 
+00141 \textcolor{comment}{/* declare local procedures */}
+00142 \textcolor{keywordtype}{void} \hyperlink{trmdrive_8c_af83e4fe07f82e4efe77504d26b445b25}{clear_scr} (\textcolor{keywordtype}{void});
+00143 \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a7dce95f2c134d55014f3b3fa1de35d33}{goto_xy} (\textcolor{keywordtype}{int} xval, \textcolor{keywordtype}{int} yval);
+00144 \textcolor{keywordtype}{void} \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{keywordtype}{char} ch);
+00145 
+00146 
+00147 \textcolor{comment}{/*}
+00148 \textcolor{comment}{        Procedure: trm\_open}
+00149 \textcolor{comment}{}
+00150 \textcolor{comment}{        Purpose: initialize the terminal}
+00151 \textcolor{comment}{}
+00152 \textcolor{comment}{}
+00153 \textcolor{comment}{        Parameters:     int *ef\_p       ptr to event flag}
+00154 \textcolor{comment}{}
+00155 \textcolor{comment}{        Return value: error code, or zero if OK}
+00156 \textcolor{comment}{}
+00157 \textcolor{comment}{        Calls:  getvect, setvect}
+00158 \textcolor{comment}{                clear\_scr}
+00159 \textcolor{comment}{                intdos(OPEN\_FILE)}
+00160 \textcolor{comment}{}
+00161 \textcolor{comment}{        Globals: old\_kbhand\_p, dcb\_trm, regs}
+00162 \textcolor{comment}{}
+00163 \textcolor{comment}{        Errors: ERR\_TRM\_OP\_INVEFP invalid event flag parameter}
+00164 \textcolor{comment}{                ERR\_TRM\_OP\_ALROPN device already open}
+00165 \textcolor{comment}{                ERR\_TRM\_OP\_OPFAIL open failed}
+00166 \textcolor{comment}{}
+00167 \textcolor{comment}{        The keyboard is assumed to be already "open", with interrupts}
+00168 \textcolor{comment}{        enabled.  We insert the MPX interrupt handler so keystrokes}
+00169 \textcolor{comment}{        will be detected;  this will in turn call the MS-DOS handler}
+00170 \textcolor{comment}{        for scan code processing, then collect the processed code.}
+00171 \textcolor{comment}{}
+00172 \textcolor{comment}{        The screen is accessed through MS-DOS handles.  We open a}
+00173 \textcolor{comment}{        private handle for CON and clear the screen.  We assume that}
+00174 \textcolor{comment}{        ANSI.SYS is loaded.}
+00175 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00176}{}\hyperlink{trmdrive_8h_aee9fd9776a799025c31cffe736facb3f}{00176} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_aee9fd9776a799025c31cffe736facb3f}{trm_open} (\textcolor{keywordtype}{int} *ef\_p)
+00177 \{
+00178         \textcolor{keywordtype}{int}     rval;
+00179         \textcolor{keywordtype}{int}     err;
+00180 
+00181         \textcolor{comment}{/* validate parameter */}
+00182         \textcolor{keywordflow}{if} (ef\_p == NULL) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_a4cf9f35af3ffda71ffb9eef6f3ac9d52}{ERR_TRM_OP_INVEFP});
+00183 
+00184         \textcolor{comment}{/* if already open, return error code */}
+00185         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.open) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_aa972fb46ff1456a5b14a87df4d951f9c}{ERR_TRM_OP_ALROPN});
+00186 
+00187         \textcolor{comment}{/* initialize DCB */}
+00188         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p = ef\_p;
+00189         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.open = TRUE;
+00190         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.status = DEV\_IDLE;
+00191 
+00192         \textcolor{comment}{/* clear character counter */}
+00193         \hyperlink{trmdrive_8c_a152186ebee09ccf193037184a35ae013}{pendc} = 0;
+00194 
+00195         \textcolor{comment}{/* open CON for output, get handle */}
+00196         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.ah = (byte) \hyperlink{trmdrive_8c_a1cdb6843f65f6b83b92156cb3ec61356}{OPEN_FILE};
+00197         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.al = (byte) \hyperlink{trmdrive_8c_afacd8708d4c64220663e1d08a8f4574d}{WRITE_ONLY};
+00198         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.dx = (word) \textcolor{stringliteral}{"CON"};
+00199         rval = intdos(&\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}, &\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs});
+00200         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.cflag!=0) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_aa690cb6d0876fcaacd02349985603865}{ERR_TRM_OP_OPFAIL});
+00201         \hyperlink{trmdrive_8c_a679f108c9d4e6b006d00e83ec2a4aa96}{con_handle} = rval;
+00202 
+00203         \textcolor{comment}{/* save MS-DOS keyboard handler addr, setup MPX handler */}
+00204         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_ae0117ec71cfad7cb444a3af48e82db69}{old_kbhand_p}==NULL) \{
+00205                 \hyperlink{trmdrive_8c_ae0117ec71cfad7cb444a3af48e82db69}{old_kbhand_p} = getvect(\hyperlink{trmdrive_8c_a52651037a009b9f7f5f5c3bc16338855}{KBD_INTNUM});
+00206         \}
+00207         setvect(\hyperlink{trmdrive_8c_a52651037a009b9f7f5f5c3bc16338855}{KBD_INTNUM},&\hyperlink{trmdrive_8c_aebfcd164b5b67675c3d7f86be3f68e94}{kbd_ihand});
+00208 
+00209         \textcolor{comment}{/* clear the screen */}
+00210         err = \hyperlink{trmdrive_8c_ae586641189b36f988e24e938899d2dee}{trm_clear}();
+00211         err = err;
+00212 
+00213         \textcolor{keywordflow}{return} (OK);
+00214 \}
+00215 
+00216 
+00217 \textcolor{comment}{/*}
+00218 \textcolor{comment}{        Procedure: trm\_close}
+00219 \textcolor{comment}{}
+00220 \textcolor{comment}{        Purpose: close the terminal}
+00221 \textcolor{comment}{}
+00222 \textcolor{comment}{}
+00223 \textcolor{comment}{        Parameters:     none    }
+00224 \textcolor{comment}{}
+00225 \textcolor{comment}{        Return value: error code, or zero if OK}
+00226 \textcolor{comment}{}
+00227 \textcolor{comment}{        Calls:  setvect}
+00228 \textcolor{comment}{                intdos (CLOSE\_FILE)}
+00229 \textcolor{comment}{}
+00230 \textcolor{comment}{        Globals: old\_kbhand\_p, dcb\_trm, regs}
+00231 \textcolor{comment}{}
+00232 \textcolor{comment}{        Errors: ERR\_TRM\_CL\_NOTOPN       terminal not open}
+00233 \textcolor{comment}{                ERR\_TRM\_CL\_CLFAIL       close failed}
+00234 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00235}{}\hyperlink{trmdrive_8h_ae63092252bd7a24cbaacad2fef6332d2}{00235} \hyperlink{trmdrive_8c_a1d9a258c2f0a3e831fa856102e4d7484}{trm_close}(\textcolor{keywordtype}{void})
+00236 \{
+00237         \textcolor{keywordtype}{int}     err;
+00238 
+00239         \textcolor{comment}{/* if not open, return error code */}
+00240         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p == NULL) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_a6e8307d1f4ea25f3de1c116588bd2687}{ERR_TRM_CL_NOTOPN});
+00241 
+00242         \textcolor{comment}{/* clear the open flag */}
+00243         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.open = FALSE;
+00244 
+00245         \textcolor{comment}{/* restore MS-DOS interrupt vector */}
+00246         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_ae0117ec71cfad7cb444a3af48e82db69}{old_kbhand_p}!=NULL) \{
+00247                 setvect(\hyperlink{trmdrive_8c_a52651037a009b9f7f5f5c3bc16338855}{KBD_INTNUM}, \hyperlink{trmdrive_8c_ae0117ec71cfad7cb444a3af48e82db69}{old_kbhand_p});
+00248         \}
+00249         \hyperlink{trmdrive_8c_ae0117ec71cfad7cb444a3af48e82db69}{old_kbhand_p} = NULL;
+00250 
+00251         \textcolor{comment}{/* close CON */}
+00252         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.ah = (byte) \hyperlink{trmdrive_8c_a8621afafdb55c59b3c89f2483dbb96fe}{CLOSE_FILE};
+00253         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.bx = (word) \hyperlink{trmdrive_8c_a679f108c9d4e6b006d00e83ec2a4aa96}{con_handle};
+00254         err = intdos(&\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}, &\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs});
+00255         err = err;
+00256         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.cflag!=0) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_ab39b0610b72802dee7b107f07441c567}{ERR_TRM_CL_CLFAIL});
+00257 
+00258         \textcolor{keywordflow}{return}(OK);
+00259 \}
+00260 
+00261 
+00262 
+00263 \textcolor{comment}{/*}
+00264 \textcolor{comment}{        Procedure: trm\_read}
+00265 \textcolor{comment}{}
+00266 \textcolor{comment}{        Purpose: initiate block input from the keyboard}
+00267 \textcolor{comment}{}
+00268 \textcolor{comment}{        Parameters:     char *buf\_p     ptr to buffer}
+00269 \textcolor{comment}{                        int *count\_p ptr to count}
+00270 \textcolor{comment}{}
+00271 \textcolor{comment}{        Return value: error code, or zero if OK}
+00272 \textcolor{comment}{}
+00273 \textcolor{comment}{        Calls:  out\_char}
+00274 \textcolor{comment}{}
+00275 \textcolor{comment}{        Globals: dcb\_trm}
+00276 \textcolor{comment}{}
+00277 \textcolor{comment}{        Errors: ERR\_TRM\_RD\_INVBUF invalid buffer parameter}
+00278 \textcolor{comment}{                ERR\_TRM\_RD\_INVCNT invalid count parameter}
+00279 \textcolor{comment}{                ERR\_TRM\_RD\_NOTOPN device not open}
+00280 \textcolor{comment}{                ERR\_TRM\_RD\_DVBUSY device busy}
+00281 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00282}{}\hyperlink{trmdrive_8h_a3de0bf4ec770b397e43b734abd993ce3}{00282} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a3de0bf4ec770b397e43b734abd993ce3}{trm_read} (\textcolor{keywordtype}{char} *buf\_p, \textcolor{keywordtype}{int} *count\_p)
+00283 \{
+00284         \textcolor{comment}{/* check for valid parameters */}
+00285         \textcolor{keywordflow}{if} (buf\_p == NULL) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_abe5aa098b0bfd36bdd58d3144c6b744c}{ERR_TRM_RD_INVBUF});
+00286         \textcolor{keywordflow}{if} (count\_p == NULL) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_a5ec87cfe72b9788e814e4e990215e996}{ERR_TRM_RD_INVCNT});
+00287         \textcolor{keywordflow}{if} (*count\_p <= 0) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_a5ec87cfe72b9788e814e4e990215e996}{ERR_TRM_RD_INVCNT});
+00288 
+00289         \textcolor{comment}{/* check terminal status */}
+00290         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p == NULL) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_acd7f66a8b5804b680e88c57fdb9f5c8b}{ERR_TRM_RD_NOTOPN});
+00291         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.status != \hyperlink{trmdrive_8c_a6f821c66a608d5628538df4c12dcf4b9}{DEV_IDLE}) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_ae21f21acb228f04036e1f98920cd81f1}{ERR_TRM_RD_DVBUSY});
+00292 
+00293         \textcolor{comment}{/* setup DCB */}
+00294         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_buf\_p = buf\_p;
+00295         *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_buf\_p = NULCH;
+00296         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_count\_p = count\_p;
+00297         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_max = *count\_p;
+00298         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_ctr = 0;
+00299         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.status = DEV\_READ;
+00300 
+00301         \textcolor{comment}{/* clear caller's event flag */}
+00302         *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p = RESET;
+00303 
+00304         \textcolor{keywordflow}{return} (OK);
+00305 \}
+00306 
+00307 
+00308 \textcolor{comment}{/*}
+00309 \textcolor{comment}{        Procedure: trm\_write}
+00310 \textcolor{comment}{}
+00311 \textcolor{comment}{        Purpose: perform block output to the screen}
+00312 \textcolor{comment}{}
+00313 \textcolor{comment}{        This routine is NOT interrupt driven, and does}
+00314 \textcolor{comment}{        NOT call IO\_complete!}
+00315 \textcolor{comment}{}
+00316 \textcolor{comment}{}
+00317 \textcolor{comment}{        Parameters:     char *buf\_p     ptr to buffer}
+00318 \textcolor{comment}{                        int *count\_p ptr to count}
+00319 \textcolor{comment}{}
+00320 \textcolor{comment}{        Return value: error code, or zero if OK}
+00321 \textcolor{comment}{}
+00322 \textcolor{comment}{        Calls:  out\_char}
+00323 \textcolor{comment}{}
+00324 \textcolor{comment}{        Globals: dcb\_trm}
+00325 \textcolor{comment}{}
+00326 \textcolor{comment}{        Errors: ERR\_TRM\_WR\_INVBUF invalid buffer parameter}
+00327 \textcolor{comment}{                ERR\_TRM\_WR\_INVCNT invalid count parameter}
+00328 \textcolor{comment}{                ERR\_TRM\_WR\_NOTOPN device not open}
+00329 \textcolor{comment}{                ERR\_TRM\_WR\_DVBUSY device busy}
+00330 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00331}{}\hyperlink{trmdrive_8h_a348ab00f7a4abfced31c928644335fb6}{00331} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a348ab00f7a4abfced31c928644335fb6}{trm_write} (\textcolor{keywordtype}{char} *buf\_p, \textcolor{keywordtype}{int} *count\_p)
+00332 \{
+00333 
+00334         \textcolor{keywordtype}{char}    ch;
+00335 
+00336         \textcolor{comment}{/* check for valid parameters */}
+00337         \textcolor{keywordflow}{if} (buf\_p == NULL) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_a2b8ca84261c888152c1534d4255cc1bb}{ERR_TRM_WR_INVBUF});
+00338         \textcolor{keywordflow}{if} (count\_p == NULL) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_a2135b20688c1210a7c0dcc12b6766435}{ERR_TRM_WR_INVCNT});
+00339         \textcolor{keywordflow}{if} (*count\_p < 0) \textcolor{keywordflow}{return} (\hyperlink{trmdrive_8h_a2135b20688c1210a7c0dcc12b6766435}{ERR_TRM_WR_INVCNT});
+00340 
+00341         \textcolor{comment}{/* check terminal status */}
+00342         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p == NULL) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_a3c10e11f4e0cf603833fb7e5ea0899f1}{ERR_TRM_WR_NOTOPN});
+00343         \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.status != \hyperlink{trmdrive_8c_a6f821c66a608d5628538df4c12dcf4b9}{DEV_IDLE}) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_ad0bb37a6e62d86a8b69f4ac6593c4375}{ERR_TRM_WR_DVBUSY});
+00344 
+00345         \textcolor{comment}{/* setup DCB */}
+00346         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_buf\_p = buf\_p;
+00347         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_count\_p = count\_p;
+00348         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_max = *count\_p;
+00349         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_ctr = 0;
+00350         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.status = DEV\_WRITE;
+00351 
+00352         \textcolor{comment}{/* clear caller's event flag */}
+00353         *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p = RESET;
+00354 
+00355         \textcolor{comment}{/* output the characters */}
+00356         \textcolor{keywordflow}{while} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_ctr < \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_max) \{
+00357                 ch = *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_buf\_p++;
+00358                 \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_ctr++;
+00359                 \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(ch);
+00360                 \textcolor{keywordflow}{if} (ch==\hyperlink{trmdrive_8c_a876ce77f3c672c7162658151e648389e}{CR}) \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a350c9d6cb81908d59427ee96844d1a9c}{LF});
+00361                 \textcolor{keywordflow}{if} (ch==\hyperlink{trmdrive_8c_a350c9d6cb81908d59427ee96844d1a9c}{LF}) \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a876ce77f3c672c7162658151e648389e}{CR});
+00362         \}
+00363 
+00364         \textcolor{comment}{/* reset DCB status */}
+00365         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.status = DEV\_IDLE;
+00366 
+00367         \textcolor{comment}{/* return count, set event flag */}
+00368         *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_count\_p = \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.out\_ctr;
+00369         *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p = SET;
+00370 
+00371         \textcolor{keywordflow}{return} (OK);
+00372 \}
+00373 
+00374 
+00375 
+00376 \textcolor{comment}{/*}
+00377 \textcolor{comment}{        Procedure: trm\_clear}
+00378 \textcolor{comment}{}
+00379 \textcolor{comment}{        Purpose: clear the terminal screen}
+00380 \textcolor{comment}{}
+00381 \textcolor{comment}{}
+00382 \textcolor{comment}{        Parameters:     none}
+00383 \textcolor{comment}{}
+00384 \textcolor{comment}{        Return value: error code, or zero if OK}
+00385 \textcolor{comment}{}
+00386 \textcolor{comment}{        Calls:  clear\_scr}
+00387 \textcolor{comment}{}
+00388 \textcolor{comment}{        Globals: none}
+00389 \textcolor{comment}{}
+00390 \textcolor{comment}{        Errors: none}
+00391 \textcolor{comment}{*/}
+00392 
+\hypertarget{trmdrive_8c_source_l00393}{}\hyperlink{trmdrive_8h_ae586641189b36f988e24e938899d2dee}{00393} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_ae586641189b36f988e24e938899d2dee}{trm_clear}(\textcolor{keywordtype}{void})
+00394 \{
+00395         \textcolor{keywordtype}{int} err;
+00396 
+00397         err = \hyperlink{trmdrive_8c_a7dce95f2c134d55014f3b3fa1de35d33}{goto_xy}(0,0);
+00398         err = err;
+00399         \hyperlink{trmdrive_8c_af83e4fe07f82e4efe77504d26b445b25}{clear_scr}();
+00400 
+00401         \textcolor{keywordflow}{return}(OK);
+00402 \}
+00403 
+00404 \textcolor{comment}{/*}
+00405 \textcolor{comment}{        Procedure: trm\_gotoxy}
+00406 \textcolor{comment}{}
+00407 \textcolor{comment}{        Purpose: position cursor}
+00408 \textcolor{comment}{}
+00409 \textcolor{comment}{}
+00410 \textcolor{comment}{        Parameters:     int xval        requested x position (0 - 79\}}
+00411 \textcolor{comment}{                        int yval        requested y position (0 - 23)}
+00412 \textcolor{comment}{}
+00413 \textcolor{comment}{        Return value: error code, or zero if OK}
+00414 \textcolor{comment}{}
+00415 \textcolor{comment}{        Calls:  gotoxy}
+00416 \textcolor{comment}{}
+00417 \textcolor{comment}{        Globals: none}
+00418 \textcolor{comment}{}
+00419 \textcolor{comment}{        Errors: ERR\_TRM\_XY\_INVPOS invalid x or y parameter}
+00420 \textcolor{comment}{*/}
+00421 
+\hypertarget{trmdrive_8c_source_l00422}{}\hyperlink{trmdrive_8h_ace638fe5b8176ecc1997df1486d6ee09}{00422} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a041851ec0fe17185a897a43597fb146a}{trm_gotoxy}(\textcolor{keywordtype}{int} xval, \textcolor{keywordtype}{int} yval)
+00423 \{
+00424         \textcolor{keywordtype}{int} err;
+00425 
+00426         err = \hyperlink{trmdrive_8c_a7dce95f2c134d55014f3b3fa1de35d33}{goto_xy}(xval, yval);
+00427         \textcolor{keywordflow}{if} (err != OK) \textcolor{keywordflow}{return}(\hyperlink{trmdrive_8h_a5e245d8c878f1c2db3d67e26bf79c614}{ERR_TRM_XY_INVPOS});
+00428 
+00429         \textcolor{keywordflow}{return}(OK);
+00430 \}
+00431 
+00432 
+00433 \textcolor{comment}{/*}
+00434 \textcolor{comment}{        Procedure: kbd\_ihand}
+00435 \textcolor{comment}{}
+00436 \textcolor{comment}{        Purpose: keyboard interrupt handler}
+00437 \textcolor{comment}{}
+00438 \textcolor{comment}{}
+00439 \textcolor{comment}{        Parameters: none        }
+00440 \textcolor{comment}{}
+00441 \textcolor{comment}{        Return value: none}
+00442 \textcolor{comment}{}
+00443 \textcolor{comment}{        Calls:  MSDOS keyboard handler}
+00444 \textcolor{comment}{}
+00445 \textcolor{comment}{        Globals: old\_kbhand\_p, pendc}
+00446 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00447}{}\hyperlink{trmdrive_8c_aebfcd164b5b67675c3d7f86be3f68e94}{00447} \textcolor{keywordtype}{void} interrupt \hyperlink{trmdrive_8c_aebfcd164b5b67675c3d7f86be3f68e94}{kbd_ihand}(\textcolor{keywordtype}{void})
+00448 \{
+00449         \textcolor{comment}{/*if (mpx\_active) return;*/}
+00450 
+00451         \textcolor{comment}{/* let MS-DOS process the character */}
+00452         (*old\_kbhand\_p)();
+00453 
+00454         \textcolor{comment}{/* increment counter */}
+00455         \hyperlink{trmdrive_8c_a152186ebee09ccf193037184a35ae013}{pendc}++;
+00456 
+00457 
+00458 \}
+00459 
+00460 
+00461 \textcolor{comment}{/*}
+00462 \textcolor{comment}{        Procedure: trm\_getc}
+00463 \textcolor{comment}{}
+00464 \textcolor{comment}{        Purpose: process pending keyboard characters}
+00465 \textcolor{comment}{}
+00466 \textcolor{comment}{}
+00467 \textcolor{comment}{        Parameters:     none    }
+00468 \textcolor{comment}{}
+00469 \textcolor{comment}{        Return value: none}
+00470 \textcolor{comment}{}
+00471 \textcolor{comment}{        Calls:  intdos(GET\_CHAR)}
+00472 \textcolor{comment}{                out\_char}
+00473 \textcolor{comment}{                IO\_complete}
+00474 \textcolor{comment}{}
+00475 \textcolor{comment}{        Globals: dcb\_trm, regs}
+00476 \textcolor{comment}{                pendc}
+00477 \textcolor{comment}{}
+00478 \textcolor{comment}{        Errors: none}
+00479 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00480}{}\hyperlink{trmdrive_8h_a0b41209d0a7740637f03d4033f9ac339}{00480} \textcolor{keywordtype}{void} \hyperlink{trmdrive_8c_a0b41209d0a7740637f03d4033f9ac339}{trm_getc}(\textcolor{keywordtype}{void})
+00481 \{
+00482         \textcolor{keywordtype}{char}    nextch;
+00483         \textcolor{keywordtype}{int}     err;
+00484         \textcolor{keywordtype}{int}     finish;
+00485 
+00486 
+00487         \textcolor{comment}{/* process any pending characters until block finished */}
+00488         finish = FALSE;
+00489         \textcolor{keywordflow}{while} ((\hyperlink{trmdrive_8c_a152186ebee09ccf193037184a35ae013}{pendc} > 0) && !finish) \{
+00490 
+00491                 \textcolor{comment}{/* get the processed character, if any */}
+00492                 \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.ah = (byte) \hyperlink{trmdrive_8c_a0313b418faebd660e3c9a80108060d7e}{GET_CHAR};
+00493                 \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.dl = 0xFF;
+00494                 err = intdos(&\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}, &\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs});
+00495                 err = err;
+00496                 nextch = (char) \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.al;
+00497 
+00498 
+00499                 \textcolor{comment}{/* if no character present, ignore */}
+00500                 if (\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.flags & 0x40)\{
+00501                        \textcolor{comment}{/*pendc = 1;*/}
+00502                 \}
+00503 
+00504 
+00505                 \textcolor{comment}{/* if char = 0, get the function code & ignore */}
+00506                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nextch==NULCH) \{
+00507                         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.ah = (byte) \hyperlink{trmdrive_8c_a0313b418faebd660e3c9a80108060d7e}{GET_CHAR};
+00508                         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.dl = 0xFF;
+00509                         err = intdos(&\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}, &\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs});
+00510                         err = err;
+00511                 \}
+00512 
+00513 
+00514                 \textcolor{keywordflow}{else} \{
+00515                         \textcolor{comment}{/* if CR, store newline & advance cursor */}
+00516                         \textcolor{keywordflow}{if} (nextch==\hyperlink{trmdrive_8c_a876ce77f3c672c7162658151e648389e}{CR}) \{
+00517                                 \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a876ce77f3c672c7162658151e648389e}{CR});
+00518                                 \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a350c9d6cb81908d59427ee96844d1a9c}{LF});
+00519                                 *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_buf\_p++ = \textcolor{charliteral}{'\(\backslash\)n'};
+00520                                 \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_ctr++;
+00521                         \}
+00522 
+00523                         \textcolor{comment}{/* if backspace, delete prev. char, if any */}
+00524                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nextch==\hyperlink{trmdrive_8c_a580a88f98668df1ac5e1683cae31c0b3}{BS}) \{
+00525                                 \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_ctr > 0) \{
+00526                                         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a580a88f98668df1ac5e1683cae31c0b3}{BS});
+00527                                         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{charliteral}{' '});
+00528                                         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a580a88f98668df1ac5e1683cae31c0b3}{BS});
+00529                                         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_ctr--;
+00530                                         \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_buf\_p--;
+00531                                 \}
+00532                         \}
+00533 
+00534                         \textcolor{comment}{/* otherwise, just store & echo */}
+00535                         \textcolor{keywordflow}{else} \{
+00536                                 \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(nextch);
+00537                                 *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_buf\_p++ = nextch;
+00538                                 \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_ctr++;
+00539                         \}
+00540 
+00541                         *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_buf\_p = NULCH;
+00542 
+00543                         \textcolor{comment}{/* terminate on CR (ENTER) */}
+00544                         \textcolor{keywordflow}{if} (nextch == \hyperlink{trmdrive_8c_a876ce77f3c672c7162658151e648389e}{CR})  \{
+00545                                 finish = TRUE;
+00546                         \}
+00547 
+00548                         \textcolor{comment}{/* otherwise, terminate if buffer full */}
+00549                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_ctr >= \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_max) \{
+00550                                 \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a876ce77f3c672c7162658151e648389e}{CR});
+00551                                 \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a350c9d6cb81908d59427ee96844d1a9c}{LF});
+00552                                 finish = TRUE;
+00553                         \}
+00554                 \}
+00555 
+00556         \textcolor{comment}{/* decrement character counter */}
+00557         \hyperlink{trmdrive_8c_a152186ebee09ccf193037184a35ae013}{pendc}--;
+00558         \}
+00559 
+00560         \textcolor{comment}{/* cleanup if terminating */}
+00561         \textcolor{keywordflow}{if} (finish) \{
+00562                 \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.status = DEV\_IDLE;
+00563                 *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_count\_p = \hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.in\_ctr;
+00564                 *\hyperlink{trmdrive_8c_aeecf5b41137f812666e981eebea04e61}{dcb_trm}.eflag\_p = SET;
+00565         \}
+00566 
+00567         \textcolor{keywordflow}{return};
+00568 \}
+00569 
+00570 
+00571 \textcolor{comment}{/*}
+00572 \textcolor{comment}{        Procedure: clear\_scr}
+00573 \textcolor{comment}{}
+00574 \textcolor{comment}{        Purpose: clear the terminal screen}
+00575 \textcolor{comment}{}
+00576 \textcolor{comment}{}
+00577 \textcolor{comment}{        Parameters: none        }
+00578 \textcolor{comment}{}
+00579 \textcolor{comment}{        Return value: none}
+00580 \textcolor{comment}{}
+00581 \textcolor{comment}{        Calls:  out\_char}
+00582 \textcolor{comment}{}
+00583 \textcolor{comment}{        Globals: none}
+00584 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00585}{}\hyperlink{trmdrive_8c_af83e4fe07f82e4efe77504d26b445b25}{00585} \textcolor{keywordtype}{void} \hyperlink{trmdrive_8c_af83e4fe07f82e4efe77504d26b445b25}{clear_scr}(\textcolor{keywordtype}{void})
+00586 \{
+00587 
+00588         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a4af1b6159e447ba72652bb7fcdfa726e}{ESC});
+00589         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{charliteral}{'['});
+00590         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{charliteral}{'2'});
+00591         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{charliteral}{'J'});
+00592 
+00593 \}
+00594 
+00595 \textcolor{comment}{/*}
+00596 \textcolor{comment}{        Procedure: goto\_xy}
+00597 \textcolor{comment}{}
+00598 \textcolor{comment}{        Purpose: position the cursor}
+00599 \textcolor{comment}{}
+00600 \textcolor{comment}{        Parameters:     int xval        horizontal position (0 - 79)}
+00601 \textcolor{comment}{                        int yval        vertical position (0 - 23)}
+00602 \textcolor{comment}{}
+00603 \textcolor{comment}{        Return value: error code; zero if OK}
+00604 \textcolor{comment}{}
+00605 \textcolor{comment}{        Calls: out\_char}
+00606 \textcolor{comment}{}
+00607 \textcolor{comment}{        Globals: none}
+00608 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00609}{}\hyperlink{trmdrive_8c_a7dce95f2c134d55014f3b3fa1de35d33}{00609} \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a7dce95f2c134d55014f3b3fa1de35d33}{goto_xy}(\textcolor{keywordtype}{int} xval, \textcolor{keywordtype}{int} yval)
+00610 \{
+00611 
+00612         \textcolor{keywordtype}{int} xdh, xdl;
+00613         \textcolor{keywordtype}{int} ydh, ydl;
+00614         \textcolor{keywordtype}{char} digtab[10] = \{\textcolor{charliteral}{'0'},\textcolor{charliteral}{'1'},\textcolor{charliteral}{'2'},\textcolor{charliteral}{'3'},\textcolor{charliteral}{'4'},\textcolor{charliteral}{'5'},\textcolor{charliteral}{'6'},\textcolor{charliteral}{'7'},\textcolor{charliteral}{'8'},\textcolor{charliteral}{'9'}\};
+00615 
+00616         \textcolor{keywordflow}{if} ((xval < 0) || (xval > \hyperlink{trmdrive_8c_a2738a84bf27a63fe0b4c66148659f3f2}{MAX_XPOS})) \textcolor{keywordflow}{return}(-1);
+00617         \textcolor{keywordflow}{if} ((yval < 0) || (yval > \hyperlink{trmdrive_8c_ac2bb4deaeb5afb4e1d400837742cf075}{MAX_YPOS})) \textcolor{keywordflow}{return}(-1);
+00618 
+00619         xdh = (xval%100)/10;
+00620         xdl = (xval%10);
+00621         ydh = (yval%100)/10;
+00622         ydl = (yval%10);
+00623 
+00624         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\hyperlink{trmdrive_8c_a4af1b6159e447ba72652bb7fcdfa726e}{ESC});
+00625         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{charliteral}{'['});
+00626         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(digtab[ydh]);
+00627         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(digtab[ydl]);
+00628         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{charliteral}{';'});
+00629         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(digtab[xdh]);
+00630         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(digtab[xdl]);
+00631         \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(\textcolor{charliteral}{'H'});
+00632 
+00633 
+00634 
+00635         \textcolor{keywordflow}{return}(OK);
+00636 \}
+00637 
+00638 \textcolor{comment}{/*}
+00639 \textcolor{comment}{        Procedure: out\_char}
+00640 \textcolor{comment}{}
+00641 \textcolor{comment}{        Purpose: output a character}
+00642 \textcolor{comment}{}
+00643 \textcolor{comment}{}
+00644 \textcolor{comment}{        Parameters: ch  character to output}
+00645 \textcolor{comment}{}
+00646 \textcolor{comment}{        Return value: none}
+00647 \textcolor{comment}{}
+00648 \textcolor{comment}{        Calls:  intdosx (WRITE\_FILE)}
+00649 \textcolor{comment}{}
+00650 \textcolor{comment}{        Globals: none}
+00651 \textcolor{comment}{*/}
+\hypertarget{trmdrive_8c_source_l00652}{}\hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{00652} \textcolor{keywordtype}{void} \hyperlink{trmdrive_8c_a46f4cf8a0c8928f76d9d25f530a9ac7e}{out_char}(ch)
+00653 char ch;
+00654 \{
+00655         \textcolor{keywordtype}{char}    chbuf;
+00656         \textcolor{keywordtype}{int}     err;
+00657 
+00658         chbuf = ch;
+00659         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.h.ah = (byte) \hyperlink{trmdrive_8c_afa3f0ba7c4f5385d75bcce6005b6ad23}{WRITE_FILE};
+00660         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.bx = \hyperlink{trmdrive_8c_a679f108c9d4e6b006d00e83ec2a4aa96}{con_handle};
+00661         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.cx = 1;
+00662         \hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}.x.dx = FP\_OFF(&chbuf);
+00663         \hyperlink{trmdrive_8c_a6d1d66d9778cd1920c9001dac5712514}{segs}.ds = FP\_SEG(&chbuf);
+00664         \hyperlink{trmdrive_8c_a6d1d66d9778cd1920c9001dac5712514}{segs}.es = FP\_SEG(&chbuf);
+00665         err = intdosx(&\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}, &\hyperlink{trmdrive_8c_aaf347d1f75c4caba1a02aa49afc9324d}{regs}, &\hyperlink{trmdrive_8c_a6d1d66d9778cd1920c9001dac5712514}{segs});
+00666         err = err;
+00667 \}
+00668 
+00669 \textcolor{comment}{/* END OF FILE */}
+00670 
+00671 
+00672 
+\end{DoxyCode}

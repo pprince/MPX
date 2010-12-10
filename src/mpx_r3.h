@@ -26,14 +26,14 @@ typedef struct context {
 	unsigned int BP, DI, SI, DS, ES;
 	unsigned int DX, CX, BX, AX;
 	unsigned int IP, CS, FLAGS;
-} tcontext;
+} tcontext;///< The varable tcontext holds the register values popped on the stack when and interupt happens.
 
 typedef struct params { 
 int op_code;
 int device_id;
 unsigned char *buf_addr;
 int *cont_addr;
-} tparams;
+} tparams;///< The varable tparams holds the call values poped on to the stack when a interupt happens. 
 /*
 typedef struct IOCB {
 	char *name;

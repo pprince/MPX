@@ -1,0 +1,97 @@
+\hypertarget{trmdrive_8h_source}{
+\section{src/trmdrive.h}
+}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/***********************************************************}
+00002 \textcolor{comment}{        MPX: The MultiProgramming eXecutive}
+00003 \textcolor{comment}{        Project to Accompany}
+00004 \textcolor{comment}{        A Practical Approach to Operating Systems}
+00005 \textcolor{comment}{        Malcolm G. Lane & James D. Mooney}
+00006 \textcolor{comment}{        Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.}
+00007 \textcolor{comment}{        }
+00008 \textcolor{comment}{        File Name: trmdrive.h}
+00009 \textcolor{comment}{}
+00010 \textcolor{comment}{        Authors: M.G. Lane, J. Mooney}
+00011 \textcolor{comment}{        Version: 2.1b}
+00012 \textcolor{comment}{        Date: 11/10/93}
+00013 \textcolor{comment}{}
+00014 \textcolor{comment}{        Purpose: Terminal Driver (Header file)}
+00015 \textcolor{comment}{}
+00016 \textcolor{comment}{        Environments: IBM-PC, TURBO-C.}
+00017 \textcolor{comment}{                }
+00018 \textcolor{comment}{}
+00019 \textcolor{comment}{}
+00020 \textcolor{comment}{}
+00021 \textcolor{comment}{***********************************************************}
+00022 \textcolor{comment}{  Change Log:}
+00023 \textcolor{comment}{}
+00024 \textcolor{comment}{        12/01/92  jdm   separated from prtdrive.c}
+00025 \textcolor{comment}{        12/08/92  jdm   removed hand;er declaration}
+00026 \textcolor{comment}{        12/11/92  jdm   converted to trmdrive.c}
+00027 \textcolor{comment}{        03/19/93  jdm   final version for V2.0b}
+00028 \textcolor{comment}{        11/10/93  jdm   updated for large model}
+00029 \textcolor{comment}{}
+00030 \textcolor{comment}{***********************************************************/}
+00031 
+00032 \textcolor{comment}{/* device error codes */}
+00033 
+\hypertarget{trmdrive_8h_source_l00034}{}\hyperlink{trmdrive_8h_a4cf9f35af3ffda71ffb9eef6f3ac9d52}{00034} \textcolor{preprocessor}{#define ERR\_TRM\_OP\_INVEFP       (-101)}
+\hypertarget{trmdrive_8h_source_l00035}{}\hyperlink{trmdrive_8h_aa972fb46ff1456a5b14a87df4d951f9c}{00035} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_OP\_ALROPN       (-102)}
+\hypertarget{trmdrive_8h_source_l00036}{}\hyperlink{trmdrive_8h_aa690cb6d0876fcaacd02349985603865}{00036} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_OP\_OPFAIL       (-103)}
+00037 \textcolor{preprocessor}{}
+\hypertarget{trmdrive_8h_source_l00038}{}\hyperlink{trmdrive_8h_a6e8307d1f4ea25f3de1c116588bd2687}{00038} \textcolor{preprocessor}{#define ERR\_TRM\_CL\_NOTOPN       (-201)}
+\hypertarget{trmdrive_8h_source_l00039}{}\hyperlink{trmdrive_8h_ab39b0610b72802dee7b107f07441c567}{00039} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_CL\_CLFAIL       (-202)}
+00040 \textcolor{preprocessor}{}
+\hypertarget{trmdrive_8h_source_l00041}{}\hyperlink{trmdrive_8h_acd7f66a8b5804b680e88c57fdb9f5c8b}{00041} \textcolor{preprocessor}{#define ERR\_TRM\_RD\_NOTOPN       (-301)}
+\hypertarget{trmdrive_8h_source_l00042}{}\hyperlink{trmdrive_8h_abe5aa098b0bfd36bdd58d3144c6b744c}{00042} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_RD\_INVBUF       (-302)}
+\hypertarget{trmdrive_8h_source_l00043}{}\hyperlink{trmdrive_8h_a5ec87cfe72b9788e814e4e990215e996}{00043} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_RD\_INVCNT       (-303)}
+\hypertarget{trmdrive_8h_source_l00044}{}\hyperlink{trmdrive_8h_ae21f21acb228f04036e1f98920cd81f1}{00044} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_RD\_DVBUSY       (-304)}
+00045 \textcolor{preprocessor}{}
+\hypertarget{trmdrive_8h_source_l00046}{}\hyperlink{trmdrive_8h_a3c10e11f4e0cf603833fb7e5ea0899f1}{00046} \textcolor{preprocessor}{#define ERR\_TRM\_WR\_NOTOPN       (-401)}
+\hypertarget{trmdrive_8h_source_l00047}{}\hyperlink{trmdrive_8h_a2b8ca84261c888152c1534d4255cc1bb}{00047} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_WR\_INVBUF       (-402)}
+\hypertarget{trmdrive_8h_source_l00048}{}\hyperlink{trmdrive_8h_a2135b20688c1210a7c0dcc12b6766435}{00048} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_WR\_INVCNT       (-403)}
+\hypertarget{trmdrive_8h_source_l00049}{}\hyperlink{trmdrive_8h_ad0bb37a6e62d86a8b69f4ac6593c4375}{00049} \textcolor{preprocessor}{}\textcolor{preprocessor}{#define ERR\_TRM\_WR\_DVBUSY       (-404)}
+00050 \textcolor{preprocessor}{}
+\hypertarget{trmdrive_8h_source_l00051}{}\hyperlink{trmdrive_8h_a5e245d8c878f1c2db3d67e26bf79c614}{00051} \textcolor{preprocessor}{#define ERR\_TRM\_XY\_INVPOS       (-601)}
+00052 \textcolor{preprocessor}{}
+00053 \textcolor{comment}{/* driver function prototypes */}
+00054 
+00055 \textcolor{comment}{/* trm\_open: open the terminal */}
+00056 \textcolor{comment}{/*      RETURNS: error code, or zero if ok */}
+00057 \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_aee9fd9776a799025c31cffe736facb3f}{trm_open} (\textcolor{keywordtype}{int} *ef\_p \textcolor{comment}{/* ptr to event flag */}
+00058         );
+00059 
+00060 \textcolor{comment}{/* trm\_close: close the terminal */}
+00061 \textcolor{comment}{/*      RETURNS: error code, or zero if ok */}
+00062 \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a1d9a258c2f0a3e831fa856102e4d7484}{trm_close} (\textcolor{keywordtype}{void});
+00063 
+00064 \textcolor{comment}{/* trm\_read: begin block keyboard input */}
+00065 \textcolor{comment}{/*      RETURNS: error code, or zero if ok */}
+00066 \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a3de0bf4ec770b397e43b734abd993ce3}{trm_read} (\textcolor{keywordtype}{char} *buf\_p, \textcolor{comment}{/* ptr to buffer */}
+00067                 \textcolor{keywordtype}{int} *count\_p \textcolor{comment}{/* ptr to count value */}
+00068         );
+00069 
+00070 \textcolor{comment}{/* trm\_getc: process keyboard characters */}
+00071 \textcolor{keywordtype}{void} \hyperlink{trmdrive_8c_a0b41209d0a7740637f03d4033f9ac339}{trm_getc} (\textcolor{keywordtype}{void});
+00072 
+00073 
+00074 \textcolor{comment}{/* trm\_write: perform block screen output */}
+00075 \textcolor{comment}{/*      RETURNS: error code, or zero if ok */}
+00076 \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a348ab00f7a4abfced31c928644335fb6}{trm_write} (\textcolor{keywordtype}{char} *buf\_p, \textcolor{comment}{/* ptr to buffer */}
+00077                 \textcolor{keywordtype}{int} *count\_p \textcolor{comment}{/* ptr to count value */}
+00078         );
+00079 
+00080 \textcolor{comment}{/* trm\_clear: clear the screen */}
+00081 \textcolor{comment}{/*      RETURNS: error code, or zero if ok */}
+00082 \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_ae586641189b36f988e24e938899d2dee}{trm_clear} (\textcolor{keywordtype}{void});
+00083 
+00084 \textcolor{comment}{/* trm\_gotoxy: go to specified position */}
+00085 \textcolor{comment}{/*      RETURNS: error code, or zero if ok */}
+00086 \textcolor{keywordtype}{int} \hyperlink{trmdrive_8c_a041851ec0fe17185a897a43597fb146a}{trm_gotoxy} (\textcolor{keywordtype}{int} xpos, \textcolor{comment}{/* horizontal position: 0 - 79 */}
+00087                 \textcolor{keywordtype}{int} ypos  \textcolor{comment}{/* vertical position: 0 - 23 */}
+00088         );
+00089 
+00090 \textcolor{comment}{/* END OF FILE */}
+00091 
+\end{DoxyCode}

@@ -1,0 +1,1088 @@
+\begin{theindex}
+
+  \item {allocate\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{42}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{73}
+  \item {anykey\_\discretionary {-}{}{}str}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{27}
+  \item {APPLICATION}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{71}
+  \item {AX}
+    \subitem {context}, \hyperpage{6}
+
+  \indexspace
+
+  \item {BASE}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {base}
+    \subitem {stack}, \hyperpage{15}
+  \item {BLOCKED}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{71}
+  \item {BP}
+    \subitem {context}, \hyperpage{6}
+  \item {BRD\_\discretionary {-}{}{}LSB}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {BRD\_\discretionary {-}{}{}MSB}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {BS}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {buf\_\discretionary {-}{}{}addr}
+    \subitem {params}, \hyperpage{12}
+  \item {BX}
+    \subitem {context}, \hyperpage{6}
+  \item {byte}
+    \subitem {trmdrive.c}, \hyperpage{160}
+
+  \indexspace
+
+  \item {callInt}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{139}
+  \item {classType}
+    \subitem {process}, \hyperpage{13}
+  \item {clear\_\discretionary {-}{}{}scr}
+    \subitem {trmdrive.c}, \hyperpage{160}
+  \item {CLOSE\_\discretionary {-}{}{}FILE}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {CLOSED}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {cmd\_\discretionary {-}{}{}function}
+    \subitem {mpx\_\discretionary {-}{}{}cmd}, \hyperpage{11}
+  \item {cmd\_\discretionary {-}{}{}head}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{27}
+  \item {cmd\_\discretionary {-}{}{}name}
+    \subitem {mpx\_\discretionary {-}{}{}cmd}, \hyperpage{11}
+  \item {com\_\discretionary {-}{}{}close}
+    \subitem {MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{122}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{135}
+  \item {com\_\discretionary {-}{}{}open}
+    \subitem {MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{122}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{135}
+  \item {com\_\discretionary {-}{}{}read}
+    \subitem {MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{123}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{136}
+  \item {com\_\discretionary {-}{}{}write}
+    \subitem {MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{124}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{137}
+  \item {con\_\discretionary {-}{}{}handle}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {cont\_\discretionary {-}{}{}addr}
+    \subitem {params}, \hyperpage{12}
+  \item {context}, \hyperpage{5}
+    \subitem {AX}, \hyperpage{6}
+    \subitem {BP}, \hyperpage{6}
+    \subitem {BX}, \hyperpage{6}
+    \subitem {CS}, \hyperpage{6}
+    \subitem {CX}, \hyperpage{6}
+    \subitem {DI}, \hyperpage{6}
+    \subitem {DS}, \hyperpage{7}
+    \subitem {DX}, \hyperpage{7}
+    \subitem {ES}, \hyperpage{7}
+    \subitem {FLAGS}, \hyperpage{7}
+    \subitem {IP}, \hyperpage{7}
+    \subitem {SI}, \hyperpage{7, 8}
+    \subitem {trmdrive.c}, \hyperpage{160}
+  \item {context\_\discretionary {-}{}{}p}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{92}
+  \item {cop}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{92}
+  \item {count}
+    \subitem {root}, \hyperpage{15}
+  \item {CR}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {CS}
+    \subitem {context}, \hyperpage{6}
+  \item {CX}
+    \subitem {context}, \hyperpage{6}
+
+  \indexspace
+
+  \item {DCB}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{135}
+  \item {dcb\_\discretionary {-}{}{}trm}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {dcbPtr}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{139}
+  \item {DEV\_\discretionary {-}{}{}IDLE}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {DEV\_\discretionary {-}{}{}READ}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {DEV\_\discretionary {-}{}{}WRITE}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {device}, \hyperpage{8}
+    \subitem {flag}, \hyperpage{8}
+    \subitem {flag\_\discretionary {-}{}{}ptr}, \hyperpage{8}
+    \subitem {inbuff}, \hyperpage{8}
+    \subitem {incount}, \hyperpage{9}
+    \subitem {indone}, \hyperpage{9}
+    \subitem {outbuff}, \hyperpage{9}
+    \subitem {outcount}, \hyperpage{9}
+    \subitem {outdone}, \hyperpage{9}
+    \subitem {ringbuf}, \hyperpage{9}
+    \subitem {ringbufcount}, \hyperpage{9}
+    \subitem {ringbufin}, \hyperpage{9}
+    \subitem {ringbufout}, \hyperpage{9}
+    \subitem {status}, \hyperpage{9}
+  \item {device\_\discretionary {-}{}{}id}
+    \subitem {params}, \hyperpage{12}
+  \item {DI}
+    \subitem {context}, \hyperpage{6}
+  \item {dispatch}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{88}
+    \subitem {MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{98}
+  \item {DS}
+    \subitem {context}, \hyperpage{7}
+  \item {DX}
+    \subitem {context}, \hyperpage{7}
+
+  \indexspace
+
+  \item {eflag\_\discretionary {-}{}{}p}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {ELEM}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{73}
+  \item {EOI}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}CL\_\discretionary {-}{}{}CLFAIL}
+    \subitem {trmdrive.h}, \hyperpage{173}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}CL\_\discretionary {-}{}{}NOTOPN}
+    \subitem {trmdrive.h}, \hyperpage{173}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}ALROPN}
+    \subitem {trmdrive.h}, \hyperpage{173}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}INVEFP}
+    \subitem {trmdrive.h}, \hyperpage{173}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}OPFAIL}
+    \subitem {trmdrive.h}, \hyperpage{173}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}DVBUSY}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}INVBUF}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}INVCNT}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}NOTOPN}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}DVBUSY}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}INVBUF}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}INVCNT}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}NOTOPN}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}XY\_\discretionary {-}{}{}INVPOS}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {errorDecode}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{142}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{148}
+  \item {ES}
+    \subitem {context}, \hyperpage{7}
+  \item {ESC}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {execADDR}
+    \subitem {mem}, \hyperpage{10}
+
+  \indexspace
+
+  \item {FIFO}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{71}
+  \item {find\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{43}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{74}
+  \item {flag}
+    \subitem {device}, \hyperpage{8}
+  \item {FLAG\_\discretionary {-}{}{}CLEAR}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {flag\_\discretionary {-}{}{}ptr}
+    \subitem {device}, \hyperpage{8}
+  \item {FLAGS}
+    \subitem {context}, \hyperpage{7}
+  \item {free\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{44}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{74}
+
+  \indexspace
+
+  \item {GET\_\discretionary {-}{}{}CHAR}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {getHead\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{89}
+  \item {getRQueue}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{75}
+  \item {getWSQueue}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{75}
+  \item {goto\_\discretionary {-}{}{}xy}
+    \subitem {trmdrive.c}, \hyperpage{160}
+
+  \indexspace
+
+  \item {HEAD}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{92}
+
+  \indexspace
+
+  \item {IDLE}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {in\_\discretionary {-}{}{}buf\_\discretionary {-}{}{}p}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {in\_\discretionary {-}{}{}count\_\discretionary {-}{}{}p}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {in\_\discretionary {-}{}{}ctr}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {in\_\discretionary {-}{}{}max}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {inbuff}
+    \subitem {device}, \hyperpage{8}
+  \item {incount}
+    \subitem {device}, \hyperpage{9}
+  \item {indone}
+    \subitem {device}, \hyperpage{9}
+  \item {insert\_\discretionary {-}{}{}FIFO}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{44}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{75}
+  \item {insert\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{45}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{76}
+  \item {insert\_\discretionary {-}{}{}PORDR}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{46}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{76}
+  \item {INT\_\discretionary {-}{}{}EN}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {INT\_\discretionary {-}{}{}ID}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {INT\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}REG}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {INV\_\discretionary {-}{}{}BAUD}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {INV\_\discretionary {-}{}{}FLAG}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{132}
+  \item {IP}
+    \subitem {context}, \hyperpage{7}
+
+  \indexspace
+
+  \item {kbd\_\discretionary {-}{}{}ihand}
+    \subitem {trmdrive.c}, \hyperpage{160}
+  \item {KBD\_\discretionary {-}{}{}INTNUM}
+    \subitem {trmdrive.c}, \hyperpage{158}
+  \item {KBD\_\discretionary {-}{}{}LEVEL}
+    \subitem {trmdrive.c}, \hyperpage{159}
+
+  \indexspace
+
+  \item {LC}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+  \item {left}
+    \subitem {page}, \hyperpage{12}
+  \item {level1}
+    \subitem {MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{125}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{138}
+  \item {level2Read}
+    \subitem {MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{125}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{138}
+  \item {level2Write}
+    \subitem {MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{126}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{139}
+  \item {LF}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {LINES\_\discretionary {-}{}{}PER\_\discretionary {-}{}{}PAGE}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{142}
+  \item {loadADDR}
+    \subitem {mem}, \hyperpage{10}
+  \item {loadAddr}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c}, \hyperpage{105}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.BASE.c}, \hyperpage{109}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}, \hyperpage{113}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}, 
+		\hyperpage{118}
+  \item {loadProgram}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c}, \hyperpage{103}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.BASE.c}, \hyperpage{108}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}, \hyperpage{112}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}, 
+		\hyperpage{116}
+    \subitem {mpx\_\discretionary {-}{}{}r4.h}, \hyperpage{120}
+  \item {LS}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+
+  \indexspace
+
+  \item {main}
+    \subitem {MPX.C}, \hyperpage{17}
+  \item {MAX\_\discretionary {-}{}{}ARGS}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{34}
+  \item {MAX\_\discretionary {-}{}{}LINE}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{34}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+  \item {MAX\_\discretionary {-}{}{}XPOS}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {MAX\_\discretionary {-}{}{}YPOS}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {MC}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+  \item {mem}, \hyperpage{10}
+    \subitem {execADDR}, \hyperpage{10}
+    \subitem {loadADDR}, \hyperpage{10}
+    \subitem {size}, \hyperpage{10}
+  \item {MEMDSC}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{73}
+  \item {memdsc}
+    \subitem {process}, \hyperpage{13}
+  \item {MPX.C}
+    \subitem {main}, \hyperpage{17}
+  \item {mpx\_\discretionary {-}{}{}add\_\discretionary {-}{}{}command}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{21}
+  \item {mpx\_\discretionary {-}{}{}cls}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{143}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{149}
+  \item {mpx\_\discretionary {-}{}{}cmd}, \hyperpage{10}
+    \subitem {cmd\_\discretionary {-}{}{}function}, \hyperpage{11}
+    \subitem {cmd\_\discretionary {-}{}{}name}, \hyperpage{11}
+    \subitem {next}, \hyperpage{11}
+  \item {MPX\_\discretionary {-}{}{}CMD.C}
+    \subitem {anykey\_\discretionary {-}{}{}str}, \hyperpage{27}
+    \subitem {cmd\_\discretionary {-}{}{}head}, \hyperpage{27}
+    \subitem {mpx\_\discretionary {-}{}{}add\_\discretionary {-}{}{}command}, 
+		\hyperpage{21}
+    \subitem {mpx\_\discretionary {-}{}{}command\_\discretionary {-}{}{}loop}, 
+		\hyperpage{22}
+    \subitem {mpxcmd\_\discretionary {-}{}{}date}, \hyperpage{23}
+    \subitem {mpxcmd\_\discretionary {-}{}{}exit}, \hyperpage{25}
+    \subitem {mpxcmd\_\discretionary {-}{}{}help}, \hyperpage{25}
+    \subitem {mpxcmd\_\discretionary {-}{}{}load}, \hyperpage{26}
+    \subitem {mpxcmd\_\discretionary {-}{}{}prompt}, \hyperpage{27}
+    \subitem {mpxcmd\_\discretionary {-}{}{}version}, \hyperpage{27}
+    \subitem {prompt\_\discretionary {-}{}{}str}, \hyperpage{27}
+    \subitem {welcome\_\discretionary {-}{}{}message\_\discretionary {-}{}{}str}, 
+		\hyperpage{28}
+  \item {mpx\_\discretionary {-}{}{}cmd.h}
+    \subitem {MAX\_\discretionary {-}{}{}ARGS}, \hyperpage{34}
+    \subitem {MAX\_\discretionary {-}{}{}LINE}, \hyperpage{34}
+    \subitem {mpx\_\discretionary {-}{}{}cmd\_\discretionary {-}{}{}t}, 
+		\hyperpage{34}
+    \subitem {mpx\_\discretionary {-}{}{}command\_\discretionary {-}{}{}loop}, 
+		\hyperpage{34}
+    \subitem {mpxcmd\_\discretionary {-}{}{}date}, \hyperpage{36}
+    \subitem {mpxcmd\_\discretionary {-}{}{}exit}, \hyperpage{37}
+    \subitem {mpxcmd\_\discretionary {-}{}{}help}, \hyperpage{37}
+    \subitem {mpxcmd\_\discretionary {-}{}{}load}, \hyperpage{38}
+    \subitem {mpxcmd\_\discretionary {-}{}{}prompt}, \hyperpage{39}
+    \subitem {mpxcmd\_\discretionary {-}{}{}version}, \hyperpage{39}
+  \item {mpx\_\discretionary {-}{}{}cmd\_\discretionary {-}{}{}t}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{34}
+  \item {mpx\_\discretionary {-}{}{}command\_\discretionary {-}{}{}loop}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{22}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{34}
+  \item {mpx\_\discretionary {-}{}{}pager}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{143}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{149}
+  \item {mpx\_\discretionary {-}{}{}pager\_\discretionary {-}{}{}init}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{144}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{150}
+  \item {mpx\_\discretionary {-}{}{}r2.c}
+    \subitem {allocate\_\discretionary {-}{}{}PCB}, \hyperpage{42}
+    \subitem {find\_\discretionary {-}{}{}PCB}, \hyperpage{43}
+    \subitem {free\_\discretionary {-}{}{}PCB}, \hyperpage{44}
+    \subitem {insert\_\discretionary {-}{}{}FIFO}, \hyperpage{44}
+    \subitem {insert\_\discretionary {-}{}{}PCB}, \hyperpage{45}
+    \subitem {insert\_\discretionary {-}{}{}PORDR}, \hyperpage{46}
+    \subitem {mpxcmd\_\discretionary {-}{}{}block}, \hyperpage{47}
+    \subitem {mpxcmd\_\discretionary {-}{}{}create\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{48}
+    \subitem {mpxcmd\_\discretionary {-}{}{}delete\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{48}
+    \subitem {mpxcmd\_\discretionary {-}{}{}resume}, \hyperpage{49}
+    \subitem {mpxcmd\_\discretionary {-}{}{}setPriority}, 
+		\hyperpage{49}
+    \subitem {mpxcmd\_\discretionary {-}{}{}show\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{50}
+    \subitem {mpxcmd\_\discretionary {-}{}{}showAll\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{51}
+    \subitem {mpxcmd\_\discretionary {-}{}{}showBlocked\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{52}
+    \subitem {mpxcmd\_\discretionary {-}{}{}showReady\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{52}
+    \subitem {mpxcmd\_\discretionary {-}{}{}suspend}, \hyperpage{53}
+    \subitem {mpxcmd\_\discretionary {-}{}{}unblock}, \hyperpage{54}
+    \subitem {remove\_\discretionary {-}{}{}PCB}, \hyperpage{54}
+    \subitem {rQueue}, \hyperpage{57}
+    \subitem {setup\_\discretionary {-}{}{}PCB}, \hyperpage{55}
+    \subitem {string\_\discretionary {-}{}{}PCB}, \hyperpage{56}
+    \subitem {wsQueue}, \hyperpage{57}
+  \item {mpx\_\discretionary {-}{}{}r2.h}
+    \subitem {allocate\_\discretionary {-}{}{}PCB}, \hyperpage{73}
+    \subitem {APPLICATION}, \hyperpage{71}
+    \subitem {BLOCKED}, \hyperpage{71}
+    \subitem {ELEM}, \hyperpage{73}
+    \subitem {FIFO}, \hyperpage{71}
+    \subitem {find\_\discretionary {-}{}{}PCB}, \hyperpage{74}
+    \subitem {free\_\discretionary {-}{}{}PCB}, \hyperpage{74}
+    \subitem {getRQueue}, \hyperpage{75}
+    \subitem {getWSQueue}, \hyperpage{75}
+    \subitem {insert\_\discretionary {-}{}{}FIFO}, \hyperpage{75}
+    \subitem {insert\_\discretionary {-}{}{}PCB}, \hyperpage{76}
+    \subitem {insert\_\discretionary {-}{}{}PORDR}, \hyperpage{76}
+    \subitem {MAX\_\discretionary {-}{}{}LINE}, \hyperpage{72}
+    \subitem {MEMDSC}, \hyperpage{73}
+    \subitem {mpxcmd\_\discretionary {-}{}{}block}, \hyperpage{78}
+    \subitem {mpxcmd\_\discretionary {-}{}{}create\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{79}
+    \subitem {mpxcmd\_\discretionary {-}{}{}delete\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{79}
+    \subitem {mpxcmd\_\discretionary {-}{}{}resume}, \hyperpage{80}
+    \subitem {mpxcmd\_\discretionary {-}{}{}setPriority}, 
+		\hyperpage{80}
+    \subitem {mpxcmd\_\discretionary {-}{}{}show\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{81}
+    \subitem {mpxcmd\_\discretionary {-}{}{}showAll\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{81}
+    \subitem {mpxcmd\_\discretionary {-}{}{}showBlocked\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{82}
+    \subitem {mpxcmd\_\discretionary {-}{}{}showReady\_\discretionary {-}{}{}PCB}, 
+		\hyperpage{83}
+    \subitem {mpxcmd\_\discretionary {-}{}{}suspend}, \hyperpage{84}
+    \subitem {mpxcmd\_\discretionary {-}{}{}unblock}, \hyperpage{84}
+    \subitem {PCB}, \hyperpage{73}
+    \subitem {PORDR}, \hyperpage{72}
+    \subitem {READY}, \hyperpage{72}
+    \subitem {ROOT}, \hyperpage{73}
+    \subitem {RUNNING}, \hyperpage{72}
+    \subitem {setRQueue}, \hyperpage{85}
+    \subitem {setup\_\discretionary {-}{}{}PCB}, \hyperpage{85}
+    \subitem {setWSQueue}, \hyperpage{86}
+    \subitem {STACKDSC}, \hyperpage{73}
+    \subitem {STACKSIZE}, \hyperpage{72}
+    \subitem {STRLEN}, \hyperpage{72}
+    \subitem {SUSPENDED\_\discretionary {-}{}{}BLOCKED}, \hyperpage{72}
+    \subitem {SUSPENDED\_\discretionary {-}{}{}READY}, \hyperpage{72}
+    \subitem {SYSTEM}, \hyperpage{72}
+    \subitem {ZERO}, \hyperpage{73}
+  \item {mpx\_\discretionary {-}{}{}r3.c}
+    \subitem {context\_\discretionary {-}{}{}p}, \hyperpage{92}
+    \subitem {cop}, \hyperpage{92}
+    \subitem {dispatch}, \hyperpage{88}
+    \subitem {getHead\_\discretionary {-}{}{}PCB}, \hyperpage{89}
+    \subitem {HEAD}, \hyperpage{92}
+    \subitem {mpxcmd\_\discretionary {-}{}{}gor4}, \hyperpage{89}
+    \subitem {mpxcmd\_\discretionary {-}{}{}r3run}, \hyperpage{89}
+    \subitem {new\_\discretionary {-}{}{}sp}, \hyperpage{92}
+    \subitem {new\_\discretionary {-}{}{}ss}, \hyperpage{92}
+    \subitem {param\_\discretionary {-}{}{}p}, \hyperpage{92}
+    \subitem {Root}, \hyperpage{93}
+    \subitem {rQueue}, \hyperpage{93}
+    \subitem {sp\_\discretionary {-}{}{}save}, \hyperpage{93}
+    \subitem {ss\_\discretionary {-}{}{}save}, \hyperpage{93}
+    \subitem {STACK}, \hyperpage{93}
+    \subitem {sys\_\discretionary {-}{}{}call}, \hyperpage{91}
+    \subitem {sys\_\discretionary {-}{}{}stack}, \hyperpage{93}
+    \subitem {TEMP}, \hyperpage{93}
+    \subitem {wsQueue}, \hyperpage{93}
+  \item {MPX\_\discretionary {-}{}{}R3.H}
+    \subitem {dispatch}, \hyperpage{98}
+    \subitem {mpxcmd\_\discretionary {-}{}{}gor4}, \hyperpage{99}
+    \subitem {mpxcmd\_\discretionary {-}{}{}r3run}, \hyperpage{99}
+    \subitem {sys\_\discretionary {-}{}{}call}, \hyperpage{101}
+    \subitem {SYS\_\discretionary {-}{}{}STACK\_\discretionary {-}{}{}SIZE}, 
+		\hyperpage{98}
+    \subitem {tcontext}, \hyperpage{98}
+    \subitem {tparams}, \hyperpage{98}
+  \item {mpx\_\discretionary {-}{}{}r4.c}
+    \subitem {loadAddr}, \hyperpage{105}
+    \subitem {loadProgram}, \hyperpage{103}
+    \subitem {rQueue}, \hyperpage{105}
+    \subitem {terminateProcess}, \hyperpage{104}
+    \subitem {wsQueue}, \hyperpage{105}
+  \item {mpx\_\discretionary {-}{}{}r4.c.BASE.c}
+    \subitem {loadAddr}, \hyperpage{109}
+    \subitem {loadProgram}, \hyperpage{108}
+    \subitem {rQueue}, \hyperpage{109}
+    \subitem {terminateProcess}, \hyperpage{109}
+    \subitem {wsQueue}, \hyperpage{109}
+  \item {mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}
+    \subitem {loadAddr}, \hyperpage{113}
+    \subitem {loadProgram}, \hyperpage{112}
+    \subitem {rQueue}, \hyperpage{113}
+    \subitem {terminateProcess}, \hyperpage{113}
+    \subitem {wsQueue}, \hyperpage{114}
+  \item {mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}
+    \subitem {loadAddr}, \hyperpage{118}
+    \subitem {loadProgram}, \hyperpage{116}
+    \subitem {rQueue}, \hyperpage{118}
+    \subitem {terminateProcess}, \hyperpage{117}
+    \subitem {wsQueue}, \hyperpage{118}
+  \item {mpx\_\discretionary {-}{}{}r4.h}
+    \subitem {loadProgram}, \hyperpage{120}
+    \subitem {terminateProcess}, \hyperpage{121}
+  \item {MPX\_\discretionary {-}{}{}R5.C}
+    \subitem {com\_\discretionary {-}{}{}close}, \hyperpage{122}
+    \subitem {com\_\discretionary {-}{}{}open}, \hyperpage{122}
+    \subitem {com\_\discretionary {-}{}{}read}, \hyperpage{123}
+    \subitem {com\_\discretionary {-}{}{}write}, \hyperpage{124}
+    \subitem {level1}, \hyperpage{125}
+    \subitem {level2Read}, \hyperpage{125}
+    \subitem {level2Write}, \hyperpage{126}
+  \item {MPX\_\discretionary {-}{}{}R5.h}
+    \subitem {BASE}, \hyperpage{132}
+    \subitem {BRD\_\discretionary {-}{}{}LSB}, \hyperpage{132}
+    \subitem {BRD\_\discretionary {-}{}{}MSB}, \hyperpage{132}
+    \subitem {callInt}, \hyperpage{139}
+    \subitem {CLOSED}, \hyperpage{132}
+    \subitem {com\_\discretionary {-}{}{}close}, \hyperpage{135}
+    \subitem {com\_\discretionary {-}{}{}open}, \hyperpage{135}
+    \subitem {com\_\discretionary {-}{}{}read}, \hyperpage{136}
+    \subitem {com\_\discretionary {-}{}{}write}, \hyperpage{137}
+    \subitem {DCB}, \hyperpage{135}
+    \subitem {dcbPtr}, \hyperpage{139}
+    \subitem {EOI}, \hyperpage{132}
+    \subitem {FLAG\_\discretionary {-}{}{}CLEAR}, \hyperpage{132}
+    \subitem {IDLE}, \hyperpage{132}
+    \subitem {INT\_\discretionary {-}{}{}EN}, \hyperpage{132}
+    \subitem {INT\_\discretionary {-}{}{}ID}, \hyperpage{132}
+    \subitem {INT\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}REG}, 
+		\hyperpage{132}
+    \subitem {INV\_\discretionary {-}{}{}BAUD}, \hyperpage{132}
+    \subitem {INV\_\discretionary {-}{}{}FLAG}, \hyperpage{132}
+    \subitem {LC}, \hyperpage{133}
+    \subitem {level1}, \hyperpage{138}
+    \subitem {level2Read}, \hyperpage{138}
+    \subitem {level2Write}, \hyperpage{139}
+    \subitem {LS}, \hyperpage{133}
+    \subitem {MC}, \hyperpage{133}
+    \subitem {MS}, \hyperpage{133}
+    \subitem {NO\_\discretionary {-}{}{}ERROR}, \hyperpage{133}
+    \subitem {num}, \hyperpage{139}
+    \subitem {oldfunc}, \hyperpage{139}
+    \subitem {OPEN}, \hyperpage{133}
+    \subitem {PIC\_\discretionary {-}{}{}CMD}, \hyperpage{133}
+    \subitem {PIC\_\discretionary {-}{}{}MASK}, \hyperpage{133}
+    \subitem {PORT\_\discretionary {-}{}{}ALREADY\_\discretionary {-}{}{}OPEN}, 
+		\hyperpage{133}
+    \subitem {READ}, \hyperpage{133}
+    \subitem {READ\_\discretionary {-}{}{}DEV\_\discretionary {-}{}{}BUSY}, 
+		\hyperpage{133}
+    \subitem {READ\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}BUFF\_\discretionary {-}{}{}ADD}, 
+		\hyperpage{134}
+    \subitem {READ\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}COUNT}, 
+		\hyperpage{134}
+    \subitem {READ\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}, 
+		\hyperpage{134}
+    \subitem {SERIAL\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}, 
+		\hyperpage{134}
+    \subitem {SET}, \hyperpage{134}
+    \subitem {size}, \hyperpage{134}
+    \subitem {WHATINTERRUPTBIT}, \hyperpage{134}
+    \subitem {WRITE}, \hyperpage{134}
+    \subitem {WRITE\_\discretionary {-}{}{}DEV\_\discretionary {-}{}{}BUSY}, 
+		\hyperpage{134}
+    \subitem {WRITE\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}BUFF\_\discretionary {-}{}{}ADD}, 
+		\hyperpage{134}
+    \subitem {WRITE\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}COUNT}, 
+		\hyperpage{134}
+    \subitem {WRITE\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}, 
+		\hyperpage{135}
+  \item {mpx\_\discretionary {-}{}{}readline}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{144}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{150}
+  \item {mpx\_\discretionary {-}{}{}util.c}
+    \subitem {errorDecode}, \hyperpage{142}
+    \subitem {LINES\_\discretionary {-}{}{}PER\_\discretionary {-}{}{}PAGE}, 
+		\hyperpage{142}
+    \subitem {mpx\_\discretionary {-}{}{}cls}, \hyperpage{143}
+    \subitem {mpx\_\discretionary {-}{}{}pager}, \hyperpage{143}
+    \subitem {mpx\_\discretionary {-}{}{}pager\_\discretionary {-}{}{}init}, 
+		\hyperpage{144}
+    \subitem {mpx\_\discretionary {-}{}{}readline}, \hyperpage{144}
+    \subitem {mpxprompt\_\discretionary {-}{}{}anykey}, \hyperpage{144}
+    \subitem {mpxprompt\_\discretionary {-}{}{}int}, \hyperpage{145}
+    \subitem {mpxprompt\_\discretionary {-}{}{}yn}, \hyperpage{145}
+  \item {mpx\_\discretionary {-}{}{}util.h}
+    \subitem {errorDecode}, \hyperpage{148}
+    \subitem {mpx\_\discretionary {-}{}{}cls}, \hyperpage{149}
+    \subitem {mpx\_\discretionary {-}{}{}pager}, \hyperpage{149}
+    \subitem {mpx\_\discretionary {-}{}{}pager\_\discretionary {-}{}{}init}, 
+		\hyperpage{150}
+    \subitem {mpx\_\discretionary {-}{}{}readline}, \hyperpage{150}
+    \subitem {mpxprompt\_\discretionary {-}{}{}anykey}, \hyperpage{151}
+    \subitem {mpxprompt\_\discretionary {-}{}{}int}, \hyperpage{151}
+    \subitem {mpxprompt\_\discretionary {-}{}{}yn}, \hyperpage{151}
+  \item {mpxcmd\_\discretionary {-}{}{}block}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{47}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{78}
+  \item {mpxcmd\_\discretionary {-}{}{}create\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{48}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{79}
+  \item {mpxcmd\_\discretionary {-}{}{}date}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{23}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{36}
+  \item {mpxcmd\_\discretionary {-}{}{}delete\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{48}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{79}
+  \item {mpxcmd\_\discretionary {-}{}{}exit}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{25}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{37}
+  \item {mpxcmd\_\discretionary {-}{}{}gor4}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{89}
+    \subitem {MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{99}
+  \item {mpxcmd\_\discretionary {-}{}{}help}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{25}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{37}
+  \item {mpxcmd\_\discretionary {-}{}{}load}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{26}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{38}
+  \item {mpxcmd\_\discretionary {-}{}{}prompt}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{27}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{39}
+  \item {mpxcmd\_\discretionary {-}{}{}r3run}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{89}
+    \subitem {MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{99}
+  \item {mpxcmd\_\discretionary {-}{}{}resume}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{49}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{80}
+  \item {mpxcmd\_\discretionary {-}{}{}setPriority}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{49}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{80}
+  \item {mpxcmd\_\discretionary {-}{}{}show\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{50}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{81}
+  \item {mpxcmd\_\discretionary {-}{}{}showAll\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{51}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{81}
+  \item {mpxcmd\_\discretionary {-}{}{}showBlocked\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{52}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{82}
+  \item {mpxcmd\_\discretionary {-}{}{}showReady\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{52}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{83}
+  \item {mpxcmd\_\discretionary {-}{}{}suspend}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{53}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{84}
+  \item {mpxcmd\_\discretionary {-}{}{}unblock}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{54}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{84}
+  \item {mpxcmd\_\discretionary {-}{}{}version}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{27}
+    \subitem {mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{39}
+  \item {mpxprompt\_\discretionary {-}{}{}anykey}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{144}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{151}
+  \item {mpxprompt\_\discretionary {-}{}{}int}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{145}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{151}
+  \item {mpxprompt\_\discretionary {-}{}{}yn}
+    \subitem {mpx\_\discretionary {-}{}{}util.c}, \hyperpage{145}
+    \subitem {mpx\_\discretionary {-}{}{}util.h}, \hyperpage{151}
+  \item {MS}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+
+  \indexspace
+
+  \item {name}
+    \subitem {process}, \hyperpage{14}
+  \item {new\_\discretionary {-}{}{}sp}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{92}
+  \item {new\_\discretionary {-}{}{}ss}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{92}
+  \item {next}
+    \subitem {mpx\_\discretionary {-}{}{}cmd}, \hyperpage{11}
+  \item {NO\_\discretionary {-}{}{}ERROR}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+  \item {node}
+    \subitem {root}, \hyperpage{15}
+  \item {num}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{139}
+
+  \indexspace
+
+  \item {old\_\discretionary {-}{}{}kbhand\_\discretionary {-}{}{}p}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {oldfunc}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{139}
+  \item {op\_\discretionary {-}{}{}code}
+    \subitem {params}, \hyperpage{13}
+  \item {OPEN}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+  \item {open}
+    \subitem {trmdrive.c}, \hyperpage{161}
+  \item {OPEN\_\discretionary {-}{}{}FILE}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {out\_\discretionary {-}{}{}buf\_\discretionary {-}{}{}p}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {out\_\discretionary {-}{}{}char}
+    \subitem {trmdrive.c}, \hyperpage{160}
+  \item {out\_\discretionary {-}{}{}count\_\discretionary {-}{}{}p}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {out\_\discretionary {-}{}{}ctr}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {out\_\discretionary {-}{}{}max}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {outbuff}
+    \subitem {device}, \hyperpage{9}
+  \item {outcount}
+    \subitem {device}, \hyperpage{9}
+  \item {outdone}
+    \subitem {device}, \hyperpage{9}
+
+  \indexspace
+
+  \item {page}, \hyperpage{11}
+    \subitem {left}, \hyperpage{12}
+    \subitem {process}, \hyperpage{12}
+    \subitem {right}, \hyperpage{12}
+  \item {param\_\discretionary {-}{}{}p}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{92}
+  \item {params}, \hyperpage{12}
+    \subitem {buf\_\discretionary {-}{}{}addr}, \hyperpage{12}
+    \subitem {cont\_\discretionary {-}{}{}addr}, \hyperpage{12}
+    \subitem {device\_\discretionary {-}{}{}id}, \hyperpage{12}
+    \subitem {op\_\discretionary {-}{}{}code}, \hyperpage{13}
+  \item {PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{73}
+  \item {pendc}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {PIC\_\discretionary {-}{}{}CMD}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {PIC\_\discretionary {-}{}{}MASK}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {PORDR}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+  \item {PORT\_\discretionary {-}{}{}ALREADY\_\discretionary {-}{}{}OPEN}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+  \item {priority}
+    \subitem {process}, \hyperpage{14}
+  \item {process}, \hyperpage{13}
+    \subitem {classType}, \hyperpage{13}
+    \subitem {memdsc}, \hyperpage{13}
+    \subitem {name}, \hyperpage{14}
+    \subitem {page}, \hyperpage{12}
+    \subitem {priority}, \hyperpage{14}
+    \subitem {stackdsc}, \hyperpage{14}
+    \subitem {state}, \hyperpage{14}
+  \item {procs-\/r3.c}
+    \subitem {RC\_\discretionary {-}{}{}1}, \hyperpage{152}
+    \subitem {RC\_\discretionary {-}{}{}2}, \hyperpage{152}
+    \subitem {RC\_\discretionary {-}{}{}3}, \hyperpage{152}
+    \subitem {RC\_\discretionary {-}{}{}4}, \hyperpage{152}
+    \subitem {RC\_\discretionary {-}{}{}5}, \hyperpage{153}
+    \subitem {test1\_\discretionary {-}{}{}R3}, \hyperpage{153}
+    \subitem {test2\_\discretionary {-}{}{}R3}, \hyperpage{153}
+    \subitem {test3\_\discretionary {-}{}{}R3}, \hyperpage{153}
+    \subitem {test4\_\discretionary {-}{}{}R3}, \hyperpage{153}
+    \subitem {test5\_\discretionary {-}{}{}R3}, \hyperpage{153}
+  \item {prompt\_\discretionary {-}{}{}str}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{27}
+
+  \indexspace
+
+  \item {RC\_\discretionary {-}{}{}1}
+    \subitem {procs-\/r3.c}, \hyperpage{152}
+  \item {RC\_\discretionary {-}{}{}2}
+    \subitem {procs-\/r3.c}, \hyperpage{152}
+  \item {RC\_\discretionary {-}{}{}3}
+    \subitem {procs-\/r3.c}, \hyperpage{152}
+  \item {RC\_\discretionary {-}{}{}4}
+    \subitem {procs-\/r3.c}, \hyperpage{152}
+  \item {RC\_\discretionary {-}{}{}5}
+    \subitem {procs-\/r3.c}, \hyperpage{153}
+  \item {READ}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+  \item {READ\_\discretionary {-}{}{}DEV\_\discretionary {-}{}{}BUSY}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{133}
+  \item {READ\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}BUFF\_\discretionary {-}{}{}ADD}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {READ\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}COUNT}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {READ\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {READY}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+  \item {regs}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {remove\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{54}
+  \item {RESET}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {right}
+    \subitem {page}, \hyperpage{12}
+  \item {ringbuf}
+    \subitem {device}, \hyperpage{9}
+  \item {ringbufcount}
+    \subitem {device}, \hyperpage{9}
+  \item {ringbufin}
+    \subitem {device}, \hyperpage{9}
+  \item {ringbufout}
+    \subitem {device}, \hyperpage{9}
+  \item {ROOT}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{73}
+  \item {Root}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+  \item {root}, \hyperpage{14}
+    \subitem {count}, \hyperpage{15}
+    \subitem {node}, \hyperpage{15}
+  \item {rQueue}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{57}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c}, \hyperpage{105}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.BASE.c}, \hyperpage{109}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}, \hyperpage{113}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}, 
+		\hyperpage{118}
+  \item {RUNNING}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+
+  \indexspace
+
+  \item {segs}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {SERIAL\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {SET}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {setRQueue}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{85}
+  \item {setup\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{55}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{85}
+  \item {setWSQueue}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{86}
+  \item {SI}
+    \subitem {context}, \hyperpage{7, 8}
+  \item {size}
+    \subitem {mem}, \hyperpage{10}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {sp\_\discretionary {-}{}{}save}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+  \item {src/MPX.C}, \hyperpage{17}
+  \item {src/MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{20}
+  \item {src/mpx\_\discretionary {-}{}{}cmd.h}, \hyperpage{33}
+  \item {src/mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{41}
+  \item {src/mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{69}
+  \item {src/mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{87}
+  \item {src/MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{98}
+  \item {src/mpx\_\discretionary {-}{}{}r4.c}, \hyperpage{103}
+  \item {src/mpx\_\discretionary {-}{}{}r4.c.BASE.c}, \hyperpage{107}
+  \item {src/mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}, \hyperpage{111}
+  \item {src/mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}, \hyperpage{115}
+  \item {src/mpx\_\discretionary {-}{}{}r4.h}, \hyperpage{119}
+  \item {src/MPX\_\discretionary {-}{}{}R5.C}, \hyperpage{122}
+  \item {src/MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{130}
+  \item {src/mpx\_\discretionary {-}{}{}util.c}, \hyperpage{141}
+  \item {src/mpx\_\discretionary {-}{}{}util.h}, \hyperpage{148}
+  \item {src/procs-\/r3.c}, \hyperpage{152}
+  \item {src/trmdrive.c}, \hyperpage{156}
+  \item {src/trmdrive.h}, \hyperpage{173}
+  \item {ss\_\discretionary {-}{}{}save}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+  \item {STACK}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+  \item {stack}, \hyperpage{15}
+    \subitem {base}, \hyperpage{15}
+    \subitem {top}, \hyperpage{15}
+  \item {STACKDSC}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{73}
+  \item {stackdsc}
+    \subitem {process}, \hyperpage{14}
+  \item {STACKSIZE}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+  \item {state}
+    \subitem {process}, \hyperpage{14}
+  \item {status}
+    \subitem {device}, \hyperpage{9}
+    \subitem {trmdrive.c}, \hyperpage{162}
+  \item {string\_\discretionary {-}{}{}PCB}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{56}
+  \item {STRLEN}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+  \item {SUSPENDED\_\discretionary {-}{}{}BLOCKED}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+  \item {SUSPENDED\_\discretionary {-}{}{}READY}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+  \item {sys\_\discretionary {-}{}{}call}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{91}
+    \subitem {MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{101}
+  \item {sys\_\discretionary {-}{}{}stack}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+  \item {SYS\_\discretionary {-}{}{}STACK\_\discretionary {-}{}{}SIZE}
+    \subitem {MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{98}
+  \item {SYSTEM}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{72}
+
+  \indexspace
+
+  \item {tcontext}
+    \subitem {MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{98}
+  \item {TEMP}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+  \item {terminateProcess}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c}, \hyperpage{104}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.BASE.c}, \hyperpage{109}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}, \hyperpage{113}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}, 
+		\hyperpage{117}
+    \subitem {mpx\_\discretionary {-}{}{}r4.h}, \hyperpage{121}
+  \item {test1\_\discretionary {-}{}{}R3}
+    \subitem {procs-\/r3.c}, \hyperpage{153}
+  \item {test2\_\discretionary {-}{}{}R3}
+    \subitem {procs-\/r3.c}, \hyperpage{153}
+  \item {test3\_\discretionary {-}{}{}R3}
+    \subitem {procs-\/r3.c}, \hyperpage{153}
+  \item {test4\_\discretionary {-}{}{}R3}
+    \subitem {procs-\/r3.c}, \hyperpage{153}
+  \item {test5\_\discretionary {-}{}{}R3}
+    \subitem {procs-\/r3.c}, \hyperpage{153}
+  \item {top}
+    \subitem {stack}, \hyperpage{15}
+  \item {tparams}
+    \subitem {MPX\_\discretionary {-}{}{}R3.H}, \hyperpage{98}
+  \item {trm\_\discretionary {-}{}{}clear}
+    \subitem {trmdrive.c}, \hyperpage{160}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {trm\_\discretionary {-}{}{}close}
+    \subitem {trmdrive.c}, \hyperpage{160}
+    \subitem {trmdrive.h}, \hyperpage{174}
+  \item {trm\_\discretionary {-}{}{}getc}
+    \subitem {trmdrive.c}, \hyperpage{160}
+    \subitem {trmdrive.h}, \hyperpage{175}
+  \item {trm\_\discretionary {-}{}{}gotoxy}
+    \subitem {trmdrive.c}, \hyperpage{160}
+    \subitem {trmdrive.h}, \hyperpage{175}
+  \item {trm\_\discretionary {-}{}{}open}
+    \subitem {trmdrive.c}, \hyperpage{161}
+    \subitem {trmdrive.h}, \hyperpage{175}
+  \item {trm\_\discretionary {-}{}{}read}
+    \subitem {trmdrive.c}, \hyperpage{161}
+    \subitem {trmdrive.h}, \hyperpage{175}
+  \item {trm\_\discretionary {-}{}{}write}
+    \subitem {trmdrive.c}, \hyperpage{161}
+    \subitem {trmdrive.h}, \hyperpage{175}
+  \item {trmdrive.c}
+    \subitem {BS}, \hyperpage{158}
+    \subitem {byte}, \hyperpage{160}
+    \subitem {clear\_\discretionary {-}{}{}scr}, \hyperpage{160}
+    \subitem {CLOSE\_\discretionary {-}{}{}FILE}, \hyperpage{158}
+    \subitem {con\_\discretionary {-}{}{}handle}, \hyperpage{161}
+    \subitem {context}, \hyperpage{160}
+    \subitem {CR}, \hyperpage{158}
+    \subitem {dcb\_\discretionary {-}{}{}trm}, \hyperpage{161}
+    \subitem {DEV\_\discretionary {-}{}{}IDLE}, \hyperpage{158}
+    \subitem {DEV\_\discretionary {-}{}{}READ}, \hyperpage{158}
+    \subitem {DEV\_\discretionary {-}{}{}WRITE}, \hyperpage{158}
+    \subitem {eflag\_\discretionary {-}{}{}p}, \hyperpage{161}
+    \subitem {ESC}, \hyperpage{158}
+    \subitem {GET\_\discretionary {-}{}{}CHAR}, \hyperpage{158}
+    \subitem {goto\_\discretionary {-}{}{}xy}, \hyperpage{160}
+    \subitem {in\_\discretionary {-}{}{}buf\_\discretionary {-}{}{}p}, 
+		\hyperpage{161}
+    \subitem {in\_\discretionary {-}{}{}count\_\discretionary {-}{}{}p}, 
+		\hyperpage{161}
+    \subitem {in\_\discretionary {-}{}{}ctr}, \hyperpage{161}
+    \subitem {in\_\discretionary {-}{}{}max}, \hyperpage{161}
+    \subitem {kbd\_\discretionary {-}{}{}ihand}, \hyperpage{160}
+    \subitem {KBD\_\discretionary {-}{}{}INTNUM}, \hyperpage{158}
+    \subitem {KBD\_\discretionary {-}{}{}LEVEL}, \hyperpage{159}
+    \subitem {LF}, \hyperpage{159}
+    \subitem {MAX\_\discretionary {-}{}{}XPOS}, \hyperpage{159}
+    \subitem {MAX\_\discretionary {-}{}{}YPOS}, \hyperpage{159}
+    \subitem {old\_\discretionary {-}{}{}kbhand\_\discretionary {-}{}{}p}, 
+		\hyperpage{161}
+    \subitem {open}, \hyperpage{161}
+    \subitem {OPEN\_\discretionary {-}{}{}FILE}, \hyperpage{159}
+    \subitem {out\_\discretionary {-}{}{}buf\_\discretionary {-}{}{}p}, 
+		\hyperpage{162}
+    \subitem {out\_\discretionary {-}{}{}char}, \hyperpage{160}
+    \subitem {out\_\discretionary {-}{}{}count\_\discretionary {-}{}{}p}, 
+		\hyperpage{162}
+    \subitem {out\_\discretionary {-}{}{}ctr}, \hyperpage{162}
+    \subitem {out\_\discretionary {-}{}{}max}, \hyperpage{162}
+    \subitem {pendc}, \hyperpage{162}
+    \subitem {PIC\_\discretionary {-}{}{}CMD}, \hyperpage{159}
+    \subitem {PIC\_\discretionary {-}{}{}MASK}, \hyperpage{159}
+    \subitem {regs}, \hyperpage{162}
+    \subitem {RESET}, \hyperpage{159}
+    \subitem {segs}, \hyperpage{162}
+    \subitem {SET}, \hyperpage{159}
+    \subitem {status}, \hyperpage{162}
+    \subitem {trm\_\discretionary {-}{}{}clear}, \hyperpage{160}
+    \subitem {trm\_\discretionary {-}{}{}close}, \hyperpage{160}
+    \subitem {trm\_\discretionary {-}{}{}getc}, \hyperpage{160}
+    \subitem {trm\_\discretionary {-}{}{}gotoxy}, \hyperpage{160}
+    \subitem {trm\_\discretionary {-}{}{}open}, \hyperpage{161}
+    \subitem {trm\_\discretionary {-}{}{}read}, \hyperpage{161}
+    \subitem {trm\_\discretionary {-}{}{}write}, \hyperpage{161}
+    \subitem {word}, \hyperpage{160}
+    \subitem {WRITE\_\discretionary {-}{}{}FILE}, \hyperpage{159}
+    \subitem {WRITE\_\discretionary {-}{}{}ONLY}, \hyperpage{159}
+  \item {trmdrive.h}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}CL\_\discretionary {-}{}{}CLFAIL}, 
+		\hyperpage{173}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}CL\_\discretionary {-}{}{}NOTOPN}, 
+		\hyperpage{173}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}ALROPN}, 
+		\hyperpage{173}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}INVEFP}, 
+		\hyperpage{173}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}OP\_\discretionary {-}{}{}OPFAIL}, 
+		\hyperpage{173}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}DVBUSY}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}INVBUF}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}INVCNT}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}RD\_\discretionary {-}{}{}NOTOPN}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}DVBUSY}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}INVBUF}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}INVCNT}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}WR\_\discretionary {-}{}{}NOTOPN}, 
+		\hyperpage{174}
+    \subitem {ERR\_\discretionary {-}{}{}TRM\_\discretionary {-}{}{}XY\_\discretionary {-}{}{}INVPOS}, 
+		\hyperpage{174}
+    \subitem {trm\_\discretionary {-}{}{}clear}, \hyperpage{174}
+    \subitem {trm\_\discretionary {-}{}{}close}, \hyperpage{174}
+    \subitem {trm\_\discretionary {-}{}{}getc}, \hyperpage{175}
+    \subitem {trm\_\discretionary {-}{}{}gotoxy}, \hyperpage{175}
+    \subitem {trm\_\discretionary {-}{}{}open}, \hyperpage{175}
+    \subitem {trm\_\discretionary {-}{}{}read}, \hyperpage{175}
+    \subitem {trm\_\discretionary {-}{}{}write}, \hyperpage{175}
+
+  \indexspace
+
+  \item {welcome\_\discretionary {-}{}{}message\_\discretionary {-}{}{}str}
+    \subitem {MPX\_\discretionary {-}{}{}CMD.C}, \hyperpage{28}
+  \item {WHATINTERRUPTBIT}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {word}
+    \subitem {trmdrive.c}, \hyperpage{160}
+  \item {WRITE}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {WRITE\_\discretionary {-}{}{}DEV\_\discretionary {-}{}{}BUSY}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {WRITE\_\discretionary {-}{}{}FILE}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {WRITE\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}BUFF\_\discretionary {-}{}{}ADD}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {WRITE\_\discretionary {-}{}{}INV\_\discretionary {-}{}{}COUNT}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{134}
+  \item {WRITE\_\discretionary {-}{}{}ONLY}
+    \subitem {trmdrive.c}, \hyperpage{159}
+  \item {WRITE\_\discretionary {-}{}{}PORT\_\discretionary {-}{}{}NOT\_\discretionary {-}{}{}OPEN}
+    \subitem {MPX\_\discretionary {-}{}{}R5.h}, \hyperpage{135}
+  \item {wsQueue}
+    \subitem {mpx\_\discretionary {-}{}{}r2.c}, \hyperpage{57}
+    \subitem {mpx\_\discretionary {-}{}{}r3.c}, \hyperpage{93}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c}, \hyperpage{105}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.BASE.c}, \hyperpage{109}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.LOCAL.c}, \hyperpage{114}
+    \subitem {mpx\_\discretionary {-}{}{}r4.c.REMOTE.c}, 
+		\hyperpage{118}
+
+  \indexspace
+
+  \item {ZERO}
+    \subitem {mpx\_\discretionary {-}{}{}r2.h}, \hyperpage{73}
+
+\end{theindex}
