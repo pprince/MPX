@@ -1,8 +1,27 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	MPX_R5.c
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: This is a com port driver for interfacing with the com port
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
 # include "mpx_supt.h"
 # include <stdlib.h> 
 # include <dos.h> 
 # include "MPX_R5.h"
-
+	/* This function opens the com port for read or write*/
 	int com_open (int *eflag, int baudrate){
 		long brd;
 		int mask;
@@ -13,7 +32,8 @@
 			return INV_BAUD;  // invalid baud
 		if(dcbPtr.flag==OPEN) // Make sure that the device is not open.
 			return PORT_ALREADY_OPEN;
-
+		
+		// set initial values
 		dcbPtr.flag = OPEN;
 		dcbPtr.flag_ptr = eflag;
 		dcbPtr.status = IDLE; 
@@ -46,6 +66,7 @@
     return 0; // return zero if no error.
 	}
 	
+	/* This function closes the com port*/
 	int com_close (void){
 		int mask; 
 	
@@ -67,12 +88,13 @@
  	
 	}
 	
+	/* This function is the interupt handler that decides whether to perform a read or write*/
 	void interrupt level1(){
 		if(dcbPtr.flag != OPEN){ 
 			outportb(PIC_CMD, EOI);//clear interupt PIC command register 
 			return; 
 		} else{ 
-			num = ((inportb(INT_ID_REG) & WHATINTERRUPTBIT));
+			num = ((inportb(INT_ID_REG) & WHATINTERRUPTBIT)); // xxxx xxxx and 0000 0111 = 0000 0xxx
 			if (num == 2) // 0000 0010 : write interrupt 
 				level2Write(); 
 			if (num == 4) // 0000 0100 : read interrupt 
@@ -83,6 +105,7 @@
 
 	}
 	
+	/* This function performs a write operation*/
 	void level2Write(){
 
 		int mask; 
@@ -90,23 +113,23 @@
 		if(dcbPtr. status != WRITE) 
 			return; //Ignore the interrupt and return
 
-		if(dcbPtr.outdone < *dcbPtr.outcount){
+		if(dcbPtr.outdone < *dcbPtr.outcount){ // checks too see if all the data has been written if not go until done
 			outportb(BASE, *dcbPtr.outbuff);
 			dcbPtr.outbuff++; 
 			dcbPtr.outdone++;
 			return;
 		}else{
-
+			// set the com port to idle and set the flag
 			dcbPtr.status = IDLE;
 			*dcbPtr.flag_ptr = SET;
 
 			mask = inportb(INT_EN);
-			mask = mask&~0x02;
-			outportb(INT_EN, mask);
+			mask = mask&~0x02; 
+			outportb(INT_EN, mask); ///< and INT_EN with 1111 1101 and send it back
 			return;
 		}
 	}
-
+	/* This is a reaad interupt*/
 	void level2Read(){
 		char new;
 		char ret = '\r';
@@ -139,7 +162,7 @@
 	}//end else
 
 	}
-
+	/* this functions reads data from the com port*/
 	int com_read (char *buf_p,int *count_p){
 		//Validate the supplied parameters. 
 		if(dcbPtr.flag != OPEN) //check if device is open
@@ -181,7 +204,7 @@
 		//the requestor buffer is not yet full     
 		if(dcbPtr.indone < *(dcbPtr.incount)) 
 			return 0;  
-		if(*(dcbPtr.inbuff-1) == '\r')
+		if(*(dcbPtr.inbuff-1) == '\r') ///< if last char is CR then set it to null char
 			*(dcbPtr.inbuff-1) = '\0';
 		else
 			*dcbPtr.inbuff = '\0';
@@ -193,7 +216,7 @@
 		*dcbPtr.incount = dcbPtr.indone; 
 	 return 0;
 	}
-
+	/* this functions writes a char to the com port*/
 	int com_write (char *buf_p,int *count_p){
 		int mask; 
 		//Ensure that the input parameters are valid. 

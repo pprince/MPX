@@ -1,9 +1,29 @@
+/***********************************************************************
+	MPX: The MultiProgramming eXecutive
+	Project to Accompany
+	A Practical Approach to Operating Systems
+	Malcolm G. Lane & James D. Mooney
+	Copyright 1993, P.W.S. Kent Publishing Co., Boston, MA.
+
+	File Name:	MPX_R5.h
+
+	Author:	Nathaniel Clay and Nicholas Yanak
+	Version: 1.1
+	Date:  12/9/2010
+
+	Purpose: This is the header file for r5.
+
+		
+	Environment: Windows XP 32 bit
+
+************************************************************************/
 	//COM1 Addresses 
 #define INT_ID 0X0C // interupt ID for windows interupt table
 #define BASE 0x3F8  //com1 base address
+
 #define INT_EN BASE+1  // interupt enable
-#define BRD_LSB BASE // LSB Baud Rate Devisor
-#define BRD_MSB BASE+1 // MSB Baud Rate Devisor
+#define BRD_LSB BASE // LSB Baud Rate Divisor
+#define BRD_MSB BASE+1 // MSB Baud Rate Divisor
 #define INT_ID_REG BASE+2
 #define LC BASE+3 // Line control register
 #define MC BASE+4 // Modem Control Register
