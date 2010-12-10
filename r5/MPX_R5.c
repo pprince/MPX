@@ -131,7 +131,7 @@
 	}
 	/* This is a reaad interupt*/
 	void level2Read(){
-	
+		char new;
 	
 	
 		//If the current status is not reading, store the character in the ring buffer. 

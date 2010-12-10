@@ -350,6 +350,7 @@ void mpxcmd_exit (int argc, char *argv[]) {
 	if( mpxprompt_yn() ) {
 		printf("EXITING.\n");
 		//sys_exit();
+		// if r6 was ready we would remove all process from the queues and then exit
 		sys_req(EXIT, NO_DEV, NULL, 0);
 	}
 }
